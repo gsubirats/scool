@@ -1,5 +1,7 @@
 <?php
 
+use App\Tenant;
+
 /**
  * Create model.
  *
@@ -15,6 +17,29 @@ function create($class, $attributes = [], $times = 1)
         return $data;
     }
     return $data->first();
+}
+
+if (! function_exists('create_tenant')) {
+
+    /**
+     * Create Tenant.
+     *
+     * @param $name
+     * @param $subdomain
+     * @return $this|\Illuminate\Database\Eloquent\Model
+     */
+    function create_tenant($name,$subdomain)
+    {
+        return Tenant::create([
+            'name' => $name,
+            'subdomain' => $subdomain,
+            'hostname' => 'localhost',
+            'username' => $subdomain,
+            'password' => 'secret',
+            'database' => $subdomain,
+            'port' => 3306
+        ]);
+    }
 }
 
 if (! function_exists('tenant_connect')) {

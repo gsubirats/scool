@@ -31,8 +31,10 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tenant.create');
+        return view('tenant.tenants',[
+            'tenants' => $request->user()->tenants
+        ]);
     }
 }

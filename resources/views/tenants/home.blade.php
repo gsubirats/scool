@@ -1,27 +1,20 @@
-<h1>HOME PAGE</h1>
-HELLO tenant!! Welcome to your home page!
+@extends('tenants.layouts.app')
 
-<p>User:</p>
+@section('content')
 
-<ul>
-    <li>Logged: {{ Auth::check() ? 'sí' : 'no' }}</li>
-    @if( Auth::check())
-        <li>Name: {{ Auth::user()->name }}</li>
-    @endif
-</ul>
+    <v-container fluid grid-list-md text-xs-center>
+        <v-layout row wrap>
+            <v-flex xs12>
+                <v-card>
+                    <v-card-title class="blue darken-3 white--text"><h2>Home</h2></v-card-title>
+                    <v-card-text class="px-0 mb-2 hidden-sm-and-down">
+                        Create and amazing app!
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 
-Navegació:
-
-<ul>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/register">Register</a></li>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/">Welcome</a></li>
-    <li><a href="/logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-        <input type="submit" value="logout" style="display: none;">
-    </form>
-</ul>
+@endsection
 
 

@@ -27,6 +27,7 @@ class TenantTest extends TestCase
             'database' => 'acme',
             'username' => 'acme',
             'password' => 'SECRET',
+            'port' => 3306
         ]);
         $user->addTenant($tenant);
 

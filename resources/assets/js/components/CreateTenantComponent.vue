@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Organització</h3>
+            <h3 class="box-title">Crear Organització</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -32,24 +32,23 @@
 
 <script>
   export default {
-   data() {
-     return {
-       name: '',
-       subdomain: '',
-     }
-   },
-   methods: {
-     create() {
-       console.log('Creating tenant ' + this.name)
-       axios.post('/tenant', {
-         'name': this.name,
-         'subdomain': this.subdomain,
-       }).then((response) => {
+    data () {
+      return {
+        name: '',
+        subdomain: ''
+      }
+    },
+    methods: {
+      create () {
+        axios.post('/api/v1/tenant', {
+          'name': this.name,
+          'subdomain': this.subdomain
+        }).then((response) => {
 
-       }).catch((error) => {
-         console.log(error)
-       })
-     }
-   }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    }
   }
 </script>

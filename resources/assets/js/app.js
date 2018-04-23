@@ -15,8 +15,23 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('create-tenant', require('./components/CreateTenantComponent.vue'));
+Vue.component('tenants', require('./components/TenantsComponent.vue'));
+
+import store from './store'
+import * as mutations from './store/mutation-types'
+import * as actions from './store/action-types'
+
+console.log('USER:')
+console.log(window.user)
+if (window.user) {
+  console.log('1')
+  store.commit(mutations.LOGGED_USER, window.user)
+} else {
+  console.log('2')
+  store.dispatch(actions.LOGGED_USER)
+}
 
 const app = new Vue({
-    el: '#app'
+  el: '#app',
+  store
 });

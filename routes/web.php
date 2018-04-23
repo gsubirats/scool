@@ -14,7 +14,22 @@
 Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
-        Auth::routes();
+//        Auth::routes();
+
+        // Authentication Routes...
+        Route::get('login', 'Auth\Tenant\LoginController@showLoginForm')->name('login');
+        Route::post('login', 'Auth\Tenant\LoginController@login');
+        Route::post('logout', 'Auth\Tenant\LoginController@logout')->name('logout');
+
+        // Registration Routes...
+        Route::get('register', 'Auth\Tenant\RegisterController@showRegistrationForm')->name('register');
+        Route::post('register', 'Auth\Tenant\RegisterController@register');
+
+        // Password Reset Routes...
+        Route::get('password/reset', 'Auth\Tenant\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/email', 'Auth\Tenant\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset/{token}', 'Auth\Tenant\ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('password/reset', 'Auth\Tenant\ResetPasswordController@reset');
 
         Route::get('/', function () {
             return view('tenants.welcome');
@@ -43,10 +58,6 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('tenant','TenantController@store');
 });
 
 Route::auth();

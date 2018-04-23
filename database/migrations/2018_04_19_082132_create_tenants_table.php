@@ -21,6 +21,7 @@ class CreateTenantsTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('database');
+            $table->integer('port');
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
         });

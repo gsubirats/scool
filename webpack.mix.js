@@ -38,6 +38,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .copy('node_modules/icheck/skins/square/blue.png','public/css')
    .copy('node_modules/icheck/skins/square/blue@2x.png','public/css');
 
+mix.js('resources/assets/tenant_js/app.js', 'public/tenant/js').sourceMaps()
+  .sass('resources/assets/tenant_sass/app.scss', 'public/tenant/css');
+
 if (mix.config.inProduction) {
   mix.version();
   mix.minify();
