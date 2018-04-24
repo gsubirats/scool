@@ -23,3 +23,12 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 });
 
 
+Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
+    Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
+        Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
+            Route::put('/user', 'Tenant\LoggedUserController@update');
+        });
+
+    });
+});
+

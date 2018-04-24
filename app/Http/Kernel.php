@@ -2,12 +2,29 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\EnforceTenancy;
-use App\Http\Middleware\Tenant;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
+    /**
+     * The priority-sorted list of middleware.
+     *
+     * Forces the listed middleware to always be in the given order.
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\Tenant::class,
+        \App\Http\Middleware\EnforceTenancy::class,
+        \Illuminate\Auth\Middleware\Authenticate::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \Illuminate\Auth\Middleware\Authorize::class,
+    ];
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -62,8 +79,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'tenant' => Tenant::class,
-        'tenancy.enforce' => EnforceTenancy::class
-
+        'tenant' => \App\Http\Middleware\Tenant::class,
+        'tenancy.enforce' => \App\Http\Middleware\EnforceTenancy::class
     ];
 }

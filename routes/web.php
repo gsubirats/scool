@@ -14,7 +14,6 @@
 Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
-//        Auth::routes();
 
         // Authentication Routes...
         Route::get('login', 'Auth\Tenant\LoginController@showLoginForm')->name('login');
@@ -35,8 +34,10 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             return view('tenants.welcome');
         });
 
-        Route::get('/home', function ($tenant) {
-            return view('tenants.home');
+        Route::group(['middleware' => 'auth'], function () {
+            Route::get('/home', function ($tenant) {
+                return view('tenants.home');
+            });
         });
     });
 

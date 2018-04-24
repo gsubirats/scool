@@ -21,6 +21,7 @@ class EnforceTenancy
      */
     public function handle($request, Closure $next)
     {
+//        dump('EnforceTenancy');
         Config::set('database.default', 'tenant');
         return $next($request);
     }

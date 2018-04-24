@@ -31,15 +31,15 @@
                             v-model="password"
                             :rules="passwordRules"
                             hint="At least 6 characters"
-                            :error="errors['email']"
-                            :error-messages="errors['email']"
+                            :error="errors['password']"
+                            :error-messages="errors['password']"
                             required
                             min="6"
                             type="password"
                             required
                     ></v-text-field>
                     <v-text-field
-                            name="password"
+                            name="password_confirmation"
                             label="Password confirmation"
                             v-model="passwordConfirmation"
                             :rules="passwordRules"
@@ -47,8 +47,6 @@
                             min="6"
                             type="password"
                             required
-                            :error="errors['password']"
-                            :error-messages="errors['password']"
                     ></v-text-field>
                 </v-form>
                 <v-btn href="/auth/facebook" style="background-color: #3b5998;" class="white--text">
@@ -132,7 +130,7 @@
           if (value) this.internalAction = 'register'
           else this.internalAction = null
         }
-      },
+      }
     },
     methods: {
       register () {
@@ -142,26 +140,29 @@
             'name': this.name,
             'email': this.email,
             'password': this.password,
-            'password_confirmation': this.passwordConfirmation,
+            'password_confirmation': this.passwordConfirmation
           }
           this.$store.dispatch(actions.REGISTER, user).then(response => {
             this.registerLoading = false
             this.showRegister = false
             window.location = '/home'
           }).catch(error => {
-            if (error.response && error.response.status === 422) {
+            if (error.status === 422) {
               this.showError({
                 message: 'Invalid data'
               })
             } else {
               this.showError(error)
             }
-            this.errors = error.response.data.errors
+            this.errors = error.data.errors
+          }).catch(error => {
+            console.log(error)
+            this.registerLoading = false
           }).then(() => {
             this.registerLoading = false
           })
         }
-      },
+      }
     }
   }
 </script>

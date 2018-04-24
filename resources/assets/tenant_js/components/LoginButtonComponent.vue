@@ -135,21 +135,24 @@
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
-            console.log('HEY:')
-            console.log(error.response.data)
-            if (error.response && error.response.status === 422) {
+            console.log('Error:')
+            console.log(error)
+            if (error.status === 422) {
               this.showError({
-                message: 'Invalid data',
+                message: 'Invalid data'
               })
             } else {
               this.showError(error)
             }
-            this.errors = error.response.data.errors
+            this.errors = error.data.errors
+          }).catch(error => {
+            console.log(error)
+            this.registerLoading = false
           }).then(() => {
             this.loginLoading = false
           })
         }
-      },
+      }
     }
   }
 </script>

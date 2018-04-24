@@ -20,6 +20,7 @@ class Tenant
      */
     public function handle($request, Closure $next)
     {
+//        dump('Tenant');
         if (! is_null($request->tenant)) {
             if ($tenant = get_tenant($request->tenant)) {
                 $tenant->connect();

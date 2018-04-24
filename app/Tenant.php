@@ -41,6 +41,9 @@ class Tenant extends Model
     public function configure()
     {
         Config::set('app.name', $this->name);
+        //TODO Add shortname to tenants table
+        Config::set('app.shortname', $this->name);
+
     }
 
     /**
