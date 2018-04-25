@@ -26,6 +26,10 @@ let userHeader = document.head.querySelector('meta[name="user"]')
 window.user = null
 if (userHeader) if (userHeader.content) window.user = JSON.parse(userHeader.content);
 
+let scoolMenuHeader = document.head.querySelector('meta[name="scool_menu"]')
+window.scool_menu = null
+if (scoolMenuHeader) if (scoolMenuHeader.content) window.scool_menu = JSON.parse(scoolMenuHeader.content);
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

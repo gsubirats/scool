@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Menu;
 use App\Tenant;
 
 /**
@@ -17,6 +18,17 @@ function create($class, $attributes = [], $times = 1)
         return $data;
     }
     return $data->first();
+}
+
+if (! function_exists('scool_menu')) {
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    function scool_menu()
+    {
+        return Menu::all();
+    }
 }
 
 if (! function_exists('create_tenant')) {
