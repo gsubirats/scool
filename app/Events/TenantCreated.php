@@ -19,16 +19,18 @@ class TenantCreated
 
     public $tenant;
 
+    public $passsword;
+
     /**
      * TenantCreated constructor.
-     *
      * @param $tenant
+     * @param $passsword
      */
-    public function __construct(Tenant $tenant)
+    public function __construct($tenant, $passsword)
     {
         $this->tenant = $tenant;
+        $this->passsword = $passsword;
     }
-
 
     /**
      * Get the channels the event should broadcast on.

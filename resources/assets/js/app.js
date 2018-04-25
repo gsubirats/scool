@@ -21,13 +21,10 @@ import store from './store'
 import * as mutations from './store/mutation-types'
 import * as actions from './store/action-types'
 
-console.log('USER:')
-console.log(window.user)
+
 if (window.user) {
-  console.log('1')
   store.commit(mutations.LOGGED_USER, window.user)
 } else {
-  console.log('2')
   store.dispatch(actions.LOGGED_USER)
 }
 

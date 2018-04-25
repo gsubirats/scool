@@ -19,6 +19,16 @@ class TenantTest extends TestCase
     /** @test */
     public function can_add_tenant_to_user()
     {
+        $user = $this->create_user_with_tenant();
+
+        $this->assertEquals('ACME SL',$user->tenants()->first()->name);
+        $this->assertEquals('acme',$user->tenants()->first()->subdomain);
+        $this->assertEquals('localhost',$user->tenants()->first()->hostname);
+        $this->assertEquals('acme',$user->tenants()->first()->username);
+        $this->assertEquals('SECRET',$user->tenants()->first()->password);
+    }
+
+    private function create_user_with_tenant() {
         $user = create(User::class);
         $tenant = create(Tenant::class, [
             'name' => 'ACME SL',
@@ -30,11 +40,6 @@ class TenantTest extends TestCase
             'port' => 3306
         ]);
         $user->addTenant($tenant);
-
-        $this->assertEquals('ACME SL',$user->tenants()->first()->name);
-        $this->assertEquals('acme',$user->tenants()->first()->subdomain);
-        $this->assertEquals('localhost',$user->tenants()->first()->hostname);
-        $this->assertEquals('acme',$user->tenants()->first()->username);
-        $this->assertEquals('SECRET',$user->tenants()->first()->password);
+        return $user;
     }
 }

@@ -6,7 +6,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
- * Class CreateTenantDatabase
+ * Class CreateTenantDatabase.
+ *
  * @package App\Listeners
  */
 class CreateTenantDatabase
@@ -24,5 +25,7 @@ class CreateTenantDatabase
             $event->tenant->username ,
             $event->tenant->password,
             $event->tenant->hostname);
+
+        create_admin_user_on_tenant($event->tenant->user,$event->tenant, $event->password);
     }
 }

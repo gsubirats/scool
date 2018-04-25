@@ -30,6 +30,8 @@ class UserTenantController extends Controller
      */
     public function store(Request $request)
     {
+        //TODO validate request.
+
         $request->user()->addTenant($tenant = Tenant::create([
             'name' => $request->name,
             'subdomain' => $request->subdomain,
@@ -40,7 +42,7 @@ class UserTenantController extends Controller
             'port' => 3306
         ]));
 
-        event(new TenantCreated($tenant));
+        event(new TenantCreated($tenant,$request->password));
     }
 
 }

@@ -32,4 +32,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::get('tenant','UserTenantController@index');
     Route::post('tenant','UserTenantController@store');
+
+    Route::get('tenant/{tenant}/test','UserTenantTestController@index');
+    Route::post('tenant/{tenant}/test-user','UserTenantTestAdminUserController@index');
 });

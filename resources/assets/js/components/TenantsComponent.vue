@@ -11,15 +11,15 @@
   import ListTenants from './ListTenantsComponent';
 
   export default {
-   components: {
-     'create-tenant': CreateTenant,
-     'list-tenants': ListTenants
-   },
-   props: {
-     tenants: {
-       type: Array,
-       required: false
-     }
-   }
+    components: {
+      'create-tenant': CreateTenant,
+      'list-tenants': ListTenants
+    },
+    props: {
+      tenants: {
+        type: Array,
+        required: false
+      }
+    }
   }
 </script>

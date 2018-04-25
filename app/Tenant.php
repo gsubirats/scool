@@ -49,6 +49,36 @@ class Tenant extends Model
     }
 
     /**
+     * @return array
+     */
+    public function test()
+    {
+        return test_connection(
+            $this->hostname,
+            $this->username,
+            $this->password,
+            $this->database
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function testAdminUser($password)
+    {
+        return test_user($this->user, $this, $password);
+    }
+
+    /**
+     * Get the user that owns the tenant.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    /**
      * Check if the current tenant connection settings matches the company's database settings.
      *
      * @return bool

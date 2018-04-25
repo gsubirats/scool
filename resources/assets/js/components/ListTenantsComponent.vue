@@ -25,7 +25,10 @@
                         <td>{{tenant.name}}</td>
                         <td><a target="_blank" :href="fullUrl(tenant.subdomain)">{{tenant.subdomain}}</a></td>
                         <td>mysql://{{tenant.username}}@{{tenant.hostname}}:{{tenant.port}}/{{tenant.database}}</td>
-                        <td>TODO</td>
+                        <td>
+                            <test-connection-button :tenant="tenant"></test-connection-button>
+                            <test-admin-user-button :tenant="tenant"></test-admin-user-button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -34,7 +37,13 @@
 </template>
 
 <script>
+  import TestConnectionButtonComponent from './TestConnectionButtonComponent'
+  import TestAdminUserButtonComponent from './TestAdminUserButtonComponent'
   export default {
+    components: {
+      'test-connection-button': TestConnectionButtonComponent,
+      'test-admin-user-button': TestAdminUserButtonComponent,
+    },
     props: {
       tenants: {
         type: Array,
@@ -43,7 +52,7 @@
     },
     methods: {
       fullUrl (subdomain) {
-        return 'http://' + subdomain + '.' + Laravel.app.domain
+        return 'http://' + subdomain + '.' + Laravel.app.domain // eslint-disable-line
       }
     }
   }
