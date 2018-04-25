@@ -42,7 +42,7 @@
   export default {
     components: {
       'test-connection-button': TestConnectionButtonComponent,
-      'test-admin-user-button': TestAdminUserButtonComponent,
+      'test-admin-user-button': TestAdminUserButtonComponent
     },
     props: {
       tenants: {

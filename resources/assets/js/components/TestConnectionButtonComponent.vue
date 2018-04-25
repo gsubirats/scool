@@ -7,7 +7,7 @@
     data () {
       return {
         cssClass: 'btn-default',
-        text: 'Test user'
+        text: 'Test connection'
       }
     },
     props: {
@@ -18,7 +18,7 @@
     },
     methods: {
       test () {
-        axios.get('api/v1/tenant/' + this.tenant.id + '/test-user') // eslint-disable-line
+        axios.get('api/v1/tenant/' + this.tenant.id + '/test') // eslint-disable-line
           .then(response => {
             if (response.data.connection === 'ok') {
               this.cssClass = 'btn-success'

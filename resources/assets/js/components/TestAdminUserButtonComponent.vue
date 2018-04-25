@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="btn btn-block" :class="cssClass" @click="test"> {{ text }}</button>
+    <button type="button" class="btn btn-block" :class="cssClass" @click="askPassword"> {{ text }}</button>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
     data () {
       return {
         cssClass: 'btn-default',
-        text: 'Test connection'
+        text: 'Test user'
       }
     },
     props: {
@@ -17,9 +17,14 @@
       }
     },
     methods: {
-      test () {
-        axios.get('api/v1/tenant/' + this.tenant.id + '/test') // eslint-disable-line
+      askPassword () {
+        this.test('secret')
+      },
+      test (password) {
+        axios.post('api/v1/tenant/' + this.tenant.id + '/test-user',{'password': password}) // eslint-disable-line
           .then(response => {
+            //TODO show alert with exceptions messages
+            console.log(response.data.exception)
             if (response.data.connection === 'ok') {
               this.cssClass = 'btn-success'
               this.text = 'Ok'
