@@ -52,7 +52,6 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     });
 
 
-
     Route::get('/test_controller', 'TenantTestController@index');
 
 });

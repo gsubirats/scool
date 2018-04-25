@@ -44,6 +44,8 @@ class Tenant extends Model
         //TODO Add shortname to tenants table
         Config::set('app.shortname', $this->name);
 
+        Config::set('auth.providers.users.model', \App\Models\User::class);
+
     }
 
     /**

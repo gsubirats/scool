@@ -20,7 +20,10 @@ class Tenant
      */
     public function handle($request, Closure $next)
     {
-//        dump('Tenant');
+        if (env('APP_ENV') === 'testing') {
+            return $next($request);
+        }
+
         if (! is_null($request->tenant)) {
             if ($tenant = get_tenant($request->tenant)) {
                 $tenant->connect();

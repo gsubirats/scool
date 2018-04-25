@@ -17,16 +17,6 @@ class MigrateTenantCommandTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_migrate_tenant()
-    {
-        $this->artisan('migrate:tenant', [
-            'name' => 'testacme'
-        ]);
-
-        $this->assertContains('TODO', Artisan::output());
-    }
-
-    /** @test */
     public function cannot_migrate_tenant_without_arguments()
     {
         try {

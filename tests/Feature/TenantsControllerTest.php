@@ -33,8 +33,6 @@ class TenantsControllerTest extends TestCase
     /** @test */
     public function logged_user_can_see_his_tenants()
     {
-        $this->withoutExceptionHandling();
-
         $user = create(User::class);
 
         $user->addTenant(create_tenant('Acme SL','acme'));
