@@ -17,6 +17,15 @@ trait MigrateTenants
      */
     private function configureTenant() {
         $tenant = Tenant::where('subdomain',$this->argument('name'))->firstOrFail();
+        $this->connectAndConfigureTenant($tenant);
+    }
+
+    /**
+     * Connect and configure tenant.
+     *
+     * @param $tenant
+     */
+    private function connectAndConfigureTenant($tenant) {
         $tenant->connect();
         $tenant->configure();
         Config::set('database.default', 'tenant');
