@@ -108,7 +108,6 @@ function create_mysql_full_database($name, $user , $password = null, $host = nul
  *
  */
 function set_mysql_admin_connection() {
-
     DB::purge('mysql');
 
     Config::set('database.connections.mysql.host', env('MYSQL_ADMIN_HOST'));
