@@ -22,7 +22,7 @@
                     </tr>
                     <tr v-for="tenant in internalTenants" :key="tenant.id">
                         <td>{{tenant.id}}</td>
-                        <td>{{tenant.name}}<edit-tenant-icon :tenant="tenant"></edit-tenant-icon></td>
+                        <td><edit-tenant-name-icon :tenant="tenant" :value="tenant.name"></edit-tenant-name-icon></td>
                         <td><a target="_blank" :href="fullUrl(tenant.subdomain)">{{fullUrl (tenant.subdomain)}}</a></td>
                         <td>mysql://{{tenant.username}}@{{tenant.hostname}}:{{tenant.port}}/{{tenant.database}}</td>
                         <td>
@@ -41,7 +41,7 @@
   import TestConnectionButtonComponent from './TestConnectionButtonComponent'
   import TestAdminUserButtonComponent from './TestAdminUserButtonComponent'
   import DeleteTenantButtonComponent from './DeleteTenantButtonComponent'
-  import EditTenantIconComponent from './EditTenantIconComponent'
+  import EditTenantNameIconComponent from './EditTenantNameIconComponent'
   import * as types from '../store/mutation-types'
   import { mapGetters } from 'vuex'
 
@@ -50,7 +50,7 @@
       'test-connection-button': TestConnectionButtonComponent,
       'test-admin-user-button': TestAdminUserButtonComponent,
       'delete-tenant-button': DeleteTenantButtonComponent,
-      'edit-tenant-icon': EditTenantIconComponent
+      'edit-tenant-name-icon': EditTenantNameIconComponent
     },
     computed: {
       ...mapGetters({

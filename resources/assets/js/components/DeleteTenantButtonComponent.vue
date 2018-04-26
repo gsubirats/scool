@@ -19,6 +19,9 @@
       }
     },
     methods: {
+      confirmDeletion () {
+
+      },
       askPassword () {
         this.test('secret')
       },
