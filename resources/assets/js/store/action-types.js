@@ -1,2 +1,5 @@
 // USERS MODULE
 export const LOGGED_USER = 'LOGGED_USER'
+
+// USERS MODULE
+export const SET_TENANTS = 'SET_TENANTS'

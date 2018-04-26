@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens, HasRoles;
+    use Notifiable,HasApiTokens, HasRoles   ;
 
     /**
      * The attributes that are mass assignable.
@@ -42,6 +42,7 @@ class User extends Authenticatable
     public function addTenant($tenant)
     {
         $this->tenants()->save($tenant);
+        return $tenant;
     }
 
     /**

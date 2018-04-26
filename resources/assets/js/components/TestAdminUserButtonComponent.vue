@@ -3,6 +3,8 @@
 </template>
 
 <script>
+  import swal from 'sweetalert'
+
   export default {
     data () {
       return {
@@ -23,14 +25,13 @@
       test (password) {
         axios.post('api/v1/tenant/' + this.tenant.id + '/test-user',{'password': password}) // eslint-disable-line
           .then(response => {
-            //TODO show alert with exceptions messages
-            console.log(response.data.exception)
             if (response.data.connection === 'ok') {
               this.cssClass = 'btn-success'
               this.text = 'Ok'
             } else {
               this.cssClass = 'btn-danger'
               this.text = 'Error'
+              swal('Error', response.data.exception, "error")
             }
           }).catch(error => {
             console.log(error)

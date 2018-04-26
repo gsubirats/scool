@@ -19,17 +19,17 @@ class TenantCreated
 
     public $tenant;
 
-    public $passsword;
+    public $password;
 
     /**
      * TenantCreated constructor.
      * @param $tenant
-     * @param $passsword
+     * @param $password
      */
-    public function __construct($tenant, $passsword)
+    public function __construct($tenant, $password)
     {
         $this->tenant = $tenant;
-        $this->passsword = $passsword;
+        $this->password = $password;
     }
 
     /**

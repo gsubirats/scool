@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\TenantCreated;
+use App\Events\TenantDeleted;
+use App\Http\Requests\CreateUserTenant;
 use App\Tenant;
 use Illuminate\Http\Request;
 
@@ -25,14 +27,11 @@ class UserTenantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateUserTenant $request
      */
-    public function store(Request $request)
+    public function store(CreateUserTenant $request)
     {
-        //TODO validate request.
-
-        $request->user()->addTenant($tenant = Tenant::create([
+        $tenant = $request->user()->addTenant($tenant = Tenant::create([
             'name' => $request->name,
             'subdomain' => $request->subdomain,
             'hostname' => 'localhost',
@@ -41,9 +40,16 @@ class UserTenantController extends Controller
             'password' => str_random(),
             'port' => 3306
         ]));
-
         event(new TenantCreated($tenant,$request->password));
+        return $tenant;
     }
 
+
+    public function destroy(Tenant $tenant)
+    {
+        $tenant->delete();
+        event(new TenantDeleted($tenant));
+        return $tenant;
+    }
 }
 

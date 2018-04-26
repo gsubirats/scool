@@ -7,8 +7,8 @@
 
 <script>
 
-  import CreateTenant from './CreateTenantComponent';
-  import ListTenants from './ListTenantsComponent';
+  import CreateTenant from './CreateTenantComponent'
+  import ListTenants from './ListTenantsComponent'
 
   export default {
     components: {

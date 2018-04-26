@@ -155,7 +155,7 @@ if (! function_exists('test_user')) {
             } else {
                 $result = [
                     'connection' => 'Error',
-                    'exception' => 'Password incorrect'
+                    'exception' => 'Password incorrect for user ' . $user->email
                 ];
             }
 
