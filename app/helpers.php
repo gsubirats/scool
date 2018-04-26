@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Resources\UserResource;
 use App\Models\Menu;
 use App\Models\User;
 use App\Tenant;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 /**
  * Create model.
@@ -83,6 +86,19 @@ if (! function_exists('tenant_connect')) {
     }
 }
 
+if (! function_exists('main_connect')) {
+    function main_connect()
+    {
+        // Erase the tenant connection, thus making Laravel get the default values all over again.
+        DB::purge('tenant');
+
+        Config::set('database.default',env('DB_CONNECTION', 'mysql'));
+
+        // Ping the database. This will throw an exception in case the database does not exists.
+        Schema::connection(config('database.default'))->getConnection()->reconnect();
+    }
+}
+
 if (! function_exists('create_admin_user_on_tenant')) {
     /**
      * @param $user
@@ -99,11 +115,88 @@ if (! function_exists('create_admin_user_on_tenant')) {
 
         if(!$password) $password = str_random();
 
+        $user = App\Models\User::where('email',$user->email)->first();
 
-        User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => bcrypt($password)
+        if (!$user) {
+            User::forceCreate([
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => bcrypt($password),
+                'admin' => true
+            ]);
+        }
+        DB::purge('tenant');
+    }
+}
+
+if (! function_exists('create_admin_user')) {
+    /**
+     *
+     */
+    function create_admin_user()
+    {
+        if (! App\User::where('email',env('ADMIN_USER_EMAIL','sergiturbadenas@gmail.com'))->first()) {
+            App\User::forceCreate([
+                'name' => env('ADMIN_USER_NAME','Sergi Tur Badenas'),
+                'email' => env('ADMIN_USER_EMAIL','sergiturbadenas@gmail.com'),
+                'password' => bcrypt(env('ADMIN_USER_PASSWORD','123456')),
+                'admin' => true
+            ]);
+        }
+    }
+}
+
+if (! function_exists('create_default_tenant')) {
+    function create_default_tenant() {
+        $user = App\User::find(1);
+        $tenant = Tenant::where('subdomain','iesebre')->first();
+        if (! $tenant) {
+            $tenant = $user->addTenant($tenant = Tenant::create([
+                'name' => "Institut de l'Ebre",
+                'subdomain' => 'iesebre',
+                'hostname' => 'localhost',
+                'database' => 'iesebre',
+                'username' => 'iesebre',
+                'password' => str_random(),
+                'port' => 3306
+            ]));
+        }
+
+        create_mysql_full_database(
+            $tenant->database,
+            $tenant->username ,
+            $tenant->password,
+            $tenant->hostname);
+
+        create_admin_user_on_tenant($tenant->user, $tenant, env('ADMIN_USER_PASSWORD','123456'));
+
+        DB::purge('tenant');
+
+        main_connect();
+    }
+}
+
+
+if (! function_exists('create_admin_user_on_subdomain')) {
+
+    /**
+     * @param $subdomain
+     */
+    function create_admin_user_on_subdomain($subdomain)
+    {
+        $tenant = Tenant::findBySubdomain($subdomain);
+        tenant_connect(
+            $tenant->hostname,
+            $tenant->username,
+            $tenant->password,
+            $tenant->database
+        );
+
+        User::forceCreate([
+            'name' => env('ADMIN_USER_NAME_ON_TENANT','Sergi Tur Badenas'),
+            'email' => env('ADMIN_USER_EMAIL_ON_TENANT','sergiturbadenas@gmail.com'),
+            'password' => bcrypt(env('ADMIN_USER_PASSWORD_ON_TENANT','123456')),
+            'admin' => true
         ]);
     }
 }
@@ -213,6 +306,19 @@ if (! function_exists('tenant_migrate')) {
     }
 }
 
+if (! function_exists('tenant_seed')) {
+    /**
+     * Run Tenant Migrations in the connected tenant database.
+     */
+    function tenant_seed()
+    {
+        Artisan::call('db:seed', [
+            '--database' => 'tenant',
+            '--class' => 'TenantDatabaseSeeder'
+        ]);
+    }
+}
+
 /**
  * @param $name
  * @param $user
@@ -229,8 +335,23 @@ function create_mysql_full_database($name, $user , $password = null, $host = nul
     if ($host) $hostname = $host;
     tenant_connect($hostname, $name, $password, $name);
     tenant_migrate();
+    tenant_seed();
 
     return $password;
+}
+
+if (! function_exists('tenant_connect_migrate_seed')) {
+
+    /**
+     * @param $name
+     */
+    function tenant_connect_migrate_seed($name)
+    {
+        $tenant = Tenant::findBySubDomain($name);
+        tenant_connect($tenant->hostname, $tenant->subdomain, $tenant->password, $tenant->subdomain);
+        tenant_migrate();
+        tenant_seed();
+    }
 }
 
 /**
@@ -302,7 +423,9 @@ function create_mysql_user($name, $password = null, $host = 'localhost')
     set_mysql_admin_connection();
     if(!$password) $password = str_random();
     DB::connection('mysql')->getPdo()->exec(
-        "CREATE USER '{$name}'@'{$host}' IDENTIFIED BY '{$password}'");
+        "CREATE USER IF NOT EXISTS '{$name}'@'{$host}'");
+    DB::connection('mysql')->getPdo()->exec(
+        "ALTER USER '{$name}'@'{$host}' IDENTIFIED BY '{$password}'");
     return $password;
 }
 
@@ -344,4 +467,39 @@ function mysql_grant_privileges($user, $database, $host = 'localhost') {
 
 function get_tenant($name) {
     return \App\Tenant::where('subdomain', $name)->firstOrFail();
+}
+
+if (!function_exists('formatted_logged_user')) {
+    function formatted_logged_user()
+    {
+        return json_encode((new UserResource(Auth::user()))->resolve());
+    }
+}
+
+if (!function_exists('initialize_tenant_roles_and_permissions')) {
+    function initialize_tenant_roles_and_permissions()
+    {
+        $roles = [
+            'Student',
+            'Teacher',
+            'Manager'
+        ];
+
+        // Manager
+        // - Rol assignat a l'usuari principal (de fet és superadmin) però també es pot assignar a altres
+        // - Menú administració:
+        // - Gestió de mòduls
+
+        foreach ($roles as $role) {
+            $role = Role::firstOrCreate(['name' => $role]);
+        }
+
+        $permissions = [
+        ];
+
+
+        foreach ($permissions as $permission) {
+            $permission = Permission::firstOrCreate(['name' => $permission]);
+        }
+    }
 }

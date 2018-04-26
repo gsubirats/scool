@@ -91,4 +91,13 @@ class Tenant extends Model
             $connection['password'] == $this->password &&
             $connection['database'] == $this->database;
     }
+
+    /**
+     * Find Tenant by subdomain.
+     *
+     * @param $subdomain
+     */
+    public static function findBySubdomain($subdomain) {
+        return self::where('subdomain',$subdomain)->firstOrFail();
+    }
 }

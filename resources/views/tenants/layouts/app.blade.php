@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="user" content="{{ Auth::user() }}">
+    <meta name="user" content="{{ formatted_logged_user() }}">
     <meta name="scool_menu" content="{{ scool_menu() }}">
     <link rel="manifest" href="/manifest.json">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -114,26 +114,26 @@
                     </v-flex>
                     <v-flex xs12>
                         <h3>@{{  user.name }}</h3>
-                        <a href="https://en.gravatar.com/connect/">Change Avatar</a>
+                        <a href="https://en.gravatar.com/connect/">Canviar Avatar</a>
                     </v-flex>
                 </v-layout>
             </v-container>
             <v-card-text class="px-0 grey lighten-3">
                 <v-form class="pl-3 pr-1 ma-0">
                     <v-text-field :readonly="!editingUser"
-                                  label="Email"
+                                  label="Correu electrònic"
                                   :value="user.email"
                                   ref="email"
                                   @input="updateEmail"
                     ></v-text-field>
                     <v-text-field :readonly="!editingUser"
-                                  label="User name"
+                                  label="Nom usuari"
                                   :value="user.name"
                                   @input="updateName"
                     ></v-text-field>
                     <v-text-field readonly
-                                  label="Created at"
-                                  :value="user.created_at"
+                                  label="Data creació"
+                                  :value="user.formatted_created_at_date"
                                   readonly
                     ></v-text-field>
                 </v-form>
@@ -146,21 +146,21 @@
                 </v-btn>
                 <v-btn flat color="orange" @click="editUser()" v-else>
                     <v-icon right dark>edit</v-icon>
-                    Edit
+                    Editar
                 </v-btn>
                 <v-btn :loading="logoutLoading" @click="logout" flat color="orange">
                     <v-icon right dark>exit_to_app</v-icon>
-                    Logout</v-btn>
+                    Sortir</v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">Change Password</v-btn>
+                <v-btn :loading="changingPassword" flat color="red" @click="changePassword">Canviar Password</v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <a href="https://en.gravatar.com/connect/">Change Avatar</a>
+                <a href="https://en.gravatar.com/connect/">Canviar Avatar</a>
                 <v-spacer></v-spacer>
             </v-card-actions>
         </v-card>

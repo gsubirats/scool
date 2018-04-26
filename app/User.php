@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens, HasRoles   ;
+    use Notifiable,HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -51,5 +51,10 @@ class User extends Authenticatable
     public function tenants()
     {
         return $this->hasMany(Tenant::class);
+    }
+
+    public function isSuperAdmin()
+    {
+        return true;
     }
 }

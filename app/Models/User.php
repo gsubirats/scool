@@ -33,4 +33,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function isSuperAdmin()
+    {
+        return true;
+    }
+
+    /**
+     * formatted_created_at_date attribute.
+     *
+     * @return mixed
+     */
+    public function getFormattedCreatedAtDateAttribute()
+    {
+        return $this->created_at->format('h:i:sA d-m-Y');
+    }
 }

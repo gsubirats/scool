@@ -26,6 +26,6 @@ class CreateTenantDatabase
             $event->tenant->password,
             $event->tenant->hostname);
 
-        create_admin_user_on_tenant($event->tenant->user,$event->tenant, $event->password);
+        create_admin_user_on_tenant($event->tenant->user, $event->tenant, $event->password);
     }
 }

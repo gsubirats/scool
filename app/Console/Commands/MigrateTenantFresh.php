@@ -19,7 +19,7 @@ class MigrateTenantFresh extends Command
      *
      * @var string
      */
-    protected $signature = 'migrate:tenant:fresh {name}';
+    protected $signature = 'migrate:tenant:fresh {name} {--seed}';
 
     /**
      * The console command description.
@@ -55,6 +55,18 @@ class MigrateTenantFresh extends Command
     public function handle()
     {
         $this->configureTenant();
-        $this->run_migration_command();
+        if($this->option('seed')) {
+            $this->call($this->command(), [
+                '--database' => 'tenant',
+                '--path' => 'database/migrations/tenant',
+                '--seed' => true,
+                '--seeder' => 'TenantDatabaseSeeder',
+            ]);
+        } else {
+            $this->call($this->command(), [
+                '--database' => 'tenant',
+                '--path' => 'database/migrations/tenant'
+            ]);
+        }
     }
 }
