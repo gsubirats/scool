@@ -115,9 +115,9 @@ if (! function_exists('create_admin_user_on_tenant')) {
 
         if(!$password) $password = str_random();
 
-        $user = App\Models\User::where('email',$user->email)->first();
+        $existingUser = App\Models\User::where('email',$user->email)->first();
 
-        if (!$user) {
+        if (!$existingUser) {
             User::forceCreate([
                 'name' => $user->name,
                 'email' => $user->email,
