@@ -4,14 +4,15 @@ namespace Tests\Feature\Tenants;
 
 use App\Models\Menu;
 use Illuminate\Contracts\Console\Kernel;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\BaseTenantTest;
 
 /**
- * Class MenuControllerTest
+ * Class MenuControllerTest.
+ *
  * @package Tests\Feature\Tenants
  */
-class MenuControllerTest extends TestCase
+class MenuControllerTest extends BaseTenantTest
 {
     use RefreshDatabase;
 
@@ -22,7 +23,7 @@ class MenuControllerTest extends TestCase
      */
     protected function refreshInMemoryDatabase()
     {
-        $this->artisan('migrate',[
+         $this->artisan('migrate',[
             '--path' => 'database/migrations/tenant'
         ]);
 
@@ -64,18 +65,6 @@ class MenuControllerTest extends TestCase
         $response->assertJsonFragment($menu3);
         $response->assertJsonFragment($menu4);
 
-    }
-
-    /**
-     * Visit the given URI with a GET request.
-     *
-     * @param  string  $uri
-     * @param  array  $headers
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    public function get($uri, array $headers = [])
-    {
-        return parent::get('http://prova.scool.acacha.test/' . $uri,$headers);
     }
 
 

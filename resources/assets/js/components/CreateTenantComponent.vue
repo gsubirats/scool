@@ -29,7 +29,7 @@
                     </transition>
                 </div>
                 <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('password') }">
-                    <label for="inputPassword">Paraula de pas del administrador {{ loggedUser.email }}</label>
+                    <label for="inputPassword">Paraula de pas de l'administrador {{ loggedUser.email }}</label>
                     <input id="inputPassword" type="password" class="form-control" placeholder="Paraula de pas" name="password" v-model="form.password"/>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     <transition name="fade">

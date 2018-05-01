@@ -2,6 +2,6 @@ import axios from 'axios'
 
 export default {
   fetch () {
-    return axios.get('/api/tenants')
+    return axios.get('/api/v1/tenant')
   }
 }

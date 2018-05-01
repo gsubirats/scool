@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="btn btn-block" :class="cssClass" @click="askPassword"> {{ text }}</button>
+    <button type="button" class="btn" :class="cssClass" @click="askPassword"> {{ text }}</button>
 </template>
 
 <script>

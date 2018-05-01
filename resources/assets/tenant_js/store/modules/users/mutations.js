@@ -6,5 +6,8 @@ export default {
   },
   [ types.SET_USERS ] (state, users) {
     state.users = users
+  },
+  [ types.ADD_USER ] (state, user) {
+    state.users.push(user)
   }
 }

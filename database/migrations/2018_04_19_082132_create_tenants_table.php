@@ -24,6 +24,7 @@ class CreateTenantsTable extends Migration
             $table->integer('port');
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

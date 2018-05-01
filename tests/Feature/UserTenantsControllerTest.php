@@ -44,7 +44,7 @@ class UserTenantsControllerTest extends TestCase
 
         $this->actingAs($user,'api');
 
-        $response = $this->get('/api/v1/tenant');
+        $response = $this->json('GET','/api/v1/tenant');
 
         $response->assertSuccessful();
 
@@ -223,23 +223,5 @@ class UserTenantsControllerTest extends TestCase
 
         $user = $user->fresh();
         $this->assertEquals('newacme', $user->tenants()->first()->subdomain);
-    }
-
-    /** @test */
-    public function logged_user_can_update_tenant_admin_user_password()
-    {
-        $user = create(User::class);
-        $this->actingAs($user,'api');
-
-        $tenant = create_tenant('Acme SL','acme');
-        $user->addTenant($tenant);
-
-        $response = $this->json('PUT','/api/v1/tenant/' . $tenant->id . '/password'  , [
-            'password' => 'secret'
-        ]);
-
-        $response->assertSuccessful();
-
-        // TODO
     }
 }

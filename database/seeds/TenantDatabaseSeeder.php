@@ -15,24 +15,9 @@ class TenantDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Default menus
-        Menu::firstOrCreate([
-            'icon' => 'home',
-            'text' => 'Principal',
-            'href' => '/home'
-        ]);
-
-        Menu::firstOrCreate([
-            'heading' => 'Administració',
-            'role' => 'Manager'
-        ]);
-
-        Menu::firstOrCreate([
-            'text' => 'Mòduls',
-            'href' => '/modules',
-            'role' => 'Manager'
-        ]);
-
+        initialize_menus();
         initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        create_admin_user();
     }
 }

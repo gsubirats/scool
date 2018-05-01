@@ -6,5 +6,8 @@ export default {
   },
   [ types.ADD_TENANT ] (state, tenant) {
     state.tenants.push(tenant)
+  },
+  [ types.REMOVE_TENANT ] (state, tenant) {
+    state.tenants.splice(state.tenants.indexOf(tenant),1)
   }
 }

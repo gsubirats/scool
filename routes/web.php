@@ -38,6 +38,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/home', function ($tenant) {
                 return view('tenants.home');
             });
+
+            Route::get('/users', 'Tenant\UsersController@show');
         });
     });
 

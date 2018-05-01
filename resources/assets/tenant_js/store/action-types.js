@@ -9,3 +9,6 @@ export const RESET_PASSWORD = 'RESET_PASSWORD'
 export const FETCH_USERS = 'FETCH_USERS'
 export const UPDATE_USER = 'UPDATE_USER'
 export const SELECTED_USER = 'SELECTED_USER'
+export const STORE_USER = 'STORE_USER'
+export const DELETE_USER = 'DELETE_USER'
+

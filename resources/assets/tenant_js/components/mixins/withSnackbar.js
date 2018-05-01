@@ -17,6 +17,8 @@ export default {
     cleanState () {
       setTimeout(() => {
         this.$store.commit(mutations.SET_SNACKBAR_SHOW, false)
+        this.$store.commit(mutations.SET_SNACKBAR_TEXT, '')
+        this.$store.commit(mutations.SET_SNACKBAR_SUBTEXT, '')
       }, this.snackbarTimeout)
     },
     showSnackBar (message, color) {
@@ -27,9 +29,17 @@ export default {
         this.cleanState()
         return
       }
-      this.$store.commit(mutations.SET_SNACKBAR_TEXT, message.message)
-      if (message.response) this.$store.commit(mutations.SET_SNACKBAR_SUBTEXT, message.response.data.message)
-      this.cleanState()
+      if (message.status) {
+        this.$store.commit(mutations.SET_SNACKBAR_TEXT, message.status + ' ' + message.statusText)
+        if (message.data && message.data.message) this.$store.commit(mutations.SET_SNACKBAR_SUBTEXT, message.data.message)
+        else this.$store.commit(mutations.SET_SNACKBAR_SUBTEXT, message.statusText)
+        this.cleanState()
+        return
+      } else {
+        this.$store.commit(mutations.SET_SNACKBAR_TEXT, 'Error de xarxa')
+        this.cleanState()
+        return
+      }
     }
   }
 }

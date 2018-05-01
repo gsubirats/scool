@@ -21,6 +21,11 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
         Route::group(['prefix' => 'v1'], function () {
             Route::get('/menu', 'Tenant\MenuController@index');
+
+            // USERS
+            Route::get('/users', 'Tenant\UsersController@index');
+            Route::post('/users', 'Tenant\UsersController@store');
+            Route::delete('/users/{user}', 'Tenant\UsersController@destroy');
         });
     });
 });

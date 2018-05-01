@@ -25,5 +25,25 @@ export default {
         reject(error)
       })
     })
+  },
+  [ actions.STORE_USER ] (context, user) {
+    return new Promise((resolve, reject) => {
+      users.store(user).then(response => {
+        context.commit(mutations.ADD_USER, response.data.data)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  [ actions.DELETE_USER ] (context, user) {
+    return new Promise((resolve, reject) => {
+      users.delete(user).then(response => {
+        context.commit(mutations.DELETE_USER, user)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }

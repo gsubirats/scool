@@ -55,7 +55,9 @@
             this.editing = false
           }).catch(error => {
             console.log(error)
-            swal('Error', error.message, 'error')
+            this.editing = false
+            this.oldValue = this.name
+            swal('Error', 'Error editant el camp')
           })
       }
     },

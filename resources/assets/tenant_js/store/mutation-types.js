@@ -12,3 +12,7 @@ export const SET_SNACKBAR_TIMEOUT = 'SET_SNACKBAR_TIMEOUT'
 // USERS
 export const SELECTED_USER = 'SELECTED_USER'
 export const SET_USERS = 'SET_USERS'
+export const ADD_USER = 'ADD_USER'
+export const DELETE_USER = 'DELETE_USER'
+
+

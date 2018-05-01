@@ -3,6 +3,7 @@
 use App\Http\Resources\UserResource;
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\UserType;
 use App\Tenant;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -465,9 +466,16 @@ function mysql_grant_privileges($user, $database, $host = 'localhost') {
     DB::connection('mysql')->getPdo()->exec("FLUSH PRIVILEGES");
 }
 
-function get_tenant($name) {
-    return \App\Tenant::where('subdomain', $name)->firstOrFail();
+if (!function_exists('get_tenant')) {
+    /**
+     * @param $name
+     * @return mixed
+     */
+    function get_tenant($name) {
+        return \App\Tenant::where('subdomain', $name)->firstOrFail();
+    }
 }
+
 
 if (!function_exists('formatted_logged_user')) {
     function formatted_logged_user()
@@ -480,9 +488,14 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
     function initialize_tenant_roles_and_permissions()
     {
         $roles = [
-            'Student',
-            'Teacher',
-            'Manager'
+            'Alumne',
+            'Professor',
+            'Conserge',
+            'Administratiu',
+            'Familiar',
+            'Manager',
+            'Admin',
+            'UsersManager'
         ];
 
         // Manager
@@ -491,7 +504,8 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
         // - Gestió de mòduls
 
         foreach ($roles as $role) {
-            $role = Role::firstOrCreate(['name' => $role]);
+            Role::firstOrCreate(['name' => $role,'guard_name' => 'web']);
+            Role::firstOrCreate(['name' => $role, 'guard_name' => 'api' ]);
         }
 
         $permissions = [
@@ -503,3 +517,102 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
         }
     }
 }
+
+
+if (!function_exists('initialize_gates')) {
+    function initialize_gates()
+    {
+        Gate::define('show-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::define('create_users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::define('delete_users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::before(function ($user, $ability) {
+            if ($user->isSuperAdmin()) {
+                return true;
+            }
+        });
+    }
+}
+
+if (!function_exists('initialize_menus')) {
+    function initialize_menus() {
+        Menu::firstOrCreate([
+            'icon' => 'home',
+            'text' => 'Principal',
+            'href' => '/home'
+        ]);
+
+        Menu::firstOrCreate([
+            'heading' => 'Administració',
+            'role' => 'Manager'
+        ]);
+
+        Menu::firstOrCreate([
+            'text' => 'Mòduls',
+            'href' => '/modules',
+            'role' => 'Manager'
+        ]);
+
+        Menu::firstOrCreate([
+            'text' => 'Usuaris',
+            'href' => '/users',
+            'role' => 'UsersManager'
+        ]);
+
+        Menu::firstOrCreate([
+            'text' => 'Configuració general',
+            'href' => '/config',
+            'role' => 'Admin'
+        ]);
+    }
+}
+
+if (!function_exists('initialize_user_types')) {
+    function initialize_user_types()
+    {
+        $teacher = UserType::firstOrCreate([
+            'name' => 'Professor/a'
+        ]);
+        $teacher->roles()->save(Role::findByName('Professor'));
+
+        $student = UserType::firstOrCreate([
+            'name' => 'Alumne/a'
+        ]);
+        $student->roles()->save(Role::findByName('Alumne'));
+
+        UserType::firstOrCreate([
+            'name' => 'Conserge'
+        ]);
+
+        UserType::firstOrCreate([
+            'name' => 'Administratiu/va'
+        ]);
+
+        UserType::firstOrCreate([
+            'name' => 'Familiars'
+        ]);
+    }
+}
+
+if (!function_exists('apply_tenant')) {
+    function apply_tenant($name)
+    {
+        if ($tenant = get_tenant($name)) {
+            $tenant->connect();
+            $tenant->configure();
+            Config::set('database.default', 'tenant');
+        } else {
+            dump('Tenant not found!');
+        }
+    }
+}
+
+

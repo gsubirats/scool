@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   fetch () {
@@ -9,5 +9,17 @@ export default {
       'name': user.name,
       'email': user.email
     })
+  },
+  store (user) {
+    return axios.post('/api/v1/users', {
+      'name': user.name,
+      'email': user.email,
+      'password': user.password,
+      'roles': user.roles,
+      'type': user.type
+    })
+  },
+  delete (user) {
+    return axios.delete('/api/v1/users/' + user.id)
   }
 }

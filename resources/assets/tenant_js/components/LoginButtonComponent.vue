@@ -17,7 +17,7 @@
                             label="E-mail"
                             v-model="email"
                             :rules="emailRules"
-                            :error="errors['email']"
+                            :error="errors['email'] && true"
                             :error-messages="errors['email']"
                             required
                     ></v-text-field>
@@ -135,12 +135,8 @@
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
-            console.log('Error:')
-            console.log(error)
             if (error.status === 422) {
-              this.showError({
-                message: 'Invalid data'
-              })
+              this.showError('Les dades no són vàlides')
             } else {
               this.showError(error)
             }

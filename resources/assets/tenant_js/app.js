@@ -21,6 +21,9 @@ Vue.component('remember-password', require('./components/RememberPasswordCompone
 Vue.component('reset-password', require('./components/ResetPasswordComponent.vue'));
 Vue.component('snackbar', require('./components/SnackBarComponent.vue'));
 Vue.component('gravatar', require('./components/GravatarComponent.vue'));
+Vue.component('users-dashboard', require('./components/users/UsersDashboardComponent.vue'));
+Vue.component('users-list', require('./components/users/UsersListComponent.vue'));
+Vue.component('user-add', require('./components/users/UserAddComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)

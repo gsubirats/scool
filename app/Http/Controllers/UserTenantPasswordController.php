@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserTenantPassword;
 use App\Tenant;
-use Illuminate\Http\Request;
 
 /**
  * Class UserTenantPasswordController.
@@ -12,8 +12,17 @@ use Illuminate\Http\Request;
  */
 class UserTenantPasswordController extends Controller
 {
-    public function update(Request $request, Tenant $tenant)
+    /**
+     * Change password.
+     *
+     * @param UpdateUserTenantPassword $request
+     * @param Tenant $tenant
+     * @return Tenant
+     */
+    public function update(UpdateUserTenantPassword $request, Tenant $tenant)
     {
-        // TODO
+        $tenant->password = bcrypt($request->password);
+        $tenant->save();
+        return $tenant;
     }
 }

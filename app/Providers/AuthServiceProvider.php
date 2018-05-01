@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
+/**
+ * Class AuthServiceProvider.
+ *
+ * @package App\Providers
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -28,10 +33,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        Gate::before(function ($user, $ability) {
-            if ($user->isSuperAdmin()) {
-                return true;
-            }
-        });
+        initialize_gates();
+
     }
 }
