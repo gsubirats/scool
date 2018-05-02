@@ -25,6 +25,9 @@ Vue.component('users-dashboard', require('./components/users/UsersDashboardCompo
 Vue.component('users-list', require('./components/users/UsersListComponent.vue'));
 Vue.component('user-add', require('./components/users/UserAddComponent.vue'));
 
+Vue.component('staff-list', require('./components/staff/StaffListComponent.vue'));
+Vue.component('staff-add', require('./components/staff/StaffAddComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 

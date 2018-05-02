@@ -10,7 +10,7 @@
                                 <v-spacer></v-spacer>
                                 <v-text-field
                                         append-icon="search"
-                                        label="Search"
+                                        label="Buscar"
                                         single-line
                                         hide-details
                                         v-model="search"

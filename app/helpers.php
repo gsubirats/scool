@@ -495,7 +495,8 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
             'Familiar',
             'Manager',
             'Admin',
-            'UsersManager'
+            'UsersManager',
+            'StaffManager'
         ];
 
         // Manager
@@ -534,6 +535,11 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('UsersManager');
         });
 
+        // STAFF
+        Gate::define('show-staff', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
         Gate::before(function ($user, $ability) {
             if ($user->isSuperAdmin()) {
                 return true;
@@ -566,6 +572,13 @@ if (!function_exists('initialize_menus')) {
             'href' => '/users',
             'role' => 'UsersManager'
         ]);
+
+        Menu::firstOrCreate([
+            'text' => 'Plantilla',
+            'href' => '/staff',
+            'role' => 'StaffManager'
+        ]);
+
 
         Menu::firstOrCreate([
             'text' => 'Configuració general',
