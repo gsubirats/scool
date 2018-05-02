@@ -47,6 +47,9 @@ class StaffControllerTest extends BaseTenantTest
         $response->assertSuccessful();
         $response->assertViewIs('tenants.staff.show');
         $response->assertViewHas('staff');
+        $response->assertViewHas('staffTypes');
+        $response->assertViewHas('specialties');
+        $response->assertViewHas('families');
 //        $response->assertViewHas('userTypes');
 //        $response->assertViewHas('roles');
     }

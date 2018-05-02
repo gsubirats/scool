@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\ShowStaffManagement;
+use App\Models\Family;
+use App\Models\Specialty;
 use App\Models\Staff;
+use App\Models\StaffType;
 
 /**
  * Class StaffController.
@@ -21,6 +24,14 @@ class StaffController extends Controller
     public function show(ShowStaffManagement $request)
     {
         $staff = Staff::all();
-        return view('tenants.staff.show',compact('staff'));
+        $staffTypes = StaffType::all();
+        $specialties = Specialty::all();
+        $families = Family::all();
+        return view('tenants.staff.show',compact(
+            'staff',
+            'staffTypes',
+            'specialties',
+            'families'
+        ));
     }
 }

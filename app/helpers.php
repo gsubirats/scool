@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Resources\UserResource;
+use App\Models\Family;
 use App\Models\Menu;
+use App\Models\Specialty;
+use App\Models\StaffType;
 use App\Models\User;
 use App\Models\UserType;
 use App\Tenant;
@@ -587,6 +590,110 @@ if (!function_exists('initialize_menus')) {
         ]);
     }
 }
+
+
+
+if (!function_exists('initialize_staff_types')) {
+    function initialize_staff_types()
+    {
+        StaffType::firstOrCreate([
+            'name' => 'Professor/a'
+        ]);
+
+        StaffType::firstOrCreate([
+            'name' => 'Conserge'
+        ]);
+
+        StaffType::firstOrCreate([
+            'name' => 'Administratiu/va'
+        ]);
+    }
+}
+
+if (!function_exists('initialize_families')) {
+    function initialize_families()
+    {
+        Family::firstOrCreate([
+            'name' => 'Sanitat'
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Informàtica'
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Serveis socioculturals i a la comunitat'
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Arts gràfiques'
+        ]);
+
+    }
+}
+
+if (!function_exists('initialize_specialities')) {
+    function initialize_specialities()
+    {
+        // Cos -> Secundària
+
+        // Cos -> Secundària
+        Specialty::firstOrCreate([
+            'code' => 'MA',
+            'name' => 'Matemàtiques',
+            'type_id' => 1 // Cos -> Secundària
+        ]);
+
+        // Cos -> Secundària
+        Specialty::firstOrCreate([
+            'code' => 'AN',
+            'name' => 'Àngles',
+            'type_id' => 1 // Cos -> Secundària
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '507',
+            'name' => 'Informàtica',
+            'type_id' => 1 // Cos -> Secundària
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '517',
+            'name' => 'Informàtica',
+            'type_id' => 1 // Cos -> Secundària
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '518',
+            'name' => 'Informàtica',
+            'type_id' => 1 // Cos -> Secundària
+        ]);
+
+        // Cos -> Professors tècnics de formació professional
+        Specialty::firstOrCreate([
+            'code' => '619',
+            'name' => 'Procediments de diagnòstic clínic i productes ortoprotètics',
+            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+        ]);
+
+        // Cos -> Professors tècnics de formació professional
+        Specialty::firstOrCreate([
+            'code' => '620',
+            'name' => 'Procediments sanitaris i assistencials ',
+            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+        ]);
+
+
+        Specialty::firstOrCreate([
+            'code' => '627',
+            'name' => 'Sistemes i aplicacions informàtiques',
+            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+        ]);
+
+    }
+}
+
+
 
 if (!function_exists('initialize_user_types')) {
     function initialize_user_types()

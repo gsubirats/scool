@@ -19,7 +19,7 @@
                             <v-data-table
                                     class="px-0 mb-2 hidden-sm-and-down"
                                     :headers="headers"
-                                    :items="internalUsers"
+                                    :items="internalStaff"
                                     :search="search"
                                     item-key="id"
                                     expand
@@ -159,7 +159,7 @@
                                 content-tag="v-layout"
                                 row
                                 wrap
-                                :items="internalUsers"
+                                :items="internalStaff"
                         >
                             <v-flex
                                     slot="item"
@@ -202,6 +202,8 @@
 </style>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data () {
       return {
@@ -215,6 +217,11 @@
           {text: 'Accions', sortable: false}
         ]
       }
+    },
+    computed: {
+      ...mapGetters({
+        internalStaff: 'staff'
+      })
     },
     props: {
       staff: {
