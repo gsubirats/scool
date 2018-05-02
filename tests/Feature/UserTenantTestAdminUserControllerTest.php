@@ -15,10 +15,9 @@ class UserTenantTestAdminUserTestControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /** @ test */
     public function user_can_test_tenant_admin_user()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user,'api');
 
