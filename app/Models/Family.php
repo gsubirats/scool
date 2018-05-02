@@ -12,4 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 class Family extends Model
 {
     protected $guarded = [];
+
+    /**
+     * Find by code.
+     *
+     * @param $code
+     * @return mixed
+     */
+    public static function findByCode($code)
+    {
+        return static::where('code','=',$code)->first();
+
+    }
 }

@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateTenantStaffTable
+ */
 class CreateTenantStaffTable extends Migration
 {
     /**
@@ -15,6 +18,10 @@ class CreateTenantStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('specialty_id')->nullable();
+            $table->unsignedInteger('family_id')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateTenantFamiliesTable extends Migration
         Schema::create('families', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
