@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateUserTypesTable
+ * Class CreateTenantUserTypesTable
  */
-class CreateUserTypesTable extends Migration
+class CreateTenantUserTypesTable extends Migration
 {
     /**
      * Run the migrations.

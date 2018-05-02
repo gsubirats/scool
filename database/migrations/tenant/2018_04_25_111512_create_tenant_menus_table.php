@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateMenusTable
+ * Class CreateTenantMenusTable
  */
-class CreateMenusTable extends Migration
+class CreateTenantMenusTable extends Migration
 {
     /**
      * Run the migrations.

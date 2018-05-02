@@ -217,7 +217,7 @@
           {text: 'Rols', value: 'roles', sortable: false},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
-          {text: 'Actions', sortable: false}
+          {text: 'Accions', sortable: false}
         ]
       }
     },

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\ShowStaffManagement;
-use App\Tenant\Models\Staff;
+use App\Models\Staff;
 
 /**
  * Class StaffController.

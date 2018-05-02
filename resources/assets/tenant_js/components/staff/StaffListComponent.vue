@@ -212,7 +212,7 @@
           {text: 'Tipus', align: 'left', value: 'type'},
           {text: 'Família', value: 'department'},
           {text: 'Observacions', value: 'notes'},
-          {text: 'Actions', sortable: false}
+          {text: 'Accions', sortable: false}
         ]
       }
     },
