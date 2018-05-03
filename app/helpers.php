@@ -2,6 +2,7 @@
 
 use App\Http\Resources\UserResource;
 use App\Models\Family;
+use App\Models\Force;
 use App\Models\Menu;
 use App\Models\Specialty;
 use App\Models\Staff;
@@ -706,62 +707,82 @@ if (!function_exists('initialize_families')) {
     }
 }
 
+if (!function_exists('initialize_forces')) {
+    function initialize_forces()
+    {
+        Force::firstOrCreate([
+            'name' => 'Mestres',
+            'code' => 'MESTRES'
+        ]);
+        Force::firstOrCreate([
+            'name' => "Professors d'ensenyament secundari",
+            'code' => 'SECUNDARIA'
+        ]);
+        Force::firstOrCreate([
+            'name' => 'Professors tècnics de formació professional',
+            'code' => 'PT'
+        ]);
+        Force::firstOrCreate([
+            'name' => "Professors d'escoles oficials d'idiomes",
+            'code' => 'IDIOMES'
+        ]);
+    }
+}
+
 if (!function_exists('initialize_specialities')) {
     function initialize_specialities()
     {
         // Cos -> Secundària
-
-        // Cos -> Secundària
         Specialty::firstOrCreate([
             'code' => 'MA',
             'name' => 'Matemàtiques',
-            'type_id' => 1 // Cos -> Secundària
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         // Cos -> Secundària
         Specialty::firstOrCreate([
             'code' => 'AN',
             'name' => 'Àngles',
-            'type_id' => 1 // Cos -> Secundària
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         Specialty::firstOrCreate([
             'code' => '507',
             'name' => 'Informàtica',
-            'type_id' => 1 // Cos -> Secundària
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         Specialty::firstOrCreate([
             'code' => '517',
             'name' => 'Processos diagnòstics clínics i productes ortoprotètics',
-            'type_id' => 1 // Cos -> Secundària
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         Specialty::firstOrCreate([
             'code' => '518',
             'name' => 'Processos sanitaris',
-            'type_id' => 1 // Cos -> Secundària
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         // Cos -> Professors tècnics de formació professional
         Specialty::firstOrCreate([
             'code' => '619',
             'name' => 'Procediments de diagnòstic clínic i productes ortoprotètics',
-            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
         // Cos -> Professors tècnics de formació professional
         Specialty::firstOrCreate([
             'code' => '620',
             'name' => 'Procediments sanitaris i assistencials ',
-            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
 
         Specialty::firstOrCreate([
             'code' => '627',
             'name' => 'Sistemes i aplicacions informàtiques',
-            'type_id' => 2 // Cos -> Professors tècnics de formació professional
+            'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
     }

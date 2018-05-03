@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 
 /**
@@ -16,6 +17,7 @@ class PendingTeachersController extends Controller
      */
     public function show()
     {
-        return view ('tenants.teacher.show_pending_teacher');
+        $specialties = Specialty::all();
+        return view ('tenants.teacher.show_pending_teacher', compact('specialties'));
     }
 }

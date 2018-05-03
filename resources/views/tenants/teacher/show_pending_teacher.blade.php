@@ -42,7 +42,9 @@
         </v-toolbar>
         <v-content>
             <section>
-                <pending-teacher-add></pending-teacher-add>
+                <pending-teacher-add
+                        :specialties="{{ $specialties }}"
+                ></pending-teacher-add>
             </section>
 
 

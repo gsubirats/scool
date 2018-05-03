@@ -1,16 +1,17 @@
 <?php
 
-namespace Tests\Feature\Tenants;
+namespace Tests\Unit\Tenants;
 
 use App\Console\Kernel;
+use App\Models\Force;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BaseTenantTest;
 
 /**
- * Class PendingTeachersControllerTest
- * @package Tests\Feature\Tenants
+ * Class ForceTest
+ * @package Tests\Unit\Tenants
  */
-class PendingTeachersControllerTest extends BaseTenantTest
+class ForceTest extends BaseTenantTest
 {
     use RefreshDatabase;
 
@@ -29,13 +30,13 @@ class PendingTeachersControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function users_can_create_pending_teacher()
+    public function can_find_force_by_code()
     {
-        $this->withoutExceptionHandling();
-        $response = $this->get('/add_teacher');
-        $response->assertSuccessful();
-
-        $response->assertViewIs('tenants.teacher.show_pending_teacher');
-        $response->assertViewHas('specialties');
+        $this->assertNull(Force::findByCode('SECUNDARIA'));
+        $force = Force::firstOrCreate([
+            'name' => "Professors d'ensenyament secundari",
+            'code' => 'SECUNDARIA'
+        ]);
+        $this->assertTrue($force->is(Force::findByCode('SECUNDARIA')));
     }
 }

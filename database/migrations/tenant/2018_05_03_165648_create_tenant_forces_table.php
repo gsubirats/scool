@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateTenantSpecialtiesTable
+ * Class CreateTenantForcesTable
  */
-class CreateTenantSpecialtiesTable extends Migration
+class CreateTenantForcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,11 +16,10 @@ class CreateTenantSpecialtiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('specialties', function (Blueprint $table) {
+        Schema::create('forces', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
             $table->string('name');
-            $table->unsignedInteger('force_id');
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateTenantSpecialtiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specialties');
+        Schema::dropIfExists('forces');
     }
 }
