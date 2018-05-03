@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Resources\UserResource;
+use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Menu;
@@ -725,6 +726,41 @@ if (!function_exists('initialize_forces')) {
         Force::firstOrCreate([
             'name' => "Professors d'escoles oficials d'idiomes",
             'code' => 'IDIOMES'
+        ]);
+    }
+}
+
+
+
+if (!function_exists('initialize_administrative_statuses')) {
+    function initialize_administrative_statuses()
+    {
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Funcionari/a amb plaça definitiva'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Funcionari/a propietari provisional'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Funcionari/a en pràctiques'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Comissió de serveis'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Interí/na'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Substitut/a'
+        ]);
+
+        AdministrativeStatus::firstOrCreate([
+            'name' => 'Expert/a'
         ]);
     }
 }

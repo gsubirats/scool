@@ -57,15 +57,6 @@
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md2>
-                                        <!--<v-text-field-->
-                                                <!--label="Data naixement"-->
-                                                <!--v-model="birthdate"-->
-                                                <!--:error-messages="birthdateErrors"-->
-                                                <!--@input="$v.birthdate.$touch()"-->
-                                                <!--@blur="$v.birthdate.$touch()"-->
-                                                <!--required-->
-                                        <!--&gt;</v-text-field>-->
-
                                         <v-menu
                                                 ref="menu"
                                                 lazy
@@ -92,7 +83,7 @@
                                                     locale="ca"
                                                     v-model="birthdate"
                                                     @change="saveBirthdate"
-                                                    min="1950-01-01"
+                                                    min="1900-01-01"
                                                     :max="new Date().toISOString().substr(0, 10)"
                                             ></v-date-picker>
                                         </v-menu>
@@ -303,29 +294,38 @@
 
                             <h1 class="subheading primary--text">
                                 <div>
-                                    <p>Cos</p>
+                                    <p>Cos, especialitat</p>
                                 </div>
                             </h1>
 
                             <v-container grid-list-md text-xs-center>
                                 <v-layout row wrap>
-                                    <v-flex md2>
-                                        <v-text-field
+                                    <v-flex md3>
+                                        <v-select
                                                 label="Cos"
-                                                v-model="force"
+                                                autocomplete
+                                                required
+                                                clearable
                                                 :error-messages="forceErrors"
                                                 @input="$v.force.$touch()"
                                                 @blur="$v.force.$touch()"
-                                                required
-                                        ></v-text-field>
+                                                :items="forces"
+                                                v-model="force"
+                                        >
+                                            <template slot="item" slot-scope="data">
+                                                {{data.item.code}} - {{data.item.name}}
+                                            </template>
+                                            <template slot="selection" slot-scope="data">
+                                                {{data.item.code}}
+                                            </template>
+                                        </v-select>
                                     </v-flex>
-                                    <v-flex md4>
+                                    <v-flex md5>
                                         <v-select
                                                 label="Especialitat"
                                                 autocomplete
                                                 required
                                                 clearable
-                                                item-text="code"
                                                 :error-messages="specialtyErrors"
                                                 @input="$v.specialty.$touch()"
                                                 @blur="$v.specialty.$touch()"
@@ -340,42 +340,69 @@
                                             </template>
                                         </v-select>
                                     </v-flex>
-                                    <v-flex md2>
+                                    <v-flex md4>
                                         <v-text-field
                                                 label="Any inici serveis ensenyament"
                                                 v-model="teacher_start_date"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex md2>
-                                        <v-text-field
-                                                label="Data incorporació centre"
-                                                v-model="start_date"
-                                                :error-messages="startDateErrors"
-                                                @input="$v.start_date.$touch()"
-                                                @blur="$v.start_date.$touch()"
-                                                required
-                                        ></v-text-field>
+                                    <v-flex md4>
+                                        <v-menu
+                                                lazy
+                                                :close-on-content-click="false"
+                                                v-model="startDateMenu"
+                                                transition="scale-transition"
+                                                offset-y
+                                                full-width
+                                                :nudge-right="40"
+                                                min-width="290px"
+                                        >
+                                            <v-text-field
+                                                    slot="activator"
+                                                    label="Data incorporació centre"
+                                                    v-model="start_date"
+                                                    :error-messages="startDateErrors"
+                                                    @input="$v.start_date.$touch()"
+                                                    @blur="$v.start_date.$touch()"
+                                                    required
+                                            ></v-text-field>
+                                            <v-date-picker
+                                                    locale="ca"
+                                                    v-model="start_date"
+                                                    min="1900-01-01"
+                                                    :max="new Date().toISOString().substr(0, 10)"
+                                            ></v-date-picker>
+                                        </v-menu>
                                     </v-flex>
-                                    <v-flex md2>
+                                    <v-flex md3>
                                         <v-text-field
                                                 label="Data aprovació oposicions"
                                                 v-model="opositions_date"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex md6>
-                                        <v-text-field
+                                    <v-flex md5>
+                                        <v-select
                                                 label="Situació administrativa"
-                                                v-model="administrative_status_id"
-                                                :error-messages="administrativeStatusErrors"
-                                                :counter="255"
-                                                @input="$v.administrativeStatus.$touch()"
-                                                @blur="$v.administrativeStatus.$touch()"
+                                                autocomplete
                                                 required
-                                        ></v-text-field>
+                                                clearable
+                                                :items="administrativeStatuses"
+                                                v-model="administrative_status"
+                                                :error-messages="administrativeStatusErrors"
+                                                @input="$v.administrative_status.$touch()"
+                                                @blur="$v.administrative_status.$touch()"
+                                        >
+                                            <template slot="item" slot-scope="data">
+                                                {{data.item.name}}
+                                            </template>
+                                            <template slot="selection" slot-scope="data">
+                                                {{data.item.name}}
+                                            </template>
+                                        </v-select>
                                     </v-flex>
                                     <v-flex md6>
                                         <v-text-field
-                                                label="Lloc destinació definitiva"
+                                                label="Lloc destinació definitiva (només comissió serveis)"
                                                 v-model="destination_place"
                                         ></v-text-field>
                                     </v-flex>
@@ -437,7 +464,7 @@
       specialty: { required },
       force: { required },
       start_date: { required },
-      administrativeStatus: { required },
+      administrative_status: { required },
       teacher: { required },
       checkbox: { required }
     },
@@ -487,15 +514,24 @@
         teacher_start_date: '',
         start_date: '',
         opositions_date: '',
-        administrative_status_id: '',
+        administrative_status: '',
         destination_place: '',
         teacher_id: '',
         checkbox: false,
-        birthdateMenu: false
+        birthdateMenu: false,
+        startDateMenu: false
       }
     },
     props: {
       specialties: {
+        type: Array,
+        required: true
+      },
+      forces: {
+        type: Array,
+        required: true
+      },
+      administrativeStatuses: {
         type: Array,
         required: true
       }
@@ -615,8 +651,8 @@
       },
       administrativeStatusErrors () {
         const errors = []
-        if (!this.$v.administrativeStatus.$dirty) return errors
-        !this.$v.administrativeStatus.required && errors.push('La situació administrativa és obligatòria')
+        if (!this.$v.administrative_status.$dirty) return errors
+        !this.$v.administrative_status.required && errors.push('La situació administrativa és obligatòria')
         return errors
       },
       teacherErrors () {

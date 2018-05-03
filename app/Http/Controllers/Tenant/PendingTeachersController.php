@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Models\AdministrativeStatus;
+use App\Models\Force;
 use App\Models\Specialty;
-use Illuminate\Http\Request;
 
 /**
  * Class PendingTeachersController.
@@ -18,6 +19,9 @@ class PendingTeachersController extends Controller
     public function show()
     {
         $specialties = Specialty::all();
-        return view ('tenants.teacher.show_pending_teacher', compact('specialties'));
+        $forces = Force::all();
+        $administrative_statuses = AdministrativeStatus::all();
+        return view ('tenants.teacher.show_pending_teacher',
+            compact('specialties','forces','administrative_statuses'));
     }
 }
