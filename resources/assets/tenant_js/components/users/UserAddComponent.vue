@@ -140,6 +140,7 @@
           }).then(response => {
             this.creating = false
             this.clear()
+            this.$v.$reset()
           }).catch(error => {
             if (error && error.status === 422) {
               this.errors = error.data && error.data.errors

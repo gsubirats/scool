@@ -31,7 +31,9 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->string('locality');
             $table->string('province');
             $table->string('email');
+            $table->string('other_emails')->nullable();
             $table->string('telephone');
+            $table->string('other_telephones')->nullable();
             $table->string('degree');
             $table->string('other_degrees')->nullable();
             $table->string('languages')->nullable();
@@ -40,9 +42,9 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->unsignedInteger('force_id'); //Cos
             $table->unsignedInteger('specialty_id'); // Especialitat
             $table->year('teacher_start_date')->nullable();
-            $table->year('start_date');
-            $table->date('opositions_date')->nullable();
-            $table->date('administrative_status_id');
+            $table->date('start_date');
+            $table->string('opositions_date')->nullable();
+            $table->unsignedInteger('administrative_status_id');
             $table->string('destination_place')->nullable();
             $table->unsignedInteger('teacher_id')->nullable(); // Subtitut de:
             $table->timestamps();

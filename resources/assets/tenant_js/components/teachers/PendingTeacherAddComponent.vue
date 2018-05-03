@@ -205,14 +205,6 @@
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md3>
-                                        <!--<v-text-field-->
-                                        <!--label="Correus electrònics"-->
-                                        <!--v-model="email"-->
-                                        <!--:error-messages="emailErrors"-->
-                                        <!--@input="$v.email.$touch()"-->
-                                        <!--@blur="$v.email.$touch()"-->
-                                        <!--required-->
-                                        <!--&gt;</v-text-field>-->
                                         <v-select
                                                 v-model="other_emails"
                                                 label="Altres correus"
@@ -234,10 +226,15 @@
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md2>
-                                        <v-text-field
-                                                label="Altres Telèfons"
+                                        <v-select
                                                 v-model="other_telephones"
-                                        ></v-text-field>
+                                                label="Altres Telèfons"
+                                                multiple
+                                                chips
+                                                tags
+                                                clearable
+                                                :items="[]"
+                                        ></v-select>
                                     </v-flex>
                                 </v-layout>
                             </v-container>
@@ -349,7 +346,6 @@
                                     <v-flex md4>
                                         <v-menu
                                                 lazy
-                                                :close-on-content-click="false"
                                                 v-model="startDateMenu"
                                                 transition="scale-transition"
                                                 offset-y
@@ -411,8 +407,8 @@
                                                 label="Professor al que substitueix"
                                                 v-model="teacher_id"
                                                 :error-messages="teacherErrors"
-                                                @input="$v.teacher.$touch()"
-                                                @blur="$v.teacher.$touch()"
+                                                @input="$v.teacher_id.$touch()"
+                                                @blur="$v.teacher_id.$touch()"
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md6>
@@ -443,10 +439,12 @@
 
 <script>
   import { validationMixin } from 'vuelidate'
+  import withSnackbar from '../mixins/withSnackbar'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import axios from 'axios'
 
   export default {
-    mixins: [validationMixin],
+    mixins: [validationMixin, withSnackbar],
     validations: {
       name: { required, maxLength: maxLength(255) },
       sn1: { required, maxLength: maxLength(255) },
@@ -465,7 +463,7 @@
       force: { required },
       start_date: { required },
       administrative_status: { required },
-      teacher: { required },
+      teacher_id: { required },
       checkbox: { required }
     },
     data () {
@@ -501,9 +499,9 @@
         locality: '',
         province: '',
         email: '',
-        other_emails: '',
+        other_emails: [],
         telephone: '',
-        other_telephones: '',
+        other_telephones: [],
         degree: '',
         other_degrees: '',
         languages: '',
@@ -657,8 +655,8 @@
       },
       teacherErrors () {
         const errors = []
-        if (!this.$v.teacher.$dirty) return errors
-        !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
+        if (!this.$v.teacher_id.$dirty) return errors
+        !this.$v.teacher_id.required && errors.push('Camp obligatori pels substituts')
         return errors
       }
     },
@@ -708,8 +706,81 @@
         }, 500)
       },
       submit () {
-        // TODO
-        console.log('Submitting!')
+        if (!this.$v.$invalid) {
+          axios.post('api/v1/add_teacher', {
+            name: this.name,
+            sn1: this.sn1,
+            sn2: this.sn2,
+            identifier: this.identifier,
+            birthdate: this.birthdate,
+            street: this.street,
+            number: this.number,
+            floor: this.floor,
+            floor_number: this.floor_number,
+            postal_code: this.postal_code,
+            locality: this.locality,
+            province: this.province,
+            email: this.email,
+            other_emails: this.other_emails.join(),
+            telephone: this.telephone,
+            other_telephones: this.other_telephones.join(),
+            degree: this.degree,
+            other_degrees: this.other_degrees,
+            languages: this.languages,
+            profiles: this.profiles,
+            other_training: this.other_training,
+            force_id: this.force.id,
+            specialty_id: this.specialty.id,
+            teacher_start_date: this.teacher_start_date,
+            start_date: this.start_date,
+            opositions_date: this.opositions_date,
+            administrative_status_id: this.administrative_status.id,
+            destination_place: this.destination_place,
+            teacher_id: this.teacher_id
+          }).then(response => {
+            console.log(response)
+            this.showMessage('Dades enviades correctament')
+            this.clear()
+            this.$v.$reset()
+          }).catch(error => {
+            console.log(error)
+            this.showError(error)
+          })
+        } else {
+          this.$v.$touch()
+        }
+      },
+      clear () {
+        this.name = ''
+        this.sn1 = ''
+        this.sn2 = ''
+        this.identifier = ''
+        this.birthdate = ''
+        this.street = ''
+        this.number = ''
+        this.floor = ''
+        this.floor_number = ''
+        this.postal_code = ''
+        this.locality = ''
+        this.province = ''
+        this.email = ''
+        this.other_emails = []
+        this.telephone = ''
+        this.other_telephones = []
+        this.degree = ''
+        this.other_degrees = ''
+        this.languages = ''
+        this.profiles = ''
+        this.other_training = ''
+        this.force = ''
+        this.specialty = ''
+        this.teacher_start_date = ''
+        this.start_date = ''
+        this.opositions_date = ''
+        this.administrative_status = ''
+        this.destination_place = ''
+        this.teacher_id = ''
+        this.checkbox = false
       },
       saveBirthdate (date) {
         this.$refs.menu.save(date)

@@ -42,6 +42,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/users', 'Tenant\UsersController@show');
 
             Route::get('/staff', 'Tenant\StaffController@show');
+
+            Route::get('/teachers/pending', 'Tenant\PendingTeachersController@index');
         });
 
         Route::get('/add_teacher', 'Tenant\PendingTeachersController@show');

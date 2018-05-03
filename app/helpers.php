@@ -502,7 +502,8 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
             'Manager',
             'Admin',
             'UsersManager',
-            'StaffManager'
+            'StaffManager',
+            'TeachersManager',
         ];
 
         // Manager
@@ -546,11 +547,18 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('StaffManager');
         });
 
+        //Pending teachers
+        Gate::define('list_pending_teachers', function ($user) {
+            return $user->hasRole('TeachersManager');
+        });
+
         Gate::before(function ($user, $ability) {
             if ($user->isSuperAdmin()) {
                 return true;
             }
         });
+
+
     }
 }
 

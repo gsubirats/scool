@@ -17,15 +17,18 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
             Route::put('/user', 'Tenant\LoggedUserController@update');
-        });
-
-        Route::group(['prefix' => 'v1'], function () {
-            Route::get('/menu', 'Tenant\MenuController@index');
 
             // USERS
             Route::get('/users', 'Tenant\UsersController@index');
             Route::post('/users', 'Tenant\UsersController@store');
             Route::delete('/users/{user}', 'Tenant\UsersController@destroy');
+        });
+
+        Route::group(['prefix' => 'v1'], function () {
+            Route::get('/menu', 'Tenant\MenuController@index');
+
+            Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
+
         });
     });
 });
