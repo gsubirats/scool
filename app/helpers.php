@@ -614,65 +614,69 @@ if (!function_exists('initialize_staff_types')) {
 if (!function_exists('initialize_staff')) {
     function initialize_staff()
     {
+        // ####################### HERE #####################
         // TODO continue here
-        
+
 
 //        // INFORMÀTICA
 //
-//        // 507 : 6
-//        for ($x = 1; $x = 6; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('507')->id,
-//                'family_id' => Family::findByCode('INF')->id,
-//            ]);
-//        }
-//
-//        for ($x = 1; $x = 5; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('627')->id,
-//                'family_id' => Family::findByCode('INF')->id,
-//            ]);
-//        }
-//
+
+
+
+//         507 : 6
+        for ($x = 1; $x <= 6; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('507')->id,
+                'family_id' => Family::findByCode('INF')->id,
+            ]);
+        }
+        // 627: 5
+        for ($x = 1; $x <= 5; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('627')->id,
+                'family_id' => Family::findByCode('INF')->id,
+            ]);
+        }
+
 //        // SANITAT
-//
-//        // 517 : 4
-//        for ($x = 1; $x = 4; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('517')->id,
-//                'family_id' => Family::findByCode('SANITAT')->id,
-//            ]);
-//        }
-//
-//        //518 : 4
-//        for ($x = 1; $x = 4; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('518')->id,
-//                'family_id' => Family::findByCode('SANITAT')->id,
-//            ]);
-//        }
+
+        // 517 : 4
+        for ($x = 1; $x <= 4; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('517')->id,
+                'family_id' => Family::findByCode('SANITAT')->id,
+            ]);
+        }
+
+        //518 : 4
+        for ($x = 1; $x <= 4; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('518')->id,
+                'family_id' => Family::findByCode('SANITAT')->id,
+            ]);
+        }
 //
 //        //619 : 5
-//        for ($x = 1; $x = 5; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('619')->id,
-//                'family_id' => Family::findByCode('SANITAT')->id,
-//            ]);
-//        }
+        for ($x = 1; $x <= 5; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('619')->id,
+                'family_id' => Family::findByCode('SANITAT')->id,
+            ]);
+        }
 //
-//        //620 : 11
-//        for ($x = 1; $x = 11; $x++) {
-//            Staff::firstOrCreate([
-//                'type_id' => StaffType::findByName('Professor/a')->id,
-//                'specialty_id' => Specialty::findByCode('620')->id,
-//                'family_id' => Family::findByCode('SANITAT')->id,
-//            ]);
-//        }
+        //620 : 11
+        for ($x = 1; $x <= 11; $x++) {
+            Staff::firstOrCreate([
+                'type_id' => StaffType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('620')->id,
+                'family_id' => Family::findByCode('SANITAT')->id,
+            ]);
+        }
     }
 }
 
@@ -729,13 +733,13 @@ if (!function_exists('initialize_specialities')) {
 
         Specialty::firstOrCreate([
             'code' => '517',
-            'name' => 'Informàtica',
+            'name' => 'Processos diagnòstics clínics i productes ortoprotètics',
             'type_id' => 1 // Cos -> Secundària
         ]);
 
         Specialty::firstOrCreate([
             'code' => '518',
-            'name' => 'Informàtica',
+            'name' => 'Processos sanitaris',
             'type_id' => 1 // Cos -> Secundària
         ]);
 

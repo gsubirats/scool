@@ -35,7 +35,6 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function show_staff_management()
     {
-        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
@@ -50,6 +49,7 @@ class StaffControllerTest extends BaseTenantTest
         $response->assertViewHas('staffTypes');
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
+        $response->assertViewHas('users');
 //        $response->assertViewHas('userTypes');
 //        $response->assertViewHas('roles');
     }

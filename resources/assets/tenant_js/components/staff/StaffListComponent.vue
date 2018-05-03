@@ -30,15 +30,12 @@
                                             {{ props.item.id }}
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ props.item.name }}
+                                            {{ props.item.type && props.item.type.name}}
                                         </td>
-                                        <td class="text-xs-left">{{ props.item.email }}</td>
-                                        <td class="text-xs-left">{{ props.item.type && props.item.type.name }}</td>
+                                        <td class="text-xs-left">{{ props.item.family && props.item.family.name}}</td>
+                                        <td class="text-xs-left">{{ props.item.specialty && props.item.specialty.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            <v-tooltip bottom>
-                                                <span slot="activator">{{ formatRoles(props.item) }}</span>
-                                                <span>{{ formatRoles(props.item) }}</span>
-                                            </v-tooltip>
+                                            {{ props.item.notes }}
                                         </td>
                                         <td class="text-xs-left">{{ props.item.formatted_created_at }}</td>
                                         <td class="text-xs-left">{{ props.item.formatted_updated_at }}</td>
@@ -48,14 +45,14 @@
                                             </v-btn>
                                             <v-btn icon class="mx-0" @click="showConfirmationDialog(props.item)">
                                                 <v-icon color="pink">delete</v-icon>
-                                                <v-dialog v-model="showDeleteUserDialog" max-width="500px">
+                                                <v-dialog v-model="showDeleteStaffDialog" max-width="500px">
                                                     <v-card>
                                                         <v-card-text>
-                                                            Esteu segurs que voleu eliminar aquest usuari?
+                                                            Esteu segurs que voleu eliminar aquesta plaça?
                                                         </v-card-text>
                                                         <v-card-actions>
-                                                            <v-btn flat @click.stop="showDeleteUserDialog=false">Cancel·lar</v-btn>
-                                                            <v-btn color="primary" @click.stop="deleteUser" :loading="deleting">Esborrar</v-btn>
+                                                            <v-btn flat @click.stop="showDeleteStaffDialog=false">Cancel·lar</v-btn>
+                                                            <v-btn color="primary">Esborrar</v-btn>
                                                         </v-card-actions>
                                                     </v-card>
                                                 </v-dialog>
@@ -203,16 +200,20 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import * as mutations from '../../store/mutation-types'
 
   export default {
     data () {
       return {
         search: '',
         deleting: false,
+        showDeleteStaffDialog: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
           {text: 'Tipus', align: 'left', value: 'type'},
-          {text: 'Família', value: 'department'},
+          {text: 'Família', value: 'family'},
+          {text: 'Especialitat', value: 'speciality'},
+          {text: 'Titular', value: 'titular'},
           {text: 'Observacions', value: 'notes'},
           {text: 'Accions', sortable: false}
         ]
@@ -228,6 +229,9 @@
         type: Array,
         required: true
       }
+    },
+    created () {
+      this.$store.commit(mutations.SET_STAFF, this.staff)
     }
   }
 </script>

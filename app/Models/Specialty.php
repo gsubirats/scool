@@ -24,4 +24,12 @@ class Specialty extends Model
         return static::where('code','=',$code)->first();
 
     }
+
+    /**
+     * Get the staff associated to the family.
+     */
+    public function staff()
+    {
+        return $this->hasMany(Staff::class);
+    }
 }

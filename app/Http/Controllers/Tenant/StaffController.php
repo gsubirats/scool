@@ -7,6 +7,7 @@ use App\Models\Family;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
+use App\Models\User;
 
 /**
  * Class StaffController.
@@ -23,15 +24,17 @@ class StaffController extends Controller
      */
     public function show(ShowStaffManagement $request)
     {
-        $staff = Staff::all();
+        $staff = Staff::with('type','family','specialty')->get();
         $staffTypes = StaffType::all();
-        $specialties = Specialty::all();
-        $families = Family::all();
+        $specialties = Specialty::with('staff','staff.family')->get();
+        $families = Family::with('staff','staff.specialty')->get();
+        $users = User::all();
         return view('tenants.staff.show',compact(
             'staff',
             'staffTypes',
             'specialties',
-            'families'
+            'families',
+            'users'
         ));
     }
 }

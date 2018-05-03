@@ -37,38 +37,46 @@
                                                 single-line
                                         ></v-select>
 
-                                        <!--<v-text-field-->
-                                                <!--label="Correu electrònic"-->
-                                                <!--v-model="email"-->
-                                                <!--:error-messages="emailErrors"-->
-                                                <!--@input="$v.email.$touch()"-->
-                                                <!--@blur="$v.email.$touch()"-->
-                                                <!--required-->
-                                        <!--&gt;</v-text-field>-->
-                                        <!--<v-text-field-->
-                                                <!--label="Paraula de pas (no és obligatoria)"-->
-                                                <!--v-model="password"-->
-                                                <!--type="password"-->
-                                        <!--&gt;</v-text-field>-->
-                                        <!--<v-select-->
-                                                <!--@change="selectedUserType"-->
-                                                <!--:items="userTypes"-->
-                                                <!--v-model="userType"-->
-                                                <!--item-text="name"-->
-                                                <!--label="Tipus usuari"-->
-                                                <!--:clearable="true"-->
-                                                <!--single-line-->
-                                        <!--&gt;</v-select>-->
+                                        <v-select
+                                                label="Escolliu un titular"
+                                                :items="users"
+                                                v-model="holder"
+                                                item-text="name"
+                                                item-value="name"
+                                                chips
+                                                max-height="auto"
+                                                autocomplete
+                                        >
+                                            <template slot="selection" slot-scope="data">
+                                                <v-chip
+                                                        close
+                                                        @input="data.parent.selectItem(data.item)"
+                                                        :selected="data.selected"
+                                                        class="chip--select-multi"
+                                                        :key="JSON.stringify(data.item)"
+                                                >
+                                                    <v-avatar>
+                                                        <img :src="data.item.avatar">
+                                                    </v-avatar>
+                                                    {{ data.item.name }}
+                                                </v-chip>
+                                            </template>
+                                            <template slot="item" slot-scope="data">
+                                                <template v-if="typeof data.item !== 'object'">
+                                                    <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                                                </template>
+                                                <template v-else>
+                                                    <v-list-tile-avatar>
+                                                        <img :src="data.item.avatar">
+                                                    </v-list-tile-avatar>
+                                                    <v-list-tile-content>
+                                                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                                                        <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
+                                                    </v-list-tile-content>
+                                                </template>
+                                            </template>
+                                        </v-select>
 
-                                        <!--<v-select-->
-                                                <!--:items="roles"-->
-                                                <!--v-model="role"-->
-                                                <!--item-text="name"-->
-                                                <!--label="Rol"-->
-                                                <!--:clearable="true"-->
-                                                <!--single-line-->
-                                                <!--multiple-->
-                                        <!--&gt;</v-select>-->
 
                                         <v-btn @click="create"
                                                :loading="creating">Crear</v-btn>
@@ -96,7 +104,8 @@
         creating: false,
         staffType: null,
         specialty: null,
-        family: null
+        family: null,
+        holder: null
       }
     },
     props: {
@@ -111,6 +120,10 @@
       families: {
         type: Array,
         required: true
+      },
+      users: {
+        type: Array,
+        required: true
       }
     },
     methods: {
@@ -121,6 +134,7 @@
         this.staffType = null
         this.specialty = null
         this.family = null
+        this.holder = null
       }
     }
   }

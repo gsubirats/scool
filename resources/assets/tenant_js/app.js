@@ -27,6 +27,9 @@ Vue.component('user-add', require('./components/users/UserAddComponent.vue'));
 
 Vue.component('staff-list', require('./components/staff/StaffListComponent.vue'));
 Vue.component('staff-add', require('./components/staff/StaffAddComponent.vue'));
+Vue.component('staff-list-by-family', require('./components/staff/StaffListByFamilyComponent.vue'));
+Vue.component('staff-list-by-specialty', require('./components/staff/StaffListBySpecialtyComponent.vue'));
+Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
