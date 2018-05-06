@@ -95,10 +95,6 @@
       }
     },
     props: {
-      userTypes: {
-        type: Array,
-        required: true
-      },
       roles: {
         type: Array,
         required: true
@@ -163,6 +159,16 @@
         this.userType = null
         this.role = []
       }
+    },
+    created () {
+      this.userTypes = [
+        { name: 'Professor/a', roles: ['Professor'] },
+        { name: 'Alumne/a', roles: ['Professor'] },
+        { name: 'Personal de consergeria', roles: ['Conserge'] },
+        { name: "Personal d'administració", roles: ['Administratiu'] },
+        { name: 'Familiar', roles: ['Familiar'] }
+      ]
     }
   }
 </script>
+

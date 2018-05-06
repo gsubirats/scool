@@ -60,7 +60,6 @@ class UsersControllerTest extends BaseTenantTest
             'formatted_created_at',
             'formatted_updated_at',
             'admin',
-            'type'
         ]]);
 
         foreach ( [$manager, $user2, $user3] as $user) {
@@ -123,7 +122,6 @@ class UsersControllerTest extends BaseTenantTest
         $response->assertJsonFragment([
             'name' => 'Pepe Pardo',
             'email' =>'pepepardo@jeans.com',
-            'type',
             'roles' => [ 'Role1', 'Role2']
         ]);
 
@@ -149,7 +147,9 @@ class UsersControllerTest extends BaseTenantTest
     {
         $manager = create(User::class);
         $this->actingAs($manager,'api');
-        $role = Role::firstOrCreate(['name' => 'UsersManager']);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager'
+        ]);
         Config::set('auth.providers.users.model', User::class);
         $manager->assignRole($role);
 
@@ -162,6 +162,7 @@ class UsersControllerTest extends BaseTenantTest
     /** @test */
     public function user_with_role_manager_can_see_users_management()
     {
+        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user);
         $role = Role::firstOrCreate(['name' => 'UsersManager']);

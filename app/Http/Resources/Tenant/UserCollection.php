@@ -30,7 +30,6 @@ class UserCollection
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'type' => $user->type,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
                 'roles' => $user->roles->pluck('name')->unique()->toArray(),

@@ -49,8 +49,8 @@ class PendingTeachersControllerTest extends BaseTenantTest
     public function regular_user_cannot_see_pending_teachers()
     {
         $user = create(User::class);
-        $this->actingAs($user);
-        $response = $this->get('/teachers/pending');
+        $this->actingAs($user,'api');
+        $response = $this->get('/api/v1/pending_teachers');
         $response->assertStatus(403);
 
     }
@@ -58,9 +58,13 @@ class PendingTeachersControllerTest extends BaseTenantTest
     /** @test */
     public function teacher_manager_can_see_pending_teachers()
     {
+        $this->withoutExceptionHandling();
         $teachersManager = create(User::class);
-        $this->actingAs($teachersManager);
-        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        $this->actingAs($teachersManager,'api');
+        $role = Role::firstOrCreate([
+            'name' => 'TeachersManager',
+            'guard_name' => 'web'
+        ]);
         Config::set('auth.providers.users.model', User::class);
         $teachersManager->assignRole($role);
 
@@ -128,7 +132,7 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'teacher_id' => 1
         ]);
 
-        $response = $this->get('/teachers/pending');
+        $response = $this->json('GET','/api/v1/pending_teachers');
 
         $response->assertSuccessful();
 

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <user-add :user-types="{{ $userTypes }}" :roles="{{ $roles }}"></user-add>
+    <user-add :roles="{{ $roles }}"></user-add>
 
     <users-list :users="{{ $users }}"></users-list>
 

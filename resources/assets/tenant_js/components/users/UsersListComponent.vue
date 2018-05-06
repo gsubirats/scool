@@ -33,7 +33,6 @@
                                         {{ props.item.name }}
                                     </td>
                                     <td class="text-xs-left">{{ props.item.email }}</td>
-                                    <td class="text-xs-left">{{ props.item.type && props.item.type.name }}</td>
                                     <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                         <v-tooltip bottom>
                                             <span slot="activator">{{ formatRoles(props.item) }}</span>
@@ -213,7 +212,6 @@
           {text: 'Id', align: 'left', value: 'id'},
           {text: 'Name', value: 'name'},
           {text: 'Email', value: 'email'},
-          {text: 'Típus', value: 'type'},
           {text: 'Rols', value: 'roles', sortable: false},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},

@@ -31,6 +31,9 @@ Vue.component('staff-list-by-family', require('./components/staff/StaffListByFam
 Vue.component('staff-list-by-specialty', require('./components/staff/StaffListBySpecialtyComponent.vue'));
 Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
 
+Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));
+Vue.component('teachers', require('./components/teachers/TeachersComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 

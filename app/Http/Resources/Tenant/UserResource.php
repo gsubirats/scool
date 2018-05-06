@@ -39,7 +39,6 @@ class UserResource extends JsonResource
             'updated_at' => $this->updated_at,
             'formatted_created_at' => $this->formatted_created_at,
             'formatted_updated_at' => $this->formatted_updated_at,
-            'type' => $this->type,
             'roles' => $roles,
             'permissions' => $permissions,
         ];

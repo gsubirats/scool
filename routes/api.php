@@ -22,6 +22,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/users', 'Tenant\UsersController@index');
             Route::post('/users', 'Tenant\UsersController@store');
             Route::delete('/users/{user}', 'Tenant\UsersController@destroy');
+
+            Route::get('/pending_teachers', 'Tenant\PendingTeachersController@index');
         });
 
         Route::group(['prefix' => 'v1'], function () {

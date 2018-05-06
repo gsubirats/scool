@@ -18,3 +18,7 @@ export const DELETE_USER = 'DELETE_USER'
 // STAFF
 export const SET_STAFF = 'SET_STAFF'
 
+// TEACHERS
+export const SET_PENDING_TEACHERS = 'SET_PENDING_TEACHERS'
+export const SET_TEACHERS = 'SET_TEACHERS'
+

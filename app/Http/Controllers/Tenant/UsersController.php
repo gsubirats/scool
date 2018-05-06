@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function show(ShowUsersManagement $request)
     {
-        $users = (new UserCollection(User::with('type','roles')->get()))->transform();
+        $users = (new UserCollection(User::with('roles')->get()))->transform();
         $userTypes = (new UserTypesCollection(UserType::with('roles')->get()))->transform();
         $roles = Role::all()->pluck('name');
         return view('tenants.users.show',compact('users','userTypes','roles'));
@@ -40,7 +40,7 @@ class UsersController extends Controller
      */
     public function index(ShowUsersManagement $request)
     {
-        return User::with('type')->get();
+        return User::all();
     }
 
     /**
@@ -52,11 +52,6 @@ class UsersController extends Controller
     public function store(AddUser $request)
     {
         $user = $this->storeUser($request);
-
-        if ($request->type) {
-            $user->type()->associate(UserType::findByName($request->type));
-            $user->save();
-        }
 
         if ($request->roles) {
             foreach ( $request->roles as $role) {

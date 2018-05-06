@@ -1,0 +1,4 @@
+- Fotos dels professors de Linux 2: guardar a Storega com privat
+- Laravel seeeder de tota la llista de professors: crear els becaris, fer PR
+- Especialitats i places el mateix que amb professors: demanar full càlcul excel a Manu/Cap estudis per omplir
+- Seeders: dades privades personals: repositori privat? Ignorar fitxers a .gitignore i només tenir-los en local

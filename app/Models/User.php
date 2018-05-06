@@ -69,6 +69,49 @@ class User extends Authenticatable
      */
     public function type()
     {
-        return $this->belongsTo(UserType::class);
+        // TODO
+    }
+
+    /**
+     * Create user if no user with same email exists.
+     *
+     * @param $data
+     * @return mixed
+     */
+    public static function createIfNotExists($data)
+    {
+        if (! $user = self::where('email','=',$data['email'])->first()) return self::create($data);
+        return $user;
+    }
+
+
+    /**
+     * Assign role but not fail if role is already assigned.
+     *
+     * @param $role
+     * @return $this
+     */
+    public function addRole($role)
+    {
+        if (!$this->hasRole($role)) $this->assignRole($role);
+        return $this;
+    }
+
+    /**
+     * Get the staffs for the user.
+     */
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
+
+    /**
+     * Assign staff.
+     *
+     * @param $staff
+     */
+    public function assignStaff($staff)
+    {
+        $this->staffs()->save($staff);
     }
 }

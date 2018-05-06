@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import snackbar from './modules/snackbar'
 import users from './modules/users'
 import staff from './modules/staff'
+import teachers from './modules/teachers'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     auth,
     snackbar,
     users,
-    staff
+    staff,
+    teachers
   },
   strict: debug
 })

@@ -24,6 +24,8 @@ class TenantDatabaseSeeder extends Seeder
         initialize_specialities();
         initialize_administrative_statuses();
         initialize_families();
-        initialize_staff();
+
+        initialize_users();
+        initialize_teachers();
     }
 }

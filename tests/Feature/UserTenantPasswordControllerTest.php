@@ -37,7 +37,6 @@ class UserTenantPasswordControllerTest extends TestCase
 
         $response->assertSuccessful();
         $user= $user->fresh();
-//        dump($user->password);
         $this->assertTrue(Hash::check('newsecret', $user->password));
     }
 

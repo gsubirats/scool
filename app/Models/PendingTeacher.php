@@ -12,4 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 class PendingTeacher extends Model
 {
     protected $guarded = [];
+
+    /**
+     * Get the teacher specialty.
+     */
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class);
+    }
 }

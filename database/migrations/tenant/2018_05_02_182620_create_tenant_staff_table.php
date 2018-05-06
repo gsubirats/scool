@@ -18,6 +18,7 @@ class CreateTenantStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code')->unique();
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('specialty_id')->nullable();
             $table->unsignedInteger('family_id')->nullable();

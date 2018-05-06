@@ -50,8 +50,6 @@ class StaffControllerTest extends BaseTenantTest
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
         $response->assertViewHas('users');
-//        $response->assertViewHas('userTypes');
-//        $response->assertViewHas('roles');
     }
 
     /** @test */
