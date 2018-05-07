@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Events\TeacherPhotosUploaded;
+use App\Http\Requests\ShowTeacherPhoto;
 use App\Http\Requests\ShowTeachersPhotosManagment;
 use App\Http\Requests\StoreTeachersPhotosManagment;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use ZipArchive;
 
 /**
@@ -22,8 +25,23 @@ class TeachersPhotosController extends Controller
      */
     public function show(ShowTeachersPhotosManagment $request)
     {
-        $photos = [];
-        return view('tenants.teachers.photos.show', compact('pendingTeachers','photos'));
+
+        $photos = collect(File::allFiles(storage_path('201718/teachers')))->map(function ($photo) {
+                return [
+                  'filename' => $filename = $photo->getFilename(),
+                  'slug' => str_slug($filename,'-')
+                ];
+            });
+
+        return view('tenants.teachers.photos.show', compact('photos'));
+    }
+
+    /**
+     * Show photo
+     */
+    public function showPhoto(ShowTeacherPhoto $request, $photo_slug)
+    {
+
     }
 
     /**

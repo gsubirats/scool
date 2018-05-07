@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <teachers-photos></teachers-photos>
+    <teachers-photos :available-photos="{{ $photos }}"></teachers-photos>
 
 @endsection
 
