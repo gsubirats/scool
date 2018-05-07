@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Tenants;
 
+use App\Events\TeacherPhotosUploaded;
 use App\Models\User;
 use Config;
+use Event;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\Testing\File;
+use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
 use Storage;
 use Tests\BaseTenantTest;
@@ -57,7 +60,24 @@ class TeacherPhotosControllerTest extends BaseTenantTest
 
         $response->assertSuccessful();
         $response->assertViewIs('tenants.teachers.photos.show');
-//        $response->assertViewHas('staff');
+        $response->assertViewHas('photos');
+
+    }
+
+    /** @test */
+    public function manager_teacher_photos_can_see_a_teacher_photo()
+    {
+        $photoTeachersManager = create(User::class);
+        $this->actingAs($photoTeachersManager);
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+
+        $photo_slug = '40_sergi_tur_badenas';
+        $response = $this->json('GET','/teachers_photos/' . $photo_slug);
+
+        $response->assertSuccessful();
+
 
     }
 
@@ -73,23 +93,64 @@ class TeacherPhotosControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    function teacher_photos_are_uploaded()
+    function teacher_photos_validate_zip()
     {
-        $this->withoutExceptionHandling();
-        Storage::fake('teacher_photos');
+        $file = File::create('not-a-poster.pdf');
+        Storage::fake('local');
         $photoTeachersManager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
         Config::set('auth.providers.users.model', User::class);
         $photoTeachersManager->assignRole($role);
         $this->actingAs($photoTeachersManager, 'api');
         $response = $this->json('POST','/api/v1/teachers_photos', [
-            'teacher_photos' => File::create('photos.zip'),
+            'teacher_photos' => $file
+        ]);
+
+        $response->assertStatus(422);
+        $result =json_decode($response->getContent());
+        $this->assertEquals($result->message,'The given data was invalid.');
+        $this->assertEquals($result->errors->teacher_photos[0],'The teacher photos must be a file of type: zip.');
+    }
+
+    /** @test */
+    function teacher_photos_validation()
+    {
+        Storage::fake('local');
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager, 'api');
+        $response = $this->json('POST','/api/v1/teachers_photos');
+
+        $response->assertStatus(422);
+        $result =json_decode($response->getContent());
+        $this->assertEquals($result->message,'The given data was invalid.');
+        $this->assertEquals($result->errors->teacher_photos[0],'The teacher photos field is required.');
+    }
+
+    /** @test */
+    function teacher_photos_are_uploaded()
+    {
+        Storage::fake('local');
+        Event::fake();
+
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager, 'api');
+        $response = $this->json('POST','/api/v1/teachers_photos', [
+            'teacher_photos' => UploadedFile::fake()->create('photos.zip')
         ]);
 
         $response->assertSuccessful();
+        $path = $response->getContent();
 
+        Storage::disk('local')->assertExists($path);
+        Event::assertDispatched(TeacherPhotosUploaded::class, function ($e) use ($path) {
+            return $e->path === $path;
+        });
 
-//        Storage::disk('teacher_photos')->assertExists('TODO_PATH');
-//        Storage::disk('teacher_photos')->assertExists(Concert::first()->poster_image_path);
     }
 }

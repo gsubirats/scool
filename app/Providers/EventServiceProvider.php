@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\TeacherPhotosUploaded;
 use App\Events\TenantCreated;
 use App\Listeners\CreateTenantDatabase;
+use App\Listeners\UnzipTeacherPhotos;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 /**
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         TenantCreated::class => [
             CreateTenantDatabase::class,
         ],
+        TeacherPhotosUploaded::class => [
+            UnzipTeacherPhotos::class
+        ]
     ];
 
     /**

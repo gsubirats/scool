@@ -29,7 +29,7 @@ class StoreTeachersPhotosManagment extends FormRequest
     public function rules()
     {
         return [
-            //
+            'teacher_photos' => 'required|mimes:zip'
         ];
     }
 }
