@@ -34,6 +34,8 @@ Vue.component('pending-teacher-add', require('./components/teachers/PendingTeach
 Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));
 Vue.component('teachers', require('./components/teachers/TeachersComponent.vue'));
 
+Vue.component('teachers-photos', require('./components/teachers/TeachersPhotosComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 

@@ -26,6 +26,6 @@ class TenantDatabaseSeeder extends Seeder
         initialize_families();
 
         initialize_users();
-        initialize_teachers();
+//        initialize_teachers();
     }
 }

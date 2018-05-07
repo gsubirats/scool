@@ -45,6 +45,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::get('/teachers', 'Tenant\TeachersController@show');
 
+            Route::get('/teachers_photos', 'Tenant\TeachersPhotosController@show');
+
         });
 
         Route::get('/add_teacher', 'Tenant\PendingTeachersController@show');

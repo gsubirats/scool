@@ -31,6 +31,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
 
+            Route::post('/teachers_photos', 'Tenant\TeachersPhotosController@store');
+
         });
     });
 });

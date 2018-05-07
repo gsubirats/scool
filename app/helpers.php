@@ -508,6 +508,7 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
             'UsersManager',
             'StaffManager',
             'TeachersManager',
+            'PhotoTeachersManager'
         ];
 
         // Manager
@@ -555,6 +556,14 @@ if (!function_exists('initialize_gates')) {
         //Teachers
         Gate::define('show-teachers', function ($user) {
             return $user->hasRole('TeachersManager');
+        });
+
+        Gate::define('show-teachers-photos', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
+        Gate::define('store-teachers-photos', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
         });
 
         //Pending teachers
@@ -609,6 +618,12 @@ if (!function_exists('initialize_menus')) {
             'role' => 'TeachersManager'
         ]);
 
+        Menu::firstOrCreate([
+            'text' => 'Fotos Professorat',
+            'href' => '/teachers_photos',
+            'role' => 'PhotoTeachersManager'
+        ]);
+
 
         Menu::firstOrCreate([
             'text' => 'Configuració general',
@@ -647,8 +662,10 @@ if (!function_exists('initialize_users')) {
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()
     {
+        dump('initialize_teachers');
         User::createIfNotExists([
             'name' => 'Dolors Sanjuan Aubà',
+            'code' => '02',
             'email' => 'dolorssanjuanauba@iesebre.com',
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
@@ -747,6 +764,8 @@ if (!function_exists('initialize_teachers')) {
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Professor'));
+
+        dump('initialize_teacher ENDs');
     }
 }
 
