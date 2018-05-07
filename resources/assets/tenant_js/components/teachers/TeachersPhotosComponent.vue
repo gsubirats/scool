@@ -29,7 +29,7 @@
             <template slot="item" slot-scope="data">
                 <template>
                     <v-list-tile-avatar>
-                        <img :src="'/teacher_photos/' + data.item.slug">
+                        <img :src="'/teachers_photos/' + data.item.slug">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title v-html="data.item.filename"></v-list-tile-title>

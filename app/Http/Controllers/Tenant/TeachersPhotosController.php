@@ -26,7 +26,7 @@ class TeachersPhotosController extends Controller
     public function show(ShowTeachersPhotosManagment $request)
     {
 
-        $photos = collect(File::allFiles(storage_path('201718/teachers')))->map(function ($photo) {
+        $photos = collect(File::allFiles(storage_path('photos/teachers')))->map(function ($photo) {
                 return [
                   'filename' => $filename = $photo->getFilename(),
                   'slug' => str_slug($filename,'-')
@@ -39,9 +39,31 @@ class TeachersPhotosController extends Controller
     /**
      * Show photo
      */
-    public function showPhoto(ShowTeacherPhoto $request, $photo_slug)
+    public function showPhoto(ShowTeacherPhoto $request, $tenant, $photo_slug)
     {
+        $photo = $this->obtainPhotoBySlug($photo_slug);
+        return response()->file($photo->getPathName());
+    }
 
+    /**
+     * Obtain photo by slug.
+     *
+     * @param $slug
+     * @return mixed
+     */
+    protected function obtainPhotoBySlug($slug)
+    {
+        $photos = collect(File::allFiles(storage_path('photos/teachers')))->map(function ($photo) {
+            return [
+                'file' => $photo,
+                'filename' => $filename = $photo->getFilename(),
+                'slug' => str_slug($filename,'-')
+            ];
+        });
+//        dd($photos);
+        return $photos[$photos->search(function ($photo) use ($slug){
+            return $photo['slug'] ===  $slug;
+        })]['file'];
     }
 
     /**
