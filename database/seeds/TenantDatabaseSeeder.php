@@ -21,10 +21,9 @@ class TenantDatabaseSeeder extends Seeder
         create_admin_user();
         initialize_staff_types();
         initialize_forces();
+        initialize_families();
         initialize_specialities();
         initialize_administrative_statuses();
-        initialize_families();
-
         initialize_users();
 //        initialize_teachers();
     }
