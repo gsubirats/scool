@@ -1004,7 +1004,7 @@ if (!function_exists('initialize_specialities')) {
         // Arts gràfiques
         Specialty::firstOrCreate([
             'code' => '522',
-            'name' => 'Processos i productes arts gràfiques.',
+            'name' => "Processos i productes d'arts gràfiques.",
             'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
