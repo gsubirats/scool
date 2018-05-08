@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Tenant;
+
 use App\Events\UnassignedTeacherPhotoUploaded;
 use App\Http\Controllers\Tenant\Traits\PhotoSlug;
 use App\Http\Requests\DestroyUnassignedTeacherPhoto;
@@ -56,7 +57,7 @@ class UnassignedTeacherPhotoController extends Controller
     /**
      * Destroy.
      */
-    public function destroy(DestroyUnassignedTeacherPhoto $request, $slug)
+    public function destroy(DestroyUnassignedTeacherPhoto $request, $tenant, $slug)
     {
         $file = $this->obtainPhotoBySlug($slug);
 
