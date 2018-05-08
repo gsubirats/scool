@@ -678,7 +678,6 @@ if (!function_exists('initialize_users')) {
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()
     {
-        dump('initialize_teachers');
         User::createIfNotExists([
             'name' => 'Dolors Sanjuan Aubà',
             'code' => '02',
@@ -686,102 +685,19 @@ if (!function_exists('initialize_teachers')) {
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Professor'))
+        ->assignName(Name::firstOrCreate([
+            'givenName' => 'Dolors',
+            'sn1' => 'Sanjuan',
+            'sn2' => 'Aubà',
+        ]))
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
+                'code' => '002'
             ])
-        );
-
-
-
-
-        User::createIfNotExists([
-            'name' => 'Maria Cinta Lluisa Grau Campeon',
-            'email' => 'lluisagrau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Dolors Sanjuan Aubà',
-            'email' => 'dolorssanjuanauba@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Enric Querol Coll',
-            'email' => 'equerol@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Lara Melich Callado',
-            'email' => 'laramelich@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Santiago Sabaté Sanz',
-            'email' => 'ssabate@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Jordi Varas Aliau',
-            'email' => 'jvaras@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Sergi Tur Badenas',
-            'email' => 'stur@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Jaume Ramos Prades',
-            'email' => 'jaumeramos@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Mireia Consarnau Pallarés',
-            'email' => 'mconsarnau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Manel Macias Valenzuela',
-            'email' => 'mmacias@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Lluís Peréz Càrcel',
-            'email' => 'lluisperez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        User::createIfNotExists([
-            'name' => 'Quique Lorente Fuertes',
-            'email' => 'lluisperez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'));
-
-        dump('initialize_teacher ENDs');
+        )->situation('D')->assignTeacherCode('002');
     }
 }
 
