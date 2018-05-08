@@ -31,7 +31,7 @@ class StoreUnassignedTeacherPhotos extends FormRequest
     public function rules()
     {
         return [
-            //
+            'photos' => 'required|mimetypes:application/zip,application/octet-stream'
         ];
     }
 }

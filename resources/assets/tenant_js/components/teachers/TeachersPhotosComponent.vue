@@ -62,15 +62,15 @@
                     type="file"
                     name="teacher_photo"
                     accept="image/*"
-                    :disabled="uploadingZip"
+                    :disabled="uploading"
                     @change="photoChange"/>
 
             <input
                     ref="zip"
                     type="file"
-                    name="photo"
+                    name="photos"
                     accept="application/zip, application/octet-stream"
-                    :disabled="uploading"
+                    :disabled="uploadingZip"
                     @change="zipChange"/>
 
         </form>
@@ -237,7 +237,7 @@
         let target = event.target || event.srcElement
         if (target.value.length !== 0) {
           const formData = new FormData()
-          formData.append('teacher_photos', this.$refs.zip.files[0])
+          formData.append('photos', this.$refs.zip.files[0])
 
           this.saveZip(formData)
         }
