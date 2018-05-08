@@ -871,26 +871,7 @@ if (!function_exists('initialize_administrative_statuses')) {
 if (!function_exists('initialize_specialities')) {
     function initialize_specialities()
     {
-        // Cos -> Secundària
-        Specialty::firstOrCreate([
-            'code' => 'MA',
-            'name' => 'Matemàtiques',
-            'force_id' => Force::findByCode('SECUNDARIA')->id
-        ]);
-
-        // Cos -> Secundària
-        Specialty::firstOrCreate([
-            'code' => 'AN',
-            'name' => 'Àngles',
-            'force_id' => Force::findByCode('SECUNDARIA')->id
-        ]);
-
-        Specialty::firstOrCreate([
-            'code' => '507',
-            'name' => 'Informàtica',
-            'force_id' => Force::findByCode('SECUNDARIA')->id
-        ]);
-
+        // Sanitat
         Specialty::firstOrCreate([
             'code' => '517',
             'name' => 'Processos diagnòstics clínics i productes ortoprotètics',
@@ -907,20 +888,172 @@ if (!function_exists('initialize_specialities')) {
         Specialty::firstOrCreate([
             'code' => '619',
             'name' => 'Procediments de diagnòstic clínic i productes ortoprotètics',
-            'force_id' => Force::findByCode('SECUNDARIA')->id
+            'force_id' => Force::findByCode('PT')->id
         ]);
 
         // Cos -> Professors tècnics de formació professional
         Specialty::firstOrCreate([
             'code' => '620',
             'name' => 'Procediments sanitaris i assistencials ',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Serveis socioculturals i a la comunitat
+        Specialty::firstOrCreate([
+            'code' => '508',
+            'name' => 'Intervenció sociocomunitària',
             'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
+        Specialty::firstOrCreate([
+            'code' => '625',
+            'name' => 'Serveis a la comunitat',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Administració i finances
+        Specialty::firstOrCreate([
+            'code' => '501',
+            'name' => 'Administració d’Empreses',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '622',
+            'name' => 'Processos de Gestió Administrativa',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Comerç i marqueting
+        Specialty::firstOrCreate([
+            'code' => '510',
+            'name' => 'Organització i gestió comercial',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '621',
+            'name' => 'Processos comercials',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Informática
+        Specialty::firstOrCreate([
+            'code' => '507',
+            'name' => 'Informàtica',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
 
         Specialty::firstOrCreate([
             'code' => '627',
             'name' => 'Sistemes i aplicacions informàtiques',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Electricitat i electrònica/ Energia i aigua
+        Specialty::firstOrCreate([
+            'code' => '524',
+            'name' => 'Sistemes electrònics',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '525',
+            'name' => 'Sistemes electrònics i automàtics',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '513',
+            'name' => 'Organització i projectes de sistemes energètics',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '602',
+            'name' => 'Equips electrònics',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '605',
+            'name' => 'Instal·lació i manteniment d’equips tèrmics i de fluids',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '606',
+            'name' => 'Instal·lacions electrotècniques',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        // Fabricació mecànica/ Instal·lació i manteniment
+        Specialty::firstOrCreate([
+            'code' => '512',
+            'name' => 'Organització i projectes de fabricació mecànica',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '611',
+            'name' => 'Mecanització i manteniment de màquines',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Arts gràfiques
+        Specialty::firstOrCreate([
+            'code' => '522',
+            'name' => 'Processos i productes arts gràfiques.',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '623',
+            'name' => 'Producció en arts gràfiques',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+
+        // Edificació i obra civil
+        Specialty::firstOrCreate([
+            'code' => '504',
+            'name' => 'Construccions civils i edificació',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => '612',
+            'name' => 'Oficina de projectes de construcció',
+            'force_id' => Force::findByCode('PT')->id
+        ]);
+
+        // Cursos d’accés
+        // Cos -> Secundària
+        Specialty::firstOrCreate([
+            'code' => 'MA',
+            'name' => 'Matemàtiques',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        Specialty::firstOrCreate([
+            'code' => 'CAS',
+            'name' => 'Castellà',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+        // Departament de llengües estrangeres
+        // Cos -> Secundària
+        Specialty::firstOrCreate([
+            'code' => 'AN',
+            'name' => 'Àngles',
+            'force_id' => Force::findByCode('SECUNDARIA')->id
+        ]);
+
+
+        // FOL
+        Specialty::firstOrCreate([
+            'code' => '505',
+            'name' => 'Formació i orientació laboral',
             'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
