@@ -875,7 +875,8 @@ if (!function_exists('initialize_specialities')) {
         Specialty::firstOrCreate([
             'code' => '517',
             'name' => 'Processos diagnòstics clínics i productes ortoprotètics',
-            'force_id' => Force::findByCode('SECUNDARIA')->id
+            'force_id' => Force::findByCode('SECUNDARIA')->id,
+            'family_id' => Family::findByCode('SANITAT')
         ]);
 
         Specialty::firstOrCreate([
