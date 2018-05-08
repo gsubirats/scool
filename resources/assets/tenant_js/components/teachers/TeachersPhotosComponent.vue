@@ -61,17 +61,17 @@
                     ref="photo"
                     type="file"
                     name="teacher_photo"
-                    accept="application/zip, application/octet-stream"
-                    :disabled="uploading"
-                    @change="zipChange"/>
+                    accept="image/*"
+                    :disabled="uploadingZip"
+                    @change="photoChange"/>
 
             <input
                     ref="zip"
                     type="file"
                     name="photo"
-                    accept="image/*"
+                    accept="application/zip, application/octet-stream"
                     :disabled="uploading"
-                    @change="photoChange"/>
+                    @change="zipChange"/>
 
         </form>
 
@@ -290,7 +290,7 @@
             this.refresh()
           })
           .catch(error => {
-            this.uploading = false
+            this.uploadingZip = false
             console.log(error)
             this.errors = error.data && error.data.errors
             this.showError(error)
