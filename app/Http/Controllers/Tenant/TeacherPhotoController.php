@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Controllers\Tenant\Traits\PhotoSlug;
 use App\Http\Requests\ShowTeacherPhoto;
 use App\Http\Requests\StoreTeacherPhoto;
 use App\Models\User;
-use File;
 
 /**
  * Class TeacherPhotoController.
@@ -14,6 +14,8 @@ use File;
  */
 class TeacherPhotoController extends Controller
 {
+    use PhotoSlug;
+
     /**
      * Show photo.
      *
@@ -24,28 +26,7 @@ class TeacherPhotoController extends Controller
      */
     public function show(ShowTeacherPhoto $request, $tenant, $photo_slug)
     {
-
         return response()->file($this->obtainPhotoBySlug($photo_slug)->getPathName());
-    }
-
-    /**
-     * Obtain photo by slug.
-     *
-     * @param $slug
-     * @return mixed
-     */
-    protected function obtainPhotoBySlug($slug)
-    {
-        $photos = collect(File::allFiles(storage_path('photos/teachers')))->map(function ($photo) {
-            return [
-                'file' => $photo,
-                'filename' => $filename = $photo->getFilename(),
-                'slug' => str_slug($filename,'-')
-            ];
-        });
-        return $photos[$photos->search(function ($photo) use ($slug){
-            return $photo['slug'] ===  $slug;
-        })]['file'];
     }
 
     /**

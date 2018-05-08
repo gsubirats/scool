@@ -6,6 +6,7 @@ use App\Models\User;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\Testing\File;
+use File as FileFacade;
 use Spatie\Permission\Models\Role;
 use Storage;
 use Tests\BaseTenantTest;
@@ -37,7 +38,31 @@ class TeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function manager_teacher_photos_can_see_a_teacher_photo()
     {
-        base_path('tests/__Fixtures__/photos/teachers/40 - TUR,Sergi.JPG');
+        $this->withoutExceptionHandling();
+        Storage::fake('local');
+        $files = FileFacade::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
+
+        Storage::disk('local')->put(
+            'teacher_photos/' . $files[0]->getBasename(),
+            $files[0]->getContents()
+        );
+
+        $photoTeachersManager = create(User::class);
+        $this->actingAs($photoTeachersManager);
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+
+        $photo_slug = '40-tur-sergijpg';
+        $response = $this->json('GET','/teacher_photo/' . $photo_slug);
+
+        $response->assertSuccessful();
+
+    }
+
+    /** @test */
+    public function manager_teacher_photos_see_404_for_non_existing_photo()
+    {
         $photoTeachersManager = create(User::class);
         $this->actingAs($photoTeachersManager);
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
@@ -47,15 +72,13 @@ class TeacherPhotoControllerTest extends BaseTenantTest
         $photo_slug = '40_sergi_tur_badenas';
         $response = $this->json('GET','/teacher_photo/' . $photo_slug);
 
-        $response->assertSuccessful();
+        $response->assertStatus(404);
 
     }
 
     /** @test */
     public function manager_teacher_photos_can_store_a_teacher_photo()
     {
-        $this->withoutExceptionHandling();
-
         Storage::fake('local');
 
         $photoTeachersManager = create(User::class);

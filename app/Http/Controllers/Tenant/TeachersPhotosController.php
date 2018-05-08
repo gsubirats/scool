@@ -6,6 +6,7 @@ use App\Events\TeacherPhotosUploaded;
 use App\Http\Requests\ShowTeachersPhotosManagment;
 use App\Http\Requests\StoreTeachersPhotosManagment;
 use Illuminate\Support\Facades\File;
+use Storage;
 
 /**
  * Class TeachersPhotosController.
@@ -21,8 +22,7 @@ class TeachersPhotosController extends Controller
      */
     public function show(ShowTeachersPhotosManagment $request)
     {
-
-        $photos = collect(File::allFiles(storage_path('photos/teachers')))->map(function ($photo) {
+        $photos = collect(File::allFiles(Storage::disk('local')->path('teacher_photos')))->map(function ($photo) {
                 return [
                   'filename' => $filename = $photo->getFilename(),
                   'slug' => str_slug($filename,'-')

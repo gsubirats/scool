@@ -6,11 +6,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class StoreUnassignedTeacherPhoto.
+ * Class ListUnassignedTeacherPhoto.
  *
  * @package App\Http\Requests
  */
-class StoreUnassignedTeacherPhoto extends FormRequest
+class ListUnassignedTeacherPhoto extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +20,7 @@ class StoreUnassignedTeacherPhoto extends FormRequest
     public function authorize()
     {
         Auth::shouldUse('api');
-        return Auth::user()->can('store-teacher-photo');
+        return Auth::user()->can('list-teacher-photo');
     }
 
     /**
@@ -31,7 +31,7 @@ class StoreUnassignedTeacherPhoto extends FormRequest
     public function rules()
     {
         return [
-            'teacher_photo' => 'required|image|dimensions:width=670,height=790'
+            //
         ];
     }
 }

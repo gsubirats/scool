@@ -33,6 +33,7 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::post('/teachers_photos', 'Tenant\TeachersPhotosController@store');
 
+            Route::get('/unassigned_teacher_photo', 'Tenant\UnassignedTeacherPhotoController@index');
             Route::post('/unassigned_teacher_photo', 'Tenant\UnassignedTeacherPhotoController@store');
 
         });
@@ -53,4 +54,6 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::get('tenant/{tenant}/test','UserTenantTestController@index');
     Route::post('tenant/{tenant}/test-user','UserTenantTestAdminUserController@index');
+    Route::delete('/unassigned_teacher_photo/{photoslug}', 'Tenant\UnassignedTeacherPhotoController@destroy');
 });
+

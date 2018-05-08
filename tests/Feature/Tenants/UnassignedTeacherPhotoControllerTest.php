@@ -7,6 +7,7 @@ use App\Events\UnassignedTeacherPhotoUploaded;
 use App\Models\User;
 use Config;
 use Event;
+use File;
 use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
 use Storage;
@@ -37,6 +38,54 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
     }
 
     /** @test */
+    public function manager_can_see_list_of_unassigned_teacher_photos()
+    {
+        Storage::fake('local');
+
+        $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
+
+        Storage::disk('local')->put(
+            'teacher_photos/' . $files[0]->getBasename(),
+            $files[0]->getContents()
+        );
+
+        Storage::disk('local')->put(
+            'teacher_photos/' . $files[1]->getBasename(),
+            $files[1]->getContents()
+        );
+
+        Storage::disk('local')->put(
+            'teacher_photos/' . $files[2]->getBasename(),
+            $files[2]->getContents()
+        );
+
+        $this->withoutExceptionHandling();
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager, 'api');
+        $response = $this->json('GET','/api/v1/unassigned_teacher_photo');
+        $response->assertSuccessful();
+
+//        $response->dump();
+
+        $response->assertJsonStructure([[
+           'filename',
+            'slug'
+        ]]);
+    }
+
+    /** @test */
+    public function user_cannot_see_list_of_unassigned_teacher_photos()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user, 'api');
+        $response = $this->json('GET','/api/v1/unassigned_teacher_photo');
+        $response->assertStatus(403);
+    }
+
+    /** @test */
     public function manager_can_upload_new_unassigned_teacher_photo()
     {
         Storage::fake('local');
@@ -48,14 +97,15 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $photoTeachersManager->assignRole($role);
         $this->actingAs($photoTeachersManager, 'api');
         $response = $this->json('POST','/api/v1/unassigned_teacher_photo', [
-            'teacher_photo' => UploadedFile::fake()->image('photo.jpg', 670, 790)
+            'teacher_photo' => UploadedFile::fake()->image('40 Sergi Tur.jpg', 670, 790)
         ]);
 
         $response->assertSuccessful();
-        $path = $response->getContent();
-
-        Storage::disk('local')->assertExists($path);
-
+        $response = json_decode($response->getContent());
+//        dd($response);
+        Storage::disk('local')->assertExists($path = $response->path);
+        $this->assertEquals($response->slug,'40-sergi-turjpg');
+        $this->assertEquals($response->filename,'40 Sergi Tur.jpg');
         Event::assertDispatched(UnassignedTeacherPhotoUploaded::class, function ($e) use ($path) {
             return $e->path === $path;
         });
@@ -118,5 +168,45 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
 
         $this->assertEquals($result->message,"The given data was invalid." );
         $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo has invalid image dimensions." );
+    }
+
+    /** @test */
+    public function manager_can_delete_unassigned_teacher_photos()
+    {
+        $this->withoutExceptionHandling();
+        Storage::fake('local');
+
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager, 'api');
+        $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
+
+        Storage::disk('local')->put(
+            'teacher_photos/' . $files[0]->getBasename(),
+            $files[0]->getContents()
+        );
+
+        $response = $this->json('DELETE','/api/v1/unassigned_teacher_photo/' . str_slug($files[0]->getBasename()));
+
+        $response->assertSuccessful();
+
+        $result = json_decode($response->getContent());
+        $this->assertFalse(Storage::disk('local')->exists('teacher_photos/' .  $result->filename));
+
+        $this->assertEquals($result->filename,$files[0]->getBasename());
+        $this->assertEquals($result->slug,str_slug($files[0]->getBasename()));
+
+    }
+
+    /** @test */
+    public function user_cannot_delete_unassigned_teacher_photos()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user, 'api');
+
+        $response = $this->json('DELETE','/api/v1/unassigned_teacher_photo/01-sergiturjpg');
+        $response->assertStatus(403);
     }
 }

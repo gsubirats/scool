@@ -1,9 +1,9 @@
 <template>
     <v-container grid-list-md>
-        Imatges disponibles:
+        Fotos disponibles:
 
         <v-select
-                :items="availablePhotos"
+                :items="internalAvailablePhotos"
                 v-model="photo"
                 label="Selecciona foto"
                 item-text="filename"
@@ -39,9 +39,10 @@
         </v-select>
 
         <template v-if="showPhoto">
-            <span>Pujant la foto ( {{ percentCompleted }} % completat):</span>
+            <span v-if="uploading">Pujant la foto...</span>
             <img ref='photoImage' height="59" width="50"
                  :src="photoPath" alt="Uploaded photo" @click="upload" @error="errorOnPhoto" >
+            <span v-if="fileUploaded">Foto pujada</span>
         </template>
 
         <form class="upload">
@@ -91,13 +92,18 @@
                 v-model="grid"
         ></v-switch>
         <v-layout row wrap v-if="grid">
-            <v-flex v-for="photo in availablePhotos" :key="photo.slug" md2>
+            <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2>
                 <v-card>
                     <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
                     </v-card-media>
                     <v-card-title primary-title>
                         <p>{{ photo.filename }}</p>
                     </v-card-title>
+                    <v-card-actions>
+                        <v-btn flat color="red" @click="remove(photo)"
+                               :loading="deleting === photo.slug"
+                               :disabled="deleting === photo.slug">Eliminar</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -117,6 +123,7 @@
   export default {
     data () {
       return {
+        deleting: null,
         uploading: false,
         uploadingZip: false,
         fileUploaded: false,
@@ -124,7 +131,7 @@
         photo: null,
         grid: false,
         photoPath: '',
-        percentCompleted: 0
+        internalAvailablePhotos: this.availablePhotos
       }
     },
     computed: {
@@ -143,18 +150,26 @@
         this.$refs.photo.click()
       },
       refresh () {
-        // TODO
+        this.refreshing = true
+        axios.get('/api/v1/unassigned_teacher_photo')
+          .then(response => {
+            this.refreshing = false
+            this.internalAvailablePhotos = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
       },
       photoChange (event) {
         this.uploading = true
         let target = event.target || event.srcElement
         if (target.value.length !== 0) {
           const formData = new FormData()
-          formData.append('file', this.$refs.photo.files[0])
+          formData.append('teacher_photo', this.$refs.photo.files[0])
 
           this.preview()
 
-//          this.save(formData)
+          this.save(formData)
         }
       },
       preview () {
@@ -169,19 +184,24 @@
       errorOnPhoto () {
         // TODO
       },
+      remove (photo) {
+        console.log(photo)
+        this.deleting = photo.slug
+        axios.delete('/api/v1/unassigned_teacher_photo/' + photo.slug)
+          .then(response => {
+            this.deleting = null
+            this.internalAvailablePhotos.splice(this.internalAvailablePhotos.indexOf(photo),1)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
       save (formData) {
-        let uploadPhotoURL = '/api/v1/user/' + this.user + '/photo'
-
-        let config = {
-          onUploadProgress: progressEvent => {
-            this.percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          }
-        }
-
-        axios.post(uploadPhotoURL, formData, config)
+        axios.post('/api/v1/unassigned_teacher_photo', formData)
           .then(response => {
             this.uploading = false
             this.fileUploaded = true
+            this.internalAvailablePhotos.push(response.data)
           })
           .catch(error => {
             console.log(error)
