@@ -567,7 +567,11 @@ if (!function_exists('initialize_gates')) {
         });
 
         Gate::define('show-teacher-photo', function ($user) {
-            return $user->hasRole('TeachersManager');
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
+        Gate::define('store-teacher-photo', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
         });
 
         //Pending teachers

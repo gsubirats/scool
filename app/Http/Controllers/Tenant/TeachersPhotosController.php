@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Events\TeacherPhotosUploaded;
-use App\Http\Requests\ShowTeacherPhoto;
 use App\Http\Requests\ShowTeachersPhotosManagment;
 use App\Http\Requests\StoreTeachersPhotosManagment;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use ZipArchive;
 
 /**
  * Class TeachersPhotosController.
@@ -34,36 +30,6 @@ class TeachersPhotosController extends Controller
             });
 
         return view('tenants.teachers.photos.show', compact('photos'));
-    }
-
-    /**
-     * Show photo
-     */
-    public function showPhoto(ShowTeacherPhoto $request, $tenant, $photo_slug)
-    {
-        $photo = $this->obtainPhotoBySlug($photo_slug);
-        return response()->file($photo->getPathName());
-    }
-
-    /**
-     * Obtain photo by slug.
-     *
-     * @param $slug
-     * @return mixed
-     */
-    protected function obtainPhotoBySlug($slug)
-    {
-        $photos = collect(File::allFiles(storage_path('photos/teachers')))->map(function ($photo) {
-            return [
-                'file' => $photo,
-                'filename' => $filename = $photo->getFilename(),
-                'slug' => str_slug($filename,'-')
-            ];
-        });
-//        dd($photos);
-        return $photos[$photos->search(function ($photo) use ($slug){
-            return $photo['slug'] ===  $slug;
-        })]['file'];
     }
 
     /**

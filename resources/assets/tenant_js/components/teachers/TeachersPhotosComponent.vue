@@ -6,30 +6,29 @@
                 :items="availablePhotos"
                 v-model="photo"
                 label="Selecciona foto"
-                item-text="name"
+                item-text="filename"
                 item-value="name"
-                multiple
                 chips
                 autocomplete
+                clearable
         >
             <template slot="selection" slot-scope="data">
                 <v-chip
                         :selected="data.selected"
                         :key="JSON.stringify(data.item)"
-                        close
-                        class="chip--select-multi"
+                        class="chip--select"
                         @input="data.parent.selectItem(data.item)"
                 >
                     <v-avatar>
-                        <img :src="data.item.avatar">
+                        <img :src="'/teacher_photo/' + data.item.slug">
                     </v-avatar>
-                    {{ data.item.name }}
+                    {{ data.item.filename }}
                 </v-chip>
             </template>
             <template slot="item" slot-scope="data">
                 <template>
                     <v-list-tile-avatar>
-                        <img :src="'/teachers_photos/' + data.item.slug">
+                        <img :src="'/teacher_photo/' + data.item.slug">
                     </v-list-tile-avatar>
                     <v-list-tile-content>
                         <v-list-tile-title v-html="data.item.filename"></v-list-tile-title>
@@ -39,25 +38,42 @@
             </template>
         </v-select>
 
-        <!--<v-layout row wrap>-->
-            <!--<v-flex v-for="photo in availablePhotos" :key="photo" md2>-->
-                <!--<v-card>-->
-                    <!--<v-card-media src="/static/doc-images/cards/desert.jpg" height="200px" >-->
-                    <!--</v-card-media>-->
-                    <!--<v-card-title primary-title>-->
-                            <!--<p>{{ photo.filename }}</p>-->
-                    <!--</v-card-title>-->
-                <!--</v-card>-->
-            <!--</v-flex>-->
-        <!--</v-layout>-->
+        <template v-if="showPhoto">
+            <span>Pujant la foto ( {{ percentCompleted }} % completat):</span>
+            <img ref='photoImage' height="59" width="50"
+                 :src="photoPath" alt="Uploaded photo" @click="upload" @error="errorOnPhoto" >
+        </template>
+
+        <form class="upload">
+            <input
+                    ref="photo"
+                    type="file"
+                    name="photo"
+                    id="file-input"
+                    accept="image/*"
+                    :disabled="uploading"
+                    @change="photoChange"/>
+
+        </form>
+
         <v-btn
-                :loading="loading"
-                :disabled="loading"
+                :loading="uploading"
+                :disabled="uploading"
                 color="blue-grey"
                 class="white--text"
                 @click.native="upload"
         >
-            Upload
+            Pujar foto
+            <v-icon right dark>cloud_upload</v-icon>
+        </v-btn>
+        <v-btn
+                :loading="uploadingZip"
+                :disabled="uploadingZip"
+                color="blue-grey"
+                class="white--text"
+                @click.native="upload"
+        >
+            Pujar zip
             <v-icon right dark>cloud_upload</v-icon>
         </v-btn>
         <v-btn
@@ -70,20 +86,50 @@
             Actualitzar
             <v-icon right dark>refresh</v-icon>
         </v-btn>
+        <v-switch
+                label="Veure graella"
+                v-model="grid"
+        ></v-switch>
+        <v-layout row wrap v-if="grid">
+            <v-flex v-for="photo in availablePhotos" :key="photo.slug" md2>
+                <v-card>
+                    <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
+                    </v-card-media>
+                    <v-card-title primary-title>
+                        <p>{{ photo.filename }}</p>
+                    </v-card-title>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </v-container>
 </template>
 
 <style>
-
+    .upload > input
+    {
+        display: none;
+    }
 </style>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data () {
       return {
-        loading: false,
+        uploading: false,
+        uploadingZip: false,
+        fileUploaded: false,
         refreshing: false,
-        photo: null
+        photo: null,
+        grid: false,
+        photoPath: '',
+        percentCompleted: 0
+      }
+    },
+    computed: {
+      showPhoto: function () {
+        return this.uploading || this.uploadingZip || this.fileUploaded
       }
     },
     props: {
@@ -94,10 +140,52 @@
     },
     methods: {
       upload () {
-        // TODO
+        this.$refs.photo.click()
       },
       refresh () {
         // TODO
+      },
+      photoChange (event) {
+        this.uploading = true
+        let target = event.target || event.srcElement
+        if (target.value.length !== 0) {
+          const formData = new FormData()
+          formData.append('file', this.$refs.photo.files[0])
+
+          this.preview()
+
+//          this.save(formData)
+        }
+      },
+      preview () {
+        if (this.$refs.photo.files && this.$refs.photo.files[0]) {
+          var reader = new FileReader()
+          reader.onload = e => {
+            this.$refs.photoImage.setAttribute('src', e.target.result)
+          }
+          reader.readAsDataURL(this.$refs.photo.files[0])
+        }
+      },
+      errorOnPhoto () {
+        // TODO
+      },
+      save (formData) {
+        let uploadPhotoURL = '/api/v1/user/' + this.user + '/photo'
+
+        let config = {
+          onUploadProgress: progressEvent => {
+            this.percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          }
+        }
+
+        axios.post(uploadPhotoURL, formData, config)
+          .then(response => {
+            this.uploading = false
+            this.fileUploaded = true
+          })
+          .catch(error => {
+            console.log(error)
+          })
       }
     }
   }

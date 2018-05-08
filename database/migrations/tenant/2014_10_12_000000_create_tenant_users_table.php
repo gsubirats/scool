@@ -18,8 +18,8 @@ class CreateTenantUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('photo')->nullable();
             $table->boolean('admin')->default(false);
-//            $table->unsignedInteger('type_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

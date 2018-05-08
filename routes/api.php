@@ -33,6 +33,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::post('/teachers_photos', 'Tenant\TeachersPhotosController@store');
 
+            Route::post('/unassigned_teacher_photo', 'Tenant\UnassignedTeacherPhotoController@store');
+
         });
     });
 });
