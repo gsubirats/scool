@@ -1,5 +1,9 @@
 <template>
     <v-container grid-list-md>
+        <v-alert v-model="dimensionsAlert" type="warning" dismissible>
+            Les fotos han de tenir unes dimensions de 670*790
+        </v-alert>
+
         Fotos disponibles:
 
         <v-select
@@ -45,12 +49,26 @@
             <span v-if="fileUploaded">Foto pujada</span>
         </template>
 
+
+        <v-alert :value="true" type="error" v-for="error in errors" :key="error.id">
+            <template v-for="errorMessage in errors">
+                {{ errorMessage[0] }}
+            </template>
+        </v-alert>
+
         <form class="upload">
             <input
                     ref="photo"
                     type="file"
+                    name="teacher_photo"
+                    accept="application/zip, application/octet-stream"
+                    :disabled="uploading"
+                    @change="zipChange"/>
+
+            <input
+                    ref="zip"
+                    type="file"
                     name="photo"
-                    id="file-input"
                     accept="image/*"
                     :disabled="uploading"
                     @change="photoChange"/>
@@ -72,7 +90,7 @@
                 :disabled="uploadingZip"
                 color="blue-grey"
                 class="white--text"
-                @click.native="upload"
+                @click.native="uploadZip"
         >
             Pujar zip
             <v-icon right dark>cloud_upload</v-icon>
@@ -87,12 +105,35 @@
             Actualitzar
             <v-icon right dark>refresh</v-icon>
         </v-btn>
+
+        <v-btn
+                v-if="photo"
+                :loading="deleting"
+                :disabled="deleting"
+                color="red"
+                class="white--text"
+                @click.native="removeSelectedPhoto"
+        >
+            Eliminar
+            <v-icon right dark>delete</v-icon>
+        </v-btn>
+
+        <v-btn
+                v-if="photo"
+                :loading="downloading"
+                :disabled="downloading"
+                @click.native="downloadSelectedPhoto"
+        >
+            Baixar
+            <v-icon right dark>file_download</v-icon>
+        </v-btn>
+
         <v-switch
                 label="Veure graella"
                 v-model="grid"
         ></v-switch>
         <v-layout row wrap v-if="grid">
-            <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2>
+            <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2 lg1>
                 <v-card>
                     <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
                     </v-card-media>
@@ -102,7 +143,18 @@
                     <v-card-actions>
                         <v-btn flat color="red" @click="remove(photo)"
                                :loading="deleting === photo.slug"
-                               :disabled="deleting === photo.slug">Eliminar</v-btn>
+                               :disabled="deleting === photo.slug"
+                               icon
+                        >
+
+                            <v-icon dark>delete</v-icon>
+                        </v-btn>
+                        <v-btn flat @click="download(photo)"
+                               :loading="deleting === photo.slug"
+                               :disabled="deleting === photo.slug"
+                               icon>
+                            <v-icon dark>file_download</v-icon>
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -119,10 +171,13 @@
 
 <script>
   import axios from 'axios'
+  import withSnackbar from '../mixins/withSnackbar'
 
   export default {
+    mixins: [withSnackbar],
     data () {
       return {
+        dimensionsAlert: true,
         deleting: null,
         uploading: false,
         uploadingZip: false,
@@ -131,7 +186,8 @@
         photo: null,
         grid: false,
         photoPath: '',
-        internalAvailablePhotos: this.availablePhotos
+        internalAvailablePhotos: this.availablePhotos,
+        errors: []
       }
     },
     computed: {
@@ -149,6 +205,9 @@
       upload () {
         this.$refs.photo.click()
       },
+      uploadZip () {
+        this.$refs.zip.click()
+      },
       refresh () {
         this.refreshing = true
         axios.get('/api/v1/unassigned_teacher_photo')
@@ -158,6 +217,7 @@
           })
           .catch(error => {
             console.log(error)
+            this.showError(error)
           })
       },
       photoChange (event) {
@@ -170,6 +230,16 @@
           this.preview()
 
           this.save(formData)
+        }
+      },
+      zipChange (event) {
+        this.uploadingZip = true
+        let target = event.target || event.srcElement
+        if (target.value.length !== 0) {
+          const formData = new FormData()
+          formData.append('teacher_photos', this.$refs.zip.files[0])
+
+          this.saveZip(formData)
         }
       },
       preview () {
@@ -194,6 +264,7 @@
           })
           .catch(error => {
             console.log(error)
+            this.showError(error)
           })
       },
       save (formData) {
@@ -202,10 +273,37 @@
             this.uploading = false
             this.fileUploaded = true
             this.internalAvailablePhotos.push(response.data)
+            this.errors = []
           })
           .catch(error => {
+            this.uploading = false
             console.log(error)
+            this.errors = error.data && error.data.errors
+            this.showError(error)
           })
+      },
+      saveZip (formData) {
+        axios.post('/api/v1/unassigned_teacher_photos', formData)
+          .then(response => {
+            this.uploadingZip = false
+            this.errors = []
+            this.refresh()
+          })
+          .catch(error => {
+            this.uploading = false
+            console.log(error)
+            this.errors = error.data && error.data.errors
+            this.showError(error)
+          })
+      },
+      download () {
+        // TODO
+      },
+      removeSelectedPhoto () {
+        // TODO
+      },
+      downloadSelectedPhoto () {
+        // TODO
       }
     }
   }
