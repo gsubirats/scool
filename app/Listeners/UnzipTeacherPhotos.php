@@ -20,8 +20,8 @@ class UnzipTeacherPhotos
      */
     public function handle($event)
     {
-        $zipper = Zipper::make(Storage::path('teacher_photos_zip/teachers.zip'));
-        $zipper->extractTo(Storage::path('teacher_photos'));
+        $zipper = Zipper::make(Storage::path($event->tenant . '/teacher_photos_zip/teachers.zip'));
+        $zipper->extractTo(Storage::path($event->tenant. '/teacher_photos'));
         $zipper->close();
     }
 }

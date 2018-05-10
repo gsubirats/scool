@@ -25,10 +25,10 @@ class UnassignedTeacherPhotosController extends Controller
      * @param StoreUnassignedTeacherPhotos $request
      * @return false|string
      */
-    public function store(StoreUnassignedTeacherPhotos $request,$tenant)
+    public function store(StoreUnassignedTeacherPhotos $request, $tenant)
     {
         $path = $request->file('photos')->storeAs($this->basePathZip($tenant),$request->file('photos')->getClientOriginalName());
-        event(new TeacherPhotosZipUploaded($path));
+        event(new TeacherPhotosZipUploaded($path, $tenant));
         return [
             'path' => $path,
             'filename' => basename($path),

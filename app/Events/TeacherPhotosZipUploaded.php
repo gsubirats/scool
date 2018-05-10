@@ -21,13 +21,18 @@ class TeacherPhotosZipUploaded
 
     public $path;
 
+    public $tenant;
+
     /**
      * TeacherPhotosZipUploaded constructor.
+     *
      * @param $path
+     * @param $tenant
      */
-    public function __construct($path)
+    public function __construct($path, $tenant)
     {
         $this->path = $path;
+        $this->tenant = $tenant;
     }
 
 
