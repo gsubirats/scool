@@ -7,6 +7,7 @@ use Config;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\Testing\File;
 use File as FileFacade;
+use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
 use Storage;
 use Tests\BaseTenantTest;
@@ -114,6 +115,85 @@ class TeacherPhotoControllerTest extends BaseTenantTest
         ]);
 
         $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function can_download_photo()
+    {
+
+
+        $photoTeachersManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager);
+
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('40 - TUR, Sergi.jpg');
+        Storage::disk('local')->putFileAs('teacher_photos', $file, '40 - TUR, Sergi.jpg');
+
+        $response = $this->get('/teacher_photo/' . str_slug($file->name,'-') . '/download');
+
+        $response->assertSuccessful();
+        $baseResponse = $response->baseResponse;
+        $this->assertEquals(get_class($baseResponse),'Symfony\Component\HttpFoundation\BinaryFileResponse');
+        $file = $response->baseResponse->getFile();
+        $this->assertEquals(get_class($file),'Symfony\Component\HttpFoundation\File\File');
+        $this->assertEquals($file->getFileName(),'40 - TUR, Sergi.jpg');
 
     }
+
+    /** @test */
+    public function regular_user_cannot_download_photo()
+    {
+        $user = create(User::class);
+        $this->actingAs($user);
+
+        $response = $this->get('/teacher_photo/sergitur-png');
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function can_change_photo_filename()
+    {
+        Storage::fake('local');
+
+        $photoTeachersManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager,'api');
+        $file = UploadedFile::fake()->create('40 - TUR, Sergi.jpg');
+        Storage::disk('local')->putFileAs('teacher_photos', $file, '40 - TUR, Sergi.jpg');
+
+        $response = $this->json('PUT','api/v1/teacher_photo/' . str_slug($file->name,'-'), [
+            'filename' => '40 - TUR Badenas, Sergi.jpg'
+        ] );
+
+        $response->assertSuccessful();
+
+        $this->assertEquals('40-tur-badenas-sergijpg',$response->getContent());
+
+        Storage::disk('local')->assertExists('teacher_photos/40 - TUR Badenas, Sergi.jpg');
+
+        // Assert a file does not exist...
+        Storage::disk('local')->assertMissing('teacher_photos/40 - TUR, Sergi.jpg');
+        
+    }
+
+    /** @test */
+    public function user_cannot_change_photo_filename()
+    {
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+
+        $response = $this->json('PUT','api/v1/teacher_photo/40-tur-sergijpg', [
+            'filename' => '40 - TUR Badenas, Sergi.jpg'
+        ] );
+
+        $response->assertStatus(403);
+    }
+
 }
+

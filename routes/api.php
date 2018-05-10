@@ -24,12 +24,6 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::delete('/users/{user}', 'Tenant\UsersController@destroy');
 
             Route::get('/pending_teachers', 'Tenant\PendingTeachersController@index');
-        });
-
-        Route::group(['prefix' => 'v1'], function () {
-            Route::get('/menu', 'Tenant\MenuController@index');
-
-            Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
 
             Route::post('/teachers_photos', 'Tenant\TeachersPhotosController@store');
 
@@ -37,9 +31,18 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::post('/unassigned_teacher_photo', 'Tenant\UnassignedTeacherPhotoController@store');
 
             Route::delete('/unassigned_teacher_photo/{photoslug}', 'Tenant\UnassignedTeacherPhotoController@destroy');
-
             Route::post('/unassigned_teacher_photos', 'Tenant\UnassignedTeacherPhotosController@store');
+            Route::delete('/unassigned_teacher_photos/{photoslug}', 'Tenant\UnassignedTeacherPhotosController@destroy');
+            Route::delete('/unassigned_teacher_photos', 'Tenant\UnassignedTeacherPhotosController@destroyAll');
 
+            Route::put('/teacher_photo/{photoslug}', 'Tenant\TeacherPhotoController@edit');
+
+        });
+
+        Route::group(['prefix' => 'v1'], function () {
+            Route::get('/menu', 'Tenant\MenuController@index');
+
+            Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
         });
     });
 });

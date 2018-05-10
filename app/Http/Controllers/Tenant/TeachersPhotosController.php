@@ -22,14 +22,10 @@ class TeachersPhotosController extends Controller
      */
     public function show(ShowTeachersPhotosManagment $request)
     {
-        $photos = collect(File::allFiles(Storage::disk('local')->path('teacher_photos')))->map(function ($photo) {
-                return [
-                  'filename' => $filename = $photo->getFilename(),
-                  'slug' => str_slug($filename,'-')
-                ];
-            });
+        $photos = collect_files('teacher_photos');
+        $zips = collect_files('teacher_photos_zip');
 
-        return view('tenants.teachers.photos.show', compact('photos'));
+        return view('tenants.teachers.photos.show', compact('photos','zips'));
     }
 
     /**

@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use Chumper\Zipper\Zipper;
+use Storage;
+use Zipper;
 
 /**
  * Class UnzipTeacherPhotos.
@@ -19,6 +20,8 @@ class UnzipTeacherPhotos
      */
     public function handle($event)
     {
-        Zipper::make($event->path)->extractTo(dirname($event->path))->close();
+        $zipper = Zipper::make(Storage::path('teacher_photos_zip/teachers.zip'));
+        $zipper->extractTo(Storage::path('teacher_photos'));
+        $zipper->close();
     }
 }

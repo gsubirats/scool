@@ -570,6 +570,22 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('PhotoTeachersManager');
         });
 
+        Gate::define('download-teacher-photo', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
+        Gate::define('delete-teacher-photo', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
+        Gate::define('delete-all-teacher-photo', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
+        Gate::define('edit-teacher-photo', function ($user) {
+            return $user->hasRole('PhotoTeachersManager');
+        });
+
         Gate::define('store-teacher-photo', function ($user) {
             return $user->hasRole('PhotoTeachersManager');
         });
@@ -674,6 +690,27 @@ if (!function_exists('initialize_users')) {
 
     }
 }
+
+if (!function_exists('collect_files')) {
+    /**
+     * Collect files.
+     *
+     * @param $path
+     * @param string $disk
+     * @return static
+     */
+    function collect_files($path, $disk = 'local')
+    {
+        $files = collect(File::allFiles(Storage::disk($disk)->path($path)))->map(function ($file) {
+            return [
+                'filename' => $filename = $file->getFilename(),
+                'slug' => str_slug($filename,'-')
+            ];
+        });
+        return $files;
+    }
+}
+
 
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()

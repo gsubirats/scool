@@ -209,4 +209,5 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $response = $this->json('DELETE','/api/v1/unassigned_teacher_photo/01-sergiturjpg');
         $response->assertStatus(403);
     }
+
 }

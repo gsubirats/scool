@@ -62,6 +62,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         $response->assertSuccessful();
         $response->assertViewIs('tenants.teachers.photos.show');
         $response->assertViewHas('photos');
+        $response->assertViewHas('zips');
 
     }
 

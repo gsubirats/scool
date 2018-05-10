@@ -32,7 +32,7 @@ trait PhotoSlug
             return $photo['slug'] ===  $slug;
         });
 
-        if ($found === false) abort('404',"NO s'ha trobat cap foto amb l'slug: $slug");
+        if ($found === false) abort('404',"No s'ha trobat cap foto amb l'slug: $slug");
 
         return $photos[$found]['file'];
     }

@@ -47,25 +47,25 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::get('/teachers_photos', 'Tenant\TeachersPhotosController@show');
 
+            Route::get('/teacher_photo/{photo}/download', 'Tenant\TeacherPhotoController@download');
             Route::get('/teacher_photo/{photo}', 'Tenant\TeacherPhotoController@show');
 
             Route::post('/teacher_photo', 'Tenant\TeacherPhotoController@store');
+
+            Route::get('/unassigned_teacher_photos/{photo}','Tenant\UnassignedTeacherPhotosController@download');
+            Route::get('/unassigned_teacher_photos','Tenant\UnassignedTeacherPhotosController@downloadAll');
 
         });
 
         Route::get('/add_teacher', 'Tenant\PendingTeachersController@show');
     });
 
+    // TEST TODO ESBORRAR!
     Route::group(['middleware' => 'tenant'], function () {
-        Route::get('prova',function ($tenant) {
-            return 'HI!!!!';
-        });
-
         Route::get('test', function ($tenant) {
             return view('tenants.test',['tenant' => get_tenant($tenant)]);
         });
     });
-
 
     Route::get('/test_controller', 'TenantTestController@index');
 

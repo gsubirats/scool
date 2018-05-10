@@ -42,7 +42,6 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
     /** @test */
     public function manager_can_upload_zip()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
         Event::fake();
 
@@ -56,13 +55,16 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         ]);
 
         $response->assertSuccessful();
-        $path = $response->getContent();
-        Storage::disk('local')->assertExists($path);
+        $result = json_decode($response->getContent());
+        $this->assertEquals('photos.zip',$result->filename);
+        $this->assertEquals('photoszip',$result->slug);
 
-        $this->assertEquals($path,'teacher_photos_zip/photos.zip');
+        Storage::disk('local')->assertExists($result->path);
 
-        Event::assertDispatched(TeacherPhotosZipUploaded::class, function ($e) use ($path) {
-            return $e->path === $path;
+        $this->assertEquals($result->path,'teacher_photos_zip/photos.zip');
+
+        Event::assertDispatched(TeacherPhotosZipUploaded::class, function ($e) use ($result) {
+            return $e->path === $result->path;
         });
     }
 
@@ -125,4 +127,129 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo has invalid image dimensions." );
     }
 
+    /** @test */
+    public function can_download_zip()
+    {
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager);
+
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('photos 2.zip');
+        Storage::disk('local')->putFileAs('teacher_photos_zip', $file, 'photos 2.zip');
+
+        $response = $this->get('/unassigned_teacher_photos/photos-2zip');
+        $response->assertSuccessful();
+        $baseResponse = $response->baseResponse;
+        $this->assertEquals(get_class($baseResponse),'Symfony\Component\HttpFoundation\BinaryFileResponse');
+        $file = $response->baseResponse->getFile();
+        $this->assertEquals(get_class($file),'Symfony\Component\HttpFoundation\File\File');
+        $this->assertEquals($file->getFileName(),'photos 2.zip');
+
+    }
+
+    /** @test */
+    public function user_cannot_download_zip()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $response = $this->get('/unassigned_teacher_photos/photos-2zip');
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function can_delete_zip()
+    {
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager,'api');
+
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('photos 2.zip');
+        Storage::disk('local')->putFileAs('teacher_photos_zip', $file, 'photos 2.zip');
+
+        $response = $this->json('DELETE','/api/v1/unassigned_teacher_photos/photos-2zip');
+        $response->assertSuccessful();
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals('photos 2.zip',$result->filename);
+        $this->assertEquals('photos-2zip',$result->slug);
+        Storage::disk('local')->assertMissing('teacher_photos_zip/photos 2.zip');
+    }
+
+    /** @test */
+    public function can_download_all_photos_as_zip()
+    {
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager);
+
+        Storage::fake('local');
+        $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
+        foreach ($names as $name) {
+            $file = UploadedFile::fake()->image($name);
+            Storage::disk('local')->putFileAs('teacher_photos/', $file, $name);
+        }
+
+        $response = $this->get('/unassigned_teacher_photos');
+        $response->assertSuccessful();
+        $baseResponse = $response->baseResponse;
+        $this->assertEquals(get_class($baseResponse),'Symfony\Component\HttpFoundation\BinaryFileResponse');
+        $file = $response->baseResponse->getFile();
+        $this->assertEquals(get_class($file),'Symfony\Component\HttpFoundation\File\File');
+        $this->assertTrue(starts_with($file->getFileName(),'teachers_'));
+        $this->assertTrue(ends_with($file->getFileName(),'.zip'));
+    }
+
+    /** @test */
+    public function user_cannot_download_all_photos_as_zip()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $response = $this->get('/unassigned_teacher_photos');
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function can_remove_all_photos()
+    {
+        $this->withoutExceptionHandling();
+        $photoTeachersManager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $photoTeachersManager->assignRole($role);
+        $this->actingAs($photoTeachersManager,'api');
+
+        Storage::fake('local');
+        $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
+        foreach ($names as $name) {
+            $file = UploadedFile::fake()->image($name);
+            Storage::disk('local')->putFileAs('teacher_photos', $file, $name);
+        }
+
+        $response = $this->json('DELETE','/api/v1/unassigned_teacher_photos');
+        $response->assertSuccessful();
+
+        foreach ($names as $name) {
+            Storage::disk('local')->assertMissing('teacher_photos/' . $name);
+        }
+    }
+
+    /** @test */
+    public function user_cannot_remove_all_photos()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $response = $this->json('DELETE','/api/v1/unassigned_teacher_photos');
+        $response->assertStatus(403);
+    }
 }
