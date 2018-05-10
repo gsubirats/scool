@@ -45,17 +45,17 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[0]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[0]->getBasename(),
             $files[0]->getContents()
         );
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[1]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[1]->getBasename(),
             $files[1]->getContents()
         );
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[2]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[2]->getBasename(),
             $files[2]->getContents()
         );
 
@@ -102,7 +102,6 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
 
         $response->assertSuccessful();
         $response = json_decode($response->getContent());
-//        dd($response);
         Storage::disk('local')->assertExists($path = $response->path);
         $this->assertEquals($response->slug,'40-sergi-turjpg');
         $this->assertEquals($response->filename,'40 Sergi Tur.jpg');
@@ -184,7 +183,7 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[0]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[0]->getBasename(),
             $files[0]->getContents()
         );
 

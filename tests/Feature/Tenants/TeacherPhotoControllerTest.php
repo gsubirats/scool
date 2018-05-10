@@ -44,7 +44,7 @@ class TeacherPhotoControllerTest extends BaseTenantTest
         $files = FileFacade::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[0]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[0]->getBasename(),
             $files[0]->getContents()
         );
 
@@ -120,8 +120,6 @@ class TeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function can_download_photo()
     {
-
-
         $photoTeachersManager = create(User::class);
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
         Config::set('auth.providers.users.model', User::class);
@@ -130,7 +128,7 @@ class TeacherPhotoControllerTest extends BaseTenantTest
 
         Storage::fake('local');
         $file = UploadedFile::fake()->create('40 - TUR, Sergi.jpg');
-        Storage::disk('local')->putFileAs('teacher_photos', $file, '40 - TUR, Sergi.jpg');
+        Storage::disk('local')->putFileAs('tenant_test/teacher_photos', $file, '40 - TUR, Sergi.jpg');
 
         $response = $this->get('/teacher_photo/' . str_slug($file->name,'-') . '/download');
 
@@ -157,6 +155,7 @@ class TeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function can_change_photo_filename()
     {
+        $this->withoutExceptionHandling();
         Storage::fake('local');
 
         $photoTeachersManager = create(User::class);
@@ -165,7 +164,7 @@ class TeacherPhotoControllerTest extends BaseTenantTest
         $photoTeachersManager->assignRole($role);
         $this->actingAs($photoTeachersManager,'api');
         $file = UploadedFile::fake()->create('40 - TUR, Sergi.jpg');
-        Storage::disk('local')->putFileAs('teacher_photos', $file, '40 - TUR, Sergi.jpg');
+        Storage::disk('local')->putFileAs('tenant_test/teacher_photos', $file, '40 - TUR, Sergi.jpg');
 
         $response = $this->json('PUT','api/v1/teacher_photo/' . str_slug($file->name,'-'), [
             'filename' => '40 - TUR Badenas, Sergi.jpg'
@@ -175,10 +174,10 @@ class TeacherPhotoControllerTest extends BaseTenantTest
 
         $this->assertEquals('40-tur-badenas-sergijpg',$response->getContent());
 
-        Storage::disk('local')->assertExists('teacher_photos/40 - TUR Badenas, Sergi.jpg');
+        Storage::disk('local')->assertExists('tenant_test/teacher_photos/40 - TUR Badenas, Sergi.jpg');
 
         // Assert a file does not exist...
-        Storage::disk('local')->assertMissing('teacher_photos/40 - TUR, Sergi.jpg');
+        Storage::disk('local')->assertMissing('tenant_test/teacher_photos/40 - TUR, Sergi.jpg');
         
     }
 

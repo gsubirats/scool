@@ -29,9 +29,8 @@ class TeacherPhotoController extends Controller
      */
     public function show(ShowTeacherPhoto $request, $tenant, $photo_slug)
     {
-        return response()->file($this->obtainPhotoBySlug($photo_slug)->getPathName());
+        return response()->file($this->obtainPhotoBySlug($tenant, $photo_slug)->getPathName());
     }
-
 
     /**
      * Download.
@@ -43,7 +42,7 @@ class TeacherPhotoController extends Controller
      */
     public function download(DownloadTeacherPhoto $request, $tenant, $photo_slug)
     {
-        return response()->download($this->obtainPhotoBySlug($photo_slug)->getPathName());
+        return response()->download($this->obtainPhotoBySlug($tenant,$photo_slug)->getPathName());
     }
 
     /**
@@ -56,8 +55,8 @@ class TeacherPhotoController extends Controller
      */
     public function edit(EditTeacherPhoto $request, $tenant, $photo_slug)
     {
-        $file = $this->obtainPhotoBySlug($photo_slug);
-        Storage::move('teacher_photos/' . $file->getFilename(), 'teacher_photos/' . $request->filename);
+        $file = $this->obtainPhotoBySlug($tenant, $photo_slug);
+        Storage::move( $this->basePath($tenant) . $file->getFilename(), $this->basePath($tenant) . $request->filename);
         return str_slug($request->filename,'-');
     }
 
@@ -65,11 +64,12 @@ class TeacherPhotoController extends Controller
      * Store.
      *
      * @param StoreTeacherPhoto $request
-     * @return false|string
+     * @param $tenant
+     * @return mixed
      */
-    public function store(StoreTeacherPhoto $request)
+    public function store(StoreTeacherPhoto $request, $tenant)
     {
-        $path = $request->file('photo')->store('teacher_photos');
+        $path = $request->file('photo')->store($this->basePath($tenant));
 
         $user = User::findOrFail($request->user_id);
 
@@ -77,5 +77,16 @@ class TeacherPhotoController extends Controller
         $user->save();
 
         return $user;
+    }
+
+    /**
+     * Base path.
+     *
+     * @param $tenant
+     * @return string
+     */
+    protected function basePath($tenant)
+    {
+     return $tenant . '/teacher_photos/';
     }
 }

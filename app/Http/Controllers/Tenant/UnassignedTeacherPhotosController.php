@@ -25,9 +25,9 @@ class UnassignedTeacherPhotosController extends Controller
      * @param StoreUnassignedTeacherPhotos $request
      * @return false|string
      */
-    public function store(StoreUnassignedTeacherPhotos $request)
+    public function store(StoreUnassignedTeacherPhotos $request,$tenant)
     {
-        $path = $request->file('photos')->storeAs('teacher_photos_zip',$request->file('photos')->getClientOriginalName());
+        $path = $request->file('photos')->storeAs($this->basePathZip($tenant),$request->file('photos')->getClientOriginalName());
         event(new TeacherPhotosZipUploaded($path));
         return [
             'path' => $path,
@@ -46,7 +46,7 @@ class UnassignedTeacherPhotosController extends Controller
      */
     public function download(DownloadUnassignedTeacherPhotos $request, $tenant, $zip_slug)
     {
-        return response()->download($this->obtainZipBySlug($zip_slug)->getPathName());
+        return response()->download($this->obtainZipBySlug($zip_slug,$tenant)->getPathName());
     }
 
     /**
@@ -55,10 +55,10 @@ class UnassignedTeacherPhotosController extends Controller
      * @param DownloadUnassignedTeacherPhotos $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadAll(DownloadUnassignedTeacherPhotos $request)
+    public function downloadAll(DownloadUnassignedTeacherPhotos $request, $tenant)
     {
-        $files = glob(Storage::path('teacher_photos') . '/*');
-        $path = Storage::path('teacher_photos_zip').'/teachers_' . str_slug(Carbon::now(),'-') . '.zip';
+        $files = glob(Storage::path($this->basePath($tenant)) . '/*');
+        $path = Storage::path($this->basePathZip($tenant)).'/teachers_' . str_slug(Carbon::now(),'-') . '.zip';
         Zipper::make($path)->add($files)->close();
         return response()->download($path);
     }
@@ -73,8 +73,8 @@ class UnassignedTeacherPhotosController extends Controller
      */
     public function destroy(DeleteUnassignedTeacherPhotos $request, $tenant, $zip_slug)
     {
-        $file = $this->obtainZipBySlug($zip_slug);
-        Storage::delete('teacher_photos_zip/' . $file->getFileName());
+        $file = $this->obtainZipBySlug($zip_slug, $tenant);
+        Storage::delete($this->basePathZip($tenant). '/' . $file->getFileName());
         return [
           'path' => $file->getPath(),
           'slug' => str_slug($file->getFilename(),'-'),
@@ -87,12 +87,12 @@ class UnassignedTeacherPhotosController extends Controller
      *
      * @param DeleteAllUnassignedTeacherPhotos $request
      */
-    public function destroyAll(DeleteAllUnassignedTeacherPhotos $request)
+    public function destroyAll(DeleteAllUnassignedTeacherPhotos $request, $tenant)
     {
-        $files = File::allFiles(Storage::path('teacher_photos'));
+        $files = File::allFiles(Storage::path($this->basePath($tenant)));
         foreach ($files as $file)
         {
-            Storage::delete('teacher_photos/' . $file->getFilename());
+            Storage::delete($this->basePath($tenant) . '/' . $file->getFilename());
         }
     }
     /**
@@ -101,9 +101,9 @@ class UnassignedTeacherPhotosController extends Controller
      * @param $slug
      * @return mixed
      */
-    protected function obtainZipBySlug($slug)
+    protected function obtainZipBySlug($slug, $tenant)
     {
-        $files = collect(File::allFiles(Storage::disk('local')->path('teacher_photos_zip')))->map(function ($photo) {
+        $files = collect(File::allFiles(Storage::disk('local')->path($this->basePathZip($tenant))))->map(function ($photo) {
             return [
                 'file' => $photo,
                 'filename' => $filename = $photo->getFilename(),
@@ -118,5 +118,27 @@ class UnassignedTeacherPhotosController extends Controller
         if ($found === false) abort('404',"No s'ha trobat cap fitxer amb l'slug: $slug");
 
         return $files[$found]['file'];
+    }
+
+    /**
+     * Base path.
+     *
+     * @param $tenant
+     * @return string
+     */
+    protected function basePath($tenant)
+    {
+        return $tenant .'/teacher_photos';
+    }
+
+    /**
+     * Base path zip.
+     *
+     * @param $tenant
+     * @return string
+     */
+    protected function basePathZip($tenant)
+    {
+        return $tenant .'/teacher_photos_zip';
     }
 }

@@ -73,7 +73,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         $files = FileFacade::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
 
         Storage::disk('local')->put(
-            'teacher_photos/' . $files[0]->getBasename(),
+            'tenant_test/teacher_photos/' . $files[0]->getBasename(),
             $files[0]->getContents()
         );
 

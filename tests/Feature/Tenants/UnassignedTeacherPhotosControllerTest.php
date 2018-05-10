@@ -61,7 +61,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
 
         Storage::disk('local')->assertExists($result->path);
 
-        $this->assertEquals($result->path,'teacher_photos_zip/photos.zip');
+        $this->assertEquals($result->path,'tenant_test/teacher_photos_zip/photos.zip');
 
         Event::assertDispatched(TeacherPhotosZipUploaded::class, function ($e) use ($result) {
             return $e->path === $result->path;
@@ -138,7 +138,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
 
         Storage::fake('local');
         $file = UploadedFile::fake()->create('photos 2.zip');
-        Storage::disk('local')->putFileAs('teacher_photos_zip', $file, 'photos 2.zip');
+        Storage::disk('local')->putFileAs('tenant_test/teacher_photos_zip', $file, 'photos 2.zip');
 
         $response = $this->get('/unassigned_teacher_photos/photos-2zip');
         $response->assertSuccessful();
@@ -171,7 +171,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
 
         Storage::fake('local');
         $file = UploadedFile::fake()->create('photos 2.zip');
-        Storage::disk('local')->putFileAs('teacher_photos_zip', $file, 'photos 2.zip');
+        Storage::disk('local')->putFileAs('tenant_test/teacher_photos_zip', $file, 'photos 2.zip');
 
         $response = $this->json('DELETE','/api/v1/unassigned_teacher_photos/photos-2zip');
         $response->assertSuccessful();
@@ -179,7 +179,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
 
         $this->assertEquals('photos 2.zip',$result->filename);
         $this->assertEquals('photos-2zip',$result->slug);
-        Storage::disk('local')->assertMissing('teacher_photos_zip/photos 2.zip');
+        Storage::disk('local')->assertMissing('tenant_test/teacher_photos_zip/photos 2.zip');
     }
 
     /** @test */
@@ -195,7 +195,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
         foreach ($names as $name) {
             $file = UploadedFile::fake()->image($name);
-            Storage::disk('local')->putFileAs('teacher_photos/', $file, $name);
+            Storage::disk('local')->putFileAs('tenant_test/teacher_photos/', $file, $name);
         }
 
         $response = $this->get('/unassigned_teacher_photos');
@@ -221,7 +221,6 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
     /** @test */
     public function can_remove_all_photos()
     {
-        $this->withoutExceptionHandling();
         $photoTeachersManager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
         Config::set('auth.providers.users.model', User::class);
@@ -232,14 +231,14 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
         foreach ($names as $name) {
             $file = UploadedFile::fake()->image($name);
-            Storage::disk('local')->putFileAs('teacher_photos', $file, $name);
+            Storage::disk('local')->putFileAs('tenant_test/teacher_photos', $file, $name);
         }
 
         $response = $this->json('DELETE','/api/v1/unassigned_teacher_photos');
         $response->assertSuccessful();
 
         foreach ($names as $name) {
-            Storage::disk('local')->assertMissing('teacher_photos/' . $name);
+            Storage::disk('local')->assertMissing('tenant_test/teacher_photos/' . $name);
         }
     }
 

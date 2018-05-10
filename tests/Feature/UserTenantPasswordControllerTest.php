@@ -27,7 +27,6 @@ class UserTenantPasswordControllerTest extends TestCase
         $tenant = create_tenant('Acme SL','acme');
         $user->addTenant($tenant);
         $this->assertTrue(Hash::check('secret', $user->password));
-//        dump($user->password);
         $response = $this->json('PUT','/api/v1/tenant/' . $tenant->id . '/password'  , [
             'password' => 'newsecret',
             'password_confirmation' => 'newsecret'
@@ -37,7 +36,9 @@ class UserTenantPasswordControllerTest extends TestCase
 
         $response->assertSuccessful();
         $user= $user->fresh();
+        // TODO
         $this->assertTrue(Hash::check('newsecret', $user->password));
+
     }
 
     /** @test */

@@ -18,15 +18,18 @@ trait PhotoSlug
      * @param $slug
      * @return mixed
      */
-    protected function obtainPhotoBySlug($slug)
+    protected function obtainPhotoBySlug($tenant, $slug)
     {
-        $photos = collect(File::allFiles(Storage::disk('local')->path('teacher_photos')))->map(function ($photo) {
-            return [
-                'file' => $photo,
-                'filename' => $filename = $photo->getFilename(),
-                'slug' => str_slug($filename,'-')
-            ];
-        });
+        $photos = collect();
+        if (Storage::exists($path = $tenant . '/teacher_photos')) {
+            $photos = collect(File::allFiles(Storage::path($path)))->map(function ($photo) {
+                return [
+                    'file' => $photo,
+                    'filename' => $filename = $photo->getFilename(),
+                    'slug' => str_slug($filename,'-')
+                ];
+            });
+        }
 
         $found = $photos->search(function ($photo) use ($slug){
             return $photo['slug'] ===  $slug;

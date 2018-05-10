@@ -20,10 +20,10 @@ class TeachersPhotosController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(ShowTeachersPhotosManagment $request)
+    public function show(ShowTeachersPhotosManagment $request, $tenant)
     {
-        $photos = collect_files('teacher_photos');
-        $zips = collect_files('teacher_photos_zip');
+        $photos = Storage::exists($this->basePath($tenant)) ?  collect_files($this->basePath($tenant)) : collect();
+        $zips = Storage::exists($this->basePathZip($tenant)) ? collect_files($this->basePathZip($tenant)) : collect();
 
         return view('tenants.teachers.photos.show', compact('photos','zips'));
     }
@@ -34,22 +34,34 @@ class TeachersPhotosController extends Controller
      * @param StoreTeachersPhotosManagment $request
      * @return false|string
      */
-    public function store(StoreTeachersPhotosManagment $request)
+    public function store(StoreTeachersPhotosManagment $request, $tenant)
     {
-        $path = $request->file('teacher_photos')->store('teacher_photos');
+        $path = $request->file('teacher_photos')->store($this->basePath($tenant));
 
         event(new TeacherPhotosUploaded($path));
 
-//        https://github.com/Chumper/Zipper
-//        $zip = new ZipArchive;
-//        $res = $zip->open($path);
-//        if ($res === TRUE) {
-//            $zip->extractTo('/myzips/extract_path/');
-//            $zip->close();
-//        } else {
-//            dd('File is not a zip');
-//        }
-
         return $path;
+    }
+
+    /**
+     * Base path.
+     *
+     * @param $tenant
+     * @return string
+     */
+    protected function basePath($tenant)
+    {
+        return $tenant .'/teacher_photos';
+    }
+
+    /**
+     * Base path zip.
+     *
+     * @param $tenant
+     * @return string
+     */
+    protected function basePathZip($tenant)
+    {
+        return $tenant .'/teacher_photos_zip';
     }
 }
