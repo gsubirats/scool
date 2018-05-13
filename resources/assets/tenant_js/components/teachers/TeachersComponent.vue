@@ -208,6 +208,7 @@
   export default {
     data () {
       return {
+        showDeletePendingTeacherDialog: false,
         search: '',
         deleting: false,
         headers: [

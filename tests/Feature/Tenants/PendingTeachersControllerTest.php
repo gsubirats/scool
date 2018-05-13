@@ -38,11 +38,10 @@ class PendingTeachersControllerTest extends BaseTenantTest
         $response = $this->get('/add_teacher');
         $response->assertSuccessful();
 
-        $response->assertViewIs('tenants.teacher.show_pending_teacher');
+        $response->assertViewIs('tenants.teacher.pending.show_form');
         $response->assertViewHas('specialties');
         $response->assertViewHas('forces');
         $response->assertViewHas('administrative_statuses');
-
     }
 
     /** @test */
@@ -58,7 +57,6 @@ class PendingTeachersControllerTest extends BaseTenantTest
     /** @test */
     public function teacher_manager_can_see_pending_teachers()
     {
-        $this->withoutExceptionHandling();
         $teachersManager = create(User::class);
         $this->actingAs($teachersManager,'api');
         $role = Role::firstOrCreate([
@@ -283,5 +281,83 @@ class PendingTeachersControllerTest extends BaseTenantTest
         $response = $this->json('POST','api/v1/add_teacher');
 
         $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function can_see_pending_teacher_data()
+    {
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager);
+        $teacher = add_fake_pending_teacher();
+        $response = $this->get('/pending_teacher/' . $teacher->id);
+
+        $response->assertSuccessful();
+        $response->assertViewIs('tenants.teacher.pending.show');
+        $response->assertViewHas('specialties');
+        $response->assertViewHas('forces');
+        $response->assertViewHas('administrative_statuses');
+        $response->assertViewHas('teacher');
+    }
+
+    /** @test */
+    public function cannot_see_unexisting_pending_teacher_data()
+    {
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager);
+        $response = $this->get('/pending_teacher/1');
+        $response->assertStatus(404);
+    }
+
+    /** @test */
+    public function user_cannot_see_pending_teacher_data()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+        $teacher = add_fake_pending_teacher();
+        $response = $this->get('/pending_teacher/' . $teacher->id);
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function can_remove_pending_teacher()
+    {
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $teacher = add_fake_pending_teacher();
+        $response = $this->json('DELETE','/api/v1/pending_teacher/' . $teacher->id);
+
+        $response->assertSuccessful();
+        $result = json_decode($response->getContent());
+
+        $response->assertJsonFragment([
+            'id' => $teacher->id,
+            'name' => $teacher->name
+        ]);
+
+        $teacher = PendingTeacher::find($teacher->id);
+        $this->assertNull($teacher);
+    }
+
+    /** @test */
+    public function user_cannot_remove_pending_teacher()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $teacher = add_fake_pending_teacher();
+        $response = $this->json('DELETE','/api/v1/pending_teacher/' . $teacher->id);
+
+        $response->assertStatus(403);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Requests\DeletePendingTeacher;
 use App\Http\Requests\ListPendingTeachers;
+use App\Http\Requests\SeePendingTeachers;
 use App\Http\Requests\StorePendingTeacher;
 use App\Models\AdministrativeStatus;
 use App\Models\Force;
@@ -17,14 +19,27 @@ use App\Models\Specialty;
 class PendingTeachersController extends Controller
 {
     /**
+     *
+     */
+    public function show(SeePendingTeachers $request, $tenant, PendingTeacher $teacher)
+    {
+
+        $specialties = Specialty::all();
+        $forces = Force::all();
+        $administrative_statuses = AdministrativeStatus::all();
+        return view ('tenants.teacher.pending.show',
+            compact('specialties','forces','administrative_statuses','teacher'));
+    }
+
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show()
+    public function showForm()
     {
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrative_statuses = AdministrativeStatus::all();
-        return view ('tenants.teacher.show_pending_teacher',
+        return view ('tenants.teacher.pending.show_form',
             compact('specialties','forces','administrative_statuses'));
     }
 
@@ -77,5 +92,11 @@ class PendingTeachersController extends Controller
             'destination_place',
             'teacher_id'
         ]));
+    }
+
+    public function destroy(DeletePendingTeacher $request, $tenant, PendingTeacher $teacher)
+    {
+        $teacher->delete();
+        return $teacher;
     }
 }

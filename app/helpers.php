@@ -5,6 +5,7 @@ use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Menu;
+use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
@@ -557,6 +558,15 @@ if (!function_exists('initialize_gates')) {
         Gate::define('show-teachers', function ($user) {
             return $user->hasRole('TeachersManager');
         });
+
+        Gate::define('show-pending-teachers', function ($user) {
+            return $user->hasRole('TeachersManager');
+        });
+
+        Gate::define('delete-pending-teacher', function ($user) {
+            return $user->hasRole('TeachersManager');
+        });
+
 
         Gate::define('show-teachers-photos', function ($user) {
             return $user->hasRole('PhotoTeachersManager');
@@ -1123,5 +1133,43 @@ if (!function_exists('apply_tenant')) {
         }
     }
 }
+
+if (!function_exists('add_fake_pending_teacher')) {
+    function add_fake_pending_teacher()
+    {
+        return PendingTeacher::create([
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '84008343S',
+            'birthdate' => '1980-02-04',
+            'street' => 'Alcanyiz',
+            'number' => 40,
+            'floor' => 3,
+            'floor_number' => 1,
+            'postal_code' => 43500,
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepe@pardo.com',
+            'other_emails' => 'pepepardojeans@gmail.com,ppardo@xtec.cat',
+            'telephone' => '679852467',
+            'other_telephones' => '977854265,689578458',
+            'degree' => 'Enginyer en chapuzas varias',
+            'other_degrees' => 'Master emerito por la Juan Carlos Primero',
+            'languages' => 'Suajili',
+            'profiles' => 'Master of the Universe',
+            'other_training' => 'Fuster',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2015',
+            'start_date' => '2017-03-06',
+            'opositions_date' => '2009-06-10',
+            'administrative_status_id' => 1,
+            'destination_place' => 'La Seu Urgell',
+            'teacher_id' => 1
+        ]);
+    }
+}
+
 
 

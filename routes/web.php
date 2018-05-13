@@ -57,7 +57,10 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
         });
 
-        Route::get('/add_teacher', 'Tenant\PendingTeachersController@show');
+        Route::get('/add_teacher', 'Tenant\PendingTeachersController@showForm');
+        Route::get('/nou_professor', 'Tenant\PendingTeachersController@showForm');
+
+        Route::get('/pending_teacher/{teacher}', 'Tenant\PendingTeachersController@show');
     });
 
     // TEST TODO ESBORRAR!

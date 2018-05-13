@@ -23,8 +23,11 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::post('/users', 'Tenant\UsersController@store');
             Route::delete('/users/{user}', 'Tenant\UsersController@destroy');
 
+            //Pending teachers
             Route::get('/pending_teachers', 'Tenant\PendingTeachersController@index');
+            Route::delete('/pending_teacher/{teacher}', 'Tenant\PendingTeachersController@destroy');
 
+            //Teacher photos
             Route::post('/teachers_photos', 'Tenant\TeachersPhotosController@store');
 
             Route::get('/unassigned_teacher_photo', 'Tenant\UnassignedTeacherPhotoController@index');

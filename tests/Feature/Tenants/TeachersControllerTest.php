@@ -36,6 +36,7 @@ class TeachersControllerTest extends BaseTenantTest
     /** @test */
     public function show_teachers_management()
     {
+        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'TeachersManager']);
@@ -48,7 +49,8 @@ class TeachersControllerTest extends BaseTenantTest
         $response->assertViewIs('tenants.teachers.show');
         $response->assertViewHas('pendingTeachers');
         $response->assertViewHas('teachers');
+        $response->assertViewHas('specialties');
+        $response->assertViewHas('forces');
+        $response->assertViewHas('administrative_statuses');
     }
-
-
 }
