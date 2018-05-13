@@ -37,7 +37,8 @@ class SpecialtyTest extends TestCase
         $specialty = Specialty::firstOrCreate([
             'code' => '507',
             'name' => 'Informàtica',
-            'force_id' => 1
+            'force_id' => 1,
+            'family_id' => 1
         ]);
 
         $this->assertTrue($specialty->is(Specialty::findByCode('507')));

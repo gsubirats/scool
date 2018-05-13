@@ -115,15 +115,18 @@ class UserTest extends TestCase
             'name' => 'Secundària',
             'code' => 'SECUNDARIA'
         ]);
-        Specialty::create([
-            'name' => 'Informàtica',
-            'code' => '507',
-            'force_id' => Force::findByCode('SECUNDARIA')
-        ]);
-        Family::create([
+
+        $family = Family::create([
             'name' => 'Sanitat',
             'code' => 'SANITAT'
         ]);
+        Specialty::create([
+            'name' => 'Informàtica',
+            'code' => '507',
+            'force_id' => Force::findByCode('SECUNDARIA'),
+            'family_id' => $family->id
+        ]);
+
 
         $this->assertCount(0,$user->staffs);
 
