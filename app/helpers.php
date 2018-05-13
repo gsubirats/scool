@@ -499,10 +499,10 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
     function initialize_tenant_roles_and_permissions()
     {
         $roles = [
-            'Alumne',
-            'Professor',
-            'Conserge',
-            'Administratiu',
+            'Student',
+            'Teacher',
+            'Janitor',
+            'AdministrativeAssistant',
             'Familiar',
             'Manager',
             'Admin',
@@ -518,9 +518,7 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
         // - Gestió de mòduls
 
         foreach ($roles as $role) {
-//            Role::firstOrCreate(['name' => $role,'guard_name' => 'web']);
             Role::firstOrCreate(['name' => $role]);
-//            Role::firstOrCreate(['name' => $role, 'guard_name' => 'api' ]);
         }
 
         $permissions = [
@@ -721,6 +719,29 @@ if (!function_exists('collect_files')) {
     }
 }
 
+if (!function_exists('initialize_janitors')) {
+    function initialize_janitors()
+    {
+        User::createIfNotExists([
+            'name' => 'Jaume Benaiges',
+            'email' => 'jaumebenaiges@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Janitor'))
+            ->assignName(Name::firstOrCreate([
+                'givenName' => 'Jaume',
+                'sn1' => 'Benaiges',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Conserge')->id,
+                    'code' => 'C1'
+                ])
+            );
+    }
+}
+
 
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()
@@ -731,7 +752,7 @@ if (!function_exists('initialize_teachers')) {
             'email' => 'dolorssanjuanauba@iesebre.com',
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Professor'))
+        ])->addRole(Role::findByName('Teacher'))
         ->assignName(Name::firstOrCreate([
             'givenName' => 'Dolors',
             'sn1' => 'Sanjuan',
@@ -1100,12 +1121,12 @@ if (!function_exists('initialize_user_types')) {
         $teacher = UserType::firstOrCreate([
             'name' => 'Professor/a'
         ]);
-        $teacher->roles()->save(Role::findByName('Professor'));
+        $teacher->roles()->save(Role::findByName('Teacher'));
 
         $student = UserType::firstOrCreate([
             'name' => 'Alumne/a'
         ]);
-        $student->roles()->save(Role::findByName('Alumne'));
+        $student->roles()->save(Role::findByName('Student'));
 
         UserType::firstOrCreate([
             'name' => 'Conserge'
@@ -1170,6 +1191,3 @@ if (!function_exists('add_fake_pending_teacher')) {
         ]);
     }
 }
-
-
-

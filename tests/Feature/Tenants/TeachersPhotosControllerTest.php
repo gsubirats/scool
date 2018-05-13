@@ -118,7 +118,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         $response->assertStatus(422);
         $result =json_decode($response->getContent());
         $this->assertEquals($result->message,'The given data was invalid.');
-        $this->assertEquals($result->errors->teacher_photos[0],'The teacher photos must be a file of type: zip.');
+        $this->assertEquals($result->errors->teacher_photos[0],'teacher photos ha de ser un arxiu amb format: zip.');
     }
 
     /** @test */
@@ -135,7 +135,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         $response->assertStatus(422);
         $result =json_decode($response->getContent());
         $this->assertEquals($result->message,'The given data was invalid.');
-        $this->assertEquals($result->errors->teacher_photos[0],'The teacher photos field is required.');
+        $this->assertEquals($result->errors->teacher_photos[0],'El camp teacher photos és obligatori.');
     }
 
     /** @test */

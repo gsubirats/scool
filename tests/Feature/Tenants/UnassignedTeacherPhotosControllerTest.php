@@ -94,7 +94,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $result = json_decode($response->getContent());
 
         $this->assertEquals($result->message,"The given data was invalid." );
-        $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo field is required." );
+        $this->assertEquals($result->errors->teacher_photo[0],"El camp teacher photo és obligatori." );
 
         $response = $this->json('POST','/api/v1/unassigned_teacher_photo',[
             'teacher_photo' => 'dsasd'
@@ -104,7 +104,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $result = json_decode($response->getContent());
 
         $this->assertEquals($result->message,"The given data was invalid." );
-        $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo must be an image." );
+        $this->assertEquals($result->errors->teacher_photo[0],"teacher photo ha de ser una imatge." );
 
         $response = $this->json('POST','/api/v1/unassigned_teacher_photo',[
             'teacher_photo' => UploadedFile::fake()->create('prova.pdf')
@@ -114,7 +114,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $result = json_decode($response->getContent());
 
         $this->assertEquals($result->message,"The given data was invalid." );
-        $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo must be an image." );
+        $this->assertEquals($result->errors->teacher_photo[0],"teacher photo ha de ser una imatge." );
 
         $response = $this->json('POST','/api/v1/unassigned_teacher_photo',[
             'teacher_photo' => UploadedFile::fake()->image('photo.jpg')
@@ -124,7 +124,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $result = json_decode($response->getContent());
 
         $this->assertEquals($result->message,"The given data was invalid." );
-        $this->assertEquals($result->errors->teacher_photo[0],"The teacher photo has invalid image dimensions." );
+        $this->assertEquals($result->errors->teacher_photo[0],"Les dimensions de la imatge teacher photo no són vàlides." );
     }
 
     /** @test */

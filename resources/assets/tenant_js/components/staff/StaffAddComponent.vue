@@ -20,6 +20,7 @@
                                         ></v-select>
 
                                         <v-select
+                                                v-if="isTeacher"
                                                 :items="specialties"
                                                 v-model="specialty"
                                                 item-text="code"
@@ -29,6 +30,7 @@
                                         ></v-select>
 
                                         <v-select
+                                                v-if="isTeacher"
                                                 :items="families"
                                                 v-model="family"
                                                 item-text="name"
@@ -109,6 +111,10 @@
       }
     },
     props: {
+      teacherType: {
+        type: String,
+        required: true
+      },
       staffTypes: {
         type: Array,
         required: true
@@ -124,6 +130,11 @@
       users: {
         type: Array,
         required: true
+      }
+    },
+    computed: {
+      isTeacher () {
+        return this.staffType && this.staffType.name === this.teacherType
       }
     },
     methods: {

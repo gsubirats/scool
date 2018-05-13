@@ -4,6 +4,7 @@
 
     <staff-add
             :staff-types="{{ $staffTypes }}"
+            teacher-type="Professor/a"
             :specialties="{{ $specialties }}"
             :families="{{ $families }}"
             :users="{{ $users }}"

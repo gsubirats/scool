@@ -1,0 +1,13 @@
+{
+  "Student": "Estudiant",
+  "Teacher": "Professor",
+  "Janitor": "Conserge",
+  "AdministrativeAssistant": "Administratiu",
+  "Familiar": "Familiar",
+  "Manager": "Gestor",
+  "Admin": "Admin",
+  "UsersManager": "Gestor d'estudiants",
+  "StaffManager": "Gestor de plantilla",
+  "TeachersManager": "Gestor de professors",
+  "PhotoTeachersManager": "Gestor de fotos del professorat"
+}
