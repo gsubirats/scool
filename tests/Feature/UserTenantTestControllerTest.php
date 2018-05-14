@@ -27,12 +27,11 @@ class UserTenantTestControllerTest extends TestCase
             $tenant->database,
             $tenant->username ,
             $tenant->hostname);
-
-        create_mysql_full_database(
-            $tenant->database,
-            $tenant->username ,
-            $tenant->password,
-            $tenant->hostname);
+        create_mysql_database($tenant->database);
+        $password = create_mysql_user($tenant->username, null, null);
+        mysql_grant_privileges($tenant->username, $tenant->database, null);
+        $tenant->password = $password;
+        $tenant->save();
 
         $response = $this->get('/api/v1/tenant/' . $tenant->id . '/test');
 

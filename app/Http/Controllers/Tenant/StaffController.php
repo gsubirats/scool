@@ -24,7 +24,7 @@ class StaffController extends Controller
      */
     public function show(ShowStaffManagement $request)
     {
-        $staff = Staff::with('type','family','specialty')->get();
+        $staff = Staff::with('type','family','specialty','user')->get();
         $staffTypes = StaffType::all();
         $specialties = Specialty::with('staff','staff.family')->get();
         $families = Family::with('staff','staff.specialty')->get();

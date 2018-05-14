@@ -4,6 +4,7 @@ namespace Tests\Unit\Tenants;
 
 use App\Models\Family;
 use App\Models\Force;
+use App\Models\Name;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
@@ -145,7 +146,21 @@ class UserTest extends TestCase
         $this->assertEquals('507',$staff->specialty->code);
         $this->assertEquals('SANITAT',$staff->family->code);
 
+    }
 
+    /** @test */
+    public function can_assign_fullname()
+    {
+        $user = factory(User::class)->create();
+        $this->assertNull($user->fullname);
+
+        $result = $user->assignFullName($name = Name::firstOrCreate([
+            'givenName' => 'Jaume',
+            'sn1' => 'Benaiges',
+            'sn2' => '',
+        ]));
+        $this->assertTrue($user->fullname->is($name));
+        $this->assertTrue($user->is($result));
     }
 
 }

@@ -22,23 +22,39 @@
                                     :items="internalStaff"
                                     :search="search"
                                     item-key="id"
-                                    expand
                             >
                                 <template slot="items" slot-scope="props">
-                                    <tr @click="expand($event, props)">
+                                    <tr>
                                         <td class="text-xs-left">
                                             {{ props.item.id }}
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ props.item.type && props.item.type.name}}
+                                            {{ type(props.item) }}
                                         </td>
+                                        <td class="text-xs-left">{{ props.item.code }}</td>
                                         <td class="text-xs-left">{{ props.item.family && props.item.family.name}}</td>
                                         <td class="text-xs-left">{{ props.item.specialty && props.item.specialty.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ props.item.notes }}
+                                            {{ props.item.user && props.item.user.name }}
                                         </td>
-                                        <td class="text-xs-left">{{ props.item.formatted_created_at }}</td>
-                                        <td class="text-xs-left">{{ props.item.formatted_updated_at }}</td>
+                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">{{ props.item.notes }}</span>
+                                                <span>{{ props.item.notes }}</span>
+                                            </v-tooltip>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">{{ props.item.formatted_created_at_diff }}</span>
+                                                <span>{{ props.item.formatted_created_at }}</span>
+                                            </v-tooltip>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">{{ props.item.formatted_updated_at_diff }}</span>
+                                                <span>{{ props.item.formatted_updated_at }}</span>
+                                            </v-tooltip>
+                                        </td>
                                         <td class="text-xs-left">
                                             <v-btn icon class="mx-0" @click="editItem(props.item)">
                                                 <v-icon color="teal">edit</v-icon>
@@ -59,94 +75,6 @@
                                             </v-btn>
                                         </td>
                                     </tr>
-                                </template>
-                                <template slot="expand" slot-scope="props">
-                                    <v-card>
-                                        <v-card-text>
-                                            <v-list two-line v-if="props.item.inscription_type_id == 1">
-                                                <template v-if="props.item.groups && props.item.groups.length">
-                                                    <v-list-group
-                                                            v-for="(group, index) in props.item.groups"
-                                                            :key="group.id"
-                                                            no-action
-                                                    >
-                                                        <v-list-tile slot="activator">
-                                                            <v-list-tile-avatar>
-                                                                <img :src="'/group/' + group.id + '/avatar'">
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-content>
-                                                                <v-list-tile-title>
-                                                                    <b>{{ group.name }}</b> |
-                                                                    Líder:
-                                                                    <template v-if="group.leader">
-                                                                        {{this.user.id}} {{group.leader.sn1}} {{group.leader.sn2}}, {{group.leader.givenName}} ({{group.leader.name}})
-                                                                    </template>
-                                                                    <template v-else>Sense lider assignat</template>
-                                                                </v-list-tile-title>
-                                                            </v-list-tile-content>
-                                                            <v-list-tile-action v-if="canEditGroup(group)">
-
-                                                                <v-btn icon ripple @click.stop="editGroup(group)">
-                                                                    <v-icon color="green darken-1">mode_edit</v-icon>
-                                                                </v-btn>
-
-                                                            </v-list-tile-action>
-                                                            <v-list-tile-action v-if="canEditGroup(group)">
-                                                                <v-btn icon ripple @click.stop="unsubscribeGroup(props.item,group)">
-                                                                    <v-icon color="red darken-1">delete</v-icon>
-                                                                </v-btn>
-                                                            </v-list-tile-action>
-                                                            <v-list-tile-action v-if="memberOf(group,this.user)">
-                                                                <v-btn icon ripple @click.stop="unregisterToEvent(props.item)">
-                                                                    <v-icon color="red darken-1">exit_to_app</v-icon>
-                                                                </v-btn>
-                                                            </v-list-tile-action>
-                                                        </v-list-tile>
-
-                                                        <template v-if="group.members &&  group.members.length">
-                                                            <v-list-tile v-for="(member, index) in group.members" :key="member.id">
-                                                                <v-list-tile-content>
-                                                                    <v-list-tile-title>
-                                                                        {{index +1}}) {{member.sn1}} {{member.sn2}}, {{member.givenName}} ({{member.name}})
-                                                                    </v-list-tile-title>
-                                                                </v-list-tile-content>
-                                                            </v-list-tile>
-                                                        </template>
-                                                        <v-list-tile v-else>
-                                                            <v-list-tile-content>
-                                                                <v-list-tile-title>
-                                                                    Sense membres assignats al grup
-                                                                </v-list-tile-title>
-                                                            </v-list-tile-content>
-                                                        </v-list-tile>
-
-                                                    </v-list-group>
-                                                </template>
-                                                <template v-else>
-                                                    Cap grup inscrit a l'esdeveniment
-                                                </template>
-                                            </v-list>
-
-                                            <v-list two-line v-else>
-                                                <template v-if="props.item.users && props.item.users.length">
-                                                    <template v-for="(user, index) in props.item.users">
-                                                        <v-list-tile avatar :key="user.title" @click="">
-                                                            <v-list-tile-avatar>
-                                                                <img :src="gravatarURL(user.email)">
-                                                            </v-list-tile-avatar>
-                                                            <v-list-tile-content>
-                                                                <v-list-tile-title>{{user.sn1}} {{user.sn2}} , {{user.givenName}} ({{user.name}})</v-list-tile-title>
-                                                                <v-list-tile-sub-title v-html="user.email"></v-list-tile-sub-title>
-                                                            </v-list-tile-content>
-                                                        </v-list-tile>
-                                                    </template>
-                                                </template>
-                                                <template v-else>
-                                                    Cap usuari inscrit a l'esdeveniment
-                                                </template>
-                                            </v-list>
-                                        </v-card-text>
-                                    </v-card>
                                 </template>
                             </v-data-table>
                         </v-card>
@@ -210,11 +138,14 @@
         showDeleteStaffDialog: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
-          {text: 'Tipus', align: 'left', value: 'type'},
-          {text: 'Família', value: 'family'},
-          {text: 'Especialitat', value: 'speciality'},
-          {text: 'Titular', value: 'titular'},
-          {text: 'Observacions', value: 'notes'},
+          {text: 'Tipus', align: 'left', value: 'type.name'},
+          {text: 'Code', align: 'left', value: 'code'},
+          {text: 'Família', value: 'family.name'},
+          {text: 'Especialitat', value: 'specialty.code'},
+          {text: 'Titular', value: 'user.name'},
+          {text: 'Notes', value: 'notes'},
+          {text: 'Data creació', value: 'formatted_created_at_diff'},
+          {text: 'Data actualització', value: 'formatted_updated_at_diff'},
           {text: 'Accions', sortable: false}
         ]
       }
@@ -228,6 +159,11 @@
       staff: {
         type: Array,
         required: true
+      }
+    },
+    methods: {
+      type (staff) {
+        return staff.type && staff.type.name
       }
     },
     created () {

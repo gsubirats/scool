@@ -39,7 +39,10 @@ class UsersControllerTest extends BaseTenantTest
         $this->withoutExceptionHandling();
         $manager = create(User::class);
         $this->actingAs($manager,'api');
-        $role = Role::firstOrCreate(['name' => 'UsersManager']);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
         Config::set('auth.providers.users.model', User::class);
         $manager->assignRole($role);
 
@@ -77,7 +80,10 @@ class UsersControllerTest extends BaseTenantTest
     {
         $manager = create(User::class);
         $this->actingAs($manager,'api');
-        $role = Role::firstOrCreate(['name' => 'UsersManager']);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
         Config::set('auth.providers.users.model', User::class);
         $manager->assignRole($role);
 
@@ -100,7 +106,10 @@ class UsersControllerTest extends BaseTenantTest
         $this->withoutExceptionHandling();
         $manager = create(User::class);
         $this->actingAs($manager,'api');
-        $role = Role::firstOrCreate(['name' => 'UsersManager']);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
         Config::set('auth.providers.users.model', User::class);
         $manager->assignRole($role);
 
@@ -148,7 +157,8 @@ class UsersControllerTest extends BaseTenantTest
         $manager = create(User::class);
         $this->actingAs($manager,'api');
         $role = Role::firstOrCreate([
-            'name' => 'UsersManager'
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
         ]);
         Config::set('auth.providers.users.model', User::class);
         $manager->assignRole($role);

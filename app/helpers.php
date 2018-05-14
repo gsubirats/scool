@@ -5,6 +5,7 @@ use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Menu;
+use App\Models\Name;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Staff;
@@ -719,6 +720,83 @@ if (!function_exists('collect_files')) {
     }
 }
 
+if (!function_exists('initialize_administrative_assistants')) {
+    function initialize_administrative_assistants()
+    {
+        User::createIfNotExists([
+            'name' => 'Pilar Vericat',
+            'email' => 'pilarvericat@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('AdministrativeAssistant'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Pilar',
+                'sn1' => 'Vericat',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+                    'code' => 'A1'
+                ])
+            );
+
+        User::createIfNotExists([
+            'name' => 'Cinta Tomas',
+            'email' => 'cintatomas@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('AdministrativeAssistant'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Cinta',
+                'sn1' => 'Tomas',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+                    'code' => 'A2'
+                ])
+            );
+
+        User::createIfNotExists([
+            'name' => 'Lluïsa Garcia',
+            'email' => 'lluisagarcia@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('AdministrativeAssistant'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Lluisa',
+                'sn1' => 'Garcia',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+                    'code' => 'A3'
+                ])
+            );
+
+        User::createIfNotExists([
+            'name' => 'Sonia Alegria',
+            'email' => 'soniaalegria@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('AdministrativeAssistant'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Sonia',
+                'sn1' => 'Alegria',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+                    'code' => 'F4'
+                ])
+            );
+    }
+}
+
 if (!function_exists('initialize_janitors')) {
     function initialize_janitors()
     {
@@ -728,7 +806,7 @@ if (!function_exists('initialize_janitors')) {
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
-            ->assignName(Name::firstOrCreate([
+            ->assignFullName(Name::firstOrCreate([
                 'givenName' => 'Jaume',
                 'sn1' => 'Benaiges',
                 'sn2' => '',
@@ -737,6 +815,42 @@ if (!function_exists('initialize_janitors')) {
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
                     'code' => 'C1'
+                ])
+            );
+
+        User::createIfNotExists([
+            'name' => 'Jordi Caudet',
+            'email' => 'jordicaudet@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Janitor'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Jordi',
+                'sn1' => 'Caudet',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Conserge')->id,
+                    'code' => 'C2'
+                ])
+            );
+
+        User::createIfNotExists([
+            'name' => 'Leonor Agramunt',
+            'email' => 'leonoragramunt@iesebre.com',
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Janitor'))
+            ->assignFullName(Name::firstOrCreate([
+                'givenName' => 'Leonor',
+                'sn1' => 'Agramunt',
+                'sn2' => '',
+            ]))
+            ->assignStaff(
+                Staff::firstOrCreate([
+                    'type_id' => StaffType::findByName('Conserge')->id,
+                    'code' => 'C3'
                 ])
             );
     }
@@ -753,7 +867,7 @@ if (!function_exists('initialize_teachers')) {
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignName(Name::firstOrCreate([
+        ->assignFullName(Name::firstOrCreate([
             'givenName' => 'Dolors',
             'sn1' => 'Sanjuan',
             'sn2' => 'Aubà',
@@ -761,11 +875,12 @@ if (!function_exists('initialize_teachers')) {
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
-                'specialty_id' => Specialty::findByCode('620')->id,
-                'family_id' => Family::findByCode('SANITAT')->id,
+                'specialty_id' => Specialty::findByCode('CAS')->id,
+                'family_id' => Family::findByCode('CA')->id,
                 'code' => '002'
             ])
-        )->situation('D')->assignTeacherCode('002');
+        );
+        //TODO ->situation('D')->assignTeacherCode('002');
     }
 }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\FormattedDates;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -14,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens, HasRoles;
+    use Notifiable,HasApiTokens, HasRoles, FormattedDates;
 
     protected $guard_name = 'web';
 
@@ -44,26 +45,6 @@ class User extends Authenticatable
     public function isSuperAdmin()
     {
         return $this->admin;
-    }
-
-    /**
-     * formatted_created_at_date attribute.
-     *
-     * @return mixed
-     */
-    public function getFormattedCreatedAtAttribute()
-    {
-        return $this->created_at->format('h:i:sA d-m-Y');
-    }
-
-    /**
-     * formatted_updated_at_date attribute.
-     *
-     * @return mixed
-     */
-    public function getFormattedUpdatedAtAttribute()
-    {
-        return $this->updated_at->format('h:i:sA d-m-Y');
     }
 
     /**
@@ -115,5 +96,25 @@ class User extends Authenticatable
     public function assignStaff($staff)
     {
         $this->staffs()->save($staff);
+    }
+
+    /**
+     * Get the name associated with this username.
+     */
+    public function fullname()
+    {
+        return $this->belongsTo(Name::class);
+    }
+
+    /**
+     * Assign full name.
+     *
+     * @param Name $name
+     * @return $this
+     */
+    public function assignFullName(Name $name)
+    {
+        $this->fullname()->associate($name);
+        return $this;
     }
 }

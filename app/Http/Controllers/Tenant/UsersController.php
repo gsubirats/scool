@@ -56,7 +56,6 @@ class UsersController extends Controller
         if ($request->roles) {
             foreach ( $request->roles as $role) {
                 $user->assignRole(Role::findByName($role,'web'));
-                $user->assignRole(Role::findByName($role,'api'));
             }
         }
 
