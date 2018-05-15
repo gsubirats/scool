@@ -112,7 +112,7 @@ class ResetPasswordController extends Controller
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showResetForm(Request $request, $token = null)
+    public function showResetForm(Request $request, $tenant, $token = null)
     {
         return view('tenants.welcome')->with([
             'token' => $token,
