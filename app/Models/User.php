@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\FormattedDates;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -116,5 +117,16 @@ class User extends Authenticatable
     {
         $this->fullname()->associate($name);
         return $this;
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

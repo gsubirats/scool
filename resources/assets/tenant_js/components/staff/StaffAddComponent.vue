@@ -2,6 +2,9 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex xs12>
+                <v-alert v-model="error" type="error" dismissible>
+                    <template v-for="error in errors">{{ error[0] }}</template>
+                </v-alert>
                 <v-card>
                     <v-card-title class="blue darken-3 white--text"><h2>Afegeix una nova plaça</h2></v-card-title>
                     <v-card-text class="px-0 mb-2">
@@ -33,6 +36,7 @@
                                                             :error-messages="staffTypeErrors"
                                                             @input="$v.staffType.$touch()"
                                                             @blur="$v.staffType.$touch()"
+                                                            autocomplete
                                                     ></v-select>
                                                 </v-flex>
                                                 <v-flex md3>
@@ -47,6 +51,7 @@
                                                             :error-messages="familyErrors"
                                                             @input="$v.family.$touch()"
                                                             @blur="$v.family.$touch()"
+                                                            autocomplete
                                                     ></v-select>
                                                 </v-flex>
                                                 <v-flex md5>
@@ -61,6 +66,7 @@
                                                             :error-messages="specialtyErrors"
                                                             @input="$v.specialty.$touch()"
                                                             @blur="$v.specialty.$touch()"
+                                                            autocomplete
                                                     ></v-select>
                                                 </v-flex>
                                                 <v-flex md6>
@@ -69,7 +75,6 @@
                                                             :items="users"
                                                             v-model="holder"
                                                             item-text="name"
-                                                            item-value="name"
                                                             chips
                                                             max-height="auto"
                                                             autocomplete
@@ -113,8 +118,10 @@
                                                 </v-flex>
                                             </v-layout>
                                         </v-container>
-                                        <v-btn @click="create"
-                                               :loading="creating">Afegir</v-btn>
+                                        <v-btn @click="add"
+                                               :loading="adding"
+                                               :disabled="adding"
+                                        >Afegir</v-btn>
                                         <v-btn @click="clear">Netejar</v-btn>
                                     </form>
                                 </v-flex>
@@ -136,22 +143,25 @@
   import { validationMixin } from 'vuelidate'
   import withSnackbar from '../mixins/withSnackbar'
   import { required, maxLength, requiredIf } from 'vuelidate/lib/validators'
+  import axios from 'axios'
 
   export default {
     mixins: [validationMixin, withSnackbar],
     validations: {
       code: {required, maxLength: maxLength(4)},
       staffType: {required},
-      family: {requiredIf: requiredIf(() => {
-        return this.staffType.name === 'Professor/a'
+      family: {required: requiredIf((component) => {
+        return component.staffType.name === 'Professor/a'
       })},
-      specialty: {requiredIf: requiredIf(() => {
-        return this.staffType.name === 'Professor/a'
+      specialty: {required: requiredIf((component) => {
+        return component.staffType.name === 'Professor/a'
       })}
     },
     data () {
       return {
-        creating: false,
+        error: false,
+        errors: [],
+        adding: false,
         staffType: null,
         specialty: null,
         code: '',
@@ -213,10 +223,36 @@
       }
     },
     methods: {
-      create () {
-        // TODO
+      add () {
+        if (!this.$v.$invalid) {
+          this.adding = true
+          axios.post('/api/v1/staff', {
+            type: this.staffType.name,
+            code: this.code,
+            family: this.family && this.family.id,
+            specialty: this.specialty && this.specialty.id,
+            holder: this.holder && this.holder.id,
+            notes: this.notes
+          }).then(response => {
+            this.adding = false
+          }).catch(error => {
+            this.adding = false
+            console.log(error)
+            if (error.status === 422) this.mapErrors(error.data.errors)
+            this.showError(error)
+          })
+        } else {
+          this.$v.$touch()
+        }
+      },
+      mapErrors (errors) {
+        this.error = true
+        Object.values(errors).forEach(error => {
+          this.errors.push(error)
+        })
       },
       clear () {
+        this.code = null
         this.staffType = null
         this.specialty = null
         this.family = null

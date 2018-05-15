@@ -62,19 +62,36 @@
     mixins: [withSnackbar],
     data () {
       return {
+        errors: [],
         internalAction: this.action,
         internalEmail: this.email,
         loading: false,
         done: false,
         emailRules: [
           (v) => !!v || 'El email és obligatori',
-          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid'
+          (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'S\'ha d\'indicar un email vàlid',
+          (v) => {
+            if (this.errors && this.errors.email) {
+              let result = this.errors.email[0]
+              this.errors = []
+              return result
+            }
+            return true
+          }
         ],
         password: '',
         passwordConfirmation: '',
         passwordRules: [
           (v) => !!v || 'La paraula de pas és obligatòria',
-          (v) => v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters'
+          (v) => v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters',
+          (v) => {
+            if (this.errors && this.errors.password) {
+              let result = this.errors.password[0]
+              this.errors = []
+              return result
+            }
+            return true
+          }
         ],
         valid: false
       }
@@ -105,6 +122,10 @@
       }
     },
     methods: {
+      formatResultErrors (data) {
+        if (data.errors) this.errors = data.errors
+        else if (data.email) this.errors = { email: [data.email] }
+      },
       reset () {
         if (this.$refs.resetPasswordForm.validate()) {
           const user = {
@@ -115,6 +136,8 @@
           }
           this.loading = true
           this.$store.dispatch(actions.RESET_PASSWORD, user).then(response => {
+            console.log('OK!')
+            console.log(response)
             this.loading = false
             this.done = true
             sleep(4000).then(() => {
@@ -122,14 +145,17 @@
               window.location = '/home'
             })
           }).catch(error => {
-            if (error.response && error.response.status === 422) {
-              this.showError({
-                message: 'Invalid data'
-              })
+            this.loading = false
+            console.log('ERROR!')
+            console.log(error)
+            if (error.status === 422) {
+              this.showError('Les dades no són correctes')
+              console.log(error.data.errors)
             } else {
               this.showError(error)
             }
-            this.errors = error.response.data.errors
+            this.formatResultErrors(error.data)
+            this.$refs.resetPasswordForm.validate()
           }).then(() => {
             this.loading = false
           })

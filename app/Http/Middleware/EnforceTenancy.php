@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Config;
+use Log;
 
 /**
  * Class EnforceTenancy.
@@ -25,6 +26,7 @@ class EnforceTenancy
             return $next($request);
         }
         Config::set('database.default', 'tenant');
+        Config::set('app.url', 'http://' . $request->tenant . '.scool.acacha.test');
         return $next($request);
     }
 }

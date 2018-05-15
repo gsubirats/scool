@@ -33,12 +33,12 @@
                 <v-spacer></v-spacer>
                 <login-button action="{{ $action or null }}" ></login-button>
                 <register-button action="{{ $action or null }}" ></register-button>
-                <remember-password action="{{ $action or null }}"></remember-password>
-                <reset-password
-                        action="{{ $action or null }}"
-                        token="{{ $token or null }}"
-                        email="{{ $email or null }}"></reset-password>
             @endif
+            <remember-password action="{{ $action or null }}"></remember-password>
+            <reset-password
+                    action="{{ $action or null }}"
+                    token="{{ $token or null }}"
+                    email="{{ $email or null }}"></reset-password>
         </v-toolbar>
         <v-content>
             <section>

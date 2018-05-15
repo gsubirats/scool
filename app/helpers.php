@@ -553,6 +553,14 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('StaffManager');
         });
 
+        Gate::define('store-staff', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
+        Gate::define('delete-staff', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
         //Teachers
         Gate::define('show-teachers', function ($user) {
             return $user->hasRole('TeachersManager');

@@ -80,10 +80,8 @@
             this.done = true
             sleep(4000).then(() => { this.showRememberPassword = false })
           }).catch(error => {
-            if (error.response && error.response.status === 422) {
-              this.showError({
-                message: 'Invalid data'
-              })
+            if (error.status === 422) {
+              this.showError('Email incorrecte!')
             } else {
               this.showError(error)
             }

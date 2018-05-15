@@ -40,6 +40,10 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::put('/teacher_photo/{photoslug}', 'Tenant\TeacherPhotoController@edit');
 
+            //Staff
+            Route::post('/staff', 'Tenant\StaffController@store');
+            Route::delete('/staff/{staf}', 'Tenant\StaffController@destroy');
+
         });
 
         Route::group(['prefix' => 'v1'], function () {

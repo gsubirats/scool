@@ -42,6 +42,7 @@
                                     <td class="text-xs-left">{{ props.item.formatted_created_at }}</td>
                                     <td class="text-xs-left">{{ props.item.formatted_updated_at }}</td>
                                     <td class="text-xs-left">
+                                        <confirm-icon icon="email" :working="sending" @confirmed="sendResetPasswordEmail(props.item)"></confirm-icon>
                                         <v-btn icon class="mx-0" @click="editItem(props.item)">
                                             <v-icon color="teal">edit</v-icon>
                                         </v-btn>
@@ -200,9 +201,12 @@
   import * as mutations from '../../store/mutation-types'
   import * as actions from '../../store/action-types'
   import withSnackbar from '../mixins/withSnackbar'
+  import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
+  import axios from 'axios'
 
   export default {
     mixins: [withSnackbar],
+    components: { ConfirmIcon },
     data () {
       return {
         showDeleteUserDialog: false,
@@ -216,7 +220,8 @@
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
           {text: 'Accions', sortable: false}
-        ]
+        ],
+        sending: false
       }
     },
     props: {
@@ -231,6 +236,17 @@
       })
     },
     methods: {
+      sendResetPasswordEmail (user) {
+        this.sending = true
+        axios.post('password/email', {
+          email: user.email
+        }).then(response => {
+          this.sending = false
+        }).catch(error => {
+          console.log(error)
+          this.showError()
+        })
+      },
       formatRoles (user) {
         return Object.values(user.roles).join(', ')
       },
