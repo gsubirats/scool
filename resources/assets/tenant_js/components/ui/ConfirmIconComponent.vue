@@ -1,6 +1,12 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="290">
-        <v-btn icon slot="activator">
+        <v-tooltip bottom slot="activator" v-if="tooltip">
+            <v-btn icon slot="activator">
+                <v-icon :color="color" :dark="dark">{{icon}}</v-icon>
+            </v-btn>
+            <span v-html="tooltip"></span>
+        </v-tooltip>
+        <v-btn icon slot="activator" v-else>
             <v-icon :color="color" :dark="dark">{{icon}}</v-icon>
         </v-btn>
         <v-card>
@@ -55,6 +61,10 @@
       working: {
         type: Boolean,
         default: false
+      },
+      tooltip: {
+        type: String,
+        default: null
       }
     },
     watch: {

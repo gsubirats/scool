@@ -162,7 +162,7 @@ class StaffControllerTest extends BaseTenantTest
 
         $staff = Staff::create([
             'code' => '40',
-            'type_id' => StaffType::findByName('Professor/a')->id,
+            'type_id' => $type = StaffType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
             'user_id' => 1,
@@ -173,8 +173,14 @@ class StaffControllerTest extends BaseTenantTest
         $response = $this->json('DELETE','/api/v1/staff/' . $staff->id);
         $response->assertSuccessful();
 
-        // TODO
         $this->assertCount(0, Staff::all());
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals('40',$result->code);
+        $this->assertEquals($type,$result->type_id);
+        $this->assertEquals(1,$result->specialty_id);
+        $this->assertEquals(1,$result->family_id);
+        $this->assertEquals('bla bla bla',$result->notes);
 
         $result =  json_encode($response->getContent());
 

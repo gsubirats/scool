@@ -23,56 +23,48 @@
                                     :search="search"
                                     item-key="id"
                             >
-                                <template slot="items" slot-scope="props">
+                                <template slot="items" slot-scope="{item: staff}">
                                     <tr>
                                         <td class="text-xs-left">
-                                            {{ props.item.id }}
+                                            {{ staff.id }}
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ type(props.item) }}
+                                            {{ type(staff) }}
                                         </td>
-                                        <td class="text-xs-left">{{ props.item.code }}</td>
-                                        <td class="text-xs-left">{{ props.item.family && props.item.family.name}}</td>
-                                        <td class="text-xs-left">{{ props.item.specialty && props.item.specialty.code }}</td>
+                                        <td class="text-xs-left">{{ staff.code }}</td>
+                                        <td class="text-xs-left">{{ staff.family && staff.family.name}}</td>
+                                        <td class="text-xs-left">{{ staff.specialty && staff.specialty.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ props.item.user && props.item.user.name }}
+                                            {{ staff.user && staff.user.name }}
                                         </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ props.item.notes }}</span>
-                                                <span>{{ props.item.notes }}</span>
+                                                <span slot="activator">{{ staff.notes }}</span>
+                                                <span>{{ staff.notes }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ props.item.formatted_created_at_diff }}</span>
-                                                <span>{{ props.item.formatted_created_at }}</span>
+                                                <span slot="activator">{{ staff.formatted_created_at_diff }}</span>
+                                                <span>{{ staff.formatted_created_at }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ props.item.formatted_updated_at_diff }}</span>
-                                                <span>{{ props.item.formatted_updated_at }}</span>
+                                                <span slot="activator">{{ staff.formatted_updated_at_diff }}</span>
+                                                <span>{{ staff.formatted_updated_at }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <v-btn icon class="mx-0" @click="editItem(props.item)">
+                                            <v-btn icon class="mx-0" @click="edit(staff)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
-                                            <v-btn icon class="mx-0" @click="showConfirmationDialog(props.item)">
-                                                <v-icon color="pink">delete</v-icon>
-                                                <v-dialog v-model="showDeleteStaffDialog" max-width="500px">
-                                                    <v-card>
-                                                        <v-card-text>
-                                                            Esteu segurs que voleu eliminar aquesta plaça?
-                                                        </v-card-text>
-                                                        <v-card-actions>
-                                                            <v-btn flat @click.stop="showDeleteStaffDialog=false">Cancel·lar</v-btn>
-                                                            <v-btn color="primary">Esborrar</v-btn>
-                                                        </v-card-actions>
-                                                    </v-card>
-                                                </v-dialog>
-                                            </v-btn>
+                                            <confirm-icon icon="delete"
+                                                          color="pink"
+                                                          :working="deleting"
+                                                          @confirmed="remove(staff)"
+                                                          tooltip="Eliminar"
+                                            ></confirm-icon>
                                         </td>
                                     </tr>
                                 </template>
@@ -129,8 +121,11 @@
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
+  import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
+  import axios from 'axios'
 
   export default {
+    components: { ConfirmIcon },
     data () {
       return {
         search: '',
@@ -162,8 +157,21 @@
       }
     },
     methods: {
+      edit () {
+        console.log('TODO EDIT')
+      },
       type (staff) {
         return staff.type && staff.type.name
+      },
+      remove (staff) {
+        this.deleting = true
+        axios.delete('/api/v1/staff/' + staff.id).then(response => {
+          console.log(response)
+          this.deleting = false
+        }).catch(error => {
+          console.log(error)
+          this.showError(error)
+        })
       }
     },
     created () {

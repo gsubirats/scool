@@ -68,6 +68,7 @@ class StaffController extends Controller
      */
     public function destroy(DeleteStaff $request, $tenant, Staff $staff)
     {
-        return $staff->delete();
+        $staff->delete();
+        return $staff;
     }
 }

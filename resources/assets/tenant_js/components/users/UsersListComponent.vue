@@ -24,29 +24,33 @@
                             item-key="id"
                             expand
                             >
-                            <template slot="items" slot-scope="props">
+                            <template slot="items" slot-scope="{item: user}">
                                 <tr @click="expand($event, props)">
                                     <td class="text-xs-left">
-                                        {{ props.item.id }}
+                                        {{ user.id }}
                                     </td>
                                     <td class="text-xs-left">
-                                        {{ props.item.name }}
+                                        {{ user.name }}
                                     </td>
-                                    <td class="text-xs-left">{{ props.item.email }}</td>
+                                    <td class="text-xs-left">{{ user.email }}</td>
                                     <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                         <v-tooltip bottom>
-                                            <span slot="activator">{{ formatRoles(props.item) }}</span>
-                                            <span>{{ formatRoles(props.item) }}</span>
+                                            <span slot="activator">{{ formatRoles(user) }}</span>
+                                            <span>{{ formatRoles(user) }}</span>
                                         </v-tooltip>
                                     </td>
-                                    <td class="text-xs-left">{{ props.item.formatted_created_at }}</td>
-                                    <td class="text-xs-left">{{ props.item.formatted_updated_at }}</td>
+                                    <td class="text-xs-left">{{ user.formatted_created_at }}</td>
+                                    <td class="text-xs-left">{{ user.formatted_updated_at }}</td>
                                     <td class="text-xs-left">
-                                        <confirm-icon icon="email" :working="sending" @confirmed="sendResetPasswordEmail(props.item)"></confirm-icon>
-                                        <v-btn icon class="mx-0" @click="editItem(props.item)">
+                                        <confirm-icon icon="email"
+                                                      :working="sending"
+                                                      @confirmed="sendResetPasswordEmail(user)"
+                                                      tooltip="Enviar email restauració paraula de pas"
+                                        ></confirm-icon>
+                                        <v-btn icon class="mx-0" @click="editItem(user)">
                                             <v-icon color="teal">edit</v-icon>
                                         </v-btn>
-                                        <v-btn icon class="mx-0" @click="showConfirmationDialog(props.item)">
+                                        <v-btn icon class="mx-0" @click="showConfirmationDialog(user)">
                                             <v-icon color="pink">delete</v-icon>
                                             <v-dialog v-model="showDeleteUserDialog" max-width="500px">
                                                 <v-card>
@@ -244,7 +248,7 @@
           this.sending = false
         }).catch(error => {
           console.log(error)
-          this.showError()
+          this.showError(error)
         })
       },
       formatRoles (user) {
