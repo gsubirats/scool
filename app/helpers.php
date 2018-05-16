@@ -961,7 +961,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Vicent	Favà Figueres',
+            'name' => 'Vicent Favà Figueres',
             'code' => '030',
             'email' => 'vfava@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -982,7 +982,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Agustí	Baubí	Rovira',
+            'name' => 'Agustí Baubí Rovira',
             'code' => '031',
             'email' => 'agustinbaubi@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1003,7 +1003,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Josep Joan	Cid	Castella',
+            'name' => 'Josep Joan Cid Castella',
             'code' => '116',
             'email' => 'joancid1@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1024,7 +1024,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Rafel Puig	Rios',
+            'name' => 'Rafel Puig Rios',
             'code' => '032',
             'email' => 'rafelpuig@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1045,7 +1045,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Laureà	Ferré	Menasanch',
+            'name' => 'Laureà Ferré Menasanch',
             'code' => '033',
             'email' => 'lferre@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1087,7 +1087,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Xavi	Bel	Fernández',
+            'name' => 'Xavi Bel Fernández',
             'code' => '035',
             'email' => 'xbel@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1150,7 +1150,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Anna	Valls	Montagut',
+            'name' => 'Anna Valls Montagut',
             'code' => '064',
             'email' => 'avalls@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1192,7 +1192,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Salomé	Figueres Brescolí',
+            'name' => 'Salomé Figueres Brescolí',
             'code' => '067',
             'email' => 'salomefigueres@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1213,7 +1213,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Pepa	Cugat	Tomàs',
+            'name' => 'Pepa Cugat Tomàs',
             'code' => '066',
             'email' => 'pepacugat@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1255,7 +1255,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Mª Jesús	Sales Berire',
+            'name' => 'MªJesús Sales Berire',
             'code' => '060',
             'email' => 'msales@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1276,7 +1276,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Mª Luisa	Asensi Moltalva',
+            'name' => 'MªLuisa Asensi Moltalva',
             'code' => '061',
             'email' => 'mariaasensi@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1360,7 +1360,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Alicia	Fàbrega	Martínez',
+            'name' => 'Alicia Fàbrega Martínez',
             'code' => '071',
             'email' => 'aliciafabrega@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1402,7 +1402,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Sandra	Salvador Jovaní',
+            'name' => 'Sandra Salvador Jovaní',
             'code' => '068',
             'email' => 'sandrasalvador@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1423,7 +1423,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'MªJosé	Caballé	Valverde',
+            'name' => 'MªJosé Caballé Valverde',
             'code' => '074',
             'email' => 'mcaballe@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1444,7 +1444,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Marisa	Ramón Pérez',
+            'name' => 'Marisa Ramón Pérez',
             'code' => '073',
             'email' => 'mramon@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -1507,7 +1507,7 @@ if (!function_exists('initialize_teachers')) {
         );
 
         User::createIfNotExists([
-            'name' => 'Anna	Sambartolomé Sancho',
+            'name' => 'Anna Sambartolomé Sancho',
             'code' => '077',
             'email' => 'annasambartolome@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
