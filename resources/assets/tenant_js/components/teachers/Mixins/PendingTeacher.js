@@ -39,9 +39,6 @@ export default {
       fakeLocalities: [
         'TORTOSA', 'VINALLOP', 'ROQUETES', 'BíTEM', 'SANT CARLES DE LA RÀPITA', 'DELTEBRE', 'El PERELLO'
       ],
-      fakeProvinces: [
-        'TARRAGONA', 'CASTELLO', 'BARCELONA', 'LLEIDA', 'BARCELONA', 'VALÈNCIA', 'TERUEL', 'ALACANT'
-      ],
       name: '',
       sn1: '',
       sn2: '',

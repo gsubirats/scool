@@ -15,6 +15,9 @@ class TenantDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        seed_provinces();
+        $this->call(LocationsTableSeeder::class);
+
         initialize_menus();
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
@@ -29,5 +32,7 @@ class TenantDatabaseSeeder extends Seeder
 
         initialize_janitors();
         initialize_administrative_assistants();
+
+
     }
 }

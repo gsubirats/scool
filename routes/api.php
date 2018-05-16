@@ -50,6 +50,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/menu', 'Tenant\MenuController@index');
 
             Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
+
+            Route::get('/provinces','Tenant\ProvincesController@index');
         });
     });
 });

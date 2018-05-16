@@ -169,6 +169,7 @@
                                     <v-flex md2>
                                         <v-select
                                                 label="Província"
+                                                item-text="name"
                                                 autocomplete
                                                 :loading="loadingProvince"
                                                 cache-items
@@ -481,14 +482,9 @@
         }, 500)
       },
       queryProvinces (v) {
-        this.loadingProvince = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.provinces = this.fakeProvinces.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loadingProvince = false
-        }, 500)
+        this.provinces = this.allProvinces.filter(province => {
+          return (province.name || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
       },
       submit () {
         if (!this.$v.$invalid) {
@@ -504,7 +500,7 @@
             floor_number: this.floor_number,
             postal_code: this.postal_code,
             locality: this.locality,
-            province: this.province,
+            province: this.province.name,
             email: this.email,
             other_emails: this.other_emails.join(),
             telephone: this.telephone,
@@ -569,7 +565,21 @@
       },
       saveBirthdate (date) {
         this.$refs.menu.save(date)
+      },
+      fetchAllProvinces () {
+        this.loadingProvince = true
+        axios.get('/api/v1/provinces').then(response => {
+          this.allProvinces = response.data
+          this.loadingProvince = false
+        }).catch(error => {
+          this.loadingProvince = false
+          console.log(error)
+          this.showError(error)
+        })
       }
+    },
+    created () {
+      this.fetchAllProvinces()
     }
   }
 </script>
