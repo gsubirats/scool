@@ -64,3 +64,16 @@ https://developers.google.com/identity/protocols/OAuth2ServiceAccount#delegating
 ## Dades necessàries per a un tenant concret:
 
 - Fitxer json amb la clau sel service account
+
+## Passwords
+
+Al crear un usuari cal especificar paraula de pas. 
+
+- Problema: no tenim les paraules de pas en clar
+- Formats suportats de hash a GSuite. SHA-1, MD5, crypt
+- Es pot passar un hash al crear usuari. Cal posar-lo com a  base 16 bit hexadecimal-encoded hash value
+- Laravel no utilitza SHA-1 -> tenir un camp extra amb el password de l'usuari també guardat en SHA-1
+
+https://developers.google.com/admin-sdk/directory/v1/reference/users
+
+hashFunction	string	Stores the hash format of the password property. We recommend sending the password property value as a base 16 bit hexadecimal-encoded hash value. Set the hashFunction values as either the SHA-1, MD5, or crypt hash format.

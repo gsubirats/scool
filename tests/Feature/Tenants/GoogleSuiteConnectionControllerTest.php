@@ -34,8 +34,6 @@ class GSuiteConnectionControllerTest extends BaseTenantTest
     /** @test */
     public function can_connect_to_gsuite()
     {
-        $this->withExceptionHandling();
-
         Config::set('google.service.enable', true);
         Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
         Config::set('google.admin_email', 'sergitur@iesebre.com');
@@ -44,6 +42,5 @@ class GSuiteConnectionControllerTest extends BaseTenantTest
         $response->assertSuccessful();
 
         $this->assertEquals('Ok',json_decode($response->getContent())->result);
-
     }
 }

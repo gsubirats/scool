@@ -17,7 +17,7 @@ return [
     'someproblems'            => 'Hi ha alguns problemes amb la seva entrada.',
     'siginsession'            => 'Inicia sessió per accedir-hi',
     'remember'                => 'Recorda\'m',
-    'buttonsign'              => 'Iniciar Sessió',
+    'buttonsign'              => 'Entrar',
     'forgotpassword'          => 'He oblidat la meva contrasenya',
     'registermember'          => 'Registar un nou membre',
     'terms'                   => 'Estic d\'acord amb les condicions',

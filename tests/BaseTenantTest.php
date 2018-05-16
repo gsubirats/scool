@@ -35,4 +35,10 @@ class BaseTenantTest extends TestCase
         return parent::json($method, 'http://tenant_test.scool.acacha.test/' . $uri, $data, $headers);
     }
 
+    /** @test */
+    public function test_example()
+    {
+        $this->assertTrue(true);
+    }
+
 }

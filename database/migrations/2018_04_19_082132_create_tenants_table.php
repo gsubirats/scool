@@ -22,8 +22,8 @@ class CreateTenantsTable extends Migration
             $table->string('password');
             $table->string('database');
             $table->integer('port');
-            $table->string('gsuite_service_account_path');
-            $table->string('gsuite_admin_email');
+            $table->string('gsuite_service_account_path')->nullable();
+            $table->string('gsuite_admin_email')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();

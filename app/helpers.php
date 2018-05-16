@@ -156,6 +156,23 @@ if (! function_exists('create_admin_user')) {
     }
 }
 
+if (! function_exists('create_tenant_admin_user')) {
+    /**
+     *
+     */
+    function create_tenant_admin_user()
+    {
+        if (! App\Models\User::where('email',env('ADMIN_USER_EMAIL','sergiturbadenas@gmail.com'))->first()) {
+            App\Models\User::forceCreate([
+                'name' => env('ADMIN_USER_NAME','Sergi Tur Badenas'),
+                'email' => env('ADMIN_USER_EMAIL','sergiturbadenas@gmail.com'),
+                'password' => sha1(env('ADMIN_USER_PASSWORD','123456')),
+                'admin' => true
+            ]);
+        }
+    }
+}
+
 if (! function_exists('create_default_tenant')) {
     function create_default_tenant() {
         $user = App\User::find(1);
@@ -207,7 +224,7 @@ if (! function_exists('create_admin_user_on_subdomain')) {
         User::forceCreate([
             'name' => env('ADMIN_USER_NAME_ON_TENANT','Sergi Tur Badenas'),
             'email' => env('ADMIN_USER_EMAIL_ON_TENANT','sergiturbadenas@gmail.com'),
-            'password' => bcrypt(env('ADMIN_USER_PASSWORD_ON_TENANT','123456')),
+            'password' => sha1(env('ADMIN_USER_PASSWORD_ON_TENANT','123456')),
             'admin' => true
         ]);
     }
@@ -551,6 +568,15 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('UsersManager');
         });
 
+        // Google suite Users
+        Gate::define('show-gsuite-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::define('store-gsuite-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
         // STAFF
         Gate::define('show-staff', function ($user) {
             return $user->hasRole('StaffManager');
@@ -737,7 +763,7 @@ if (!function_exists('initialize_administrative_assistants')) {
         User::createIfNotExists([
             'name' => 'Pilar Vericat',
             'email' => 'pilarvericat@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
             ->assignFullName(Name::firstOrCreate([
@@ -755,7 +781,7 @@ if (!function_exists('initialize_administrative_assistants')) {
         User::createIfNotExists([
             'name' => 'Cinta Tomas',
             'email' => 'cintatomas@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
             ->assignFullName(Name::firstOrCreate([
@@ -773,7 +799,7 @@ if (!function_exists('initialize_administrative_assistants')) {
         User::createIfNotExists([
             'name' => 'Lluïsa Garcia',
             'email' => 'lluisagarcia@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
             ->assignFullName(Name::firstOrCreate([
@@ -791,7 +817,7 @@ if (!function_exists('initialize_administrative_assistants')) {
         User::createIfNotExists([
             'name' => 'Sonia Alegria',
             'email' => 'soniaalegria@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
             ->assignFullName(Name::firstOrCreate([
@@ -814,7 +840,7 @@ if (!function_exists('initialize_janitors')) {
         User::createIfNotExists([
             'name' => 'Jaume Benaiges',
             'email' => 'jaumebenaiges@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret using SHA1 (blames Gsuite) instead of bcrypt
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
             ->assignFullName(Name::firstOrCreate([
@@ -832,7 +858,7 @@ if (!function_exists('initialize_janitors')) {
         User::createIfNotExists([
             'name' => 'Jordi Caudet',
             'email' => 'jordicaudet@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
             ->assignFullName(Name::firstOrCreate([
@@ -850,7 +876,7 @@ if (!function_exists('initialize_janitors')) {
         User::createIfNotExists([
             'name' => 'Leonor Agramunt',
             'email' => 'leonoragramunt@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
             ->assignFullName(Name::firstOrCreate([
@@ -875,7 +901,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Dolors Sanjuan Aubà',
             'code' => '02',
             'email' => 'dolorssanjuanauba@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([

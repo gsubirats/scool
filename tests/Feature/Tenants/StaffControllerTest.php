@@ -173,7 +173,7 @@ class StaffControllerTest extends BaseTenantTest
         $response = $this->json('DELETE','/api/v1/staff/' . $staff->id);
         $response->assertSuccessful();
 
-        dd(Staff::first());
+        // TODO
         $this->assertCount(0, Staff::all());
 
         $result =  json_encode($response->getContent());

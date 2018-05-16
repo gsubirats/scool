@@ -44,6 +44,11 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::post('/staff', 'Tenant\StaffController@store');
             Route::delete('/staff/{staf}', 'Tenant\StaffController@destroy');
 
+            //Google GSuite users
+            Route::get('/gsuite/users/{email}', 'Tenant\GoogleSuiteUsersController@show');
+            Route::post('/gsuite/users', 'Tenant\GoogleSuiteUsersController@store');
+
+
         });
 
         Route::group(['prefix' => 'v1'], function () {
