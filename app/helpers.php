@@ -2440,7 +2440,7 @@ if (!function_exists('initialize_teachers')) {
         ->assignFullName(Name::firstOrCreate([
             'givenName' => 'Mireia',
             'sn1' => 'Consarnau',
-            'sn2' => 'ArPallarésnau',
+            'sn2' => 'Pallarés',
         ]))
         ->assignStaff(
             Staff::firstOrCreate([
