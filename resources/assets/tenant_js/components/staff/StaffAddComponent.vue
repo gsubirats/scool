@@ -144,7 +144,7 @@
   import { validationMixin } from 'vuelidate'
   import withSnackbar from '../mixins/withSnackbar'
   import { required, maxLength, requiredIf } from 'vuelidate/lib/validators'
-  import axios from 'axios'
+  import * as actions from '../../store/action-types'
 
   export default {
     mixins: [validationMixin, withSnackbar],
@@ -227,7 +227,7 @@
       add () {
         if (!this.$v.$invalid) {
           this.adding = true
-          axios.post('/api/v1/staff', {
+          this.$store.dispatch(actions.STORE_STAFF, {
             type: this.staffType.name,
             code: this.code,
             family: this.family && this.family.id,

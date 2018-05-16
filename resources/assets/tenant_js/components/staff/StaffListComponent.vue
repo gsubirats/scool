@@ -121,8 +121,8 @@
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
+  import * as actions from '../../store/action-types'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
-  import axios from 'axios'
 
   export default {
     components: { ConfirmIcon },
@@ -165,10 +165,10 @@
       },
       remove (staff) {
         this.deleting = true
-        axios.delete('/api/v1/staff/' + staff.id).then(response => {
-          console.log(response)
+        this.$store.dispatch(actions.DELETE_STAFF, staff).then(response => {
           this.deleting = false
         }).catch(error => {
+          this.deleting = false
           console.log(error)
           this.showError(error)
         })
