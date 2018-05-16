@@ -13,6 +13,7 @@ use App\Models\StaffType;
 use App\Models\User;
 use App\Models\UserType;
 use App\Tenant;
+use PulkitJalan\Google\Client;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -167,7 +168,9 @@ if (! function_exists('create_default_tenant')) {
                 'database' => 'iesebre',
                 'username' => 'iesebre',
                 'password' => str_random(),
-                'port' => 3306
+                'port' => 3306,
+                'gsuite_service_account_path' => '/gsuite_service_accounts/scool-07eed0b550a6f.json',
+                'gsuite_admin_email' => 'sergitur@iesebre.com'
             ]));
         }
 
@@ -1412,3 +1415,16 @@ if (! function_exists('seed_provinces')) {
         ]);
     }
 }
+
+if (! function_exists('tune_google_client')) {
+    function tune_google_client()
+    {
+        app()->extend(\PulkitJalan\Google\Client::class, function ($command, $app) {
+            $config = $app['config']['google'];
+            $user = 'sergitur@iesebre.com';
+            return new Client($config, $user);
+        });
+    }
+}
+
+

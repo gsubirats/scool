@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use Illuminate\Http\Request;
+use Mockery\Exception;
 use PulkitJalan\Google\Client;
 use PulkitJalan\Google\Facades\Google;
 
@@ -13,27 +14,38 @@ use PulkitJalan\Google\Facades\Google;
  */
 class GoogleSuiteTestConnectionController extends Controller
 {
-    public function index()
+    /**
+     * GoogleSuiteTestConnectionController constructor.
+     */
+    public function __construct()
     {
-        //        // Override pulkitjalan/google-apiclient
-        app()->extend(\PulkitJalan\Google\Client::class, function ($command, $app) {
-            $config = $app['config']['google'];
-            $user = 'sergitur@iesebre.com';
-            return new Client($config, $user);
-        });
+        tune_google_client();
+    }
 
-        $googleClient = Google::getClient();
-//        dd($googleClient);
+    /**
+     * Index.
+     *
+     * @param Request $request
+     * @return array|\Exception|Exception
+     */
+    public function index(Request $request)
+    {
         $directory = Google::make('directory');
-        $r = $directory->users->get('sergitur@iesebre.com');
-        if($r) {
-            dump( "Name: ".$r->name->fullName."<br/>");
-            echo "Suspended?: ".(($r->suspended === true) ? 'Yes' : 'No')."<br/>";
-            echo "Org/Unit/Path: ".$r->orgUnitPath."<br/>";
-        } else {
-            echo "User does not exist: $email<br/>";
+        $email = config('google.admin_email');
+
+        try {
+            $r = $directory->users->get($email);
+        } catch (Exception $e) {
+            return $e;
         }
-//        dump('Class: ' . get_class($directory));
-//        dd($directory);
+
+        if ($r->emails[0]['address'] === $email && $r->emails[0]['primary']) {
+            return ['result' => 'Ok'];
+        } else {
+            return [
+                'result' => 'Error',
+                'message' => 'User ' . $email . ' not found!'
+            ];
+        }
     }
 }

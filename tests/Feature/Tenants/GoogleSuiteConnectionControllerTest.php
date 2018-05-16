@@ -3,6 +3,7 @@
 namespace Tests\Feature\Tenants;
 
 use App\Console\Kernel;
+use Config;
 use Tests\BaseTenantTest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -34,8 +35,15 @@ class GSuiteConnectionControllerTest extends BaseTenantTest
     public function can_connect_to_gsuite()
     {
         $this->withExceptionHandling();
+
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
         $response = $this->json('GET','/api/v1/gsuite/test_connection');
-        $response->dump();
         $response->assertSuccessful();
+
+        $this->assertEquals('Ok',json_decode($response->getContent())->result);
+
     }
 }

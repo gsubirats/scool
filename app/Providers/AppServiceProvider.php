@@ -4,7 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
+use PulkitJalan\Google\Client;
 
+/**
+ * Class AppServiceProvider.
+ *
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
