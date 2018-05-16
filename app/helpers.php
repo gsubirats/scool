@@ -922,7 +922,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Nuria Bordes Vidal',
             'code' => '028',
             'email' => 'nbordes@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -943,7 +943,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Laura Llopis Lozano',
             'code' => '029',
             'email' => 'laurallopis@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -964,7 +964,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Vicent	Favà Figueres',
             'code' => '030',
             'email' => 'vfava@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -985,7 +985,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Agustí	Baubí	Rovira',
             'code' => '031',
             'email' => 'agustinbaubi@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1006,7 +1006,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Josep Joan	Cid	Castella',
             'code' => '116',
             'email' => 'joancid1@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1027,7 +1027,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Rafel Puig	Rios',
             'code' => '032',
             'email' => 'rafelpuig@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1048,7 +1048,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Laureà	Ferré	Menasanch',
             'code' => '033',
             'email' => 'lferre@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1069,7 +1069,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Manel Canalda Vidal',
             'code' => '034',
             'email' => 'manelcanalda@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1090,7 +1090,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Xavi	Bel	Fernández',
             'code' => '035',
             'email' => 'xbel@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1111,7 +1111,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'J.Luís Colomé Monllao',
             'code' => '036',
             'email' => 'jcolome@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1132,7 +1132,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Angel Portillo Lucas',
             'code' => '037',
             'email' => 'angelportillo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1153,7 +1153,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Anna	Valls	Montagut',
             'code' => '064',
             'email' => 'avalls@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1174,7 +1174,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Anna Benaiges Bertomeu',
             'code' => '065',
             'email' => 'anabenaiges@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1195,7 +1195,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Salomé	Figueres Brescolí',
             'code' => '067',
             'email' => 'salomefigueres@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1216,7 +1216,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Pepa	Cugat	Tomàs',
             'code' => '066',
             'email' => 'pepacugat@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1237,7 +1237,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Berta Safont Recatalà',
             'code' => '062',
             'email' => 'bertasafont@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1258,7 +1258,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Mª Jesús	Sales Berire',
             'code' => '060',
             'email' => 'msales@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1279,7 +1279,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Mª Luisa	Asensi Moltalva',
             'code' => '061',
             'email' => 'mariaasensi@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1300,7 +1300,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Santi López Garcia',
             'code' => '063',
             'email' => 'santiagolopez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1321,7 +1321,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Lluis Ventura Forner',
             'code' => '069',
             'email' => 'lventura@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1342,7 +1342,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'J.Antoni Pons Albalat',
             'code' => '070',
             'email' => 'jpons@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1363,7 +1363,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Alicia	Fàbrega	Martínez',
             'code' => '071',
             'email' => 'aliciafabrega@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1384,7 +1384,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Segis Benabent Gil',
             'code' => '072',
             'email' => 'sbenabent@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1405,7 +1405,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Sandra	Salvador Jovaní',
             'code' => '068',
             'email' => 'sandrasalvador@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1426,7 +1426,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'MªJosé	Caballé	Valverde',
             'code' => '074',
             'email' => 'mcaballe@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1447,7 +1447,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Marisa	Ramón Pérez',
             'code' => '073',
             'email' => 'mramon@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1468,7 +1468,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Elisa Puig Moll',
             'code' => '075',
             'email' => 'epuig@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1489,7 +1489,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Ruth Hidalgo Vilar',
             'code' => '076',
             'email' => 'rhidalgo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1510,7 +1510,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Anna	Sambartolomé Sancho',
             'code' => '077',
             'email' => 'annasambartolome@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1531,7 +1531,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Cinta Mestre Escrihuela',
             'code' => '078',
             'email' => 'cintamestre@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1552,7 +1552,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Trini Tomas Forcadell',
             'code' => '080',
             'email' => 'trinidadtomas@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1573,7 +1573,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Adonay Pérez López',
             'code' => '081',
             'email' => 'aperez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1594,7 +1594,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Tarsi Royo Cruselles',
             'code' => '082',
             'email' => 'troyo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1615,7 +1615,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Iris Maturana Andreu',
             'code' => '084',
             'email' => 'irismaturana@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1636,7 +1636,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Llatzer Cabó Bertomeu',
             'code' => '085',
             'email' => 'llatzercarbo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1657,7 +1657,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Mercè Gilo Ortiz',
             'code' => '086',
             'email' => 'mercegilo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1678,7 +1678,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Cristina Cardona Romero',
             'code' => '087',
             'email' => 'ccardona99@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1699,7 +1699,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'David Gàmez Balaguer',
             'code' => '088',
             'email' => 'dgamez1@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1720,7 +1720,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Àngels Garrido Borja',
             'code' => '089',
             'email' => 'mgarrido2@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1741,7 +1741,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Alicia Gamundi Vilà',
             'code' => '090',
             'email' => 'aliciagamundi@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1762,7 +1762,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Ricard Gonzalez Castelló',
             'code' => '091',
             'email' => 'rgonzalez1@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1783,7 +1783,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Elena Mauri Cuenca',
             'code' => '092',
             'email' => 'elenamauri@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1804,7 +1804,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Irene Alegre Chavarria',
             'code' => '093',
             'email' => 'irenealegre@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1825,7 +1825,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Maria Castells Gilabert',
             'code' => '108',
             'email' => 'mariacastells1@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1846,7 +1846,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Oscar Samo Franch',
             'code' => '014',
             'email' => 'oscarsamo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1867,7 +1867,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Oscar Samo Franch',
             'code' => '014',
             'email' => 'oscarsamo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1888,7 +1888,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Enric Garcia Carcelén',
             'code' => '015',
             'email' => 'egarci@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1909,7 +1909,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Eduard Ralda Simó',
             'code' => '016',
             'email' => 'eralda@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1930,7 +1930,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Pili Nuez Garcia',
             'code' => '017',
             'email' => 'mnuez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1951,7 +1951,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'MªRosa Ubalde Bellot',
             'code' => '018',
             'email' => 'mariarosaubalde@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1972,7 +1972,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Paqui Pinyol Moreso',
             'code' => '019',
             'email' => 'fpinyol@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -1993,7 +1993,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Dolors Subirats Fabra',
             'code' => '020',
             'email' => 'dsubirats@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2014,7 +2014,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Ferran Sabaté Borras',
             'code' => '021',
             'email' => 'fsabate@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2035,7 +2035,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Araceli Esteller Hierro',
             'code' => '022',
             'email' => 'aesteller@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2056,7 +2056,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Mavi Santamaria Andreu',
             'code' => '023',
             'email' => 'mavisantamaria@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2077,7 +2077,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Agustí Moreso Garcia',
             'code' => '024',
             'email' => 'amoreso@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2098,7 +2098,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Carme Vega Guerra',
             'code' => '025',
             'email' => 'cvega@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2119,7 +2119,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Dolors Ferreres Gasulla',
             'code' => '106',
             'email' => 'dolorsferreres@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2140,7 +2140,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Juan Abad Bueno',
             'code' => '107',
             'email' => 'juandediosabad@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2161,7 +2161,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Just Pérez Santiago',
             'code' => '026',
             'email' => 'justperez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2182,7 +2182,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Armand Pons Roda',
             'code' => '027',
             'email' => 'apons@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2203,7 +2203,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Raquel Planell Tolos',
             'code' => '105',
             'email' => 'raquelplanell@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2224,7 +2224,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Marta Grau Ferrer',
             'code' => '094',
             'email' => 'martagrau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2245,7 +2245,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Gerard Domenech Vendrell',
             'code' => '095',
             'email' => 'gerarddomenech@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2266,7 +2266,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'J.Antonio Fernández Herraez',
             'code' => '096',
             'email' => 'joseantoniofernandez1@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2287,7 +2287,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Monica Moreno Dionis',
             'code' => '097',
             'email' => 'monicamoreno@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2308,7 +2308,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Santi Sabaté Sanz',
             'code' => '038',
             'email' => 'ssabate@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2329,7 +2329,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Jordi Varas Aliau',
             'code' => '039',
             'email' => 'jvaras@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2350,7 +2350,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Sergi Tur Badenas',
             'code' => '040',
             'email' => 'stur@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2371,7 +2371,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Jaume Ramos Prades',
             'code' => '041',
             'email' => 'jaumeramos@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2392,7 +2392,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Quique Lorente Fuertes',
             'code' => '046',
             'email' => 'quiquelorente@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2413,7 +2413,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'A.Gonzalb Verge Arnau',
             'code' => '117',
             'email' => 'goncalverge@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2434,7 +2434,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Mireia Consarnau Pallarés',
             'code' => '042',
             'email' => 'mireiaconsarnau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2455,7 +2455,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Manel Macías Valanzuela',
             'code' => '043',
             'email' => 'manelmacias@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2476,7 +2476,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Josep Dieg Cervellera Forcadell',
             'code' => '045',
             'email' => 'josediegocervellera@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2497,7 +2497,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'J.Luis Calderon Furió',
             'code' => '051',
             'email' => 'jcaldero@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2518,7 +2518,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Salvador Jareño Gas',
             'code' => '052',
             'email' => 'sjareno@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2539,7 +2539,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Jordi Brau Marza',
             'code' => '053',
             'email' => 'jordibrau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2560,7 +2560,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Joan Tiron Ferré',
             'code' => '054',
             'email' => 'jtiron@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2581,7 +2581,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Ricard Fernandez Burato',
             'code' => '055',
             'email' => 'rfernand@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2602,7 +2602,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Ubaldo Arroyo Martínez',
             'code' => '056',
             'email' => 'ubaldoarroyo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2623,7 +2623,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Fernando Segura Venezia',
             'code' => '057',
             'email' => 'fernandosegura@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2644,7 +2644,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Francesc Besalduch Piñol',
             'code' => '058',
             'email' => 'sbesalduch@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2665,7 +2665,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Manel Segarra Capera',
             'code' => '059',
             'email' => 'msegarra@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2686,7 +2686,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Rosendo Ferri Marzo',
             'code' => '049',
             'email' => 'rosendoferri@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2707,7 +2707,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Jordi Sanchez Bel',
             'code' => '050',
             'email' => 'jordisanchez@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2728,7 +2728,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Albert Rofí Estelles',
             'code' => '047',
             'email' => 'arofin@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2749,7 +2749,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Pedro Guerrero López',
             'code' => '048',
             'email' => 'pedroguerrero@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2770,7 +2770,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Teresa Lasala Descarrega',
             'code' => '009',
             'email' => 'tlasala@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2791,7 +2791,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Carmina Andreu Pons',
             'code' => '010',
             'email' => 'candreu@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2812,7 +2812,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'J.Andrés Brocal Safont',
             'code' => '011',
             'email' => 'jbrocal@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2833,7 +2833,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Pilar Fadurdo Estrada',
             'code' => '012',
             'email' => 'pilarfadurdo@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2854,7 +2854,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Carlos Querol Bel',
             'code' => '013',
             'email' => 'carlosquerol@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2875,7 +2875,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Marisa Grau Campeón',
             'code' => '003',
             'email' => 'cgrau@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2896,7 +2896,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Isabel Jordà Cabaces',
             'code' => '004',
             'email' => 'ijorda@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2917,7 +2917,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Enric Querol Coll',
             'code' => '005',
             'email' => 'equerol@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2938,7 +2938,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Lara Melich Cañado',
             'code' => '006',
             'email' => 'laramelich@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2959,7 +2959,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Carme Aznar Pedret',
             'code' => '007',
             'email' => 'carmeaznar@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
@@ -2980,7 +2980,7 @@ if (!function_exists('initialize_teachers')) {
             'name' => 'Julià Curto De la Vega',
             'code' => '008',
             'email' => 'jcurto@iesebre.com',
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
