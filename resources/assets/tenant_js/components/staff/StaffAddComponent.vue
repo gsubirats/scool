@@ -23,6 +23,7 @@
                                                             :error-messages="codeErrors"
                                                             @input="$v.code.$touch()"
                                                             @blur="$v.code.$touch()"
+                                                            autofocus
                                                     ></v-text-field>
                                                 </v-flex>
                                                 <v-flex md2>
@@ -118,11 +119,11 @@
                                                 </v-flex>
                                             </v-layout>
                                         </v-container>
+                                        <v-btn flat color="red" @click="clear">Netejar</v-btn>
                                         <v-btn @click="add"
                                                :loading="adding"
                                                :disabled="adding"
                                         >Afegir</v-btn>
-                                        <v-btn @click="clear">Netejar</v-btn>
                                     </form>
                                 </v-flex>
                             </v-layout>
@@ -235,6 +236,7 @@
             notes: this.notes
           }).then(response => {
             this.adding = false
+            this.showMessage('Plaça afegida correctament')
           }).catch(error => {
             this.adding = false
             console.log(error)
