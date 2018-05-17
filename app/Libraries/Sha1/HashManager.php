@@ -4,15 +4,15 @@ namespace App\Libraries\Sha1;
 
 use Illuminate\Hashing\ArgonHasher;
 use Illuminate\Hashing\BcryptHasher;
-use Illuminate\Support\Manager;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Hashing\HashManager as ParentHashManager;
 
 /**
  * Class HashManager.
  *
  * @package App\Libraries\Sha1
  */
-class HashManager extends Manager implements Hasher
+class HashManager extends ParentHashManager implements Hasher
 {
     /**
      * Create an instance of the Sha1 hash Driver.
