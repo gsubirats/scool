@@ -32,4 +32,8 @@
             echo json_encode($trans);
         @endphp
     </script>
+
+    <script>
+      window.vapidPublicKey = "{{ config('webpush.vapid.public_key') }}";
+    </script>
 </head>

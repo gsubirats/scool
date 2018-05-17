@@ -16,6 +16,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('tenants', require('./components/TenantsComponent.vue'));
+Vue.component('push', require('./components/PushComponent.vue'));
+
 
 import store from './store'
 import * as mutations from './store/mutation-types'

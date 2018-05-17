@@ -84,3 +84,10 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+// Push Subscriptions
+Route::post('subscriptions', 'PushSubscriptionController@update');
+Route::post('subscriptions/delete', 'PushSubscriptionController@destroy');
+
+Route::get('push', 'PushController@index');
+Route::post('notifications', 'NotificationController@store');
