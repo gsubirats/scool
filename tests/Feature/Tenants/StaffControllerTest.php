@@ -15,7 +15,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class StaffControllerTest
+ * Class StaffControllerTest.
+ *
  * @package Tests\Feature\Tenants
  */
 class StaffControllerTest extends BaseTenantTest
