@@ -34,6 +34,9 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             return view('tenants.welcome');
         });
 
+        // Gsuite users push notifications
+        Route::post('/gsuite/notifications','Tenant\GoogleSuiteUsersPushNotificationController@store');
+
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/home', function ($tenant) {
                 return view('tenants.home');

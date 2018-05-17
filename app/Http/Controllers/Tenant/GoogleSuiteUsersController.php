@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Requests\DeleteGoogleSuiteUser;
+use App\Http\Requests\ListGoogleSuiteUser;
 use App\Http\Requests\ShowGoogleSuiteUser;
 use App\Http\Requests\StoreGoogleSuiteUser;
 use Google_Service_Directory_User;
@@ -23,6 +25,19 @@ class GoogleSuiteUsersController extends Controller
         tune_google_client();
     }
 
+    public function index(ListGoogleSuiteUser $request)
+    {
+        $directory = Google::make('directory');
+        try {
+            $r = $directory->users->listUsers(array('domain' => 'iesebre.com', 'maxResults' => 500));
+        } catch (\Exception $e) {
+            dump('Error');
+            dd($e);
+            return $e;
+        }
+        dd($r);
+    }
+
     /**
      * Show.
      *
@@ -40,7 +55,7 @@ class GoogleSuiteUsersController extends Controller
         } catch (\Exception $e) {
             return $e;
         }
-
+//        dd($r);
         if ($r->emails[0]['address'] === $email && $r->emails[0]['primary']) {
             return json_encode($r);
         } else {
@@ -70,8 +85,62 @@ class GoogleSuiteUsersController extends Controller
         $user->setExternalIds(array("value"=>28790,"type"=>"custom","customType"=>"EmployeeID"));
 
         $directory = Google::make('directory');
+
         try {
             $result = $directory->users->insert($user);
+        } catch (\Exception $e) {
+            dump('ERROR');
+            dd($e);
+            return $e;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Destroy.
+     *
+     * @param DeleteGoogleSuiteUser $request
+     * @param $tenant
+     * @param $email
+     * @return \Exception
+     */
+    public function destroy(DeleteGoogleSuiteUser $request, $tenant, $email)
+    {
+
+        $directory = Google::make('directory');
+        try {
+            $result = $directory->users->delete($email);
+            dump($result);
+        } catch (\Exception $e) {
+            dump('ERROR');
+            dd($e);
+            return $e;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Undelete.
+     *
+     * @param DeleteGoogleSuiteUser $request
+     * @param $tenant
+     * @param $email
+     * @return \Exception
+     */
+    public function undelete(DeleteGoogleSuiteUser $request, $tenant, $email)
+    {
+
+        $directory = Google::make('directory');
+        dd(get_class($directory->users));
+        try {
+            //Google_Service_Directory_UserUndelete
+            //See users.list(showDeleted=true) to get a list of all accounts that have been deleted in the past 5 days and convert the email address into an id If the primary address isn't enough to go off of (again, 2+ accounts created with that same primary addresss in past 5 days) then you can also look at creationTime and lastLoginTime to determine which is the correct account to undelete.
+            // Cal aconseguir el id de l'usuari de la llista dels usuaris esborrat últimament
+            // HI ha 20 dies per recuperar els últims usuaris esborrats!
+            $result = $directory->users->undelete($id);
+            dump($result);
         } catch (\Exception $e) {
             dump('ERROR');
             dd($e);

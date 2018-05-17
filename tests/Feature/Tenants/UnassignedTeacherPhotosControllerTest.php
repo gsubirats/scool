@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Tenants;
 
-use App\Console\Kernel;
+use Illuminate\Contracts\Console\Kernel;
 use App\Events\TeacherPhotosZipUploaded;
 use App\Events\UnassignedTeacherPhotoUploaded;
 use App\Models\User;

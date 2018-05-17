@@ -569,11 +569,23 @@ if (!function_exists('initialize_gates')) {
         });
 
         // Google suite Users
+        Gate::define('list-gsuite-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
         Gate::define('show-gsuite-users', function ($user) {
             return $user->hasRole('UsersManager');
         });
 
         Gate::define('store-gsuite-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::define('delete-gsuite-users', function ($user) {
+            return $user->hasRole('UsersManager');
+        });
+
+        Gate::define('watch-gsuite-users', function ($user) {
             return $user->hasRole('UsersManager');
         });
 

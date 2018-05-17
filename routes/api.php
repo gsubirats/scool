@@ -45,9 +45,18 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::delete('/staff/{staff}', 'Tenant\StaffController@destroy');
 
             //Google GSuite users
+            Route::get('/gsuite/users', 'Tenant\GoogleSuiteUsersController@index');
             Route::get('/gsuite/users/{email}', 'Tenant\GoogleSuiteUsersController@show');
             Route::post('/gsuite/users', 'Tenant\GoogleSuiteUsersController@store');
+            Route::delete('/gsuite/users/{email}', 'Tenant\GoogleSuiteUsersController@destroy');
 
+            // Google Suite deleted users
+            // Undelete user
+            Route::post('/gsuite/deleted_users/{email}', 'Tenant\GoogleSuiteDeletedUsersController@undelete');
+            Route::get('/gsuite/deleted_users/{email}', 'Tenant\GoogleSuiteDeletedUsersController@show');
+
+            //Google Suite watch users
+            Route::post('/gsuite/watchusers', 'Tenant\GoogleSuiteWatchUsersController@store');
 
         });
 

@@ -3,18 +3,16 @@
 namespace Tests\Feature\Tenants;
 
 use Illuminate\Contracts\Console\Kernel;
-use Config;
 use Tests\BaseTenantTest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class GoogleSuiteConnectionControllerTest.
+ * Class GoogleSuiteUsersPushNotificationControllerTest.
  *
  * @package Tests\Feature
  */
-class GoogleSuiteConnectionControllerTest extends BaseTenantTest
+class GoogleSuiteUsersPushNotificationControllerTest extends BaseTenantTest
 {
-
     use RefreshDatabase;
 
     /**
@@ -32,15 +30,17 @@ class GoogleSuiteConnectionControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function can_connect_to_gsuite()
+    public function can_receive_google_suite_users_push_notifications()
     {
-        Config::set('google.service.enable', true);
-        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
-        Config::set('google.admin_email', 'sergitur@iesebre.com');
+        $this->withoutExceptionHandling();
+        $response = $this->post('/gsuite/notifications',[
+            'kind' => "admin#directory#user",
+            'id' => 2341412,
+            'etag' => 'weqqw4321',
+            'primaryEmail' => 'prova@iesebre.com'
+        ]);
 
-        $response = $this->json('GET','/api/v1/gsuite/test_connection');
         $response->assertSuccessful();
-
-        $this->assertEquals('Ok',json_decode($response->getContent())->result);
+        $response->dump();
     }
 }

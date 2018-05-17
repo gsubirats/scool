@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Tenants;
 
-use App\Console\Kernel;
+use Illuminate\Contracts\Console\Kernel;
 use App\Models\PendingTeacher;
 use App\Models\User;
 use Config;

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Tenants;
 
-use App\Console\Kernel;
+use Illuminate\Contracts\Console\Kernel;
 use App\Models\User;
 use Config;
 use Spatie\Permission\Models\Role;
@@ -29,6 +29,40 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         ]);
 
         $this->app[Kernel::class]->setArtisan(null);
+    }
+
+    /** @test */
+    public function show_google_users()
+    {
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $manager = create(User::class);
+        $this->actingAs($manager,'api');
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+
+        $response = $this->json('GET','/api/v1/gsuite/users');
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function user_cannot_show_google_users()
+    {
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+
+        $response = $this->json('GET','/api/v1/gsuite/users/');
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -161,7 +195,6 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         Config::set('google.admin_email', 'sergitur@iesebre.com');
 
         $manager = create(User::class);
-        $this->actingAs($manager,'api');
         $role = Role::firstOrCreate([
             'name' => 'UsersManager',
             'guard_name' => 'web'
@@ -189,6 +222,88 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         $response = $this->json('POST','/api/v1/gsuite/users', [
 
         ]);
+        $response->assertStatus(403);
+    }
+
+
+    /** @test */
+    public function remove_google_user()
+    {
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $manager = create(User::class);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $user = factory(User::class)->create([
+            'email' => 'testy.testerton@iesebre.com'
+        ]);
+        $response = $this->json('DELETE','/api/v1/gsuite/users/' . $user->email);
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function user_cannot_remove_google_user()
+    {
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+
+        $otheruser = factory(User::class)->create([
+            'email' => 'testy.testerton@iesebre.com'
+        ]);
+        $response = $this->json('DELETE','/api/v1/gsuite/users/' . $otheruser->email);
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function unremove_google_user()
+    {
+        $this->withoutExceptionHandling();
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $manager = create(User::class);
+        $role = Role::firstOrCreate([
+            'name' => 'UsersManager',
+            'guard_name' => 'web'
+        ]);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $user = factory(User::class)->create([
+            'email' => 'testy.testerton@iesebre.com'
+        ]);
+        $response = $this->json('POST','/api/v1/gsuite/users/undelete' . $user->email);
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function user_cannot_unremove_google_user()
+    {
+        Config::set('google.service.enable', true);
+        Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
+        Config::set('google.admin_email', 'sergitur@iesebre.com');
+
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+
+        $otheruser = factory(User::class)->create([
+            'email' => 'testy.testerton@iesebre.com'
+        ]);
+        $response = $this->json('POST','/api/v1/gsuite/users/undelete' . $otheruser->email);
         $response->assertStatus(403);
     }
 
