@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'domain' => env('URL', 'scool.acacha.test'),
+    'domain' => env('APP_DOMAIN', 'scool.cat'),
 
     /*
     |--------------------------------------------------------------------------
