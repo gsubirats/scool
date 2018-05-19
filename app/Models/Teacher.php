@@ -13,4 +13,11 @@ class Teacher extends Model
 {
     protected $guarded = [];
 
+    /**
+     * Get the user that owns the teacher.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

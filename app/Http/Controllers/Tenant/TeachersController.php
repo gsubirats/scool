@@ -7,6 +7,7 @@ use App\Models\AdministrativeStatus;
 use App\Models\Force;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class TeachersController extends Controller
     public function show(ShowTeachersManagment $request)
     {
         $pendingTeachers = PendingTeacher::with('specialty')->get();
-        $teachers = User::teachers()->get();
+        $teachers = Teacher::with(['user','user.staffs'])->get();
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrative_statuses = AdministrativeStatus::all();

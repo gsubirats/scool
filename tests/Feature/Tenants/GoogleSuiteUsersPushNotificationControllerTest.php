@@ -29,7 +29,10 @@ class GoogleSuiteUsersPushNotificationControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function can_receive_google_suite_users_push_notifications()
     {
         $this->withoutExceptionHandling();

@@ -15,7 +15,10 @@ class UserTenantPasswordControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function logged_user_can_update_tenant_admin_user_password()
     {
         // TODO

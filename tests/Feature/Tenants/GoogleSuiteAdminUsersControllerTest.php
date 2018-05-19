@@ -29,13 +29,19 @@ class GoogleSuiteAdminUsersControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function show_google_admin_users()
     {
 
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function user_cannot_show_google_admin_users()
     {
 //        Config::set('google.service.enable', true);

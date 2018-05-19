@@ -14,7 +14,10 @@ class GoogleSuiteUsersPushNotificationController2Test extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function can_receive_google_suite_users_push_notifications1()
     {
         $this->withoutExceptionHandling();

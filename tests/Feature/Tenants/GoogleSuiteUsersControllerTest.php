@@ -31,7 +31,11 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     * @group gsuite
+     */
     public function show_google_users()
     {
         Config::set('google.service.enable', true);
@@ -226,7 +230,10 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
     }
 
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function remove_google_user()
     {
         $this->markTestIncomplete(
@@ -272,7 +279,10 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function unremove_google_user()
     {
         $this->withoutExceptionHandling();
@@ -296,7 +306,11 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
         $response->assertSuccessful();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     * @group gsuite
+     */
     public function user_cannot_unremove_google_user()
     {
         Config::set('google.service.enable', true);

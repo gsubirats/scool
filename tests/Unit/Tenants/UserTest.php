@@ -228,8 +228,8 @@ class UserTest extends TestCase
         ]);
         $this->assertNull($user->photo);
 
-        $user->assignPhoto($photo);
-        $this->assertEquals($user->photo,'user_photos//1_pepe-pardo-jeans_pepepardo-at-jeanscom');
+        $user->assignPhoto($photo,'tenant_test');
+        $this->assertEquals($user->photo,'tenant_test/user_photos/1_pepe-pardo-jeans_pepepardo-at-jeanscom.jpeg');
     }
 
     /** @test */
@@ -238,7 +238,6 @@ class UserTest extends TestCase
         $this->assertEquals(User::DEFAULT_PHOTO,'default.png');
         $this->assertEquals(User::DEFAULT_PHOTO_PATH,'user_photos/default.png');
         $this->assertEquals(User::PHOTOS_PATH,'user_photos');
-        $this->assertTrue(Storage::disk('local')->exists(User::DEFAULT_PHOTO_PATH));
     }
 
     /** @test */

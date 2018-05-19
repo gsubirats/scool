@@ -320,11 +320,11 @@
             <v-layout row wrap v-if="enabledGrid">
                 <v-flex v-for="teacher in filteredTeachers" :key="teacher.id" md2 lg1>
                     <v-card>
-                        <v-card-media :src="'/user_photo/' + teacher.hashid" height="200px" >
+                        <v-card-media :src="'/user_photo/' + teacher.user.hashid" height="200px" >
                         </v-card-media>
                         <v-card-title primary-title>
                             <p>
-                                <span> {{ teacher.code }} | {{ teacher.code_number }} | {{ teacher.name }} | Foto name: {{ teacher.photo }}</span>
+                                <span> {{ teacher.code }} | {{ teacher.user.name }} | Foto name: {{ teacher.user.photo }}</span>
                             </p>
                         </v-card-title>
                         <v-card-actions>
@@ -419,7 +419,7 @@
       filteredTeachers () {
         if (this.onlyteachersWithPhoto) {
           return this.teachers.filter(teacher => {
-            return teacher.photo !== null
+            return teacher.user.photo !== null
           })
         }
         return this.teachers

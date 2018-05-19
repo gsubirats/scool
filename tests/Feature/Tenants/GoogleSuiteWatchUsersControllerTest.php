@@ -32,7 +32,10 @@ class GoogleSuiteWatchUsersControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function watch_google_users()
     {
         $this->withoutExceptionHandling();

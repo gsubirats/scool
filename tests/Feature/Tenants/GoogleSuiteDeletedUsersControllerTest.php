@@ -32,7 +32,11 @@ class GoogleSuiteDeletedUsersControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     * @group gsuite
+     */
     public function show_google_deleted_users()
     {
         Config::set('google.service.enable', true);
@@ -66,7 +70,10 @@ class GoogleSuiteDeletedUsersControllerTest extends BaseTenantTest
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group working
+     */
     public function show_google_deleted_user_info()
     {
 
@@ -82,7 +89,9 @@ class GoogleSuiteDeletedUsersControllerTest extends BaseTenantTest
         $response->assertStatus(403);
     }
 
-    /** @test */
+    /** @test
+     * @group working
+     */
     public function undelete_google_user()
     {
 

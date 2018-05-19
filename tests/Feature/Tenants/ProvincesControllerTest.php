@@ -39,10 +39,10 @@ class ProvincesControllerTest extends BaseTenantTest
         ]);
 
         DB::table('provinces')->insert([
-            ['id' => '33','state_id' => 9, 'name' => 'Barcelona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '34','state_id' => 9, 'name' => 'Girona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '35','state_id' => 9, 'name' => 'Lleida', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '36','state_id' => 9, 'name' => 'Tarragona', 'created_at' => new DateTime, 'updated_at' => new DateTime]
+            ['id' => '33','state_id' => 9, 'postal_code_prefix' => '08' , 'name' => 'Barcelona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '34','state_id' => 9, 'postal_code_prefix' => '17' , 'name' => 'Girona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '35','state_id' => 9, 'postal_code_prefix' => '25' , 'name' => 'Lleida', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '36','state_id' => 9, 'postal_code_prefix' => '43' , 'name' => 'Tarragona', 'created_at' => new DateTime, 'updated_at' => new DateTime]
         ]);
     }
 
