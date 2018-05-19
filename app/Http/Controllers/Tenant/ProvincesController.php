@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Models\Province;
-use Illuminate\Http\Request;
 
 /**
  * Class ProvincesController.

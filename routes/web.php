@@ -11,7 +11,20 @@
 |
 */
 
-Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
+use App\Models\User;
+
+Route::bind('hashuser', function($value, $route)
+{
+    $hashids = new Hashids\Hashids(config('scool.salt'));
+    $id = $hashids->decode($value)[0];
+
+    return User::findOrFail($id);
+});
+
+
+
+
+Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
 
@@ -37,6 +50,13 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
         // Gsuite users push notifications
         Route::post('/gsuite/notifications','Tenant\GoogleSuiteUsersPushNotificationController@store');
 
+        Route::get('/add_teacher', 'Tenant\PendingTeachersController@showForm');
+        Route::get('/nou_professor', 'Tenant\PendingTeachersController@showForm');
+
+        Route::get('/pending_teacher/{teacher}', 'Tenant\PendingTeachersController@show');
+
+        Route::get('/user_photo/{hashuser}','Tenant\UserPhotoController@show')->name('user.photo.show');
+
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/home', function ($tenant) {
                 return view('tenants.home');
@@ -59,11 +79,6 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/unassigned_teacher_photos','Tenant\UnassignedTeacherPhotosController@downloadAll');
 
         });
-
-        Route::get('/add_teacher', 'Tenant\PendingTeachersController@showForm');
-        Route::get('/nou_professor', 'Tenant\PendingTeachersController@showForm');
-
-        Route::get('/pending_teacher/{teacher}', 'Tenant\PendingTeachersController@show');
     });
 
     // TEST TODO ESBORRAR!

@@ -36,7 +36,15 @@ class TeachersControllerTest extends BaseTenantTest
     /** @test */
     public function show_teachers_management()
     {
-        $this->withoutExceptionHandling();
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_staff_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_teachers();
+
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'TeachersManager']);

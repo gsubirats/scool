@@ -24,30 +24,35 @@
                                     item-key="id"
                                     expand
                             >
-                                <template slot="items" slot-scope="props">
+                                <template slot="items" slot-scope="{ item: teacher }">
                                     <tr @click="expand($event, props)">
                                         <td class="text-xs-left">
-                                            {{ props.item.id }}
+                                            {{ teacher.id }}
+                                        </td>
+                                        <td class="text-xs">
+                                            <v-avatar color="grey lighten-4" :size="40">
+                                                <img :src="'/user_photo/' + teacher.hashid" :alt="teacher.name">
+                                            </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ props.item.specialty && props.item.specialty.code }}
+                                            {{ teacher.name.sn1 }} {{ teacher.name.sn2 }}, {{ teacher.name.givenName }}
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ props.item.sn1 }} {{ props.item.sn2 }}, {{ props.item.name }}
+                                            {{ teacher.name }}
                                         </td>
-                                        <td class="text-xs-left">{{ props.item.email }}</td>
-                                        <td class="text-xs-left">{{ props.item.telephone }}</td>
+                                        <td class="text-xs-left">{{ teacher.email }}</td>
+                                        <td class="text-xs-left">{{ teacher.teacher.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ props.item.teacher_id }}
+                                            {{ showTeacherStaff(teacher) }}
                                         </td>
-                                        <td class="text-xs-left">{{ props.item.start_date }}</td>
-                                        <td class="text-xs-left">{{ props.item.created_at }}</td>
-                                        <td class="text-xs-left">{{ props.item.updated_at }}</td>
+                                        <td class="text-xs-left">{{ teacher.start_date }}</td>
+                                        <td class="text-xs-left">{{ teacher.created_at }}</td>
+                                        <td class="text-xs-left">{{ teacher.updated_at }}</td>
                                         <td class="text-xs-left">
-                                            <v-btn icon class="mx-0" @click="editItem(props.item)">
+                                            <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
-                                            <v-btn icon class="mx-0" @click="showConfirmationDialog(props.item)">
+                                            <v-btn icon class="mx-0" @click="showConfirmationDialog(teacher)">
                                                 <v-icon color="pink">delete</v-icon>
                                                 <v-dialog v-model="showDeletePendingTeacherDialog" max-width="500px">
                                                     <v-card>
@@ -213,10 +218,12 @@
         deleting: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
+          {text: 'Photo', value: 'photo'},
           {text: 'Name', value: 'name'},
+          {text: 'UserName', value: 'username'},
           {text: 'Email', value: 'email'},
-          {text: 'Típus', value: 'type'},
-          {text: 'Rols', value: 'roles', sortable: false},
+          {text: 'Codi', value: 'teacher.code'},
+          {text: 'Plaça', value: 'roles'},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
           {text: 'Accions', sortable: false}
@@ -232,6 +239,11 @@
       teachers: {
         type: Array,
         required: true
+      }
+    },
+    methods: {
+      showTeacherStaff (teacher) {
+        return teacher.staffs[0]
       }
     },
     created () {

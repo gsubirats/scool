@@ -154,7 +154,7 @@
                 <v-flex xs2>
                     <v-switch
                             label="Veure graella"
-                            v-model="grid"
+                            v-model="availableGrid"
                     ></v-switch>
                 </v-flex>
                 <v-flex xs4>
@@ -252,7 +252,7 @@
             </v-btn>
         </v-flex>
         <v-flex xs12>
-            <v-layout row wrap v-if="grid">
+            <v-layout row wrap v-if="availableGrid">
                 <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2 lg1>
                     <v-card>
                         <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
@@ -309,6 +309,62 @@
                 </v-flex>
             </v-layout>
         </v-flex>
+        <v-flex xs12>
+            <h1 class="title">Fotos assignades a professors</h1>
+            <v-checkbox
+                    label='Només professors amb foto'
+                    v-model="onlyteachersWithPhoto"
+            ></v-checkbox>
+        </v-flex>
+        <v-flex xs12>
+            <v-layout row wrap v-if="enabledGrid">
+                <v-flex v-for="teacher in filteredTeachers" :key="teacher.id" md2 lg1>
+                    <v-card>
+                        <v-card-media :src="'/user_photo/' + teacher.hashid" height="200px" >
+                        </v-card-media>
+                        <v-card-title primary-title>
+                            <p>
+                                <span> {{ teacher.code }} | {{ teacher.code_number }} | {{ teacher.name }} | Foto name: {{ teacher.photo }}</span>
+                            </p>
+                        </v-card-title>
+                        <v-card-actions>
+                            <v-btn
+                                    v-if="confirmingRemove !== teacher.id"
+                                    flat color="red"
+                                    @click="confirmRemove(teacher)"
+                                    icon
+                            >
+                                <v-icon dark>delete</v-icon>
+                            </v-btn>
+                            <template v-else>
+                                <v-btn flat color="green" @click="cancelRemove(teacher)"
+                                       icon
+                                >
+
+                                    <v-icon dark>cancel</v-icon>
+                                </v-btn>
+
+                                <v-btn flat color="red" @click="remove(teacher)"
+                                       :loading="deleting === teacher.id"
+                                       :disabled="deleting === teacher.id"
+                                       icon
+                                >
+
+                                    <v-icon dark>done</v-icon>
+                                </v-btn>
+                            </template>
+
+                            <v-btn flat
+                                   :href="'/user_photo/' + teacher.id + '/download'"
+                                   icon>
+                                <v-icon dark>file_download</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+
+        </v-flex>
     </v-layout>
 </v-container>
 
@@ -339,13 +395,15 @@
         refreshing: false,
         photo: null,
         zipFile: null,
-        grid: true,
+        availableGrid: true,
+        enabledGrid: true,
         photoPath: '',
         internalAvailablePhotos: this.availablePhotos,
         internalZips: this.zips,
         errors: [],
         zipErrors: [],
         pendingPhotos: true,
+        onlyteachersWithPhoto: true,
         editing: null,
         filename: '',
         pushEditing: false,
@@ -357,6 +415,14 @@
     computed: {
       showPhoto () {
         return this.uploading || this.uploadingZip || this.fileUploaded
+      },
+      filteredTeachers () {
+        if (this.onlyteachersWithPhoto) {
+          return this.teachers.filter(teacher => {
+            return teacher.photo !== null
+          })
+        }
+        return this.teachers
       }
     },
     props: {
@@ -365,6 +431,10 @@
         required: true
       },
       zips: {
+        type: Array,
+        required: true
+      },
+      teachers: {
         type: Array,
         required: true
       }

@@ -25,18 +25,11 @@ class TeachersController extends Controller
     public function show(ShowTeachersManagment $request)
     {
         $pendingTeachers = PendingTeacher::with('specialty')->get();
-        $teachers = $this->teachers();
+        $teachers = User::teachers()->get();
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrative_statuses = AdministrativeStatus::all();
         return view('tenants.teachers.show', compact(
             'pendingTeachers','teachers','specialties','forces','administrative_statuses'));
-    }
-
-    protected function teachers()
-    {
-        // Criteris:
-        // Usuaris amb Rol Professor/a i plaça assignada
-        return User::all();
     }
 }

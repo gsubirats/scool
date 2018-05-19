@@ -35,6 +35,17 @@ class PendingTeachersControllerTest extends BaseTenantTest
     /** @test */
     public function users_can_see_create_pending_teacher()
     {
+        $this->withoutExceptionHandling();
+
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_staff_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_teachers();
+
         $response = $this->get('/add_teacher');
         $response->assertSuccessful();
 
@@ -42,6 +53,7 @@ class PendingTeachersControllerTest extends BaseTenantTest
         $response->assertViewHas('specialties');
         $response->assertViewHas('forces');
         $response->assertViewHas('administrative_statuses');
+        $response->assertViewHas('teachers');
     }
 
     /** @test */

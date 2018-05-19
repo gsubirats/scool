@@ -66,6 +66,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::post('/add_teacher', 'Tenant\PendingTeachersController@store');
 
             Route::get('/provinces','Tenant\ProvincesController@index');
+            Route::get('/localities','Tenant\LocalitiesController@index');
+            Route::get('/locations','Tenant\LocalitiesController@index');
 
             Route::get('/gsuite/test_connection','Tenant\GoogleSuiteTestConnectionController@index');
         });

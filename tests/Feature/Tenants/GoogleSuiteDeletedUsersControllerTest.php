@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class GoogleSuiteDeletedUsersControllerTest
+ *
  * @package Tests\Feature\Tenants
  */
 class GoogleSuiteDeletedUsersControllerTest extends BaseTenantTest

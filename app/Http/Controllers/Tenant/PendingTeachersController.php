@@ -10,6 +10,7 @@ use App\Models\AdministrativeStatus;
 use App\Models\Force;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
+use App\Models\User;
 
 /**
  * Class PendingTeachersController.
@@ -39,8 +40,9 @@ class PendingTeachersController extends Controller
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrative_statuses = AdministrativeStatus::all();
+        $teachers = User::teachers()->get();
         return view ('tenants.teacher.pending.show_form',
-            compact('specialties','forces','administrative_statuses'));
+            compact('specialties','forces','administrative_statuses','teachers'));
     }
 
     /**

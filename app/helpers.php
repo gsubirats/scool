@@ -10,6 +10,7 @@ use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
 use App\Tenant;
@@ -905,7 +906,6 @@ if (!function_exists('initialize_janitors')) {
     }
 }
 
-
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()
     {
@@ -927,7 +927,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '002'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+            'code' => '002'
+        ]));
 
         User::createIfNotExists([
             'name' => 'Nuria Bordes Vidal',
@@ -947,7 +949,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '028'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '028'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Laura Llopis Lozano',
@@ -967,7 +971,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '029'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '029'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Vicent Favà Figueres',
@@ -987,7 +993,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '030'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '030'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Agustí Baubí Rovira',
@@ -1007,7 +1015,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '031'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '031'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Josep Joan Cid Castella',
@@ -1027,7 +1037,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '116'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '116'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Rafel Puig Rios',
@@ -1047,7 +1059,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '032'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '032'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Laureà Ferré Menasanch',
@@ -1067,7 +1081,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '033'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '033'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Manel Canalda Vidal',
@@ -1087,7 +1103,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '034'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '034'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Xavi Bel Fernández',
@@ -1107,7 +1125,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '035'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '035'
+            ]));
 
         User::createIfNotExists([
             'name' => 'J.Luís Colomé Monllao',
@@ -1127,7 +1147,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '036'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '036'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Angel Portillo Lucas',
@@ -1147,7 +1169,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '037'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '037'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Anna Valls Montagut',
@@ -1167,7 +1191,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '064'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '064'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Anna Benaiges Bertomeu',
@@ -1187,7 +1213,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '065'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '065'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Salomé Figueres Brescolí',
@@ -1207,7 +1235,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '067'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '067'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Pepa Cugat Tomàs',
@@ -1227,7 +1257,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '066'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '066'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Berta Safont Recatalà',
@@ -1247,7 +1279,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '062'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '062'
+            ]));
 
         User::createIfNotExists([
             'name' => 'MªJesús Sales Berire',
@@ -1267,7 +1301,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '060'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '060'
+            ]));
 
         User::createIfNotExists([
             'name' => 'MªLuisa Asensi Moltalva',
@@ -1287,7 +1323,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '061'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '061'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Santi López Garcia',
@@ -1307,7 +1345,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '063'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '063'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Lluis Ventura Forner',
@@ -1327,7 +1367,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '069'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '069'
+            ]));
 
         User::createIfNotExists([
             'name' => 'J.Antoni Pons Albalat',
@@ -1347,7 +1389,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '070'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '070'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Alicia Fàbrega Martínez',
@@ -1367,7 +1411,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '071'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '071'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Segis Benabent Gil',
@@ -1387,7 +1433,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '072'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '072'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Sandra Salvador Jovaní',
@@ -1407,7 +1455,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '068'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '068'
+            ]));
 
         User::createIfNotExists([
             'name' => 'MªJosé Caballé Valverde',
@@ -1427,7 +1477,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '074'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '074'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Marisa Ramón Pérez',
@@ -1447,7 +1499,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '073'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '073'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Elisa Puig Moll',
@@ -1467,7 +1521,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '075'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '075'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Ruth Hidalgo Vilar',
@@ -1487,7 +1543,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '076'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '076'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Anna Sambartolomé Sancho',
@@ -1507,7 +1565,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '077'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '077'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Cinta Mestre Escrihuela',
@@ -1527,7 +1587,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '078'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '078'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Trini Tomas Forcadell',
@@ -1547,7 +1609,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '080'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '080'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Adonay Pérez López',
@@ -1567,7 +1631,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '081'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '081'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Tarsi Royo Cruselles',
@@ -1587,7 +1653,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '082'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '082'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Iris Maturana Andreu',
@@ -1607,7 +1675,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '084'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '084'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Llatzer Cabó Bertomeu',
@@ -1627,7 +1697,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '085'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '085'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Mercè Gilo Ortiz',
@@ -1647,7 +1719,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '086'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '086'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Cristina Cardona Romero',
@@ -1667,7 +1741,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '087'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '087'
+            ]));
 
         User::createIfNotExists([
             'name' => 'David Gàmez Balaguer',
@@ -1687,7 +1763,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '088'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '088'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Àngels Garrido Borja',
@@ -1707,7 +1785,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '089'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '089'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Alicia Gamundi Vilà',
@@ -1727,7 +1807,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '090'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '090'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Ricard Gonzalez Castelló',
@@ -1747,7 +1829,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '091'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '091'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Elena Mauri Cuenca',
@@ -1767,7 +1851,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '092'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '092'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Irene Alegre Chavarria',
@@ -1787,7 +1873,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '093'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '093'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Maria Castells Gilabert',
@@ -1807,7 +1895,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '108'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '108'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Oscar Samo Franch',
@@ -1827,27 +1917,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '014'
             ])
-        );
-
-        User::createIfNotExists([
-            'name' => 'Oscar Samo Franch',
-            'email' => 'oscarsamo@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
-            'givenName' => 'Oscar',
-            'sn1' => 'Samo',
-            'sn2' => 'Franch',
-        ]))
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
-                'specialty_id' => Specialty::findByCode('501')->id,
-                'family_id' => Family::findByCode('ADMIN')->id,
+        )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '014'
-            ])
-        );
+            ]));
 
         User::createIfNotExists([
             'name' => 'Enric Garcia Carcelén',
@@ -1867,7 +1939,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '015'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '015'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Eduard Ralda Simó',
@@ -1887,7 +1961,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '016'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '016'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Pili Nuez Garcia',
@@ -1907,7 +1983,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '017'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '017'
+            ]));
 
         User::createIfNotExists([
             'name' => 'MªRosa Ubalde Bellot',
@@ -1927,7 +2005,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '018'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '018'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Paqui Pinyol Moreso',
@@ -1947,7 +2027,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '019'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '019'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Dolors Subirats Fabra',
@@ -1967,7 +2049,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '020'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '020'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Ferran Sabaté Borras',
@@ -1987,7 +2071,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '021'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '021'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Araceli Esteller Hierro',
@@ -2007,7 +2093,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '022'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '022'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Mavi Santamaria Andreu',
@@ -2027,7 +2115,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '023'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '023'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Agustí Moreso Garcia',
@@ -2047,7 +2137,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '024'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '024'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Carme Vega Guerra',
@@ -2067,7 +2159,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '025'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '025'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Dolors Ferreres Gasulla',
@@ -2087,7 +2181,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '106'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '106'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Juan Abad Bueno',
@@ -2107,7 +2203,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '107'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '107'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Just Pérez Santiago',
@@ -2127,7 +2225,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '026'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '026'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Armand Pons Roda',
@@ -2147,7 +2247,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '027'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '027'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Raquel Planell Tolos',
@@ -2167,7 +2269,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '105'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '105'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Marta Grau Ferrer',
@@ -2187,7 +2291,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '094'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '094'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Gerard Domenech Vendrell',
@@ -2207,7 +2313,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '095'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '095'
+            ]));
 
         User::createIfNotExists([
             'name' => 'J.Antonio Fernández Herraez',
@@ -2227,7 +2335,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '096'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '096'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Monica Moreno Dionis',
@@ -2247,7 +2357,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '097'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '097'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Santi Sabaté Sanz',
@@ -2267,7 +2379,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '038'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '038'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Jordi Varas Aliau',
@@ -2287,7 +2401,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '039'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '039'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Sergi Tur Badenas',
@@ -2307,7 +2423,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '040'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '040'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Jaume Ramos Prades',
@@ -2327,7 +2445,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '041'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '041'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Quique Lorente Fuertes',
@@ -2347,7 +2467,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '046'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '046'
+            ]));
 
         User::createIfNotExists([
             'name' => 'A.Gonzal Verge Arnau',
@@ -2367,7 +2489,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '117'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '117'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Mireia Consarnau Pallarés',
@@ -2387,7 +2511,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '042'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '042'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Manel Macías Valanzuela',
@@ -2407,7 +2533,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '043'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '043'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Josep Dieg Cervellera Forcadell',
@@ -2416,7 +2544,7 @@ if (!function_exists('initialize_teachers')) {
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName(Name::firstOrCreate([
-            'givenName' => 'Josep Dieg',
+            'givenName' => 'Josep Dieg0',
             'sn1' => 'Cervellera',
             'sn2' => 'Forcadell',
         ]))
@@ -2427,7 +2555,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '045'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '045'
+            ]));
 
         User::createIfNotExists([
             'name' => 'J.Luis Calderon Furió',
@@ -2447,7 +2577,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '051'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '051'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Salvador Jareño Gas',
@@ -2467,7 +2599,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '052'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '052'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Jordi Brau Marza',
@@ -2487,7 +2621,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '053'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '053'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Joan Tiron Ferré',
@@ -2507,7 +2643,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '054'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '054'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Ricard Fernandez Burato',
@@ -2527,7 +2665,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '055'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '055'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Ubaldo Arroyo Martínez',
@@ -2547,7 +2687,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '056'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '056'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Fernando Segura Venezia',
@@ -2567,7 +2709,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '057'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '057'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Francesc Besalduch Piñol',
@@ -2587,7 +2731,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '058'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '058'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Manel Segarra Capera',
@@ -2607,7 +2753,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '059'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '059'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Rosendo Ferri Marzo',
@@ -2627,7 +2775,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '049'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '049'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Jordi Sanchez Bel',
@@ -2647,7 +2797,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '050'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '050'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Albert Rofí Estelles',
@@ -2667,7 +2819,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('EDIFIC')->id,
                 'code' => '047'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '047'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Pedro Guerrero López',
@@ -2687,7 +2841,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('EDIFIC')->id,
                 'code' => '048'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '048'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Teresa Lasala Descarrega',
@@ -2707,7 +2863,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '009'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '009'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Carmina Andreu Pons',
@@ -2727,7 +2885,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '010'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '010'
+            ]));
 
         User::createIfNotExists([
             'name' => 'J.Andrés Brocal Safont',
@@ -2747,7 +2907,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '011'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '011'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Pilar Fadurdo Estrada',
@@ -2767,7 +2929,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '012'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '012'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Carlos Querol Bel',
@@ -2787,7 +2951,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '013'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '013'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Marisa Grau Campeón',
@@ -2807,7 +2973,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '003'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '003'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Isabel Jordà Cabaces',
@@ -2827,7 +2995,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '004'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '004'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Enric Querol Coll',
@@ -2847,7 +3017,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '005'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '005'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Lara Melich Cañado',
@@ -2867,7 +3039,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '006'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '006'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Carme Aznar Pedret',
@@ -2887,7 +3061,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '007'
             ])
-        );
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '007'
+            ]));
 
         User::createIfNotExists([
             'name' => 'Julià Curto De la Vega',
@@ -2907,8 +3083,9 @@ if (!function_exists('initialize_teachers')) {
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '008'
             ])
-        );
-        //TODO ->situation('D')->assignTeacherCode('002');
+        )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '008'
+            ]));
     }
 }
 
@@ -3377,58 +3554,58 @@ if (! function_exists('seed_provinces')) {
 
         // Taken from //https://gist.github.com/daguilarm/0e93b73779f0306e5df2
         DB::table('provinces')->insert([
-            ['id' => '1','state_id' => 8, 'name' => 'Albacete', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '2','state_id' => 8, 'name' => 'Ciudad Real', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '3','state_id' => 8, 'name' => 'Cuenca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '4','state_id' => 8, 'name' => 'Guadalajara', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '5','state_id' => 8, 'name' => 'Toledo', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '6','state_id' => 2, 'name' => 'Huesca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '7','state_id' => 2, 'name' => 'Teruel', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '8','state_id' => 2, 'name' => 'Zaragoza', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '9','state_id' => 18, 'name' => 'Ceuta', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '10','state_id' => 13, 'name' => 'Madrid', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '11','state_id' => 14, 'name' => 'Murcia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '12','state_id' => 19, 'name' => 'Melilla', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '13','state_id' => 15, 'name' => 'Navarra', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '14','state_id' => 1, 'name' => 'Almería', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '15','state_id' => 1, 'name' => 'Cádiz', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '16','state_id' => 1, 'name' => 'Córdoba', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '17','state_id' => 1, 'name' => 'Granada', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '18','state_id' => 1, 'name' => 'Huelva', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '19','state_id' => 1, 'name' => 'Jaén', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '20','state_id' => 1, 'name' => 'Málaga', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '21','state_id' => 1, 'name' => 'Sevilla', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '22','state_id' => 3, 'name' => 'Asturias', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '23','state_id' => 6, 'name' => 'Cantabria', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '24','state_id' => 7, 'name' => 'Ávila', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '25','state_id' => 7, 'name' => 'Burgos', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '26','state_id' => 7, 'name' => 'León', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '27','state_id' => 7, 'name' => 'Palencia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '28','state_id' => 7, 'name' => 'Salamanca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '29','state_id' => 7, 'name' => 'Segovia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '30','state_id' => 7, 'name' => 'Soria', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '31','state_id' => 7, 'name' => 'Valladolid', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '32','state_id' => 7, 'name' => 'Zamora', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '33','state_id' => 9, 'name' => 'Barcelona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '34','state_id' => 9, 'name' => 'Girona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '35','state_id' => 9, 'name' => 'Lleida', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '36','state_id' => 9, 'name' => 'Tarragona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '37','state_id' => 11, 'name' => 'Badajoz', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '38','state_id' => 11, 'name' => 'Cáceres', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '39','state_id' => 12, 'name' => 'Coruña, La', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '40','state_id' => 12, 'name' => 'Lugo', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '41','state_id' => 12, 'name' => 'Orense', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '42','state_id' => 12, 'name' => 'Pontevedra', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '43','state_id' => 17, 'name' => 'Rioja, La', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '44','state_id' => 4, 'name' => 'Baleares, Islas', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '45','state_id' => 16, 'name' => 'Álava', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '46','state_id' => 16, 'name' => 'Guipúzcoa', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '47','state_id' => 16, 'name' => 'Vizcaya', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '48','state_id' => 5, 'name' => 'Palmas, Las', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '49','state_id' => 5, 'name' => 'Tenerife, Santa Cruz De', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '50','state_id' => 10, 'name' => 'Alacant', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '51','state_id' => 10, 'name' => 'Castelló', 'created_at' => new DateTime, 'updated_at' => new DateTime],
-            ['id' => '52','state_id' => 10, 'name' => 'Valencia', 'created_at' => new DateTime, 'updated_at' => new DateTime]
+            ['id' => '1','state_id' => 8, 'postal_code_prefix' => '02' , 'name' => 'Albacete', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '2','state_id' => 8, 'postal_code_prefix' => '13' , 'name' => 'Ciudad Real', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '3','state_id' => 8, 'postal_code_prefix' => '16' , 'name' => 'Cuenca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '4','state_id' => 8, 'postal_code_prefix' => '19' , 'name' => 'Guadalajara', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '5','state_id' => 8, 'postal_code_prefix' => '45' , 'name' => 'Toledo', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '6','state_id' => 2, 'postal_code_prefix' => '22' , 'name' => 'Huesca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '7','state_id' => 2, 'postal_code_prefix' => '44' , 'name' => 'Teruel', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '8','state_id' => 2, 'postal_code_prefix' => '50' , 'name' => 'Zaragoza', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '9','state_id' => 18, 'postal_code_prefix' => '51' , 'name' => 'Ceuta', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '10','state_id' => 13, 'postal_code_prefix' => '28' , 'name' => 'Madrid', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '11','state_id' => 14, 'postal_code_prefix' => '30' , 'name' => 'Murcia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '12','state_id' => 19, 'postal_code_prefix' => '52' , 'name' => 'Melilla', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '13','state_id' => 15, 'postal_code_prefix' => '31' , 'name' => 'Navarra', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '14','state_id' => 1, 'postal_code_prefix' => '04' , 'name' => 'Almería', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '15','state_id' => 1, 'postal_code_prefix' => '11' , 'name' => 'Cádiz', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '16','state_id' => 1, 'postal_code_prefix' => '14' , 'name' => 'Córdoba', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '17','state_id' => 1, 'postal_code_prefix' => '18' , 'name' => 'Granada', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '18','state_id' => 1, 'postal_code_prefix' => '21' , 'name' => 'Huelva', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '19','state_id' => 1, 'postal_code_prefix' => '23' , 'name' => 'Jaén', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '20','state_id' => 1, 'postal_code_prefix' => '29' , 'name' => 'Málaga', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '21','state_id' => 1, 'postal_code_prefix' => '41' , 'name' => 'Sevilla', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '22','state_id' => 3, 'postal_code_prefix' => '33' , 'name' => 'Asturias', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '23','state_id' => 6, 'postal_code_prefix' => '39' , 'name' => 'Cantabria', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '24','state_id' => 7, 'postal_code_prefix' => '05' , 'name' => 'Ávila', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '25','state_id' => 7, 'postal_code_prefix' => '09' , 'name' => 'Burgos', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '26','state_id' => 7, 'postal_code_prefix' => '24' , 'name' => 'León', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '27','state_id' => 7, 'postal_code_prefix' => '34' , 'name' => 'Palencia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '28','state_id' => 7, 'postal_code_prefix' => '37' , 'name' => 'Salamanca', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '29','state_id' => 7, 'postal_code_prefix' => '40' , 'name' => 'Segovia', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '30','state_id' => 7, 'postal_code_prefix' => '42' , 'name' => 'Soria', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '31','state_id' => 7, 'postal_code_prefix' => '47' , 'name' => 'Valladolid', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '32','state_id' => 7, 'postal_code_prefix' => '49' , 'name' => 'Zamora', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '33','state_id' => 9, 'postal_code_prefix' => '08' , 'name' => 'Barcelona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '34','state_id' => 9, 'postal_code_prefix' => '17' , 'name' => 'Girona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '35','state_id' => 9, 'postal_code_prefix' => '25' , 'name' => 'Lleida', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '36','state_id' => 9, 'postal_code_prefix' => '43' , 'name' => 'Tarragona', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '37','state_id' => 11, 'postal_code_prefix' => '06' , 'name' => 'Badajoz', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '38','state_id' => 11, 'postal_code_prefix' => '10' , 'name' => 'Cáceres', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '39','state_id' => 12, 'postal_code_prefix' => '15' , 'name' => 'Coruña, La', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '40','state_id' => 12, 'postal_code_prefix' => '27' , 'name' => 'Lugo', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '41','state_id' => 12, 'postal_code_prefix' => '32' , 'name' => 'Orense', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '42','state_id' => 12, 'postal_code_prefix' => '36' , 'name' => 'Pontevedra', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '43','state_id' => 17, 'postal_code_prefix' => '26' , 'name' => 'Rioja, La', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '44','state_id' => 4, 'postal_code_prefix' => '07' , 'name' => 'Baleares, Islas', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '45','state_id' => 16, 'postal_code_prefix' => '01' , 'name' => 'Álava', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '46','state_id' => 16, 'postal_code_prefix' => '20' , 'name' => 'Guipúzcoa', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '47','state_id' => 16, 'postal_code_prefix' => '48' , 'name' => 'Vizcaya', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '48','state_id' => 5, 'postal_code_prefix' => '35' , 'name' => 'Palmas, Las', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '49','state_id' => 5, 'postal_code_prefix' => '38' , 'name' => 'Tenerife, Santa Cruz De', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '50','state_id' => 10, 'postal_code_prefix' => '03' , 'name' => 'Alacant', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '51','state_id' => 10, 'postal_code_prefix' => '12' , 'name' => 'Castelló', 'created_at' => new DateTime, 'updated_at' => new DateTime],
+            ['id' => '52','state_id' => 10, 'postal_code_prefix' => '46' , 'name' => 'Valencia', 'created_at' => new DateTime, 'updated_at' => new DateTime]
         ]);
     }
 }

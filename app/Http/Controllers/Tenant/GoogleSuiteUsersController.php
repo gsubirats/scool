@@ -35,7 +35,7 @@ class GoogleSuiteUsersController extends Controller
             dd($e);
             return $e;
         }
-        dd($r);
+        return $r;
     }
 
     /**

@@ -6,6 +6,7 @@ export default {
     sn1: { required, maxLength: maxLength(255) },
     sn2: { maxLength: maxLength(255) },
     identifier: { required, maxLength: maxLength(12) },
+    identifierType: { required },
     birthdate: { required },
     street: { required },
     number: { required },
@@ -19,7 +20,7 @@ export default {
     force: { required },
     start_date: { required },
     administrative_status: { required },
-    teacher_id: { required },
+    teacher: { required },
     checkbox: { required }
   },
   data () {
@@ -33,15 +34,11 @@ export default {
       searchPostalCodes: null,
       searchLocalities: null,
       searchProvinces: null,
-      fakepostalCodes: [
-        '43500', '43501', '43502', '43800', '43560', '43523', '43521'
-      ],
-      fakeLocalities: [
-        'TORTOSA', 'VINALLOP', 'ROQUETES', 'BíTEM', 'SANT CARLES DE LA RÀPITA', 'DELTEBRE', 'El PERELLO'
-      ],
       name: '',
       sn1: '',
       sn2: '',
+      identifierType: 'DNI/NIF',
+      identifierTypes: ['DNI/NIF', 'NIE', 'Passaport'],
       identifier: '',
       birthdate: '',
       street: '',
@@ -67,7 +64,7 @@ export default {
       opositions_date: '',
       administrative_status: '',
       destination_place: '',
-      teacher_id: '',
+      teacher: {},
       checkbox: false,
       birthdateMenu: false,
       startDateMenu: false
@@ -104,6 +101,12 @@ export default {
       const errors = []
       if (!this.$v.sn2.$dirty) return errors
       !this.$v.sn2.maxLength && errors.push('El segon cognom ha de tenir com a màxim 255 caràcters.')
+      return errors
+    },
+    identifierTypeErrors () {
+      const errors = []
+      if (!this.$v.identifierType.$dirty) return errors
+      !this.$v.identifierType.required && errors.push("El tipus d'identificador és obligatori.")
       return errors
     },
     identifierErrors () {
@@ -194,8 +197,8 @@ export default {
     },
     teacherErrors () {
       const errors = []
-      if (!this.$v.teacher_id.$dirty) return errors
-      !this.$v.teacher_id.required && errors.push('Camp obligatori pels substituts')
+      if (!this.$v.teacher.$dirty) return errors
+      !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
       return errors
     }
   },
@@ -209,6 +212,10 @@ export default {
       required: true
     },
     administrativeStatuses: {
+      type: Array,
+      required: true
+    },
+    teachers: {
       type: Array,
       required: true
     }
@@ -243,7 +250,7 @@ export default {
       this.opositions_date = ''
       this.administrative_status = ''
       this.destination_place = ''
-      this.teacher_id = ''
+      this.teacher = {}
       this.checkbox = false
     },
     saveBirthdate (date) {

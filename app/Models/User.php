@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Storage;
 
 /**
  * Class User.
@@ -17,6 +18,10 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use Notifiable,HasApiTokens, HasRoles, FormattedDates;
+
+    const DEFAULT_PHOTO = 'default.png';
+    const PHOTOS_PATH = 'user_photos';
+    const DEFAULT_PHOTO_PATH = self::PHOTOS_PATH . '/' . self::DEFAULT_PHOTO;
 
     protected $guard_name = 'web';
 
@@ -29,7 +34,7 @@ class User extends Authenticatable
         'name', 'email', 'password' ,
     ];
 
-    protected $appends = ['formatted_created_at','formatted_updated_at'];
+    protected $appends = ['formatted_created_at','formatted_updated_at','hashid'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,6 +44,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the value of the model's route key.
+     *
+     * @return mixed
+     */
+    public function getRouteKey()
+    {
+        return $this->hashedKey();
+    }
+
+    /**
+     * Hashed key.
+     * @return string
+     */
+    protected function hashedKey()
+    {
+        $hashids = new \Hashids\Hashids(config('scool.salt'));
+        return $hashids->encode($this->getKey());
+    }
 
     /**
      * @return mixed
@@ -93,10 +118,12 @@ class User extends Authenticatable
      * Assign staff.
      *
      * @param $staff
+     * @return $this
      */
     public function assignStaff($staff)
     {
         $this->staffs()->save($staff);
+        return $this;
     }
 
     /**
@@ -129,4 +156,94 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    /**
+     * Scope a query to only include teacher users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTeachers($query)
+    {
+        return $query->role('Teacher')
+            ->whereHas('staffs', function ($query) {
+                $query->where('type_id','=',StaffType::findByName('Professor/a')->id);
+            })->has('teacher')->with('staffs','teacher');
+    }
+
+    /**
+     * Get the initial/proposed photo name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPhotoNameAttribute($value)
+    {
+        return $this->id . '_' . str_slug($this->name) . '_' . str_slug($this->email);
+    }
+
+    /**
+     * Get the photo path prefix.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPhotoPathAttribute($value)
+    {
+        return 'user_photos/';
+    }
+
+    /**
+     * Get the photo path prefix.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getHashIdAttribute($value)
+    {
+        return $this->hashedKey();
+    }
+
+    /**
+     * Assign photo to user.
+     *
+     * @param $photo
+     * @return $this
+     */
+    public function assignPhoto($photo,$tenant)
+    {
+        $ext = pathinfo($photo, PATHINFO_EXTENSION);
+        $path = preg_replace('#/+#','/',
+            $tenant. '/' . $this->photo_path . '/'. $this->photo_name);
+        if($ext) {
+            $path = $path . '.' . $ext;
+        }
+        Storage::disk('local')->copy($photo, $path);
+        //Remove extra slashes from path like user_photos//photo.png
+        $this->photo = $path;
+        $this->save();
+        return $this;
+    }
+
+    /**
+     * Get the teacher record associated with the user.
+     */
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    /**
+     * Assign teacher to user.
+     *
+     * @param $teacher
+     * @return $this
+     */
+    public function assignTeacher($teacher)
+    {
+        $teacher->user_id = $this->id;
+        $teacher->save();
+        return $this;
+    }
+
 }

@@ -18,7 +18,7 @@ class BaseTenantTest extends TestCase
      */
     public function get($uri, array $headers = [])
     {
-        return parent::get('http://tenant_test.scool.acacha.test/' . $uri,$headers);
+        return parent::get($this->baseURI() . $uri,$headers);
     }
 
     /**
@@ -31,7 +31,7 @@ class BaseTenantTest extends TestCase
      */
     public function post($uri, array $data = [], array $headers = [])
     {
-        return parent::post('http://tenant_test.scool.acacha.test/' . $uri, $data, $headers);
+        return parent::post($this->baseURI() . $uri, $data, $headers);
     }
 
     /**
@@ -44,7 +44,7 @@ class BaseTenantTest extends TestCase
      */
     public function delete($uri, array $data = [], array $headers = [])
     {
-        return parent::delete('http://tenant_test.scool.acacha.test/' . $uri, $data, $headers);
+        return parent::delete($this->baseURI() . $uri, $data, $headers);
     }
 
     /**
@@ -57,7 +57,12 @@ class BaseTenantTest extends TestCase
      */
     public function put($uri, array $data = [], array $headers = [])
     {
-        return parent::put('http://tenant_test.scool.acacha.test/' . $uri, $data, $headers);
+        return parent::put($this->baseURI() . $uri, $data, $headers);
+    }
+
+    protected function baseURI()
+    {
+        return 'http://tenant_test.' . config('app.domain') . '/';
     }
 
     /**
@@ -71,7 +76,7 @@ class BaseTenantTest extends TestCase
      */
     public function json($method, $uri, array $data = [], array $headers = [])
     {
-        return parent::json($method, 'http://tenant_test.scool.acacha.test/' . $uri, $data, $headers);
+        return parent::json($method, $this->baseURI() . $uri, $data, $headers);
     }
 
     /** @test */

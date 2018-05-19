@@ -51,6 +51,15 @@ class TeachersPhotosControllerTest extends BaseTenantTest
     /** @test */
     public function manager_teacher_photos_can_see_teacher_photos_management()
     {
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_staff_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_teachers();
+
         $photoTeachersManager = create(User::class);
         $this->actingAs($photoTeachersManager);
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
@@ -63,6 +72,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         $response->assertViewIs('tenants.teachers.photos.show');
         $response->assertViewHas('photos');
         $response->assertViewHas('zips');
+        $response->assertViewHas('teachers');
 
     }
 

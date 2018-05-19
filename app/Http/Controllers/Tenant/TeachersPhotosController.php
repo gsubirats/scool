@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Tenant;
 use App\Events\TeacherPhotosUploaded;
 use App\Http\Requests\ShowTeachersPhotosManagment;
 use App\Http\Requests\StoreTeachersPhotosManagment;
+use App\Models\StaffType;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Storage;
 
@@ -24,8 +26,31 @@ class TeachersPhotosController extends Controller
     {
         $photos = Storage::exists($this->basePath($tenant)) ?  collect_files($this->basePath($tenant)) : collect();
         $zips = Storage::exists($this->basePathZip($tenant)) ? collect_files($this->basePathZip($tenant)) : collect();
+        $teachers = User::teachers()->with('staffs')->get();
 
-        return view('tenants.teachers.photos.show', compact('photos','zips'));
+        $teachers = $this->teachersWithCode($teachers)->sort(function($a,$b) {
+            $aCode = intval($a->staffs->filter(function($staff) { return $staff->type_id === 1; })[0]->code);
+            $bCode = intval($b->staffs->filter(function($staff) { return $staff->type_id === 1; })[0]->code);
+            if ($aCode == $bCode) {
+                return 0;
+            }
+            return ($aCode < $bCode) ? -1 : 1;
+        })->values();
+        return view('tenants.teachers.photos.show', compact('photos','zips', 'teachers'));
+    }
+
+    protected function teachersWithCode($teachers)
+    {
+        return $teachers->map(function($teacher) {
+            $teacher_staff = $teacher->staffs->filter(function($staff) {
+               return $staff->type_id = StaffType::findByName('Professor/a')->id;
+            });
+            if ($teacher_staff[0]) {
+                $teacher->code = $teacher_staff[0]->code;
+                $teacher->code_number = intval($teacher_staff[0]->code);
+            }
+            return $teacher;
+        });
     }
 
     /**

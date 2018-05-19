@@ -46,6 +46,7 @@
                         :specialties="{{ $specialties }}"
                         :forces="{{ $forces }}"
                         :administrative-statuses="{{ $administrative_statuses }}"
+                        :teachers="{{ $teachers }}"
                 ></pending-teacher-add>
             </section>
 

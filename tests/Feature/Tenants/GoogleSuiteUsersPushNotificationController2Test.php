@@ -26,6 +26,6 @@ class GoogleSuiteUsersPushNotificationController2Test extends TestCase
         ]);
 
         $response->assertSuccessful();
-        $response->dump();
+//        $response->dump();
     }
 }

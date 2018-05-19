@@ -10,11 +10,11 @@ use Tests\BaseTenantTest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class GoogleSuiteDeletedUsersControllerTest.
+ * Class GoogleSuiteWatchUsersControllerTest.
  *
  * @package Tests\Feature\Tenants
  */
-class GoogleSuiteDeletedUsersControllerTest extends BaseTenantTest
+class GoogleSuiteWatchUsersControllerTest extends BaseTenantTest
 {
     use RefreshDatabase;
 

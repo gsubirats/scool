@@ -36,7 +36,7 @@
                                                 required
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex md3>
+                                    <v-flex md2>
                                         <v-text-field
                                                 label="2n Cognom"
                                                 v-model="sn2"
@@ -47,8 +47,22 @@
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md1>
+                                        <v-select
+                                                label="Tipus id"
+                                                autocomplete
+                                                required
+                                                combobox
+                                                clearable
+                                                :error-messages="identifierTypeErrors"
+                                                @input="$v.identifierType.$touch()"
+                                                @blur="$v.identifierType.$touch()"
+                                                :items="identifierTypes"
+                                                v-model="identifierType"
+                                        ></v-select>
+                                    </v-flex>
+                                    <v-flex md1>
                                         <v-text-field
-                                                label="DNI"
+                                                label="DNI/NIE/Passaport"
                                                 v-model="identifier"
                                                 :error-messages="identifierErrors"
                                                 @input="$v.identifier.$touch()"
@@ -101,7 +115,8 @@
                                 <v-layout row wrap>
                                     <v-flex md3>
                                         <v-text-field
-                                                label="Carrer"
+                                                label="Adreça"
+                                                hint="P.ex. C/ Alcanyiz o Avg/ Generalitat"
                                                 v-model="street"
                                                 :error-messages="streetErrors"
                                                 :counter="255"
@@ -152,6 +167,8 @@
                                     <v-flex md3>
                                         <v-select
                                                 label="Localitat"
+                                                tabindex = "-1"
+                                                item-text="name"
                                                 autocomplete
                                                 :loading="loadingLocality"
                                                 cache-items
@@ -169,11 +186,13 @@
                                     <v-flex md2>
                                         <v-select
                                                 label="Província"
+                                                tabindex = "-1"
                                                 item-text="name"
                                                 autocomplete
                                                 :loading="loadingProvince"
                                                 cache-items
                                                 required
+                                                combobox
                                                 clearable
                                                 :items="provinces"
                                                 :search-input.sync="searchProvinces"
@@ -197,7 +216,7 @@
                                 <v-layout row wrap>
                                     <v-flex md5>
                                         <v-text-field
-                                                label="Correus electrònic"
+                                                label="Correu electrònic"
                                                 v-model="email"
                                                 :error-messages="emailErrors"
                                                 @input="$v.email.$touch()"
@@ -292,33 +311,13 @@
 
                             <h1 class="subheading primary--text">
                                 <div>
-                                    <p>Cos, especialitat</p>
+                                    <p>Cos i especialitat</p>
                                 </div>
                             </h1>
 
                             <v-container grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md3>
-                                        <v-select
-                                                label="Cos"
-                                                autocomplete
-                                                required
-                                                clearable
-                                                :error-messages="forceErrors"
-                                                @input="$v.force.$touch()"
-                                                @blur="$v.force.$touch()"
-                                                :items="forces"
-                                                v-model="force"
-                                        >
-                                            <template slot="item" slot-scope="data">
-                                                {{data.item.code}} - {{data.item.name}}
-                                            </template>
-                                            <template slot="selection" slot-scope="data">
-                                                {{data.item.code}}
-                                            </template>
-                                        </v-select>
-                                    </v-flex>
-                                    <v-flex md5>
                                         <v-select
                                                 label="Especialitat"
                                                 autocomplete
@@ -335,6 +334,28 @@
                                             </template>
                                             <template slot="selection" slot-scope="data">
                                                 {{data.item.code}} - {{data.item.name}}
+                                            </template>
+                                        </v-select>
+
+                                    </v-flex>
+                                    <v-flex md5>
+                                        <v-select
+                                                label="Cos"
+                                                autocomplete
+                                                tabindex="-1"
+                                                required
+                                                clearable
+                                                :error-messages="forceErrors"
+                                                @input="$v.force.$touch()"
+                                                @blur="$v.force.$touch()"
+                                                :items="forces"
+                                                v-model="force"
+                                        >
+                                            <template slot="item" slot-scope="data">
+                                                {{data.item.code}} - {{data.item.name}}
+                                            </template>
+                                            <template slot="selection" slot-scope="data">
+                                                {{data.item.code}}
                                             </template>
                                         </v-select>
                                     </v-flex>
@@ -357,6 +378,9 @@
                                             <v-text-field
                                                     slot="activator"
                                                     label="Data incorporació centre"
+                                                    hint="DD/MM/YYYY format"
+                                                    persistent-hint
+                                                    prepend-icon="event"
                                                     v-model="start_date"
                                                     :error-messages="startDateErrors"
                                                     @input="$v.start_date.$touch()"
@@ -366,14 +390,12 @@
                                             <v-date-picker
                                                     locale="ca"
                                                     v-model="start_date"
-                                                    min="1900-01-01"
-                                                    :max="new Date().toISOString().substr(0, 10)"
                                             ></v-date-picker>
                                         </v-menu>
                                     </v-flex>
                                     <v-flex md3>
                                         <v-text-field
-                                                label="Data aprovació oposicions"
+                                                label="Data superació oposicions"
                                                 v-model="opositions_date"
                                         ></v-text-field>
                                     </v-flex>
@@ -404,13 +426,11 @@
                                         ></v-text-field>
                                     </v-flex>
                                     <v-flex md6>
-                                        <v-text-field
+                                        <teacher-select
                                                 label="Professor al que substitueix"
-                                                v-model="teacher_id"
-                                                :error-messages="teacherErrors"
-                                                @input="$v.teacher_id.$touch()"
-                                                @blur="$v.teacher_id.$touch()"
-                                        ></v-text-field>
+                                                :teachers="teachers"
+                                                v-model="teacher"
+                                        ></teacher-select>
                                     </v-flex>
                                     <v-flex md6>
                                         <v-checkbox
@@ -443,8 +463,10 @@
   import withSnackbar from '../mixins/withSnackbar'
   import axios from 'axios'
   import PendingTeacher from './Mixins/PendingTeacher'
+  import TeacherSelect from './TeacherSelectComponent.vue'
 
   export default {
+    components: { TeacherSelect },
     mixins: [validationMixin, withSnackbar, PendingTeacher],
     watch: {
       birthdateMenu (val) {
@@ -458,40 +480,91 @@
       },
       searchProvinces (val) {
         val && (val.length > 1) && this.queryProvinces(val)
+      },
+      postal_code: function (newPostalCode) {
+        this.setLocality(newPostalCode)
+        this.setProvince(newPostalCode)
+      },
+      specialty: function (newSpecialty) {
+        this.setForce(newSpecialty)
       }
     },
     methods: {
-      queryPostalCodes (v) {
-        this.loadingPostalCode = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.postalCodes = this.fakepostalCodes.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+      setForce (specialty) {
+        if (specialty) {
+          let foundForce = this.forces.find(force => {
+            return force.id === specialty.force_id
           })
-          this.loadingPostalCode = false
-        }, 500)
+          if (foundForce) this.force = foundForce
+        }
+      },
+      setLocality (postalCode) {
+        if (postalCode) {
+          let foundLocality = this.allLocalities.find(locality => {
+            return locality.postalcode === postalCode
+          })
+          if (foundLocality) {
+            this.localities.push(foundLocality)
+            this.locality = foundLocality
+          }
+        }
+      },
+      setProvince (postalCode) {
+        if (postalCode) {
+          let foundProvince = this.allProvinces.find(province => {
+            return postalCode.startsWith(province.postal_code_prefix)
+          })
+          if (foundProvince) {
+            this.provinces.push(foundProvince)
+            this.province = foundProvince
+          }
+        }
+      },
+      queryPostalCodes (v) {
+        this.postalCodes = this.allPostalCodes.filter(postalCode => {
+          return (postalCode || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
       },
       queryLocalities (v) {
-        this.loadingLocality = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.localities = this.fakeLocalities.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loadingLocality = false
-        }, 500)
+        this.localities = this.allLocalities.filter(locality => {
+          return (locality.name || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
       },
       queryProvinces (v) {
         this.provinces = this.allProvinces.filter(province => {
           return (province.name || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
         })
       },
+      validateDNI (dni) {
+        let numero, lt, letra
+        let regexpdni = /^[XYZ]?\d{5,8}[A-Z]$/
+
+        dni = dni.toUpperCase()
+
+        if (regexpdni.test(dni) === true) {
+          numero = dni.substr(0, dni.length - 1)
+          numero = numero.replace('X', 0)
+          numero = numero.replace('Y', 1)
+          numero = numero.replace('Z', 2)
+          lt = dni.substr(dni.length - 1, 1)
+          numero = numero % 23
+          letra = 'TRWAGMYFPDXBNJZSQVHLCKET'
+          letra = letra.substring(numero, numero+1)
+          if (letra !== lt) return false
+          else return true
+        } else return false
+      },
       submit () {
         if (!this.$v.$invalid) {
+          if (this.identifierType === 'DNI/NIF' && !this.validateDNI(this.identifier)) {
+            this.showError('El DNI no és vàlid')
+            return
+          }
           axios.post('api/v1/add_teacher', {
             name: this.name,
             sn1: this.sn1,
             sn2: this.sn2,
+            identifier_type: this.identifierType,
             identifier: this.identifier,
             birthdate: this.birthdate,
             street: this.street,
@@ -517,7 +590,7 @@
             opositions_date: this.opositions_date,
             administrative_status_id: this.administrative_status.id,
             destination_place: this.destination_place,
-            teacher_id: this.teacher_id
+            teacher_id: this.teacher.id
           }).then(response => {
             console.log(response)
             this.showMessage('Dades enviades correctament')
@@ -560,7 +633,7 @@
         this.opositions_date = ''
         this.administrative_status = ''
         this.destination_place = ''
-        this.teacher_id = ''
+        this.teacher = {}
         this.checkbox = false
       },
       saveBirthdate (date) {
@@ -576,10 +649,29 @@
           console.log(error)
           this.showError(error)
         })
+      },
+      fetchAllLocalities () {
+        this.loadingLocality = true
+        axios.get('/api/v1/localities').then(response => {
+          this.allLocalities = response.data
+          this.allPostalCodes = [...new Set(this.allLocalities.map(locality => locality['postalcode']))] //Remove duplicates
+          this.loadingLocality = false
+          this.fillTipicalLocaties()
+        }).catch(error => {
+          this.loadingLocality = false
+          console.log(error)
+          this.showError(error)
+        })
+      },
+      fillTipicalLocaties () {
+        this.localities = this.allLocalities.filter(locality => {
+          return locality.postalcode.startsWith('43')
+        })
       }
     },
     created () {
       this.fetchAllProvinces()
+      this.fetchAllLocalities()
     }
   }
 </script>

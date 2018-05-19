@@ -20,6 +20,7 @@ class CreateProvincesTable extends Migration
             $table->increments('id');
             $table->integer('state_id')->unsigned();
             $table->string('name')->unique();
+            $table->string('postal_code_prefix')->unique();
             $table->timestamps();
 
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
