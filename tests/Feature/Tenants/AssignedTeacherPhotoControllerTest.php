@@ -120,6 +120,12 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
             'email' => 'pepepardo@jeans.com'
         ]);
 
+        $teacher = Teacher::create([
+            'code' => '040'
+        ]);
+        $teacher->user_id = $user->id;
+        $teacher->save();
+
         Storage::disk('local')->put(
             'tenant_test/teacher_photos/sergi.jpg',
             File::get(base_path('tests/__Fixtures__/photos/users/sergi.jpg'))
@@ -134,9 +140,9 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
         $this->assertEquals('',$user->photo);
         $this->assertFalse(Storage::exists($user->photo));
 
-        $this->assertTrue(Storage::exists('tenant_test/teacher_photos/2_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg'));
+        $this->assertTrue(Storage::exists('tenant_test/teacher_photos/040_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg'));
         Event::assertDispatched(TeacherPhotoUnassigned::class, function ($e) use ($user) {
-            return $e->user->is($user) && $e->photo === 'tenant_test/user_photos/2_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg';
+            return $e->user->is($user) && $e->photo === 'tenant_test/teacher_photos/040_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg';
         });
     }
 

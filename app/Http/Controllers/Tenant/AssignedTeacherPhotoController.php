@@ -77,14 +77,14 @@ class AssignedTeacherPhotoController extends Controller
      */
     public function delete(DeleteAssignedTeacherPhoto $request, $tenant, User $user)
     {
-        $destPath = $tenant . '/teacher_photos/' . $user->photo_name;
+        $name = $user->teacher->code . '_' . str_slug($user->name) . '_' . str_slug($user->email);
+        $destPath = $tenant . '/teacher_photos/' . $name;
         $ext = pathinfo($user->photo, PATHINFO_EXTENSION);
         if($ext) {
             $destPath = $destPath . '.' . $ext;
         }
-        $photo = $user->photo;
         $result = $user->unassignPhoto($destPath);
-        event(new TeacherPhotoUnassigned($user,$photo));
+        event(new TeacherPhotoUnassigned($user,$destPath));
         return $result;
     }
 }

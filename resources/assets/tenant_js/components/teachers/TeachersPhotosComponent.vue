@@ -156,12 +156,6 @@
                             v-model="availableGrid"
                     ></v-switch>
                 </v-flex>
-                <v-flex xs4>
-                    <v-checkbox
-                            label='Només fotos pendents assignar'
-                            v-model="pendingPhotos"
-                    ></v-checkbox>
-                </v-flex>
             </v-layout>
 
         </v-flex>
@@ -457,7 +451,6 @@
         internalZips: this.zips,
         errors: [],
         zipErrors: [],
-        pendingPhotos: true,
         onlyteachersWithoutPhoto: true,
         editing: null,
         filename: '',
@@ -511,6 +504,7 @@
         axios.post('/api/v1/teachers/photos').then(response => {
           this.assigningPhotos = false
           this.showMessage(response.data + ' Fotos assignades correctament')
+          this.refresh()
         }).catch(error => {
           console.log(error)
           this.assigningPhotos = false
@@ -525,6 +519,7 @@
           this.assigningPhoto = false
           teacher.user.photo = response.data.photo
           teacher.user.photo_hash = response.data.photo_hash
+          this.refresh()
           this.showMessage('Foto assignada correctament')
         }).catch(error => {
           console.log(error)
@@ -538,6 +533,7 @@
           this.unassigningPhoto = false
           teacher.user.photo = null
           teacher.user.photo_hash = null
+          this.refresh()
           this.showMessage('Foto desassignada correctament')
         }).catch(error => {
           console.log(error)

@@ -250,6 +250,7 @@ class User extends Authenticatable
      */
     public function unassignPhoto($destinationPath)
     {
+        if(Storage::exists($destinationPath)) Storage::delete($destinationPath);
         Storage::disk('local')->move($this->photo, $destinationPath);
         $this->photo = '';
         $this->photo_hash = '';
