@@ -68,8 +68,6 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $response = $this->json('GET','/api/v1/unassigned_teacher_photo');
         $response->assertSuccessful();
 
-//        $response->dump();
-
         $response->assertJsonStructure([[
            'filename',
             'slug'
@@ -172,7 +170,6 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function manager_can_delete_unassigned_teacher_photos()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
 
         $photoTeachersManager = factory(User::class)->create();

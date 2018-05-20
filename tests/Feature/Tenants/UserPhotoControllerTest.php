@@ -2,10 +2,15 @@
 
 namespace Tests\Feature\Tenant;
 
+use App\Events\UserPhotoUploaded;
 use App\Models\User;
+use Config;
+use Event;
 use File;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Spatie\Permission\Models\Role;
 use Storage;
 use Tests\BaseTenantTest;
 use URL;
@@ -34,7 +39,7 @@ class UserPhotoControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function user_photo()
+    public function show_user_photo()
     {
         Storage::fake('local');
 
@@ -44,7 +49,7 @@ class UserPhotoControllerTest extends BaseTenantTest
         );
 
         $user = factory(User::class)->create();
-        $response = $this->get('/user_photo/' . $user->getRouteKey());
+        $response = $this->get('/user/' . $user->getRouteKey() . '/photo');
         $response->assertSuccessful();
         $this->assertEquals(Storage::disk('local')->path('tenant_test/' . User::DEFAULT_PHOTO_PATH), $response->baseResponse->getFile()->getPathName());
         $this->assertFileEquals(Storage::disk('local')->path('tenant_test/' . User::DEFAULT_PHOTO_PATH), $response->baseResponse->getFile()->getPathName());
@@ -60,7 +65,7 @@ class UserPhotoControllerTest extends BaseTenantTest
         );
 
         $user2->assignPhoto('tenant_test/teacher_photos/sergi.jpg','tenant_test');
-        $response = $this->get('/user_photo/' . $user2->getRouteKey());
+        $response = $this->get('/user/' . $user2->getRouteKey() . '/photo');
 
         $this->assertEquals(Storage::disk('local')->path('tenant_test/user_photos/' . $user2->id . '_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg'), $response->baseResponse->getFile()->getPathName());
         $this->assertFileEquals(Storage::disk('local')->path('tenant_test/user_photos/' . $user2->id . '_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg'), $response->baseResponse->getFile()->getPathName());
@@ -68,4 +73,78 @@ class UserPhotoControllerTest extends BaseTenantTest
         $response->assertSuccessful();
 
     }
+
+    /** @test */
+    public function store_user_photo()
+    {
+        Storage::fake('local');
+        Event::fake();
+
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $user = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardo@jeans.com'
+        ]);
+
+        $this->assertNull($user->photo);
+        $response = $this->json('POST','/api/v1/user/' . $user->id . '/photo', [
+            'photo' => UploadedFile::fake()->image('photo.png')
+        ]);
+        $response->assertSuccessful();
+        $path = $response->getContent();
+        $user = $user->fresh();
+        $this->assertEquals($user->photo,$path);
+        Storage::disk('local')->assertExists($path);
+        Event::assertDispatched(UserPhotoUploaded::class, function ($e) use ($path) {
+            return $e->path === $path;
+        });
+    }
+
+    /** @test */
+    public function store_user_photo_validation()
+    {
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $user = factory(User::class)->create();
+
+        $response = $this->json('POST','/api/v1/user/' . $user->id . '/photo', []);
+
+        $response->assertStatus(422);
+        $result =json_decode($response->getContent());
+        $this->assertEquals($result->message,'The given data was invalid.');
+        $this->assertEquals($result->errors->photo[0],'El camp photo és obligatori.');
+
+
+        $file = \Illuminate\Http\Testing\File::create('not-an_image.pdf');
+
+        $response = $this->json('POST','/api/v1/user/' . $user->id . '/photo', [
+            'photo' => $file
+        ]);
+        $response->assertStatus(422);
+        $result =json_decode($response->getContent());
+        $this->assertEquals($result->message,'The given data was invalid.');
+        $this->assertEquals($result->errors->photo[0],'photo ha de ser una imatge.');
+
+    }
+
+    /** @test */
+    public function user_cannot_store_user_photo()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+        $response = $this->json('POST','/api/v1/user/' . $user->id . '/photo', [
+            'photo' => ''
+        ]);
+        $response->assertStatus(403);
+    }
+
 }

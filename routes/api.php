@@ -40,6 +40,11 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             Route::put('/teacher_photo/{photoslug}', 'Tenant\TeacherPhotoController@edit');
 
+            Route::post('/teacher/{user}/photo','Tenant\AssignedTeacherPhotoController@store');
+
+            //User photos
+            Route::post('/user/{user}/photo','Tenant\UserPhotoController@store');
+
             //Staff
             Route::post('/staff', 'Tenant\StaffController@store');
             Route::delete('/staff/{staff}', 'Tenant\StaffController@destroy');

@@ -114,7 +114,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
     /** @test */
     function teacher_photos_validate_zip()
     {
-        $file = File::create('not-a-poster.pdf');
+        $file = File::create('not-a-zip.pdf');
         Storage::fake('local');
         $photoTeachersManager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);

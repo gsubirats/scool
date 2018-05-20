@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Tenant\Traits;
 
-use File;
 use Storage;
 
 /**
@@ -20,20 +19,42 @@ trait PhotoSlug
      */
     protected function obtainPhotoBySlug($tenant, $slug)
     {
-        $photos = collect();
-        if (Storage::exists($path = $tenant . '/teacher_photos')) {
-            $photos = collect(File::allFiles(Storage::path($path)))->map(function ($photo) {
-                return [
-                    'file' => $photo,
-                    'filename' => $filename = $photo->getFilename(),
-                    'slug' => str_slug($filename,'-')
-                ];
-            });
-        }
+        $photos = get_photo_slugs_from_path($tenant . '/teacher_photos');
 
-        $found = $photos->search(function ($photo) use ($slug){
-            return $photo['slug'] ===  $slug;
+        $found = $this->searchPhotoBySlug($slug, $photos);
+
+        if ($found === false) abort('404',"No s'ha trobat cap foto amb l'slug: $slug");
+
+        return $photos[$found]['file'];
+    }
+
+    /**
+     * Search photo by slug.
+     *
+     * @param $slug
+     * @param $photos
+     * @return mixed
+     */
+    protected function searchPhotoBySlug($slug, $photos)
+    {
+        return $photos->search(function ($photo) use ($slug){
+            return $photo['slug'] === $slug;
         });
+    }
+
+    /**
+     * TODO
+     *
+     * Obtain photo by slug.
+     *
+     * @param $slug
+     * @return mixed
+     */
+    protected function obtainPhotoPathBySlug($tenant, $slug)
+    {
+        $photos = get_photo_slugs_from_path($tenant . '/teacher_photos');
+
+        $found = $this->searchPhotoBySlug($tenant, $slug, $photos);
 
         if ($found === false) abort('404',"No s'ha trobat cap foto amb l'slug: $slug");
 

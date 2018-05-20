@@ -312,15 +312,15 @@
         <v-flex xs12>
             <h1 class="title">Fotos assignades a professors</h1>
             <v-checkbox
-                    label='Només professors amb foto'
-                    v-model="onlyteachersWithPhoto"
+                    label='Només professors sense foto'
+                    v-model="onlyteachersWithoutPhoto"
             ></v-checkbox>
         </v-flex>
         <v-flex xs12>
             <v-layout row wrap v-if="enabledGrid">
                 <v-flex v-for="teacher in filteredTeachers" :key="teacher.id" md2 lg1>
                     <v-card>
-                        <v-card-media :src="'/user_photo/' + teacher.user.hashid" height="200px" >
+                        <v-card-media :src="'/user/' + teacher.user.hashid + '/photo'" height="200px" >
                         </v-card-media>
                         <v-card-title primary-title>
                             <p>
@@ -328,34 +328,22 @@
                             </p>
                         </v-card-title>
                         <v-card-actions>
-                            <v-btn
-                                    v-if="confirmingRemove !== teacher.id"
-                                    flat color="red"
-                                    @click="confirmRemove(teacher)"
+                            <v-btn v-if="photo"
+                                    slot="activator"
+                                    flat color="teal"
                                     icon
+                                   title="Assignar foto seleccionada"
+                                   @click="assignPhoto(teacher)"
+                                   :loading="assigningPhoto"
+                                   :disabled="assigningPhoto"
                             >
-                                <v-icon dark>delete</v-icon>
+                                <v-icon dark>add</v-icon>
                             </v-btn>
-                            <template v-else>
-                                <v-btn flat color="green" @click="cancelRemove(teacher)"
-                                       icon
-                                >
 
-                                    <v-icon dark>cancel</v-icon>
-                                </v-btn>
-
-                                <v-btn flat color="red" @click="remove(teacher)"
-                                       :loading="deleting === teacher.id"
-                                       :disabled="deleting === teacher.id"
-                                       icon
-                                >
-
-                                    <v-icon dark>done</v-icon>
-                                </v-btn>
-                            </template>
-
-                            <v-btn flat
-                                   :href="'/user_photo/' + teacher.id + '/download'"
+                            <v-btn v-if="teacher.user.photo"
+                                    title="Baixar la foto"
+                                    flat
+                                   :href="'/user/' + teacher.user.hashid + 'photo/download'"
                                    icon>
                                 <v-icon dark>file_download</v-icon>
                             </v-btn>
@@ -385,6 +373,7 @@
     mixins: [withSnackbar],
     data () {
       return {
+        assigningPhoto: false,
         confirmingRemove: null,
         dimensionsAlert: true,
         deleting: null,
@@ -395,7 +384,7 @@
         refreshing: false,
         photo: null,
         zipFile: null,
-        availableGrid: true,
+        availableGrid: false,
         enabledGrid: true,
         photoPath: '',
         internalAvailablePhotos: this.availablePhotos,
@@ -403,7 +392,7 @@
         errors: [],
         zipErrors: [],
         pendingPhotos: true,
-        onlyteachersWithPhoto: true,
+        onlyteachersWithoutPhoto: true,
         editing: null,
         filename: '',
         pushEditing: false,
@@ -417,9 +406,9 @@
         return this.uploading || this.uploadingZip || this.fileUploaded
       },
       filteredTeachers () {
-        if (this.onlyteachersWithPhoto) {
+        if (this.onlyteachersWithoutPhoto) {
           return this.teachers.filter(teacher => {
-            return teacher.user.photo !== null
+            return teacher.user.photo === null
           })
         }
         return this.teachers
@@ -440,6 +429,20 @@
       }
     },
     methods: {
+      assignPhoto (teacher) {
+        this.assigningPhoto = true
+        console.log('Assigning photo ' + this.photo + ' to ' + teacher)
+        axios.post('/teacher/' + teacher.user.id + '/photo', {
+          photo: this.photo.slug
+        }).then(response => {
+          console.log(response)
+          this.assigningPhoto = false
+        }).catch(error => {
+          console.log(error)
+          this.assigningPhoto = false
+          this.showError(error)
+        })
+      },
       upload () {
         this.$refs.photo.click()
       },

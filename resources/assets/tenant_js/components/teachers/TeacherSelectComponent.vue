@@ -17,7 +17,7 @@
                     :key="JSON.stringify(data.item)"
             >
                 <v-avatar>
-                    <img :src="'/user_photo/' + data.item.hashid">
+                    <img :src="'/user/' + data.item.hashid + '/photo'">
                 </v-avatar>
                 {{ data.item.name }}
             </v-chip>
@@ -28,7 +28,7 @@
             </template>
             <template v-else>
                 <v-list-tile-avatar>
-                    <img :src="'/user_photo/' + teacher.hashid">
+                    <img :src="'/user/' + teacher.hashid + '/photo'">
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title v-html="teacher.name"></v-list-tile-title>

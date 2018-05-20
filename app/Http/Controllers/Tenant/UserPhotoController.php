@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Events\UserPhotoUploaded;
+use App\Http\Requests\StoreUserPhoto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Storage;
@@ -22,12 +24,39 @@ class UserPhotoController extends Controller
      */
     public function show(Request $request, $tenant, User $user)
     {
-        $photoPath = $this->basePath($tenant , $user->photo);
         if (! $user->photo || ! Storage::disk('local')->exists($user->photo)) {
             return response()->file(Storage::disk('local')->path(
                 $this->basePath($tenant,User::DEFAULT_PHOTO_PATH)));
         }
         return response()->file(Storage::disk('local')->path($user->photo));
+    }
+
+    /**
+     * Store.
+     *
+     * @param StoreUserPhoto $request
+     * @param $tenant
+     * @param User $user
+     * @return false|string
+     */
+    public function store(StoreUserPhoto $request, $tenant, User $user)
+    {
+        $name = $user->photo_name;
+        $ext = pathinfo($request->photo->getClientOriginalName(), PATHINFO_EXTENSION);
+        if($ext) {
+            $name = $name . '.' . $ext;
+        }
+
+        $path = $request->file('photo')->storeAs(
+            $tenant. '/'. User::PHOTOS_PATH,
+            $name
+        );
+
+        $user->photo = $path;
+        $user->save();
+        event(new UserPhotoUploaded($path));
+
+        return $path;
     }
 
     /**
@@ -41,4 +70,5 @@ class UserPhotoController extends Controller
     {
         return $tenant. '/' . $path;
     }
+
 }

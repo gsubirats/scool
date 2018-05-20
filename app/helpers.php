@@ -553,10 +553,14 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
     }
 }
 
-
 if (!function_exists('initialize_gates')) {
     function initialize_gates()
     {
+        Gate::define('store-user-photo', function ($user) {
+            return $user->hasRole(['UsersManager','TeachersManager']);
+        });
+
+
         Gate::define('show-users', function ($user) {
             return $user->hasRole('UsersManager');
         });
@@ -3621,4 +3625,25 @@ if (! function_exists('tune_google_client')) {
     }
 }
 
-
+if (! function_exists('get_photo_slugs_from_path')) {
+    /**
+     * Get photos slugs from path.
+     *
+     * @param $path
+     * @return \Illuminate\Support\Collection|static
+     */
+    function get_photo_slugs_from_path($path)
+    {
+        $photos = collect();
+        if (Storage::exists($path)) {
+            $photos = collect(File::allFiles(Storage::path($path)))->map(function ($photo) {
+                return [
+                    'file' => $photo,
+                    'filename' => $filename = $photo->getFilename(),
+                    'slug' => str_slug($filename,'-')
+                ];
+            });
+        }
+        return $photos;
+    }
+}

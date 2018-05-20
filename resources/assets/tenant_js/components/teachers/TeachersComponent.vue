@@ -31,7 +31,7 @@
                                         </td>
                                         <td class="text-xs">
                                             <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user_photo/' + teacher.user.hashid" :alt="teacher.name">
+                                                <img :src="'/user/' + teacher.user.hashid + '/photo'" :alt="teacher.name">
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">

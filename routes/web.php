@@ -55,7 +55,8 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
         Route::get('/pending_teacher/{teacher}', 'Tenant\PendingTeachersController@show');
 
-        Route::get('/user_photo/{hashuser}','Tenant\UserPhotoController@show')->name('user.photo.show');
+        // User photos
+        Route::get('/user/{hashuser}/photo','Tenant\UserPhotoController@show')->name('user.photo.show');
 
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/home', function ($tenant) {

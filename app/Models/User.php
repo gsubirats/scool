@@ -168,7 +168,9 @@ class User extends Authenticatable
         return $query->role('Teacher')
             ->whereHas('staffs', function ($query) {
                 $query->where('type_id','=',StaffType::findByName('Professor/a')->id);
-            })->has('teacher')->with('staffs','teacher');
+            })->whereHas('staffs', function ($query) {
+                $query->where('type_id','=',StaffType::findByName('Professor/a')->id);
+        });
     }
 
     /**
