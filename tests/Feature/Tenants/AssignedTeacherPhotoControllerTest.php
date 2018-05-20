@@ -34,10 +34,7 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /**
-     * @test
-     * @group working
-     */
+    /** @test */
     public function store_teacher_photo_from_available_teacher_photos()
     {
         Storage::fake('local');
@@ -55,13 +52,22 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
             'tenant_test/teacher_photos/' . $files[0]->getBasename(),
             $files[0]->getContents()
         );
-        dump(str_slug($files[0]->getBasename()));
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardo@jeans.com'
+        ]);
         $response = $this->json('POST','/api/v1/teacher/' . $user->id . '/photo', [
             'photo' => str_slug($files[0]->getBasename())
         ]);
         $response->assertSuccessful();
-//        $response->dump();
+        $result = json_decode($response->getContent());
+        $response->assertJsonFragment([
+            'id' => $user->id,
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardo@jeans.com',
+            'photo' => 'tenant_test/user_photos/2_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg',
+        ]);
+        Storage::exists($result->photo);
     }
 
     /** @test */

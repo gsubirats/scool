@@ -15,11 +15,18 @@ class AssignedTeacherPhotoController extends Controller
 {
     use PhotoSlug;
 
+    /**
+     * Store.
+     *
+     * @param StoreAssignedTeacherPhoto $request
+     * @param $tenant
+     * @param User $user
+     * @return mixed
+     *
+     */
     public function store(StoreAssignedTeacherPhoto $request,$tenant, User $user)
     {
         $file = $this->obtainPhotoPathBySlug($tenant, $request->photo);
-        dump('FILE:');
-        dd($file);
-        $user->assignPhoto($file, $tenant);
+        return $user->assignPhoto($file, $tenant);
     }
 }
