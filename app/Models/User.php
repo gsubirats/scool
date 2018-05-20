@@ -207,6 +207,24 @@ class User extends Authenticatable
     }
 
     /**
+     * Obtain photo tenant path.
+     *
+     * @param $photo
+     * @param $tenant
+     * @return mixed|string
+     */
+    public function obtainPhotoTenantPath($photo, $tenant)
+    {
+        $ext = pathinfo($photo, PATHINFO_EXTENSION);
+        $path = preg_replace('#/+#','/',
+            $tenant. '/' . $this->photo_path . '/'. $this->photo_name);
+        if($ext) {
+            $path = $path . '.' . $ext;
+        }
+        return $path;
+    }
+
+    /**
      * Assign photo to user.
      *
      * @param $photo
@@ -214,11 +232,9 @@ class User extends Authenticatable
      */
     public function assignPhoto($photo,$tenant)
     {
-        $ext = pathinfo($photo, PATHINFO_EXTENSION);
-        $path = preg_replace('#/+#','/',
-            $tenant. '/' . $this->photo_path . '/'. $this->photo_name);
-        if($ext) {
-            $path = $path . '.' . $ext;
+        $path = $this->obtainPhotoTenantPath($photo,$tenant);
+        if (starts_with($photo, $storage = Storage::disk('local')->path(''))) {
+            $photo = str_after($photo, $storage);
         }
         Storage::disk('local')->copy($photo, $path);
         //Remove extra slashes from path like user_photos//photo.png

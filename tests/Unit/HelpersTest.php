@@ -3,37 +3,20 @@
 namespace Tests\Unit;
 
 use File;
-use Illuminate\Contracts\Console\Kernel;
 use Storage;
-use Tests\BaseTenantTest;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class PhotoSlugTest.
+ * Class HelpersTest.
  *
  * @package Tests\Unit
  */
-class PhotoSlugTest extends BaseTenantTest
+class HelpersTest extends TestCase
 {
-
-    /**
-     * Refresh the in-memory database.
-     *
-     * @return void
-     */
-    protected function refreshInMemoryDatabase()
-    {
-        $this->artisan('migrate',[
-            '--path' => 'database/migrations/tenant'
-        ]);
-
-        $this->app[Kernel::class]->setArtisan(null);
-    }
-
     /** @test */
-    public function get_photos_from_path()
+    public function get_photo_slugs_from_path()
     {
         Storage::fake('local');
         $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
@@ -55,6 +38,5 @@ class PhotoSlugTest extends BaseTenantTest
             $this->assertTrue(array_key_exists('slug',$photo));
         }
     }
-
 
 }

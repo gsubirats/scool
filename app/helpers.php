@@ -3647,3 +3647,4 @@ if (! function_exists('get_photo_slugs_from_path')) {
         return $photos;
     }
 }
+

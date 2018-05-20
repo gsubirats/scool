@@ -18,7 +18,7 @@ class AssignedTeacherPhotoController extends Controller
     public function store(StoreAssignedTeacherPhoto $request,$tenant, User $user)
     {
         $file = $this->obtainPhotoPathBySlug($tenant, $request->photo);
-        dump('FIle path');
+        dump('FILE:');
         dd($file);
         $user->assignPhoto($file, $tenant);
     }

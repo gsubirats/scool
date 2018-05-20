@@ -216,9 +216,10 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function can_assign_photo_to_user()
+    public function can_assign_photo_to_user_with_partial_path()
     {
         Storage::fake('local');
+
         $fakeImage = UploadedFile::fake()->image('avatar.jpg');
         $photo = Storage::disk('local')->putFile('teacher_photos',$fakeImage);
 
@@ -227,9 +228,28 @@ class UserTest extends TestCase
             'email' => 'pepepardo@jeans.com'
         ]);
         $this->assertNull($user->photo);
-
         $user->assignPhoto($photo,'tenant_test');
         $this->assertEquals($user->photo,'tenant_test/user_photos/1_pepe-pardo-jeans_pepepardo-at-jeanscom.jpeg');
+        $this->assertTrue(Storage::disk('local')->exists($user->photo));
+
+    }
+
+    /** @test */
+    public function can_assign_photo_to_user_with_full_path()
+    {
+        Storage::fake('local');
+
+        $fakeImage = UploadedFile::fake()->image('avatar2.jpg');
+        $photo2 = Storage::disk('local')->putFile('teacher_photos',$fakeImage);
+        $user2 = factory(User::class)->create([
+            'name' => 'Pepa Parda Jeans',
+            'email' => 'pepaparda@jeans.com'
+        ]);
+        $this->assertNull($user2->photo);
+        $photo2 = Storage::disk('local')->path($photo2);
+        $user2->assignPhoto($photo2,'tenant_test');
+        $this->assertEquals($user2->photo,'tenant_test/user_photos/1_pepa-parda-jeans_pepaparda-at-jeanscom.jpeg');
+        $this->assertTrue(Storage::disk('local')->exists($user2->photo));
     }
 
     /** @test */
