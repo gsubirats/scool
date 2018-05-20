@@ -32,6 +32,23 @@ class UserPhotoController extends Controller
     }
 
     /**
+     * Download.
+     *
+     * @param Request $request
+     * @param $tenant
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function download(Request $request, $tenant, User $user)
+    {
+        if (! $user->photo || ! Storage::disk('local')->exists($user->photo)) {
+            return response()->download(Storage::disk('local')->path(
+                $this->basePath($tenant,User::DEFAULT_PHOTO_PATH)));
+        }
+        return response()->download(Storage::disk('local')->path($user->photo));
+    }
+
+    /**
      * Store.
      *
      * @param StoreUserPhoto $request

@@ -27,7 +27,8 @@ class TeachersPhotosController extends Controller
     {
         $photos = Storage::exists($this->basePath($tenant)) ?  collect_files($this->basePath($tenant)) : collect();
         $zips = Storage::exists($this->basePathZip($tenant)) ? collect_files($this->basePathZip($tenant)) : collect();
-        $teachers = Teacher::with('user')->get();
+        $teachers = Teacher::with(['user','user.staffs'])->orderByRaw('code + 0')->get();
+
         return view('tenants.teachers.photos.show', compact('photos','zips', 'teachers'));
     }
 

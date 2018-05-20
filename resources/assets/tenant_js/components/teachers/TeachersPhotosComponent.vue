@@ -320,7 +320,7 @@
             <v-layout row wrap v-if="enabledGrid">
                 <v-flex v-for="teacher in filteredTeachers" :key="teacher.id" md2 lg1>
                     <v-card>
-                        <v-card-media :src="'/user/' + teacher.user.hashid + '/photo'" height="200px" >
+                        <v-card-media :src="teacherPhotoPath(teacher)" height="200px" >
                         </v-card-media>
                         <v-card-title primary-title>
                             <p>
@@ -343,7 +343,7 @@
                             <v-btn v-if="teacher.user.photo"
                                     title="Baixar la foto"
                                     flat
-                                   :href="'/user/' + teacher.user.hashid + 'photo/download'"
+                                   :href="'/user/' + teacher.user.hashid + '/photo/download?' + encodeURI((new Date()).toString())"
                                    icon>
                                 <v-icon dark>file_download</v-icon>
                             </v-btn>
@@ -398,7 +398,8 @@
         pushEditing: false,
         removingAll: false,
         removeAlldialog: false,
-        removeDialog: false
+        removeDialog: false,
+        internalTeachers: this.teachers
       }
     },
     computed: {
@@ -407,11 +408,11 @@
       },
       filteredTeachers () {
         if (this.onlyteachersWithoutPhoto) {
-          return this.teachers.filter(teacher => {
+          return this.internalTeachers.filter(teacher => {
             return teacher.user.photo === null
           })
         }
-        return this.teachers
+        return this.internalTeachers
       }
     },
     props: {
@@ -429,14 +430,18 @@
       }
     },
     methods: {
+      teacherPhotoPath (teacher) {
+        return '/user/' + teacher.user.hashid + '/photo?' + encodeURI((new Date()).toString())
+      },
       assignPhoto (teacher) {
         this.assigningPhoto = true
-        console.log('Assigning photo ' + this.photo + ' to ' + teacher)
-        axios.post('/teacher/' + teacher.user.id + '/photo', {
+        axios.post('/api/v1/teacher/' + teacher.user.id + '/photo', {
           photo: this.photo.slug
         }).then(response => {
           console.log(response)
           this.assigningPhoto = false
+          teacher.user.photo = response.data.photo
+          this.showMessage('Foto assignada correctament')
         }).catch(error => {
           console.log(error)
           this.assigningPhoto = false

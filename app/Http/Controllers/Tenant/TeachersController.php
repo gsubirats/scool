@@ -26,7 +26,7 @@ class TeachersController extends Controller
     public function show(ShowTeachersManagment $request)
     {
         $pendingTeachers = PendingTeacher::with('specialty')->get();
-        $teachers = Teacher::with(['user','user.staffs'])->get();
+        $teachers = Teacher::with(['user','user.staffs'])->orderByRaw('code + 0')->get();
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrative_statuses = AdministrativeStatus::all();

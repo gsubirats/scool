@@ -22,13 +22,14 @@
                                     :items="internalTeachers"
                                     :search="search"
                                     item-key="id"
-                                    expand
+                                    disable-initial-sort
                             >
                                 <template slot="items" slot-scope="{ item: teacher }">
-                                    <tr @click="expand($event, props)">
+                                    <tr>
                                         <td class="text-xs-left">
                                             {{ teacher.id }}
                                         </td>
+                                        <td class="text-xs-left">{{ teacher.code }}</td>
                                         <td class="text-xs">
                                             <v-avatar color="grey lighten-4" :size="40">
                                                 <img :src="'/user/' + teacher.user.hashid + '/photo'" :alt="teacher.name">
@@ -41,7 +42,6 @@
                                             {{ teacher.user.name }}
                                         </td>
                                         <td class="text-xs-left">{{ teacher.user.email }}</td>
-                                        <td class="text-xs-left">{{ teacher.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             {{ showTeacherStaff(teacher) }}
                                         </td>
@@ -129,11 +129,11 @@
         deleting: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
+          {text: 'Codi', value: 'user.code'},
           {text: 'Photo', value: 'photo'},
           {text: 'Name', value: 'name'},
           {text: 'UserName', value: 'username'},
           {text: 'Email', value: 'email'},
-          {text: 'Codi', value: 'user.code'},
           {text: 'Plaça', value: 'roles'},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},

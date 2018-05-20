@@ -75,6 +75,35 @@ class UserPhotoControllerTest extends BaseTenantTest
     }
 
     /** @test */
+    public function can_download_user_photo()
+    {
+        Storage::fake('local');
+
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $user2 = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'peppardo@jeans.com'
+        ]);
+        Storage::disk('local')->put(
+            'tenant_test/teacher_photos/sergi.jpg',
+            File::get(base_path('tests/__Fixtures__/photos/users/sergi.jpg'))
+        );
+
+        $user2->assignPhoto('tenant_test/teacher_photos/sergi.jpg','tenant_test');
+        $response = $this->get('/user/' . $user2->getRouteKey() . '/photo/download');
+
+        $response->assertSuccessful();
+        $baseResponse = $response->baseResponse;
+        $this->assertEquals(get_class($baseResponse),'Symfony\Component\HttpFoundation\BinaryFileResponse');
+        $file = $response->baseResponse->getFile();
+        $this->assertEquals(get_class($file),'Symfony\Component\HttpFoundation\File\File');
+        $this->assertEquals($file->getFileName(),'2_pepe-pardo-jeans_peppardo-at-jeanscom.jpg');
+
+    }
+
+    /** @test */
     public function store_user_photo()
     {
         Storage::fake('local');

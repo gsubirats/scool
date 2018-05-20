@@ -57,6 +57,8 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
         // User photos
         Route::get('/user/{hashuser}/photo','Tenant\UserPhotoController@show')->name('user.photo.show');
+        Route::get('/user/{hashuser}/photo/download', 'Tenant\UserPhotoController@download')->name('user.photo.download');
+
 
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/home', function ($tenant) {
