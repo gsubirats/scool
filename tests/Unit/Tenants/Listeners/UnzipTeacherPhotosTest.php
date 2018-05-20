@@ -23,8 +23,8 @@ class UnzipTeacherPhotosTest extends TestCase
 
         event(new TeacherPhotosZipUploaded('teacher_photos_zip/teachers.zip','tenant_test'));
 
-        Storage::disk('local')->assertExists('tenant_test/teacher_photos/40 - TUR, Sergi.jpg');
-        Storage::disk('local')->assertExists('tenant_test/teacher_photos/41 - Pardo, Jeans.jpg');
-        Storage::disk('local')->assertExists('tenant_test/teacher_photos/42 - Parda, Jeans Parda.jpg');
+        Storage::disk('local')->assertExists('tenant_test/teacher_photos/040 - TUR, Sergi.jpg');
+        Storage::disk('local')->assertExists('tenant_test/teacher_photos/041 - Pardo, Jeans.jpg');
+        Storage::disk('local')->assertExists('tenant_test/teacher_photos/042 - Parda, Jeans Parda.jpg');
     }
 }

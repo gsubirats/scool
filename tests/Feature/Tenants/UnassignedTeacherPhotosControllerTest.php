@@ -192,7 +192,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $this->actingAs($photoTeachersManager);
 
         Storage::fake('local');
-        $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
+        $names = ['040 - TUR, Sergi.jpg','041 - Pardo, Jeans.jpg','042 - Parda, Jeans Parda.jpg'];
         foreach ($names as $name) {
             $file = UploadedFile::fake()->image($name);
             Storage::disk('local')->putFileAs('tenant_test/teacher_photos/', $file, $name);
@@ -228,7 +228,7 @@ class UnassignedTeacherPhotosControllerTest extends BaseTenantTest
         $this->actingAs($photoTeachersManager,'api');
 
         Storage::fake('local');
-        $names = ['40 - TUR, Sergi.jpg','41 - Pardo, Jeans.jpg','42 - Parda, Jeans Parda.jpg'];
+        $names = ['040 - TUR, Sergi.jpg','041 - Pardo, Jeans.jpg','042 - Parda, Jeans Parda.jpg'];
         foreach ($names as $name) {
             $file = UploadedFile::fake()->image($name);
             Storage::disk('local')->putFileAs('tenant_test/teacher_photos', $file, $name);

@@ -4,6 +4,7 @@ namespace Tests\Feature\Tenants;
 
 use App\Events\TeacherPhotoAssigned;
 use App\Events\TeacherPhotoUnassigned;
+use App\Models\Teacher;
 use App\Models\User;
 use Config;
 use Event;
@@ -104,7 +105,6 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function unassign_photo_to_teacher()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
         Event::fake();
 
@@ -148,5 +148,71 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
         $user1 = factory(User::class)->create();
         $response = $this->json('DELETE','/api/v1/teacher/' . $user1->id . '/photo');
         $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function assign_all_available_photos_to_teachers()
+    {
+        Storage::fake('local');
+
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_staff_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_teachers();
+
+
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $files = File::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
+
+        Storage::disk('local')->put(
+            'tenant_test/teacher_photos/' . $files[0]->getBasename(),
+            $files[0]->getContents()
+        );
+
+        Storage::disk('local')->put(
+            'tenant_test/teacher_photos/' . $files[1]->getBasename(),
+            $files[1]->getContents()
+        );
+
+        Storage::disk('local')->put(
+            'tenant_test/teacher_photos/' . $files[2]->getBasename(),
+            $files[2]->getContents()
+        );
+
+        $response = $this->json('POST','/api/v1/teachers/photos');
+        $response->assertSuccessful();
+
+        $teacher1 = Teacher::where('code','040')->get()->first();
+        $teacher2 = Teacher::where('code','041')->get()->first();
+        $teacher3 = Teacher::where('code','042')->get()->first();
+
+        $this->assertEquals('tenant_test/user_photos/69_sergi-tur-badenas_stur-at-iesebrecom.jpg', $teacher1->user->photo);
+        $this->assertEquals('tenant_test/user_photos/70_jaume-ramos-prades_jaumeramos-at-iesebrecom.jpg', $teacher2->user->photo);
+        $this->assertEquals('tenant_test/user_photos/73_mireia-consarnau-pallares_mireiaconsarnau-at-iesebrecom.jpg', $teacher3->user->photo);
+
+        Storage::exists($teacher1->user->photo);
+        Storage::exists($teacher2->user->photo);
+        Storage::exists($teacher3->user->photo);
+
+    }
+
+    /** @test */
+    public function regular_user_cannot_assign_all_available_photos_to_teachers()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $response = $this->json('POST','/api/v1/teachers/photos');
+        $response->assertStatus(403);
+
     }
 }

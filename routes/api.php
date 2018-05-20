@@ -42,6 +42,9 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
 
             //Assign available teacher photo to teacher
             Route::post('/teacher/{user}/photo','Tenant\AssignedTeacherPhotoController@store');
+            //Assign al available teacher photos to teachers automatically
+            Route::post('/teachers/photos','Tenant\AssignedTeacherPhotoController@storeAll');
+
             //UnAssign available teacher photo to teacher
             Route::delete('/teacher/{user}/photo','Tenant\AssignedTeacherPhotoController@delete');
 

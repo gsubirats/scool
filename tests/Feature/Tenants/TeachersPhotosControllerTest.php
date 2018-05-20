@@ -93,7 +93,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
         Config::set('auth.providers.users.model', User::class);
         $photoTeachersManager->assignRole($role);
 
-        $photo_slug = '40-tur-sergijpg';
+        $photo_slug = '040-tur-sergijpg';
         $response = $this->json('GET','/teacher_photo/' . $photo_slug);
 
         $response->assertSuccessful();

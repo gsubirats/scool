@@ -82,7 +82,7 @@ class StaffControllerTest extends BaseTenantTest
 
         $this->assertCount(0, Staff::all());
         $response = $this->json('POST','/api/v1/staff', [
-            'code' => '40',
+            'code' => '040',
             'type' => 'Professor/a',
             'family' => 1,
             'specialty' => 1,
@@ -94,7 +94,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->assertCount(1, Staff::all());
 
         $staff = Staff::find(1);
-        $this->assertEquals('40', $staff->code);
+        $this->assertEquals('040', $staff->code);
         $this->assertEquals('Prova a veure que tal',$staff->notes);
         $this->assertEquals('Professor/a', StaffType::find($staff->type_id)->name);
         $this->assertEquals(1, $staff->user_id);
@@ -123,7 +123,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->assertEquals('El camp type és obligatori.',$result->errors->type[0]);
 
         $response = $this->json('POST','/api/v1/staff', [
-          'code' => '40',
+          'code' => '040',
           'type' => 'Professor/a'
         ]);
         $result = json_decode($response->getContent());
@@ -162,7 +162,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->actingAs($staffManager,'api');
 
         $staff = Staff::create([
-            'code' => '40',
+            'code' => '040',
             'type_id' => $type = StaffType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
@@ -177,7 +177,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->assertCount(0, Staff::all());
         $result = json_decode($response->getContent());
 
-        $this->assertEquals('40',$result->code);
+        $this->assertEquals('040',$result->code);
         $this->assertEquals($type,$result->type_id);
         $this->assertEquals(1,$result->specialty_id);
         $this->assertEquals(1,$result->family_id);
@@ -198,7 +198,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->actingAs($user,'api');
 
         $staff = Staff::create([
-            'code' => '40',
+            'code' => '040',
             'type_id' => StaffType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,

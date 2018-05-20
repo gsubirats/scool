@@ -317,7 +317,7 @@ class UserTest extends TestCase
     {
         $user = create(User::class);
         $result = $user->assignTeacher($teacher = Teacher::create([
-            'code' => '40'
+            'code' => '040'
         ]));
         $this->assertTrue($teacher->is($user->teacher));
         $this->assertInstanceOf(User::class,$result);

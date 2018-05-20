@@ -95,14 +95,14 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
         $photoTeachersManager->assignRole($role);
         $this->actingAs($photoTeachersManager, 'api');
         $response = $this->json('POST','/api/v1/unassigned_teacher_photo', [
-            'teacher_photo' => UploadedFile::fake()->image('40 Sergi Tur.jpg', 670, 790)
+            'teacher_photo' => UploadedFile::fake()->image('040 Sergi Tur.jpg', 670, 790)
         ]);
 
         $response->assertSuccessful();
         $response = json_decode($response->getContent());
         Storage::disk('local')->assertExists($path = $response->path);
-        $this->assertEquals($response->slug,'40-sergi-turjpg');
-        $this->assertEquals($response->filename,'40 Sergi Tur.jpg');
+        $this->assertEquals($response->slug,'040-sergi-turjpg');
+        $this->assertEquals($response->filename,'040 Sergi Tur.jpg');
         Event::assertDispatched(UnassignedTeacherPhotoUploaded::class, function ($e) use ($path) {
             return $e->path === $path;
         });
