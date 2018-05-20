@@ -17,9 +17,9 @@ trait PhotoSlug
      * @param $slug
      * @return mixed
      */
-    protected function obtainPhotoBySlug($tenant, $slug)
+    protected function obtainPhotoBySlug($path, $slug)
     {
-        $photos = get_photo_slugs_from_path($tenant . '/teacher_photos');
+        $photos = get_photo_slugs_from_path($path);
 
         $found = $this->searchPhotoBySlug($slug, $photos);
 
@@ -50,11 +50,11 @@ trait PhotoSlug
      * @param $slug
      * @return mixed
      */
-    protected function obtainPhotoPathBySlug($tenant, $slug)
+    protected function obtainPhotoPathBySlug($path, $slug)
     {
-        $photos = get_photo_slugs_from_path($tenant . '/teacher_photos');
+        $photos = get_photo_slugs_from_path($path);
 
-        $found = $this->searchPhotoBySlug($tenant, $slug, $photos);
+        $found = $this->searchPhotoBySlug($slug, $photos);
 
         if ($found === false) abort('404',"No s'ha trobat cap foto amb l'slug: $slug");
 

@@ -29,7 +29,7 @@ class TeacherPhotoController extends Controller
      */
     public function show(ShowTeacherPhoto $request, $tenant, $photo_slug)
     {
-        return response()->file($this->obtainPhotoBySlug($tenant, $photo_slug)->getPathName());
+        return response()->file($this->obtainPhotoBySlug($tenant . '/teacher_photos', $photo_slug)->getPathName());
     }
 
     /**
@@ -42,7 +42,7 @@ class TeacherPhotoController extends Controller
      */
     public function download(DownloadTeacherPhoto $request, $tenant, $photo_slug)
     {
-        return response()->download($this->obtainPhotoBySlug($tenant,$photo_slug)->getPathName());
+        return response()->download($this->obtainPhotoBySlug($tenant . '/teacher_photos',$photo_slug)->getPathName());
     }
 
     /**
@@ -55,7 +55,7 @@ class TeacherPhotoController extends Controller
      */
     public function edit(EditTeacherPhoto $request, $tenant, $photo_slug)
     {
-        $file = $this->obtainPhotoBySlug($tenant, $photo_slug);
+        $file = $this->obtainPhotoBySlug($tenant . '/teacher_photos', $photo_slug);
         Storage::move( $this->basePath($tenant) . $file->getFilename(), $this->basePath($tenant) . $request->filename);
         return str_slug($request->filename,'-');
     }

@@ -59,7 +59,7 @@ class UnassignedTeacherPhotoController extends Controller
      */
     public function destroy(DestroyUnassignedTeacherPhoto $request, $tenant, $slug)
     {
-        $file = $this->obtainPhotoBySlug($tenant, $slug);
+        $file = $this->obtainPhotoBySlug($tenant . '/teacher_photos', $slug);
 
         Storage::disk('local')->delete($this->basePath($tenant) . '/' . $file->getFileName());
         return [
