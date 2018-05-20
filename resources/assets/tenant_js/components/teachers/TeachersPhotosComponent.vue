@@ -325,9 +325,9 @@
                            class="white--text"
                            color="teal"
                            title="Assignar fotos automàticament. Només funciona si el fitxer original conté codi professor"
-                           @click="assignPhoto(teacher)"
-                           :loading="assigningPhoto"
-                           :disabled="assigningPhoto"
+                           @click="assignPhotos()"
+                           :loading="assigningPhotos"
+                           :disabled="assigningPhotos"
                     >
                         <v-icon dark>settings</v-icon> Automàtic
                     </v-btn>
@@ -440,6 +440,7 @@
         },
         refreshPhotos: false,
         assigningPhoto: false,
+        assigningPhotos: false,
         unassigningPhoto: false,
         confirmingRemove: null,
         dimensionsAlert: true,
@@ -507,6 +508,17 @@
       teacherPhotoPath (teacher) {
         if (teacher.dirty || this.refreshPhotos) return '/user/' + teacher.user.hashid + '/photo?' + encodeURI((new Date()).toString())
         return '/user/' + teacher.user.hashid + '/photo'
+      },
+      assignPhotos () {
+        this.assigningPhotos = true
+        axios.post('/api/v1/teachers/photos').then(response => {
+          this.assigningPhotos = false
+          this.showMessage(response.data + ' Fotos assignades correctament')
+        }).catch(error => {
+          console.log(error)
+          this.assigningPhotos = false
+          this.showError(error)
+        })
       },
       assignPhoto (teacher) {
         this.assigningPhoto = true

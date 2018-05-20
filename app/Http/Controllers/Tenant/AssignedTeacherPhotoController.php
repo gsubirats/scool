@@ -45,13 +45,14 @@ class AssignedTeacherPhotoController extends Controller
      * @param StoreAllAssignedTeacherPhoto $request
      * @param $tenant
      * @param User $user
+     * @return int
      */
     public function storeAll(StoreAllAssignedTeacherPhoto $request, $tenant, User $user)
     {
         $teachersWithoutFoto = Teacher::with(['user'])->get()->filter(function($teacher) {
             if ($teacher->user) return $teacher->user->photo === null;
         });
-
+        $counter= 0;
         $availablephotos = collect(File::allFiles(Storage::path($tenant)));
         foreach ($teachersWithoutFoto as $teacher) {
             $foundPhotos = $availablephotos->filter(function($photo) use ($teacher) {
@@ -59,8 +60,11 @@ class AssignedTeacherPhotoController extends Controller
             });
             if ($foundPhoto = $foundPhotos->first()) {
                 $teacher->user->assignPhoto($foundPhoto->getPathname(),$tenant);
+                $counter++;
             }
         }
+
+        return $counter;
     }
 
     /**

@@ -189,6 +189,9 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
         );
 
         $response = $this->json('POST','/api/v1/teachers/photos');
+
+        $this->assertEquals(3,$response->getContent());
+
         $response->assertSuccessful();
 
         $teacher1 = Teacher::where('code','040')->get()->first();
