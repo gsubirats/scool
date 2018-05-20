@@ -41,23 +41,4 @@ trait PhotoSlug
             return $photo['slug'] === $slug;
         });
     }
-
-    /**
-     * TODO
-     *
-     * Obtain photo by slug.
-     *
-     * @param $slug
-     * @return mixed
-     */
-    protected function obtainPhotoPathBySlug($path, $slug)
-    {
-        $photos = get_photo_slugs_from_path($path);
-
-        $found = $this->searchPhotoBySlug($slug, $photos);
-
-        if ($found === false) abort('404',"No s'ha trobat cap foto amb l'slug: $slug");
-
-        return $photos[$found]['file'];
-    }
 }
