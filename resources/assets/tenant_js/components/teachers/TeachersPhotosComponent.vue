@@ -25,7 +25,7 @@
                             class="chip--select"
                             @input="data.parent.selectItem(data.item)"
                     >
-                        <v-avatar>
+                        <v-avatar v-if="data.item.slug">
                             <img :src="'/teacher_photo/' + data.item.slug">
                         </v-avatar>
                         {{ data.item.filename }}
@@ -33,12 +33,11 @@
                 </template>
                 <template slot="item" slot-scope="data">
                     <template>
-                        <v-list-tile-avatar>
+                        <v-list-tile-avatar v-if="data.item.slug">
                             <img :src="'/teacher_photo/' + data.item.slug">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title v-html="data.item.filename"></v-list-tile-title>
-                            <!--<v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>-->
                         </v-list-tile-content>
                     </template>
                 </template>
@@ -523,7 +522,6 @@
         axios.post('/api/v1/teacher/' + teacher.user.id + '/photo', {
           photo: this.photo.slug
         }).then(response => {
-          console.log(response.data)
           this.assigningPhoto = false
           teacher.user.photo = response.data.photo
           teacher.user.photo_hash = response.data.photo_hash
