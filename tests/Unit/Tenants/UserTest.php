@@ -230,6 +230,7 @@ class UserTest extends TestCase
         $this->assertNull($user->photo);
         $user->assignPhoto($photo,'tenant_test');
         $this->assertEquals($user->photo,'tenant_test/user_photos/1_pepe-pardo-jeans_pepepardo-at-jeanscom.jpeg');
+        $this->assertEquals($user->photo_hash,'c4b959112f6f1d4933dc4506e14338c1');
         $this->assertTrue(Storage::disk('local')->exists($user->photo));
 
     }
@@ -241,15 +242,16 @@ class UserTest extends TestCase
 
         $fakeImage = UploadedFile::fake()->image('avatar2.jpg');
         $photo2 = Storage::disk('local')->putFile('teacher_photos',$fakeImage);
-        $user2 = factory(User::class)->create([
+        $user = factory(User::class)->create([
             'name' => 'Pepa Parda Jeans',
             'email' => 'pepaparda@jeans.com'
         ]);
-        $this->assertNull($user2->photo);
+        $this->assertNull($user->photo);
         $photo2 = Storage::disk('local')->path($photo2);
-        $user2->assignPhoto($photo2,'tenant_test');
-        $this->assertEquals($user2->photo,'tenant_test/user_photos/1_pepa-parda-jeans_pepaparda-at-jeanscom.jpeg');
-        $this->assertTrue(Storage::disk('local')->exists($user2->photo));
+        $user->assignPhoto($photo2,'tenant_test');
+        $this->assertEquals($user->photo,'tenant_test/user_photos/1_pepa-parda-jeans_pepaparda-at-jeanscom.jpeg');
+        $this->assertEquals($user->photo_hash,'b3db77742683fb84aa526443af8e85bb');
+        $this->assertTrue(Storage::disk('local')->exists($user->photo));
     }
 
     /** @test */
@@ -269,7 +271,9 @@ class UserTest extends TestCase
         $destPath = 'tenant_test/teacher_photos/' . $user->photo_name . '.jpg';
         $user->unassignPhoto($destPath);
 
+        $user = $user->fresh();
         $this->assertEquals($user->photo,'');
+        $this->assertEquals($user->photo_hash,'');
         $this->assertFalse(Storage::disk('local')->exists($user->photo));
         $this->assertTrue(Storage::disk('local')->exists($destPath));
     }

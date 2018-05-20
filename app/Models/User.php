@@ -240,6 +240,7 @@ class User extends Authenticatable
         Storage::disk('local')->move($photo, $path);
         //Remove extra slashes from path like user_photos//photo.png
         $this->photo = $path;
+        $this->photo_hash = md5($path);
         $this->save();
         return $this;
     }
@@ -251,6 +252,7 @@ class User extends Authenticatable
     {
         Storage::disk('local')->move($this->photo, $destinationPath);
         $this->photo = '';
+        $this->photo_hash = '';
         $this->save();
         return $this;
     }
