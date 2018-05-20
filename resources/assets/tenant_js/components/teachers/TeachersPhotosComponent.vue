@@ -438,7 +438,6 @@
         pagination: {
           rowsPerPage: 12
         },
-        refreshPhotos: false,
         assigningPhoto: false,
         assigningPhotos: false,
         unassigningPhoto: false,
@@ -506,8 +505,7 @@
     },
     methods: {
       teacherPhotoPath (teacher) {
-        if (teacher.dirty || this.refreshPhotos) return '/user/' + teacher.user.hashid + '/photo?' + encodeURI((new Date()).toString())
-        return '/user/' + teacher.user.hashid + '/photo'
+        return '/user/' + teacher.user.hashid + '/photo?hash=' + teacher.user.photo_hash
       },
       assignPhotos () {
         this.assigningPhotos = true
@@ -525,9 +523,10 @@
         axios.post('/api/v1/teacher/' + teacher.user.id + '/photo', {
           photo: this.photo.slug
         }).then(response => {
+          console.log(response.data)
           this.assigningPhoto = false
           teacher.user.photo = response.data.photo
-          teacher.dirty = true
+          teacher.user.photo_hash = response.data.photo_hash
           this.showMessage('Foto assignada correctament')
         }).catch(error => {
           console.log(error)
@@ -540,7 +539,7 @@
         axios.delete('/api/v1/teacher/' + teacher.user.id + '/photo').then(response => {
           this.unassigningPhoto = false
           teacher.user.photo = null
-          teacher.dirty = true
+          teacher.user.photo_hash = null
           this.showMessage('Foto desassignada correctament')
         }).catch(error => {
           console.log(error)
@@ -555,17 +554,14 @@
         this.$refs.zip.click()
       },
       refresh () {
-        // TODO
-        this.refreshPhotos = true
         this.refreshing = true
         axios.get('/api/v1/unassigned_teacher_photo')
           .then(response => {
             this.refreshing = false
             this.internalAvailablePhotos = response.data
-            this.refreshPhotos = false
           })
           .catch(error => {
-            this.refreshPhotos = false
+            this.refreshing = false
             console.log(error)
             this.showError(error)
           })

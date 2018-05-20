@@ -71,6 +71,7 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
             'name' => 'Pepe Pardo Jeans',
             'email' => 'pepepardo@jeans.com',
             'photo' => 'tenant_test/user_photos/2_pepe-pardo-jeans_pepepardo-at-jeanscom.jpg',
+            'photo_hash' => '953e72e084ecbe0e952150af27f71768'
         ]);
         Storage::exists($result->photo);
         Event::assertDispatched(TeacherPhotoAssigned::class, function ($e) use ($user) {
