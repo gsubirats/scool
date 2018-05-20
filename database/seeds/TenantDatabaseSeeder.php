@@ -32,7 +32,7 @@ class TenantDatabaseSeeder extends Seeder
 
         initialize_janitors();
         initialize_administrative_assistants();
-
+        seed_identifier_types();
 
     }
 }

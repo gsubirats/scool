@@ -4,6 +4,7 @@ use App\Http\Resources\UserResource;
 use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
+use App\Models\IdentifierType;
 use App\Models\Menu;
 use App\Models\Name;
 use App\Models\PendingTeacher;
@@ -3648,3 +3649,29 @@ if (! function_exists('get_photo_slugs_from_path')) {
     }
 }
 
+if (! function_exists('first_or_create_identifier_type')) {
+    /**
+     * Create contact type if not exists and return new o already existing contact type.
+     */
+    function first_or_create_identifier_type($name)
+    {
+        try {
+            return IdentifierType::create(['name' => $name]);
+        } catch (Illuminate\Database\QueryException $e) {
+            return IdentifierType::where('name', $name);
+        }
+    }
+}
+
+if (! function_exists('seed_identifier_types')) {
+    /**
+     * Create identifier types.
+     */
+    function seed_identifier_types()
+    {
+        first_or_create_identifier_type('NIF');
+        first_or_create_identifier_type('Pasaporte');
+        first_or_create_identifier_type('NIE');
+        first_or_create_identifier_type('TIS');
+    }
+}
