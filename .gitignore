@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .env.production
 storage/photos
+app/private_helpers.php
