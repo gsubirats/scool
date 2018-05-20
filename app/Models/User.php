@@ -236,9 +236,20 @@ class User extends Authenticatable
         if (starts_with($photo, $storage = Storage::disk('local')->path(''))) {
             $photo = str_after($photo, $storage);
         }
-        Storage::disk('local')->copy($photo, $path);
+        Storage::disk('local')->move($photo, $path);
         //Remove extra slashes from path like user_photos//photo.png
         $this->photo = $path;
+        $this->save();
+        return $this;
+    }
+
+    /**
+     * Unassign photo.
+     */
+    public function unassignPhoto($destinationPath)
+    {
+        Storage::disk('local')->move($this->photo, $destinationPath);
+        $this->photo = '';
         $this->save();
         return $this;
     }

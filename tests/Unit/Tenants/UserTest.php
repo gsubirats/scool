@@ -253,6 +253,28 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function can_unassign_photo_to_user()
+    {
+        Storage::fake('local');
+
+        $fakeImage = UploadedFile::fake()->image('avatar.jpg');
+        $photo = Storage::disk('local')->putFile('tenant_test/teacher_photos',$fakeImage);
+
+        $user = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardo@jeans.com'
+        ]);
+        $this->assertNull($user->photo);
+        $user->assignPhoto($photo,'tenant_test');
+        $destPath = 'tenant_test/teacher_photos/' . $user->photo_name . '.jpg';
+        $user->unassignPhoto($destPath);
+
+        $this->assertEquals($user->photo,'');
+        $this->assertFalse(Storage::disk('local')->exists($user->photo));
+        $this->assertTrue(Storage::disk('local')->exists($destPath));
+    }
+
+    /** @test */
     public function users_have_a_default_photo()
     {
         $this->assertEquals(User::DEFAULT_PHOTO,'default.png');

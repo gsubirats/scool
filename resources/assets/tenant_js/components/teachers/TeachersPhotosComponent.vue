@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md>
+    <v-container grid-list-md fluid>
     <v-layout row wrap>
         <v-flex xs8>
             <v-alert v-model="dimensionsAlert" type="warning" dismissible>
@@ -252,106 +252,167 @@
             </v-btn>
         </v-flex>
         <v-flex xs12>
-            <v-layout row wrap v-if="availableGrid">
-                <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2 lg1>
-                    <v-card>
-                        <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
-                        </v-card-media>
-                        <v-card-title primary-title>
-                            <p>
-                                <input v-if="editing === photo.slug"
-                                       @keyup.esc="cancelEditing(photo)"
-                                       @keyup.enter="edit(photo)"
-                                       type="text" v-model="filename"
-                                       @focus="$event.target.select()" id="filename">
-                                <span v-else @dblclick="confirmEdit(photo)">{{ photo.filename }}</span>
-                                <v-icon color="green" @click="confirmEdit(photo)" v-if="editing !== photo.slug">edit</v-icon>
+            <v-container grid-list-md fluid>
+                <v-layout row wrap v-if="availableGrid">
+                    <v-flex v-for="photo in internalAvailablePhotos" :key="photo.slug" md2 lg1>
+                        <v-card height="100%">
+                            <v-card-media :src="'/teacher_photo/' + photo.slug" height="200px" >
+                            </v-card-media>
+                            <v-card-title primary-title>
+                                <p>
+                                    <input v-if="editing === photo.slug"
+                                           @keyup.esc="cancelEditing(photo)"
+                                           @keyup.enter="edit(photo)"
+                                           type="text" v-model="filename"
+                                           @focus="$event.target.select()" id="filename">
+                                    <span v-else @dblclick="confirmEdit(photo)">{{ photo.filename }}</span>
+                                    <v-icon color="green" @click="confirmEdit(photo)" v-if="editing !== photo.slug">edit</v-icon>
+                                    <template v-else>
+                                        <v-icon color="red" @click="cancelEditing(photo)" dark>cancel</v-icon>
+                                        <v-icon color="green" dark @click="edit(photo)">done</v-icon>
+                                    </template>
+                                </p>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-btn
+                                        v-if="confirmingRemove !== photo.slug"
+                                       flat color="red"
+                                       @click="confirmRemove(photo)"
+                                       icon
+                                >
+                                    <v-icon dark>delete</v-icon>
+                                </v-btn>
                                 <template v-else>
-                                    <v-icon color="red" @click="cancelEditing(photo)" dark>cancel</v-icon>
-                                    <v-icon color="green" dark @click="edit(photo)">done</v-icon>
+                                    <v-btn flat color="green" @click="cancelRemove(photo)"
+                                           icon
+                                    >
+
+                                        <v-icon dark>cancel</v-icon>
+                                    </v-btn>
+
+                                    <v-btn flat color="red" @click="remove(photo)"
+                                           :loading="deleting === photo.slug"
+                                           :disabled="deleting === photo.slug"
+                                           icon
+                                    >
+
+                                        <v-icon dark>done</v-icon>
+                                    </v-btn>
                                 </template>
-                            </p>
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-btn
-                                    v-if="confirmingRemove !== photo.slug"
-                                   flat color="red"
-                                   @click="confirmRemove(photo)"
-                                   icon
-                            >
-                                <v-icon dark>delete</v-icon>
-                            </v-btn>
-                            <template v-else>
-                                <v-btn flat color="green" @click="cancelRemove(photo)"
-                                       icon
-                                >
 
-                                    <v-icon dark>cancel</v-icon>
+                                <v-btn flat
+                                       :href="'/teacher_photo/' + photo.slug + '/download'"
+                                       icon>
+                                    <v-icon dark>file_download</v-icon>
                                 </v-btn>
-
-                                <v-btn flat color="red" @click="remove(photo)"
-                                       :loading="deleting === photo.slug"
-                                       :disabled="deleting === photo.slug"
-                                       icon
-                                >
-
-                                    <v-icon dark>done</v-icon>
-                                </v-btn>
-                            </template>
-
-                            <v-btn flat
-                                   :href="'/teacher_photo/' + photo.slug + '/download'"
-                                   icon>
-                                <v-icon dark>file_download</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-            </v-layout>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-flex>
         <v-flex xs12>
-            <h1 class="title">Fotos assignades a professors</h1>
-            <v-checkbox
-                    label='Només professors sense foto'
-                    v-model="onlyteachersWithoutPhoto"
-            ></v-checkbox>
-        </v-flex>
-        <v-flex xs12>
-            <v-layout row wrap v-if="enabledGrid">
-                <v-flex v-for="teacher in filteredTeachers" :key="teacher.id" md2 lg1>
-                    <v-card>
-                        <v-card-media :src="teacherPhotoPath(teacher)" height="200px" >
-                        </v-card-media>
-                        <v-card-title primary-title>
-                            <p>
-                                <span> {{ teacher.code }} | {{ teacher.user.name }} | Foto name: {{ teacher.user.photo }}</span>
-                            </p>
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-btn v-if="photo"
-                                    slot="activator"
-                                    flat color="teal"
-                                    icon
-                                   title="Assignar foto seleccionada"
-                                   @click="assignPhoto(teacher)"
-                                   :loading="assigningPhoto"
-                                   :disabled="assigningPhoto"
-                            >
-                                <v-icon dark>add</v-icon>
-                            </v-btn>
-
-                            <v-btn v-if="teacher.user.photo"
-                                    title="Baixar la foto"
-                                    flat
-                                   :href="'/user/' + teacher.user.hashid + '/photo/download?' + encodeURI((new Date()).toString())"
-                                   icon>
-                                <v-icon dark>file_download</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
+            <h1 class="title text-md-center">Professors</h1>
+            <v-container grid-list-md fluid fluid>
+                <v-layout row wrap>
+                <v-flex x3>
+                    <v-checkbox
+                            label='Només professors sense foto'
+                            v-model="onlyteachersWithoutPhoto"
+                    ></v-checkbox>
+                    <v-btn
+                           slot="activator"
+                           class="white--text"
+                           color="teal"
+                           title="Assignar fotos automàticament. Només funciona si el fitxer original conté codi professor"
+                           @click="assignPhoto(teacher)"
+                           :loading="assigningPhoto"
+                           :disabled="assigningPhoto"
+                    >
+                        <v-icon dark>settings</v-icon> Automàtic
+                    </v-btn>
+                </v-flex>
+                <v-flex xs9>
+                    <v-text-field
+                            v-model="searchTeacherPhoto"
+                            append-icon="search"
+                            label="Busqueu un professor"
+                            single-line
+                            hide-details
+                    ></v-text-field>
                 </v-flex>
             </v-layout>
+            </v-container>
+        </v-flex>
+        <v-flex xs12>
+            <v-container fluid>
+                <v-layout v-if="enabledGrid">
+                <v-data-iterator
+                        :items="filteredTeachers"
+                        content-tag="v-layout"
+                        row
+                        wrap
+                        no-data-text="No hi han dades disponibles"
+                        no-results-text="No s'ha trobat cap registre coincident"
+                        rows-per-page-text="Fotos per pàgina"
+                        :rows-per-page-items="[12, {'text':'Tots','value':-1},24,36,50,100]"
+                        :search="searchTeacherPhoto"
+                        :pagination.sync="pagination"
+                >
+                    <v-flex
+                            slot="item"
+                            slot-scope="{ item : teacher}"
+                            xs12
+                            sm6
+                            md4
+                            lg2
+                            xl1 style="min-width: 130px;">
+                        <v-card height="100%">
+                            <v-card-media :src="teacherPhotoPath(teacher)" height="200px" >
+                            </v-card-media>
+                            <v-card-title primary-title>
+                                <p>
+                                    <span> {{ teacher.code }} {{ teacher.user.name }} ({{ teacher.id }})</span>
+                                </p>
+                            </v-card-title>
+                            <v-card-actions>
+                                <v-btn v-if="photo && !teacher.user.photo"
+                                       slot="activator"
+                                       flat color="teal"
+                                       icon
+                                       title="Assignar foto seleccionada"
+                                       @click="assignPhoto(teacher)"
+                                       :loading="assigningPhoto"
+                                       :disabled="assigningPhoto"
+                                >
+                                    <v-icon dark>add</v-icon>
+                                </v-btn>
 
+                                <v-btn v-if="teacher.user.photo"
+                                       slot="activator"
+                                       flat color="red"
+                                       icon
+                                       title="Desassignar foto seleccionada"
+                                       @click="unassignPhoto(teacher)"
+                                       :loading="unassigningPhoto"
+                                       :disabled="unassigningPhoto"
+                                >
+                                    <v-icon dark>remove</v-icon>
+                                </v-btn>
+
+                                <v-btn v-if="teacher.user.photo"
+                                       title="Baixar la foto"
+                                       flat
+                                       :href="'/user/' + teacher.user.hashid + '/photo/download?' + encodeURI((new Date()).toString())"
+                                       icon>
+                                    <v-icon dark>file_download</v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                </v-data-iterator>
+            </v-layout>
+            </v-container>
         </v-flex>
     </v-layout>
 </v-container>
@@ -373,7 +434,13 @@
     mixins: [withSnackbar],
     data () {
       return {
+        searchTeacherPhoto: '',
+        pagination: {
+          rowsPerPage: 12
+        },
+        refreshPhotos: false,
         assigningPhoto: false,
+        unassigningPhoto: false,
         confirmingRemove: null,
         dimensionsAlert: true,
         deleting: null,
@@ -407,12 +474,19 @@
         return this.uploading || this.uploadingZip || this.fileUploaded
       },
       filteredTeachers () {
+        let result = []
         if (this.onlyteachersWithoutPhoto) {
-          return this.internalTeachers.filter(teacher => {
+          result = this.internalTeachers.filter(teacher => {
             return teacher.user.photo === null
           })
-        }
-        return this.internalTeachers
+        } else result = this.internalTeachers
+
+        result.map(teacher => {
+          teacher.name = teacher.user.name
+          return teacher
+        })
+
+        return result
       }
     },
     props: {
@@ -431,20 +505,34 @@
     },
     methods: {
       teacherPhotoPath (teacher) {
-        return '/user/' + teacher.user.hashid + '/photo?' + encodeURI((new Date()).toString())
+        if (teacher.dirty || this.refreshPhotos) return '/user/' + teacher.user.hashid + '/photo?' + encodeURI((new Date()).toString())
+        return '/user/' + teacher.user.hashid + '/photo'
       },
       assignPhoto (teacher) {
         this.assigningPhoto = true
         axios.post('/api/v1/teacher/' + teacher.user.id + '/photo', {
           photo: this.photo.slug
         }).then(response => {
-          console.log(response)
           this.assigningPhoto = false
           teacher.user.photo = response.data.photo
+          teacher.dirty = true
           this.showMessage('Foto assignada correctament')
         }).catch(error => {
           console.log(error)
           this.assigningPhoto = false
+          this.showError(error)
+        })
+      },
+      unassignPhoto (teacher) {
+        this.unassigningPhoto = true
+        axios.delete('/api/v1/teacher/' + teacher.user.id + '/photo').then(response => {
+          this.unassigningPhoto = false
+          teacher.user.photo = null
+          teacher.dirty = true
+          this.showMessage('Foto desassignada correctament')
+        }).catch(error => {
+          console.log(error)
+          this.unassigningPhoto = false
           this.showError(error)
         })
       },
@@ -455,13 +543,17 @@
         this.$refs.zip.click()
       },
       refresh () {
+        // TODO
+        this.refreshPhotos = true
         this.refreshing = true
         axios.get('/api/v1/unassigned_teacher_photo')
           .then(response => {
             this.refreshing = false
             this.internalAvailablePhotos = response.data
+            this.refreshPhotos = false
           })
           .catch(error => {
+            this.refreshPhotos = false
             console.log(error)
             this.showError(error)
           })
