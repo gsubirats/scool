@@ -159,12 +159,15 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         $this->assertNull($user->fullname);
 
-        $result = $user->assignFullName($name = Name::firstOrCreate([
-            'givenName' => 'Jaume',
-            'sn1' => 'Benaiges',
+        $result = $user->assignFullName([
+            'givenName' => 'Pepe',
+            'sn1' => 'Pardo',
             'sn2' => '',
-        ]));
-        $this->assertTrue($user->fullname->is($name));
+        ]);
+        $user = $user->fresh();
+        $this->assertEquals($user->person->givenName,'Pepe');
+        $this->assertEquals($user->person->sn1,'Pardo');
+        $this->assertEquals($user->person->sn2,'');
         $this->assertTrue($user->is($result));
     }
 

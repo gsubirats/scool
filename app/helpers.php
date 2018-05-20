@@ -783,11 +783,11 @@ if (!function_exists('initialize_administrative_assistants')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Pilar',
                 'sn1' => 'Vericat',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
@@ -801,11 +801,11 @@ if (!function_exists('initialize_administrative_assistants')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Cinta',
                 'sn1' => 'Tomas',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
@@ -819,11 +819,11 @@ if (!function_exists('initialize_administrative_assistants')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Lluisa',
                 'sn1' => 'Garcia',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
@@ -837,11 +837,11 @@ if (!function_exists('initialize_administrative_assistants')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('AdministrativeAssistant'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Sonia',
                 'sn1' => 'Alegria',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
@@ -860,11 +860,11 @@ if (!function_exists('initialize_janitors')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret using SHA1 (blames Gsuite) instead of bcrypt
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Jaume',
                 'sn1' => 'Benaiges',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
@@ -878,11 +878,11 @@ if (!function_exists('initialize_janitors')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Jordi',
                 'sn1' => 'Caudet',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
@@ -896,11 +896,11 @@ if (!function_exists('initialize_janitors')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Janitor'))
-            ->assignFullName(Name::firstOrCreate([
+            ->assignFullName([
                 'givenName' => 'Leonor',
                 'sn1' => 'Agramunt',
                 'sn2' => '',
-            ]))
+            ])
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
@@ -919,11 +919,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Dolors',
             'sn1' => 'Sanjuan',
             'sn2' => 'Aubà',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -941,11 +941,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Nuria',
             'sn1' => 'Bordes',
             'sn2' => 'Vidal',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -963,11 +963,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Laura',
             'sn1' => 'Llopis',
             'sn2' => 'Lozano',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -985,11 +985,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Vicent',
             'sn1' => 'Favà',
             'sn2' => 'Figueres',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1007,11 +1007,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Agustí',
             'sn1' => 'Baubí',
             'sn2' => 'Rovira',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1029,11 +1029,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Josep Joan',
             'sn1' => 'Cid',
             'sn2' => 'Castellar',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1051,11 +1051,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Rafel',
             'sn1' => 'Puig',
             'sn2' => 'Rios',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1073,11 +1073,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Laureà',
             'sn1' => 'Ferré',
             'sn2' => 'Menasanch',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1095,11 +1095,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Manel',
             'sn1' => 'Canalda',
             'sn2' => 'Vidal',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1117,11 +1117,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Xavi',
             'sn1' => 'Bel',
             'sn2' => 'Fernández',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1139,11 +1139,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'J.Luís',
             'sn1' => 'Colomé',
             'sn2' => 'Monllao',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1161,11 +1161,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Angel',
             'sn1' => 'Portillo',
             'sn2' => 'Lucas',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1183,11 +1183,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Anna',
             'sn1' => 'Valls',
             'sn2' => 'Montagut',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1205,11 +1205,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Anna',
             'sn1' => 'Benaiges',
             'sn2' => 'Bertomeu',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1227,11 +1227,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Salomé',
             'sn1' => 'Figueres',
             'sn2' => 'Brescolí',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1249,11 +1249,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Pepa',
             'sn1' => 'Cugat',
             'sn2' => 'Tomàs',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1271,11 +1271,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Berta',
             'sn1' => 'Safont',
             'sn2' => 'Recatalà',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1293,11 +1293,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Mª Jesús',
             'sn1' => 'Sales',
             'sn2' => 'Berire',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1315,11 +1315,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Mª Jesús',
             'sn1' => 'Asensi',
             'sn2' => 'Moltalva',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1337,11 +1337,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Santi',
             'sn1' => 'López',
             'sn2' => 'Garcia',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1359,11 +1359,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Lluis',
             'sn1' => 'Ventura',
             'sn2' => 'Forner',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1381,11 +1381,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'J.Antoni',
             'sn1' => 'Pons',
             'sn2' => 'Albalat',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1403,11 +1403,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Alicia',
             'sn1' => 'Fàbrega',
             'sn2' => 'Martínez',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1425,11 +1425,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Segis',
             'sn1' => 'Benabent',
             'sn2' => 'Gil',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1447,11 +1447,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Sandra',
             'sn1' => 'Salvador',
             'sn2' => 'Jovaní',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1469,11 +1469,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'MªJosé',
             'sn1' => 'Caballé',
             'sn2' => 'Valverde',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1491,11 +1491,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Marisa',
             'sn1' => 'Ramón',
             'sn2' => 'Pérez',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1513,11 +1513,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Elisa',
             'sn1' => 'Puig',
             'sn2' => 'Moll',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1535,11 +1535,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Ruth',
             'sn1' => 'Hidalgo',
             'sn2' => 'Vilar',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1557,11 +1557,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Anna',
             'sn1' => 'Sambartolomé',
             'sn2' => 'Sancho',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1579,11 +1579,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Cinta',
             'sn1' => 'Mestre',
             'sn2' => 'Escrihuela',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1601,11 +1601,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Trini',
             'sn1' => 'Tomas',
             'sn2' => 'Forcadell',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1623,11 +1623,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Adonay',
             'sn1' => 'Pérez',
             'sn2' => 'López',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1645,11 +1645,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Tarsi',
             'sn1' => 'Royo',
             'sn2' => 'Cruselles',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1667,11 +1667,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Iris',
             'sn1' => 'Maturana',
             'sn2' => 'Andreu',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1689,11 +1689,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Llatzer',
             'sn1' => 'Cabó',
             'sn2' => 'Bertomeu',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1711,11 +1711,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Mercè',
             'sn1' => 'Gilo',
             'sn2' => 'Ortiz',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1733,11 +1733,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Cristina',
             'sn1' => 'Cardona',
             'sn2' => 'Romero',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1755,11 +1755,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'David',
             'sn1' => 'Gàmez',
             'sn2' => 'Balaguer',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1777,11 +1777,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Àngels',
             'sn1' => 'Garrido',
             'sn2' => 'Borja',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1799,11 +1799,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Alicia',
             'sn1' => 'Gamundi',
             'sn2' => 'Vilà',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1821,11 +1821,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Ricard',
             'sn1' => 'Gonzalez',
             'sn2' => 'Castelló',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1843,11 +1843,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Elena',
             'sn1' => 'Mauri',
             'sn2' => 'Cuenca',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1865,11 +1865,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Irene',
             'sn1' => 'Alegre',
             'sn2' => 'Chavarria',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1887,11 +1887,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Irene',
             'sn1' => 'Alegre',
             'sn2' => 'Chavarria',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1909,11 +1909,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Oscar',
             'sn1' => 'Samo',
             'sn2' => 'Franch',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1931,11 +1931,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Enric',
             'sn1' => 'Garcia',
             'sn2' => 'Carcelén',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1953,11 +1953,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Eduard',
             'sn1' => 'Ralda',
             'sn2' => 'Simó',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1975,11 +1975,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Pili',
             'sn1' => 'Nuez',
             'sn2' => 'Garcia',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -1997,11 +1997,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'MªRosa',
             'sn1' => 'Ubalde',
             'sn2' => 'Bellot',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2019,11 +2019,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Paqui',
             'sn1' => 'Pinyol',
             'sn2' => 'Moreso',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2041,11 +2041,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Dolors',
             'sn1' => 'Subirats',
             'sn2' => 'Fabra',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2063,11 +2063,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Ferran',
             'sn1' => 'Sabaté',
             'sn2' => 'Borras',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2085,11 +2085,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Araceli',
             'sn1' => 'Esteller',
             'sn2' => 'Hierro',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2107,11 +2107,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Mavi',
             'sn1' => 'Santamaria',
             'sn2' => 'Andreu',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2129,11 +2129,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Agustí',
             'sn1' => 'Moreso',
             'sn2' => 'Garcia',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2151,11 +2151,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Carme',
             'sn1' => 'Vega',
             'sn2' => 'Guerra',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2173,11 +2173,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Dolors',
             'sn1' => 'Ferreres',
             'sn2' => 'Gasulla',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2195,11 +2195,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Juan',
             'sn1' => 'Abad',
             'sn2' => 'Bueno',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2217,11 +2217,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Just',
             'sn1' => 'Pérez',
             'sn2' => 'Santiago',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2239,11 +2239,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Armand',
             'sn1' => 'Pons',
             'sn2' => 'Roda',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2261,11 +2261,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Armand',
             'sn1' => 'Pons',
             'sn2' => 'Roda',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2283,11 +2283,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Marta',
             'sn1' => 'Grau',
             'sn2' => 'Ferrer',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2305,11 +2305,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Gerard',
             'sn1' => 'Domenech',
             'sn2' => 'Vendrell',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2327,11 +2327,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'J.Antonio',
             'sn1' => 'Fernández',
             'sn2' => 'Herraez',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2349,11 +2349,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Monica',
             'sn1' => 'Moreno',
             'sn2' => 'Dionis',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2371,11 +2371,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Santi',
             'sn1' => 'Sabaté',
             'sn2' => 'Sanz',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2393,11 +2393,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Jordi',
             'sn1' => 'Varas',
             'sn2' => 'Aliau',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2415,11 +2415,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Sergi',
             'sn1' => 'Tur',
             'sn2' => 'Badenas',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2437,11 +2437,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Jaume',
             'sn1' => 'Ramos',
             'sn2' => 'Prades',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2459,11 +2459,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Quique',
             'sn1' => 'Lorente',
             'sn2' => 'Fuertes',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2481,11 +2481,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'A.Gonzalb',
             'sn1' => 'Verge',
             'sn2' => 'Arnau',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2503,11 +2503,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Mireia',
             'sn1' => 'Consarnau',
             'sn2' => 'Pallarés',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2525,11 +2525,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Manel',
             'sn1' => 'Macías',
             'sn2' => 'Valanzuela',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2547,11 +2547,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Josep Dieg0',
             'sn1' => 'Cervellera',
             'sn2' => 'Forcadell',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2569,11 +2569,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'J.Luis',
             'sn1' => 'Calderon',
             'sn2' => 'Furió',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2591,11 +2591,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Salvador',
             'sn1' => 'Jareño',
             'sn2' => 'Gas',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2613,11 +2613,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Jordi',
             'sn1' => 'Brau',
             'sn2' => 'Marza',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2635,11 +2635,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Joan',
             'sn1' => 'Tiron',
             'sn2' => 'Ferré',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2657,11 +2657,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Ricard',
             'sn1' => 'Fernandez',
             'sn2' => 'Burato',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2679,11 +2679,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Ubaldo',
             'sn1' => 'Arroyo',
             'sn2' => 'Martínez',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2701,11 +2701,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Fernando',
             'sn1' => 'Segura',
             'sn2' => 'Venezia',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2723,11 +2723,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Francesc',
             'sn1' => 'Besalduch',
             'sn2' => 'Piñol',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2745,11 +2745,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Manel',
             'sn1' => 'Segarra',
             'sn2' => 'Capera',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2767,11 +2767,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Rosendo',
             'sn1' => 'Ferri',
             'sn2' => 'Marzo',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2789,11 +2789,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Jordi',
             'sn1' => 'Sanchez',
             'sn2' => 'Bel',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2811,11 +2811,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Albert',
             'sn1' => 'Rofí',
             'sn2' => 'Estelles',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2833,11 +2833,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Pedro',
             'sn1' => 'Guerrero',
             'sn2' => 'López',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2855,11 +2855,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Teresa',
             'sn1' => 'Lasala',
             'sn2' => 'Descarrega',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2877,11 +2877,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Carmina',
             'sn1' => 'Andreu',
             'sn2' => 'Pons',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2899,11 +2899,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'J.Andrés',
             'sn1' => 'Brocal',
             'sn2' => 'Safont',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2921,11 +2921,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Pilar',
             'sn1' => 'Fadurdo',
             'sn2' => 'Estrada',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2943,11 +2943,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Carlos',
             'sn1' => 'Querol',
             'sn2' => 'Bel',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2965,11 +2965,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Marisa',
             'sn1' => 'Grau',
             'sn2' => 'Campeón',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -2987,11 +2987,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Isabel',
             'sn1' => 'Jordà',
             'sn2' => 'Cabaces',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -3009,11 +3009,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Enric',
             'sn1' => 'Querol',
             'sn2' => 'Coll',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -3031,11 +3031,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Lara',
             'sn1' => 'Melich',
             'sn2' => 'Cañado',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -3053,11 +3053,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Carme',
             'sn1' => 'Aznar',
             'sn2' => 'Pedret',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,
@@ -3075,11 +3075,11 @@ if (!function_exists('initialize_teachers')) {
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
-        ->assignFullName(Name::firstOrCreate([
+        ->assignFullName([
             'givenName' => 'Julià',
             'sn1' => 'Curto',
             'sn2' => 'De la Vega',
-        ]))
+        ])
         ->assignStaff(
             Staff::firstOrCreate([
                 'type_id' => StaffType::findByName('Professor/a')->id,

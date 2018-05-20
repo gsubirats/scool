@@ -74,14 +74,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user type associated with the user.
-     */
-    public function type()
-    {
-        // TODO
-    }
-
-    /**
      * Create user if no user with same email exists.
      *
      * @param $data
@@ -127,22 +119,22 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the name associated with this username.
-     */
-    public function fullname()
-    {
-        return $this->belongsTo(Name::class);
-    }
-
-    /**
      * Assign full name.
      *
-     * @param Name $name
+     * @param $fullname
      * @return $this
      */
-    public function assignFullName(Name $name)
+    public function assignFullName($fullname)
     {
-        $this->fullname()->associate($name);
+        if ($this->person) {
+            $this->person->givenName = $fullname['givenName'];
+            $this->person->sn1 = $fullname['sn1'];
+            $this->person->sn2 = $fullname['sn2'];
+        } else {
+            $person = Person::create($fullname);
+            $person->user_id = $this->id;
+            $person->save();
+        }
         return $this;
     }
 
@@ -264,6 +256,14 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    /**
+     * Get the person record associated with the user.
+     */
+    public function person()
+    {
+        return $this->hasOne(Person::class);
     }
 
     /**
