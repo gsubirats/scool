@@ -214,7 +214,7 @@
 
                             <v-container grid-list-md text-xs-center>
                                 <v-layout row wrap>
-                                    <v-flex md5>
+                                    <v-flex md2>
                                         <v-text-field
                                                 label="Correu electrònic"
                                                 v-model="email"
@@ -228,6 +228,27 @@
                                         <v-select
                                                 v-model="other_emails"
                                                 label="Altres correus"
+                                                multiple
+                                                chips
+                                                tags
+                                                clearable
+                                                :items="[]"
+                                        ></v-select>
+                                    </v-flex>
+                                    <v-flex md1>
+                                        <v-text-field
+                                                label="Mòbil"
+                                                v-model="mobile"
+                                                :error-messages="mobileErrors"
+                                                @input="$v.mobile.$touch()"
+                                                @blur="$v.mobile.$touch()"
+                                                required
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex md2>
+                                        <v-select
+                                                v-model="other_mobiles"
+                                                label="Altres Mòbils"
                                                 multiple
                                                 chips
                                                 tags
@@ -576,6 +597,8 @@
             province: this.province.name,
             email: this.email,
             other_emails: this.other_emails.join(),
+            mobile: this.mobile,
+            other_mobiles: this.other_mobiles,
             telephone: this.telephone,
             other_telephones: this.other_telephones.join(),
             degree: this.degree,
@@ -619,6 +642,8 @@
         this.province = ''
         this.email = ''
         this.other_emails = []
+        this.mobile = ''
+        this.other_mobiles = []
         this.telephone = ''
         this.other_telephones = []
         this.degree = ''

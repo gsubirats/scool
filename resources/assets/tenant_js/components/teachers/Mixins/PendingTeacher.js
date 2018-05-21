@@ -14,6 +14,7 @@ export default {
     locality: { required },
     province: { required },
     email: { required, email },
+    mobile: { required },
     telephone: { required },
     degree: { required },
     specialty: { required },
@@ -50,6 +51,8 @@ export default {
       province: '',
       email: '',
       other_emails: [],
+      mobile: '',
+      other_mobiles: [],
       telephone: '',
       other_telephones: [],
       degree: '',
@@ -157,6 +160,12 @@ export default {
       if (!this.$v.email.$dirty) return errors
       !this.$v.email.email && errors.push('Ha de ser un correu electrònic vàlid')
       !this.$v.email.required && errors.push('El correu electrònic és obligatori')
+      return errors
+    },
+    mobileErrors () {
+      const errors = []
+      if (!this.$v.mobile.$dirty) return errors
+      !this.$v.mobile.required && errors.push('El mòbil és obligatori')
       return errors
     },
     telephoneErrors () {

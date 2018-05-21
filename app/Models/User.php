@@ -293,7 +293,7 @@ class User extends Authenticatable
             $this->person->birthplace_id = $data['birthplace_id'];
             $this->person->gender = $data['gender'];
             $this->person->notes = $data['notes'];
-            $person->save();
+            $this->person->save();
         } else {
             $person = Person::create([
                 'identifier_id' => $data['identifier_id'],
@@ -304,7 +304,7 @@ class User extends Authenticatable
             ]);
             $person->user_id = $this->id;
             $person->save();
-        }                
+        }
         return $this;
     }
 }

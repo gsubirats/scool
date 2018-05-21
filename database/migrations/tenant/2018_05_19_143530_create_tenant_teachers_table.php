@@ -20,6 +20,13 @@ class CreateTenantTeachersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('code')->unique();
+            $table->string('titulacio_acess')->nullable();
+            $table->string('altres_titulacions')->nullable();
+            $table->string('idiomes')->nullable();
+            $table->string('altres_formacions')->nullable();
+            $table->string('data_inici_treball')->nullable();
+            $table->date('data_incorporacio_centre')->nullable();
+            $table->date('data_superacio_oposicions')->nullable();
             $table->timestamps();
         });
     }
