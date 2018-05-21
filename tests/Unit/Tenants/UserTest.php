@@ -355,17 +355,25 @@ class UserTest extends TestCase
         $this->assertNull($user->person);
         $user->assignPersonalData([
             'identifier_id' => $identifierId,
-            'birthdate' => Carbon::parse('1978-03-02'),
+            'birthdate' => Carbon::parse('1988-03-02'),
             'birthplace_id' => $locationId,
             'gender' => 'Home',
+            'mobile' => '679578437',
+            'other_mobiles' => '645192821,645192822',
+            'phone' => '977500949',
+            'other_phones' => '9677508695,977500949',
             'notes' => "Coordinador d'informàtica"
         ]);
         $user = $user->fresh();
         $this->assertNotNull($user->person);
         $this->assertEquals($user->person->identifier_id , $identifierId);
-        $this->assertEquals($user->person->birthdate , '1978-03-02 00:00:00');
+        $this->assertEquals($user->person->birthdate , '1988-03-02 00:00:00');
         $this->assertEquals($user->person->birthplace_id , $locationId);
         $this->assertEquals($user->person->gender , 'Home');
+        $this->assertEquals($user->person->mobile , '679578437');
+        $this->assertEquals($user->person->other_mobiles , '["645192821","645192822"]');
+        $this->assertEquals($user->person->phone , '977500949');
+        $this->assertEquals($user->person->other_phones , '["9677508695","977500949"]');
         $this->assertEquals($user->person->notes , "Coordinador d'informàtica");
         $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
         $this->assertTrue($location->is($user->person->birthplace , $location));

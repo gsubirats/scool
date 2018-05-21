@@ -300,6 +300,10 @@ class User extends Authenticatable
                 'birthdate' => $data['birthdate'],
                 'birthplace_id' => $data['birthplace_id'],
                 'gender' => $data['gender'],
+                'mobile' => $data['mobile'],
+                'other_mobiles' => json_encode(explode(',',$data['other_mobiles'])),
+                'phone' => $data['phone'],
+                'other_phones' => json_encode(explode(',',$data['other_phones'])),
                 'notes' => $data['notes']
             ]);
             $person->user_id = $this->id;
