@@ -3,20 +3,18 @@
 namespace Tests\Unit\Tenants;
 
 use App\Models\Address;
+use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
-use App\Models\Name;
-use App\Models\Person;
 use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
 use App\Models\Teacher;
 use App\Models\User;
-use App\Models\UserType;
 use Carbon\Carbon;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
@@ -471,6 +469,23 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf(User::class,$result);
 
+    }
+
+    /** @test */
+    public function can_assign_teacher_data()
+    {
+        $user = factory(User::class)->create();
+        $this->assertNull($user->teacher);
+        $user->assignTeacherData([  // Code ius already assigned at initialize_teachers helper
+            'administrative_status_id' => AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva')->id,
+            'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
+            'altres_titulacions' => 'Postgrau en Programari Lliure',
+            'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
+            'altres_formacions' => 'Nivell D de Català',
+            'data_inici_treball' => '29/09/2006',
+            'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
+            'data_superacio_oposicions' => 'Juny 2008'
+        ]);
     }
 
 }

@@ -2,7 +2,8 @@
 
 namespace Tests\Unit\Tenants;
 
-use App\Models\IdentifierType;
+use App\Models\AdministrativeStatus;
+use App\Models\Province;
 use App\Models\User;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
@@ -10,11 +11,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class IdentifierTypeTest.
+ * Class AdministrativeStatusTest.
  *
  * @package Tests\Unit
  */
-class IdentifierTypeTest extends TestCase
+class AdministrativeStatusTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -41,14 +42,13 @@ class IdentifierTypeTest extends TestCase
     /** @test */
     public function find_by_name()
     {
-        $this->assertNull(IdentifierType::findByName('NIF'));
+        $this->assertNull(AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva'));
 
-        $nif = IdentifierType::create([
-            'name' => 'NIF'
+        $tarragona = AdministrativeStatus::create([
+            'name' => 'Funcionari/a amb plaça definitiva'
         ]);
 
-        $this->assertTrue($nif->is(IdentifierType::findByName('NIF')));
-
+        $this->assertTrue($tarragona->is(AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva')));
     }
 
 }

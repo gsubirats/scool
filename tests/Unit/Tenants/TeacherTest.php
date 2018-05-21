@@ -2,24 +2,11 @@
 
 namespace Tests\Unit\Tenants;
 
-use App\Models\Family;
-use App\Models\Force;
-use App\Models\Identifier;
-use App\Models\IdentifierType;
-use App\Models\Location;
 use App\Models\Name;
-use App\Models\Specialty;
-use App\Models\Staff;
-use App\Models\StaffType;
 use App\Models\Teacher;
 use App\Models\User;
-use App\Models\UserType;
-use Carbon\Carbon;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Http\UploadedFile;
-use Spatie\Permission\Models\Role;
-use Storage;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

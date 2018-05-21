@@ -4,8 +4,6 @@ namespace Tests\Unit\Tenants;
 
 use App\Console\Kernel;
 use App\Models\Staff;
-use App\Models\StaffType;
-use App\Models\User;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

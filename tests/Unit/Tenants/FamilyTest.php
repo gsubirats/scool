@@ -5,7 +5,6 @@ namespace Tests\Unit\Tenants;
 use App\Console\Kernel;
 use App\Models\Family;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
