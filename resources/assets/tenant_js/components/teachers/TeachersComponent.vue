@@ -48,6 +48,9 @@
                                         <td class="text-xs-left">{{ teacher.created_at }}</td>
                                         <td class="text-xs-left">{{ teacher.updated_at }}</td>
                                         <td class="text-xs-left">
+
+                                            <show-teacher-icon :teacher="teacher"></show-teacher-icon>
+
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
@@ -120,8 +123,12 @@
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
+  import ShowTeacherIcon from './ShowTeacherIconComponent.vue'
 
   export default {
+    components: {
+      ShowTeacherIcon
+    },
     data () {
       return {
         showDeletePendingTeacherDialog: false,
