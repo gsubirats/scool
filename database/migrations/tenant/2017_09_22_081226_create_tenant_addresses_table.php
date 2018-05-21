@@ -23,10 +23,10 @@ class CreateTenantAddressesTable extends Migration
             $table->string('number')->nullable();
             $table->string('floor')->nullable();
             $table->string('floor_number')->nullable();
-            $table->integer('location')->unsigned()->nullable();
+            $table->integer('location_id')->unsigned()->nullable();
             $table->integer('province_id')->unsigned()->nullable();
 
-            $table->foreign('location')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
             $table->foreign('person_id')->references('id')->on('people')->onDelete('cascade');
 

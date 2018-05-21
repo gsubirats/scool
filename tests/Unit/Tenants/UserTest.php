@@ -2,12 +2,14 @@
 
 namespace Tests\Unit\Tenants;
 
+use App\Models\Address;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
 use App\Models\Name;
+use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
@@ -353,7 +355,7 @@ class UserTest extends TestCase
         $location = Location::findByName('TORTOSA');
         $locationId = $location->id;
         $this->assertNull($user->person);
-        $user->assignPersonalData([
+        $result = $user->assignPersonalData([
             'identifier_id' => $identifierId,
             'birthdate' => Carbon::parse('1988-03-02'),
             'birthplace_id' => $locationId,
@@ -381,7 +383,7 @@ class UserTest extends TestCase
         $this->assertEquals($user->person->notes , "Coordinador d'informàtica");
         $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
         $this->assertTrue($location->is($user->person->birthplace , $location));
-
+        $this->assertInstanceOf(User::class,$result);
 
         // With a person Already assigned
         $identifier = Identifier::firstOrCreate([
@@ -397,7 +399,7 @@ class UserTest extends TestCase
         $locationId = $location->id;
         $this->assertNotNull($user->person);
 
-        $user->assignPersonalData([
+        $result = $user->assignPersonalData([
             'identifier_id' => $identifierId,
             'birthdate' => Carbon::parse('1981-03-02'),
             'birthplace_id' => $locationId,
@@ -426,6 +428,27 @@ class UserTest extends TestCase
         $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
         $this->assertTrue($location->is($user->person->birthplace , $location));
 
+        $this->assertInstanceOf(User::class,$result);
+
+    }
+
+    /** @test */
+    public function can_assign_address()
+    {
+        Location::create([
+            'name' => 'TORTOSA',
+            'postalcode' => '43500'
+        ]);
+        $user = factory(User::class)->create();
+        $this->assertNull($user->address);
+        $user->assignAddress(Address::create([
+            'name' => 'C/ Beseit',
+            'number' => '16',
+            'floor' => '4',
+            'floor_number' => '2',
+            'location_id' => Location::findByName('TORTOSA')->id,
+            'province_id' => Province::findByName('TARRAGONA')->id,
+        ]));
     }
 
 }

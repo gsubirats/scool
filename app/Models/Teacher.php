@@ -22,6 +22,14 @@ class Teacher extends Model
     }
 
     /**
+     * Get the user that owns the teacher.
+     */
+    public function administrativeStatus()
+    {
+        return $this->belongsTo(AdministrativeStatus::class);
+    }
+
+    /**
      * Find by code.
      *
      * @param $code
