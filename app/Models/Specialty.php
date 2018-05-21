@@ -32,4 +32,20 @@ class Specialty extends Model
     {
         return $this->hasMany(Staff::class);
     }
+
+    /**
+     * Get the force.
+     */
+    public function force()
+    {
+        return $this->belongsTo(Force::class);
+    }
+
+    /**
+     * Get the family.
+     */
+    public function family()
+    {
+        return $this->belongsTo(Family::class);
+    }
 }

@@ -234,26 +234,26 @@
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title v-html="teacher.code"></v-list-tile-title>
+                                                                            <v-list-tile-title v-html="specialty()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Professors d'ensenyament secundari</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="family()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Familia</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title v-html="force()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Cos</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Funcionari/a amb plaça definitiva</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="status()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Estat administratiu</v-list-tile-sub-title>
-                                                                        </v-list-tile-content>
-                                                                    </v-list-tile>
-                                                                    <v-list-tile>
-                                                                        <v-list-tile-content>
-                                                                            <v-list-tile-title v-html="teacher.data_incorporacio_centre"></v-list-tile-title>
-                                                                            <v-list-tile-sub-title>Data incorporació centre</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
 
@@ -366,11 +366,10 @@
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
-                                                                    <!--TODO-->
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>---</v-list-tile-title>
-                                                                            <v-list-tile-sub-title>TODO 3</v-list-tile-sub-title>
+                                                                            <v-list-tile-title v-html="teacher.data_incorporacio_centre"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Data incorporació centre</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                 </v-list>
@@ -436,6 +435,26 @@
       location () {
         if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address && this.teacher.user.person.address.location) {
           return this.teacher.user.person.address.location.name
+        }
+      },
+      specialty () {
+        if (this.teacher && this.teacher.specialty) {
+          return this.teacher.specialty.code + ' ' + this.teacher.specialty.name
+        }
+      },
+      family () {
+        if (this.teacher && this.teacher.specialty && this.teacher.specialty.family) {
+          return this.teacher.specialty.family.code + ' ' + this.teacher.specialty.family.name
+        }
+      },
+      force () {
+        if (this.teacher && this.teacher.specialty && this.teacher.specialty.force) {
+          return this.teacher.specialty.force.name
+        }
+      },
+      status () {
+        if (this.teacher && this.teacher.administrative_status) {
+          return this.teacher.administrative_status.name
         }
       },
       province () {
