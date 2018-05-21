@@ -29,32 +29,32 @@
                                                             size="120"
                                                             color="grey lighten-4"
                                                     >
-                                                        <img src="/user/Ay/photo" alt="avatar">
+                                                        <img :src="'/user/' + teacher.user.hashid + '/photo'" alt="avatar">
                                                     </v-avatar>
                                                 </v-flex>
                                                 <v-flex xs12>
-                                                    <span class="title">Dolors Sanjuan Aubà</span>
-                                                    <span class="subtitle">dolorssanjuanauba@iesebre.com</span>
+                                                    <span class="title" v-html="teacher.user.name"></span>
+                                                    <span class="subtitle" v-html="teacher.user.email"></span>
                                                 </v-flex>
                                                 <v-flex xs12>
                                                     <v-list two-line>
                                                         <v-list-tile>
                                                             <v-list-tile-content>
-                                                                <v-list-tile-title>Dolors</v-list-tile-title>
+                                                                <v-list-tile-title v-html="teacher.user.person && teacher.user.person.givenName"></v-list-tile-title>
                                                                 <v-list-tile-sub-title>Nom</v-list-tile-sub-title>
                                                             </v-list-tile-content>
                                                         </v-list-tile>
                                                         <v-divider></v-divider>
                                                         <v-list-tile>
                                                             <v-list-tile-content>
-                                                                <v-list-tile-title>SanJuan</v-list-tile-title>
+                                                                <v-list-tile-title v-html="teacher.user.person && teacher.user.person.sn1"></v-list-tile-title>
                                                                 <v-list-tile-sub-title>1r Cognom</v-list-tile-sub-title>
                                                             </v-list-tile-content>
                                                         </v-list-tile>
                                                         <v-divider></v-divider>
                                                         <v-list-tile>
                                                             <v-list-tile-content>
-                                                                <v-list-tile-title>Aubà</v-list-tile-title>
+                                                                <v-list-tile-title v-html="teacher.user.person && teacher.user.person.sn2"></v-list-tile-title>
                                                                 <v-list-tile-sub-title>2n Cognom</v-list-tile-sub-title>
                                                             </v-list-tile-content>
                                                         </v-list-tile>
@@ -79,7 +79,6 @@
                                                         <div>
                                                             <p>Adreça</p>
                                                         </div>
-
                                                     </h1>
                                                 </v-flex>
                                                 <v-flex xs12>
@@ -89,31 +88,31 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>15575055F</v-list-tile-title>
-                                                                            <v-list-tile-sub-title>DNI (tipus aquí)</v-list-tile-sub-title>
+                                                                            <v-list-tile-title v-html="identifier()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title v-html="identifierType()"></v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>31 de Juliol de 1976</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.birthdate"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Data de naixement</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Tortosa</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.birthplace && teacher.user.person.birthplace.name"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Lloc de naixement</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Dona</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.gender"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Sexe</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Casat/da</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.civil_status"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Estat civil</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -123,28 +122,29 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>C/ Beseit 6 4t 2a</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="address()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Adreça</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>43500</v-list-tile-title>
-                                                                            <v-list-tile-sub-title>Codi Postat</v-list-tile-sub-title>
+                                                                            <v-list-tile-title v-html="postalCode()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Codi Postal</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Tortosa</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="location()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Població</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Tarragona</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="province()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Província</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
+                                                                    <!--TODO-->
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
                                                                             <v-list-tile-title>Catalunya</v-list-tile-title>
@@ -194,31 +194,31 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>dolorssubirats@gmail.com</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.email"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Email personal</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>dsubirats@xtec.cat, dsubirats@hotmail.com</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="other_emails()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Altres emails</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>679857437</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.mobile"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Mòbil</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>977504879</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.phone"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Telèfon fix</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>---</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="other_phones()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Altres telèfons</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -228,13 +228,13 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>002</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.code"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Codi</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Serveis a la comunitat</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.code"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -252,7 +252,7 @@
                                                                     </v-list-tile>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>1 de Setembre de 2009</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.data_incorporacio_centre"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Data incorporació centre</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -302,35 +302,35 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Llicenciatura en Filologia Catalana</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.titulacio_acces"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Titulació d'accés</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Nivell D de Català, Postgrau en literatura Catalana</v-list-tile-title>
-                                                                            <v-list-tile-sub-title>Altres titulacions</v-list-tile-sub-title>
+                                                                            <v-list-tile-title v-html="teacher.altres_titulacions"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title >Altres titulacions</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Nivell B2 Francés</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.idiomes"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Idiomes</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>Pèrfil 1, Pèrfil 2, Pèrfil 3</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.perfils"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Pèrfils professionals</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>---</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.altres_formacions"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Altres formacions</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -340,32 +340,33 @@
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>2006</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.data_superacio_oposicions"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Data Superació oposicions</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>València</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.lloc_destinacio_definitiva"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Lloc destinació definitiva</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>2006</v-list-tile-title>
+                                                                            <v-list-tile-title v-html="teacher.data_inici_treball"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Any inici serveis ensenyament</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title>---</v-list-tile-title>
-                                                                            <v-list-tile-sub-title>TODO 2</v-list-tile-sub-title>
+                                                                            <v-list-tile-title v-html="teacher.user.person && teacher.user.person.notes">---</v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Notes</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
+                                                                    <!--TODO-->
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
                                                                             <v-list-tile-title>---</v-list-tile-title>
@@ -397,10 +398,65 @@
 
 <script>
   export default {
-    name: 'name',
     data () {
       return {
-        dialog: false,
+        dialog: false
+      }
+    },
+    props: {
+      teacher: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      identifierType () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.identifier && this.teacher.user.person.identifier.type) {
+          return this.teacher.user.person.identifier.type.name
+        }
+        return 'NIF'
+      },
+      identifier () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.identifier) {
+          return this.teacher.user.person.identifier.value
+        }
+      },
+      address () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address) {
+          const address = this.teacher.user.person.address
+          console.log(address)
+          return address.name + ' ' + address.number + ' ' + address.floor + ' ' + address.floor_number
+        }
+      },
+      postalCode () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address && this.teacher.user.person.address.location) {
+          return this.teacher.user.person.address.location.postalcode
+        }
+      },
+      location () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address && this.teacher.user.person.address.location) {
+          return this.teacher.user.person.address.location.name
+        }
+      },
+      province () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address && this.teacher.user.person.address.province) {
+          return this.teacher.user.person.address.province.name
+        }
+      },
+      other_emails () {
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.other_emails) {
+          return JSON.parse(this.teacher.user.person.other_emails).join()
+        }
+      },
+      other_phones () {
+        let result = ''
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.other_phones) {
+          result = JSON.parse(this.teacher.user.person.other_phones).join()
+        }
+        if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.other_mobiles) {
+          result = result + ' ' + JSON.parse(this.teacher.user.person.other_mobiles).join()
+        }
+        return result
       }
     }
   }
