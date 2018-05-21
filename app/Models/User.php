@@ -288,31 +288,31 @@ class User extends Authenticatable
     public function assignPersonalData($data)
     {
         if($this->person) {
-            $this->person->identifier_id = $data['identifier_id'];
-            $this->person->birthdate = $data['birthdate'];
-            $this->person->birthplace_id = $data['birthplace_id'];
-            $this->person->gender = $data['gender'];
-            $this->person->mobile = $data['mobile'];
-            $this->person->other_mobiles = json_encode(explode(',',$data['other_mobiles']));
-            $this->person->phone = $data['phone'];
-            $this->person->other_phones = json_encode(explode(',',$data['other_phones']));
-            $this->person->email = $data['email'];
-            $this->person->other_emails = json_encode(explode(',',$data['other_emails']));
-            $this->person->notes = $data['notes'];
+            $this->person->identifier_id = isset($data['identifier_id']) ? $data['identifier_id'] : null;
+            $this->person->birthdate = isset($data['birthdate']) ? $data['birthdate'] : null;
+            $this->person->birthplace_id = isset($data['birthplace_id']) ? $data['birthplace_id'] : null;
+            $this->person->gender = isset($data['gender']) ? $data['gender'] : null;
+            $this->person->mobile = isset($data['mobile']) ? $data['mobile'] : null;
+            $this->person->other_mobiles = isset($data['other_mobiles']) ? json_encode(explode(',',$data['other_mobiles'])) : null;
+            $this->person->phone = isset($data['phone']) ? $data['phone'] : null;
+            $this->person->other_phones = isset($data['other_phones']) ? json_encode(explode(',',$data['other_phones'])) : null;
+            $this->person->email = isset($data['email']) ? $data['email'] : null;
+            $this->person->other_emails = isset($data['other_emails']) ? json_encode(explode(',',$data['other_emails'])) : null;
+            $this->person->notes = isset($data['notes']) ? $data['notes'] : null;
             $this->person->save();
         } else {
             $person = Person::create([
-                'identifier_id' => $data['identifier_id'],
-                'birthdate' => $data['birthdate'],
-                'birthplace_id' => $data['birthplace_id'],
-                'gender' => $data['gender'],
-                'mobile' => $data['mobile'],
-                'other_mobiles' => json_encode(explode(',',$data['other_mobiles'])),
-                'phone' => $data['phone'],
-                'other_phones' => json_encode(explode(',',$data['other_phones'])),
-                'email' => $data['email'],
-                'other_emails' => json_encode(explode(',',$data['other_emails'])),
-                'notes' => $data['notes']
+                'identifier_id' => isset($data['identifier_id']) ? $data['identifier_id'] : null,
+                'birthdate' => isset($data['birthdate']) ? $data['birthdate'] : null,
+                'birthplace_id' => isset($data['birthplace_id']) ? $data['birthplace_id'] : null,
+                'gender' => isset($data['gender']) ? $data['gender'] : null,
+                'mobile' => isset($data['mobile']) ? $data['mobile'] : null,
+                'other_mobiles' => isset($data['other_mobiles']) ? json_encode(explode(',',$data['other_mobiles'])) : null,
+                'phone' => isset($data['phone']) ? $data['phone'] : null,
+                'other_phones' => isset($data['other_phones']) ? json_encode(explode(',',$data['other_phones'])) : null,
+                'email' => isset($data['email']) ? $data['email'] : null,
+                'other_emails' => isset($data['other_emails']) ? json_encode(explode(',',$data['other_emails'])) : null,
+                'notes' => isset($data['notes']) ? $data['notes']  : null
             ]);
             $person->user_id = $this->id;
             $person->save();
