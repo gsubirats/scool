@@ -339,4 +339,41 @@ class User extends Authenticatable
         $address->save();
         return $this;
     }
+
+    /**
+     * Assign teacher data.
+     *
+     * @param $data
+     * @return $this
+     */
+    public function assignTeacherData($data)
+    {
+        if ($this->teacher) {
+            $this->teacher->administrative_status_id = isset($data['administrative_status_id']) ? $data['administrative_status_id'] : null;
+            $this->teacher->titulacio_acces = isset($data['titulacio_acces']) ? $data['titulacio_acces'] : null;
+            $this->teacher->altres_titulacions = isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null;
+            $this->teacher->idiomes = isset($data['idiomes']) ? $data['idiomes'] : null;
+            $this->teacher->altres_formacions = isset($data['altres_formacions']) ? $data['altres_formacions'] : null;
+            $this->teacher->data_inici_treball = isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null;
+            $this->teacher->data_incorporacio_centre = isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null;
+            $this->teacher->data_superacio_oposicions = isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null;
+            $this->teacher->save();
+        } else {
+            $teacher = Teacher::create([
+                'code' => $data['code'],
+                'administrative_status_id' => isset($data['administrative_status_id']) ? $data['administrative_status_id'] : null,
+                'titulacio_acces' => isset($data['titulacio_acces']) ? $data['titulacio_acces'] : null,
+                'altres_titulacions' => isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null,
+                'idiomes' => isset($data['idiomes']) ? $data['idiomes'] : null,
+                'altres_formacions' => isset($data['altres_formacions']) ? $data['altres_formacions'] : null,
+                'data_inici_treball' => isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null,
+                'data_incorporacio_centre' => isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null,
+                'data_superacio_oposicions' => isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null,
+            ]);
+            $teacher->user_id = $this->id;
+            $teacher->save();
+        }
+
+        return $this;
+    }
 }

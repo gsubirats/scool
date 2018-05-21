@@ -474,10 +474,16 @@ class UserTest extends TestCase
     /** @test */
     public function can_assign_teacher_data()
     {
+        AdministrativeStatus::create([
+            'name' => 'Funcionari/a amb plaça definitiva'
+        ]);
+        $definitiu = AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva');
+
         $user = factory(User::class)->create();
         $this->assertNull($user->teacher);
-        $user->assignTeacherData([  // Code ius already assigned at initialize_teachers helper
-            'administrative_status_id' => AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva')->id,
+        $result = $user->assignTeacherData([
+            'code' => '020',
+            'administrative_status_id' => $definitiu->id,
             'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
             'altres_titulacions' => 'Postgrau en Programari Lliure',
             'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
@@ -486,6 +492,48 @@ class UserTest extends TestCase
             'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
             'data_superacio_oposicions' => 'Juny 2008'
         ]);
+        $user = $user->fresh();
+        $this->assertNotNull($user->teacher);
+        $this->assertEquals($user->teacher->code,'020');
+        $this->assertEquals($user->teacher->administrative_status_id,$definitiu->id);
+        $this->assertTrue($definitiu->is($user->teacher->administrativeStatus,$definitiu->id));
+        $this->assertEquals($user->teacher->titulacio_acces,'Enginyer Superior en Telecomunicacions');
+        $this->assertEquals($user->teacher->altres_titulacions,'Postgrau en Programari Lliure');
+        $this->assertEquals($user->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');
+        $this->assertEquals($user->teacher->altres_formacions, 'Nivell D de Català');
+        $this->assertEquals($user->teacher->data_inici_treball, '29/09/2006');
+        $this->assertEquals($user->teacher->data_incorporacio_centre, '2009-09-01 00:00:00');
+        $this->assertEquals($user->teacher->data_superacio_oposicions, 'Juny 2008');
+        $this->assertInstanceOf(User::class,$result);
+
+        $user2 = factory(User::class)->create();
+        $user2->assignTeacher(Teacher::create([
+            'code' => '040'
+        ]));
+        $this->assertNotNull($user2->teacher);
+        $result = $user2->assignTeacherData([
+            'administrative_status_id' => $definitiu->id,
+            'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
+            'altres_titulacions' => 'Postgrau en Programari Lliure',
+            'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
+            'altres_formacions' => 'Nivell D de Català',
+            'data_inici_treball' => '29/09/2006',
+            'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
+            'data_superacio_oposicions' => 'Juny 2008'
+        ]);
+        $this->assertNotNull($user2->teacher);
+        $this->assertEquals($user2->teacher->code,'040');
+        $this->assertEquals($user2->teacher->administrative_status_id,$definitiu->id);
+        $this->assertTrue($definitiu->is($user2->teacher->administrativeStatus,$definitiu->id));
+        $this->assertEquals($user2->teacher->titulacio_acces,'Enginyer Superior en Telecomunicacions');
+        $this->assertEquals($user2->teacher->altres_titulacions,'Postgrau en Programari Lliure');
+        $this->assertEquals($user2->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');
+        $this->assertEquals($user2->teacher->altres_formacions, 'Nivell D de Català');
+        $this->assertEquals($user2->teacher->data_inici_treball, '29/09/2006');
+        $this->assertEquals($user2->teacher->data_incorporacio_centre, '2009-09-01 00:00:00');
+        $this->assertEquals($user2->teacher->data_superacio_oposicions, 'Juny 2008');
+        $this->assertInstanceOf(User::class,$result);
+
     }
 
 }
