@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreatePeopleTable
+ * Class CreateTenantPeopleTable
  */
-class CreatePeopleTable extends Migration
+class CreateTenantPeopleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,7 +25,7 @@ class CreatePeopleTable extends Migration
             $table->string('sn2')->nullable();
             $table->date('birthdate')->nullable();
             $table->integer('birthplace_id')->unsigned()->nullable();
-            $table->enum('gender',['male','female'])->nullable();
+            $table->enum('gender',['Home','Dona'])->nullable();
             $table->enum('civil_status',['Soltero/a','Casado/a','Separado/a','Divorciado/a','Viudo/a'])->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();

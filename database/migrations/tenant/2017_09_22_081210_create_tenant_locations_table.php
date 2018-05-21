@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateIdentifierTypesTable
+ * Class CreateTenantLocationsTable.
  */
-class CreateIdentifierTypesTable extends Migration
+class CreateTenantLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,9 +16,13 @@ class CreateIdentifierTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('identifier_types', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->string('postalcode');
+
+            $table->unique(['name','postalcode']);
+
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ class CreateIdentifierTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('identifier_types');
+        Schema::dropIfExists('locations');
     }
 }

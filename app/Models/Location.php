@@ -11,5 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Location extends Model
 {
-    protected $guarder = [];
+    protected $guarded = [];
+
+    public static function findByName($name)
+    {
+        return self::where('name',$name)->first();
+    }
 }

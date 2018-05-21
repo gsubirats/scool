@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateIdentifiersTable.
+ * Class CreateTenantIdentifiersTable.
  */
-class CreateIdentifiersTable extends Migration
+class CreateTenantIdentifiersTable extends Migration
 {
     /**
      * Run the migrations.

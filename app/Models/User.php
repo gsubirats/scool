@@ -279,4 +279,32 @@ class User extends Authenticatable
         return $this;
     }
 
+    /**
+     * Assign personal data.
+     *
+     * @param $data
+     * @return $this
+     */
+    public function assignPersonalData($data)
+    {
+        if($this->person) {
+            $this->person->identifier_id = $data['identifier_id'];
+            $this->person->birthdate = $data['birthdate'];
+            $this->person->birthplace_id = $data['birthplace_id'];
+            $this->person->gender = $data['gender'];
+            $this->person->notes = $data['notes'];
+            $person->save();
+        } else {
+            $person = Person::create([
+                'identifier_id' => $data['identifier_id'],
+                'birthdate' => $data['birthdate'],
+                'birthplace_id' => $data['birthplace_id'],
+                'gender' => $data['gender'],
+                'notes' => $data['notes']
+            ]);
+            $person->user_id = $this->id;
+            $person->save();
+        }                
+        return $this;
+    }
 }

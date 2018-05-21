@@ -4,6 +4,9 @@ namespace Tests\Unit\Tenants;
 
 use App\Models\Family;
 use App\Models\Force;
+use App\Models\Identifier;
+use App\Models\IdentifierType;
+use App\Models\Location;
 use App\Models\Name;
 use App\Models\Specialty;
 use App\Models\Staff;
@@ -328,6 +331,45 @@ class UserTest extends TestCase
         ]));
         $this->assertTrue($teacher->is($user->teacher));
         $this->assertInstanceOf(User::class,$result);
+    }
+
+    /** @test */
+    public function can_assign_personal_data_to_user()
+    {
+        $user = create(User::class);
+
+        seed_identifier_types();
+        $nif = IdentifierType::findByName('NIF')->id;
+
+        $tortosa = Location::create([
+            'name' => 'TORTOSA',
+            'postalcode' => '43500'
+        ]);
+        $identifier = Identifier::firstOrCreate([
+            'value' => '28444026H',
+            'type_id' => $nif
+        ]);
+        $identifierId = $identifier->id;
+        $location = Location::findByName('TORTOSA');
+        $locationId = $location->id;
+        $this->assertNull($user->person);
+        $user->assignPersonalData([
+            'identifier_id' => $identifierId,
+            'birthdate' => Carbon::parse('1978-03-02'),
+            'birthplace_id' => $locationId,
+            'gender' => 'Home',
+            'notes' => "Coordinador d'informàtica"
+        ]);
+        $user = $user->fresh();
+        $this->assertNotNull($user->person);
+        $this->assertEquals($user->person->identifier_id , $identifierId);
+        $this->assertEquals($user->person->birthdate , '1978-03-02 00:00:00');
+        $this->assertEquals($user->person->birthplace_id , $locationId);
+        $this->assertEquals($user->person->gender , 'Home');
+        $this->assertEquals($user->person->notes , "Coordinador d'informàtica");
+        $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
+        $this->assertTrue($location->is($user->person->birthplace , $location));
+
     }
 
 }

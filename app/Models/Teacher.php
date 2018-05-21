@@ -20,4 +20,15 @@ class Teacher extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Find by code.
+     *
+     * @param $code
+     * @return mixed
+     */
+    public static function findByCode($code)
+    {
+        return self::where('code', $code)->first();
+    }
 }
