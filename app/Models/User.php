@@ -292,6 +292,12 @@ class User extends Authenticatable
             $this->person->birthdate = $data['birthdate'];
             $this->person->birthplace_id = $data['birthplace_id'];
             $this->person->gender = $data['gender'];
+            $this->person->mobile = $data['mobile'];
+            $this->person->other_mobiles = json_encode(explode(',',$data['other_mobiles']));
+            $this->person->phone = $data['phone'];
+            $this->person->other_phones = json_encode(explode(',',$data['other_phones']));
+            $this->person->email = $data['email'];
+            $this->person->other_emails = json_encode(explode(',',$data['other_emails']));
             $this->person->notes = $data['notes'];
             $this->person->save();
         } else {
@@ -304,6 +310,8 @@ class User extends Authenticatable
                 'other_mobiles' => json_encode(explode(',',$data['other_mobiles'])),
                 'phone' => $data['phone'],
                 'other_phones' => json_encode(explode(',',$data['other_phones'])),
+                'email' => $data['email'],
+                'other_emails' => json_encode(explode(',',$data['other_emails'])),
                 'notes' => $data['notes']
             ]);
             $person->user_id = $this->id;

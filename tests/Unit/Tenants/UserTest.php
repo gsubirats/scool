@@ -341,7 +341,7 @@ class UserTest extends TestCase
         seed_identifier_types();
         $nif = IdentifierType::findByName('NIF')->id;
 
-        $tortosa = Location::create([
+        Location::create([
             'name' => 'TORTOSA',
             'postalcode' => '43500'
         ]);
@@ -362,7 +362,9 @@ class UserTest extends TestCase
             'other_mobiles' => '645192821,645192822',
             'phone' => '977500949',
             'other_phones' => '9677508695,977500949',
-            'notes' => "Coordinador d'informàtica"
+            'notes' => "Coordinador d'informàtica",
+            'email' => 'pepepardo@jeans.com',
+            'other_emails' => 'pepaparda@jeans.com,pepepardo@gmail.com'
         ]);
         $user = $user->fresh();
         $this->assertNotNull($user->person);
@@ -374,7 +376,53 @@ class UserTest extends TestCase
         $this->assertEquals($user->person->other_mobiles , '["645192821","645192822"]');
         $this->assertEquals($user->person->phone , '977500949');
         $this->assertEquals($user->person->other_phones , '["9677508695","977500949"]');
+        $this->assertEquals($user->person->email , 'pepepardo@jeans.com');
+        $this->assertEquals($user->person->other_emails , '["pepaparda@jeans.com","pepepardo@gmail.com"]');
         $this->assertEquals($user->person->notes , "Coordinador d'informàtica");
+        $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
+        $this->assertTrue($location->is($user->person->birthplace , $location));
+
+
+        // With a person Already assigned
+        $identifier = Identifier::firstOrCreate([
+            'value' => '90121496K',
+            'type_id' => $nif
+        ]);
+        $identifierId = $identifier->id;
+        Location::create([
+            'name' => 'Roquetes',
+            'postalcode' => '43520'
+        ]);
+        $location = Location::findByName('Roquetes');
+        $locationId = $location->id;
+        $this->assertNotNull($user->person);
+
+        $user->assignPersonalData([
+            'identifier_id' => $identifierId,
+            'birthdate' => Carbon::parse('1981-03-02'),
+            'birthplace_id' => $locationId,
+            'gender' => 'Dona',
+            'mobile' => '699999999',
+            'other_mobiles' => '699999991,699999992',
+            'phone' => '977509999',
+            'other_phones' => '977509991,977509992',
+            'notes' => "bla bla bla",
+            'email' => 'pepepardo@black.com',
+            'other_emails' => 'pepaparda@black.com,pepepardo@black.com'
+        ]);
+        $user = $user->fresh();
+        $this->assertNotNull($user->person);
+        $this->assertEquals($user->person->identifier_id , $identifierId);
+        $this->assertEquals($user->person->birthdate , '1981-03-02 00:00:00');
+        $this->assertEquals($user->person->birthplace_id , $locationId);
+        $this->assertEquals($user->person->gender , 'Dona');
+        $this->assertEquals($user->person->mobile , '699999999');
+        $this->assertEquals($user->person->other_mobiles , '["699999991","699999992"]');
+        $this->assertEquals($user->person->phone , '977509999');
+        $this->assertEquals($user->person->other_phones , '["977509991","977509992"]');
+        $this->assertEquals($user->person->email , 'pepepardo@black.com');
+        $this->assertEquals($user->person->other_emails , '["pepaparda@black.com","pepepardo@black.com"]');
+        $this->assertEquals($user->person->notes , "bla bla bla");
         $this->assertTrue($identifier->is($user->person->identifier , $identifierId));
         $this->assertTrue($location->is($user->person->birthplace , $location));
 
