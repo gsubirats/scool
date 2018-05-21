@@ -350,6 +350,7 @@ class User extends Authenticatable
     {
         if ($this->teacher) {
             $this->teacher->administrative_status_id = isset($data['administrative_status_id']) ? $data['administrative_status_id'] : null;
+            $this->teacher->specialty_id = isset($data['specialty_id']) ? $data['specialty_id'] : null;
             $this->teacher->titulacio_acces = isset($data['titulacio_acces']) ? $data['titulacio_acces'] : null;
             $this->teacher->altres_titulacions = isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null;
             $this->teacher->idiomes = isset($data['idiomes']) ? $data['idiomes'] : null;
@@ -362,6 +363,7 @@ class User extends Authenticatable
             $teacher = Teacher::create([
                 'code' => $data['code'],
                 'administrative_status_id' => isset($data['administrative_status_id']) ? $data['administrative_status_id'] : null,
+                'specialty_id' => isset($data['specialty_id']) ? $data['specialty_id'] : null,
                 'titulacio_acces' => isset($data['titulacio_acces']) ? $data['titulacio_acces'] : null,
                 'altres_titulacions' => isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null,
                 'idiomes' => isset($data['idiomes']) ? $data['idiomes'] : null,

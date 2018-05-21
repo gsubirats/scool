@@ -479,11 +479,29 @@ class UserTest extends TestCase
         ]);
         $definitiu = AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva');
 
+        $force = Force::create([
+            'name' => "Professors d'ensenyament secundari",
+            'code' => 'SECUNDARIA'
+        ]);
+
+        $family = Family::create([
+            'name' => "INFORMÀTICA",
+            'code' => 'INF'
+        ]);
+
+        $specialty = Specialty::create([
+            'code' => '507',
+            'name' => 'INFORMÀTICA',
+            'force_id' => $force->id,
+            'family_id' => $family->id,
+        ]);
+
         $user = factory(User::class)->create();
         $this->assertNull($user->teacher);
         $result = $user->assignTeacherData([
             'code' => '020',
             'administrative_status_id' => $definitiu->id,
+            'specialty_id' => $specialty->id,
             'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
             'altres_titulacions' => 'Postgrau en Programari Lliure',
             'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
@@ -496,7 +514,9 @@ class UserTest extends TestCase
         $this->assertNotNull($user->teacher);
         $this->assertEquals($user->teacher->code,'020');
         $this->assertEquals($user->teacher->administrative_status_id,$definitiu->id);
-        $this->assertTrue($definitiu->is($user->teacher->administrativeStatus,$definitiu->id));
+        $this->assertEquals($user->teacher->specialty_id,$specialty->id);
+        $this->assertTrue($definitiu->is($user->teacher->administrativeStatus));
+        $this->assertTrue($specialty->is($user->teacher->specialty));
         $this->assertEquals($user->teacher->titulacio_acces,'Enginyer Superior en Telecomunicacions');
         $this->assertEquals($user->teacher->altres_titulacions,'Postgrau en Programari Lliure');
         $this->assertEquals($user->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');
@@ -513,6 +533,7 @@ class UserTest extends TestCase
         $this->assertNotNull($user2->teacher);
         $result = $user2->assignTeacherData([
             'administrative_status_id' => $definitiu->id,
+            'specialty_id' => $specialty->id,
             'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
             'altres_titulacions' => 'Postgrau en Programari Lliure',
             'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
@@ -524,7 +545,9 @@ class UserTest extends TestCase
         $this->assertNotNull($user2->teacher);
         $this->assertEquals($user2->teacher->code,'040');
         $this->assertEquals($user2->teacher->administrative_status_id,$definitiu->id);
-        $this->assertTrue($definitiu->is($user2->teacher->administrativeStatus,$definitiu->id));
+        $this->assertEquals($user2->teacher->specialty_id,$specialty->id);
+        $this->assertTrue($definitiu->is($user2->teacher->administrativeStatus));
+        $this->assertTrue($specialty->is($user2->teacher->specialty));
         $this->assertEquals($user2->teacher->titulacio_acces,'Enginyer Superior en Telecomunicacions');
         $this->assertEquals($user2->teacher->altres_titulacions,'Postgrau en Programari Lliure');
         $this->assertEquals($user2->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');

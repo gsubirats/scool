@@ -30,6 +30,14 @@ class Teacher extends Model
     }
 
     /**
+     * Get the specialty that owns the teacher.
+     */
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class);
+    }
+
+    /**
      * Find by code.
      *
      * @param $code
