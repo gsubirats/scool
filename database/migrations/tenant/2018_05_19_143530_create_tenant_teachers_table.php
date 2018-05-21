@@ -27,7 +27,7 @@ class CreateTenantTeachersTable extends Migration
             $table->string('altres_formacions')->nullable();
             $table->string('data_inici_treball')->nullable();
             $table->date('data_incorporacio_centre')->nullable();
-            $table->date('data_superacio_oposicions')->nullable();
+            $table->string('data_superacio_oposicions')->nullable();
             $table->timestamps();
         });
     }
