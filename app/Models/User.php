@@ -294,9 +294,19 @@ class User extends Authenticatable
      * Assign address.
      *
      * @param Address $address
+     * @return $this
      */
     public function assignAddress(Address $address)
     {
-        $address->user_id = $this->id;
+        if ($this->person) {
+            $address->person_id = $this->person->id;
+        } else {
+            $person = Person::create([
+                'user_id' => $this->id
+            ]);
+            $address->person_id = $person->id;
+        }
+        $address->save();
+        return $this;
     }
 }

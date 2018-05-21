@@ -9,6 +9,7 @@ use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
 use App\Models\Name;
+use App\Models\Person;
 use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Staff;
@@ -435,20 +436,41 @@ class UserTest extends TestCase
     /** @test */
     public function can_assign_address()
     {
-        Location::create([
+        $location = Location::create([
             'name' => 'TORTOSA',
             'postalcode' => '43500'
         ]);
+        $province = Province::create([
+            'name' => 'Tarragona',
+            'postalcode' => '43500',
+            'postal_code_prefix' => '43',
+            'state_id' => 9
+        ]);
+
         $user = factory(User::class)->create();
         $this->assertNull($user->address);
-        $user->assignAddress(Address::create([
+        $result = $user->assignAddress(Address::create([
             'name' => 'C/ Beseit',
             'number' => '16',
             'floor' => '4',
             'floor_number' => '2',
             'location_id' => Location::findByName('TORTOSA')->id,
-            'province_id' => Province::findByName('TARRAGONA')->id,
+            'province_id' => Province::findByName('Tarragona')->id,
         ]));
+        $user = $user->fresh();
+
+        $this->assertNotNull($user->person->address);
+        $this->assertEquals($user->person->address->name,'C/ Beseit');
+        $this->assertEquals($user->person->address->number,'16');
+        $this->assertEquals($user->person->address->floor,'4');
+        $this->assertEquals($user->person->address->floor_number,'2');
+        $this->assertEquals($user->person->address->location_id, $location->id);
+        $this->assertEquals($user->person->address->province_id, $province->id);
+        $this->assertTrue($location->is($user->person->address->location));
+        $this->assertTrue($province->is($user->person->address->province));
+
+        $this->assertInstanceOf(User::class,$result);
+
     }
 
 }

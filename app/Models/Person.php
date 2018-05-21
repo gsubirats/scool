@@ -36,4 +36,12 @@ class Person extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    /**
+     * Get the address.
+     */
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
 }
