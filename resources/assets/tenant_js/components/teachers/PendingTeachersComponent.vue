@@ -22,6 +22,9 @@
                                     :items="internalTeachers"
                                     :search="search"
                                     item-key="id"
+                                    no-results-text="No s'ha trobat cap registre coincident"
+                                    no-data-text="No hi ha cap professor pendent de confirmar"
+                                    rows-per-page-text="Professors per pàgina"
                             >
                                 <template slot="items" slot-scope="props">
                                     <tr>

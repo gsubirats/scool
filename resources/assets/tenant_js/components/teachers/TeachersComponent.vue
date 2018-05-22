@@ -23,6 +23,9 @@
                                     :search="search"
                                     item-key="id"
                                     disable-initial-sort
+                                    no-results-text="No s'ha trobat cap registre coincident"
+                                    no-data-text="No hi han dades disponibles"
+                                    rows-per-page-text="Professors per pàgina"
                             >
                                 <template slot="items" slot-scope="{ item: teacher }">
                                     <tr>
@@ -150,7 +153,7 @@
           {text: 'Plaça', value: 'roles'},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
-          {text: 'Accions', sortable: false}
+          {text: 'Accions', value: 'full_search', sortable: false}
         ]
       }
     },

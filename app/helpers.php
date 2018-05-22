@@ -6,7 +6,6 @@ use App\Models\Family;
 use App\Models\Force;
 use App\Models\IdentifierType;
 use App\Models\Menu;
-use App\Models\Name;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Staff;

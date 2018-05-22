@@ -13,6 +13,8 @@ class Teacher extends Model
 {
     protected $guarded = [];
 
+    protected $appends = ['full_search'];
+
     /**
      * Get the user that owns the teacher.
      */
@@ -46,5 +48,37 @@ class Teacher extends Model
     public static function findByCode($code)
     {
         return self::where('code', $code)->first();
+    }
+
+    /**
+     * full_search accessor.
+     *
+     * @return string
+     */
+    public function getFullSearchAttribute()
+    {
+        $searchString = $this->code;
+        if ($this->user) {
+            $searchString = $searchString . ' ' .  $this->user->name . ' ' . $this->user->email;
+        }
+        if ($this->user && $this->user->person) {
+            $searchString = $searchString . ' ' .  $this->user->person->givenName . ' ' . $this->user->person->sn1
+                . ' ' . $this->user->person->sn2;
+        }
+        if ($this->specialty) {
+            $searchString = $searchString . ' ' .  $this->specialty->code . ' ' .  $this->specialty->name ;
+        }
+        if ($this->specialty && $this->specialty->family) {
+            $searchString = $searchString . ' ' .  $this->specialty->family->code . ' ' .  $this->specialty->family->name ;
+        }
+        if ($this->administrativeStatus) {
+            $searchString = $searchString . ' ' .  $this->administrativeStatus->name . ' ' .  $this->administrativeStatus->code;
+        }
+        if ($this->specialty && $this->specialty->family && $this->specialty->staff) {
+            $searchString = $searchString . ' ' .  $this->specialty->family->code . '_' . $this->specialty->code
+                . '_' . $this->specialty->staff[0]->order . '_' . $this->specialty->staff[0]->code;
+        }
+
+        return $searchString;
     }
 }
