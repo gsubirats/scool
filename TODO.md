@@ -20,9 +20,19 @@ staff-> Assignació d'un usuari a una plaça
   - owner: true/false indicant si és el titular
   - start_date: Per substituts. A la resta null (tot any)
   - final_date: Per substituts. A la resta null (tot any)
+  
+Fitxers adjunts
+================
+
+- Foto proposada pel professor
+- Fotocopia del DNI
 
 Càrrecs:
 ========
+
+Becaris:
+- Omplir la taula de posicions amb tots els càrrecs
+- A initialize_teachers assignar càrrecs a professors.
 
 Positions table i Position Model
 

@@ -942,6 +942,8 @@ if (!function_exists('initialize_teachers')) {
             ])
         )->assignTeacher(Teacher::firstOrCreate([
             'code' => '002'
+        ]))->assignPosition(Position::firstOrCreate([
+            'name' => 'Tutora de CAM'
         ]));
 
         User::createIfNotExists([
