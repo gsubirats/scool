@@ -168,7 +168,24 @@ if (! function_exists('create_tenant_admin_user')) {
             App\Models\User::forceCreate([
                 'name' => env('ADMIN_USER_NAME','Sergi Tur Badenas'),
                 'email' => env('ADMIN_USER_EMAIL','sergiturbadenas@gmail.com'),
-                'password' => sha1(env('ADMIN_USER_PASSWORD','123456')),
+                'password' => env('ADMIN_USER_PASSWORD','123456'), // 123456 en sha1
+                'admin' => true
+            ]);
+        }
+    }
+}
+
+if (! function_exists('create_other_tenant_admin_users')) {
+    /**
+     *
+     */
+    function create_other_tenant_admin_users()
+    {
+        if (! App\Models\User::where('email',env('ADMIN_USER_EMAIL1','dmontero@iesebre.com'))->first()) {
+            App\Models\User::forceCreate([
+                'name' => env('ADMIN_USER_NAME1','Dídac Montero Borràs'),
+                'email' => env('ADMIN_USER_EMAIL1','dmontero@iesebre.com'),
+                'password' => env('ADMIN_USER_PASSWORD1','123456'),
                 'admin' => true
             ]);
         }

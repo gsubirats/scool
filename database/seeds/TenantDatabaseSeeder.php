@@ -22,6 +22,7 @@ class TenantDatabaseSeeder extends Seeder
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
         create_tenant_admin_user();
+        create_other_tenant_admin_users();
         initialize_staff_types();
         initialize_forces();
         initialize_families();
