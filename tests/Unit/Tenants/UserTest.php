@@ -12,8 +12,8 @@ use App\Models\Location;
 use App\Models\Position;
 use App\Models\Province;
 use App\Models\Specialty;
-use App\Models\Staff;
-use App\Models\StaffType;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
@@ -120,7 +120,7 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        StaffType::create(['name' => 'Professor/a']);
+        JobType::create(['name' => 'Professor/a']);
         Force::create([
             'name' => 'Secundària',
             'code' => 'SECUNDARIA'
@@ -141,16 +141,16 @@ class UserTest extends TestCase
         $this->assertCount(0,$user->staffs);
 
         $result = $user->assignStaff(
-            Staff::firstOrCreate([
+            Job::firstOrCreate([
                 'code' => '01',
-                'type_id' => StaffType::findByName('Professor/a')->id,
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'order' => 1
             ]));
         $user = $user->fresh();
-        $this->assertCount(1,$user->staffs);
-        $staff = $user->staffs()->first();
+        $this->assertCount(1,$user->jobs);
+        $staff = $user->jobs()->first();
         $this->assertEquals('01',$staff->code);
         $this->assertEquals('Professor/a',$staff->type->name);
         $this->assertEquals('507',$staff->specialty->code);
@@ -182,7 +182,7 @@ class UserTest extends TestCase
     {
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
-        initialize_staff_types();
+        initialize_job_types();
         initialize_forces();
         initialize_families();
         initialize_specialities();
@@ -195,7 +195,7 @@ class UserTest extends TestCase
         // Teachers are users with role teacher and staff assigned as staff_type teacher
         foreach ($teachers as $teacher) {
             $this->assertTrue($teacher->hasRole('Teacher'));
-            $this->assertNotNull($teacher->staffs->firstWhere('type_id', StaffType::findByName('Professor/a')->id));
+            $this->assertNotNull($teacher->jobs->firstWhere('type_id', JobType::findByName('Professor/a')->id));
             $this->assertNotNull($teacher->teacher);
         }
 

@@ -10,7 +10,7 @@ Substituts:
 - Com els gestiono:
   - Tenen un status administratiu especial: substitut (la resta tenen o funcionari (diversos subtipus) o interins)  
   - Cal guardar el codi de professor al que substitueixen?
-    - Mateixa plaça (staff) la tenen múltiples professors staff->user 1an -> camp user_id a staff
+    - Mateixa plaça (job) la tenen múltiples professors job->user 1an -> camp user_id a job
     - staff -> user_id treure
 
 job-> places de treball

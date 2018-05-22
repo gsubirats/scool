@@ -6,8 +6,8 @@ use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Specialty;
-use App\Models\Staff;
-use App\Models\StaffType;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Models\Teacher;
 use App\Models\User;
 use Config;
@@ -68,7 +68,7 @@ class TeacherTest extends TestCase
         $this->assertEquals('020', $teacher->full_search);
 
         Role::firstOrCreate(['name' => 'Teacher']);
-        StaffType::firstOrCreate([
+        JobType::firstOrCreate([
             'name' => 'Professor/a'
         ]);
         // Informática
@@ -103,8 +103,8 @@ class TeacherTest extends TestCase
                 'sn2' => 'Badenas',
             ])
             ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Professor/a')->id,
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('507')->id,
                     'family_id' => Family::findByCode('INF')->id,
                     'code' => '040',

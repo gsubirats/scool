@@ -4,8 +4,8 @@ namespace Tests\Feature\Tenants;
 
 use App\Models\Family;
 use App\Models\Specialty;
-use App\Models\Staff;
-use App\Models\StaffType;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Models\User;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
@@ -40,17 +40,18 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function show_staff_management()
     {
+        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
         Config::set('auth.providers.users.model', User::class);
         $staffManager->assignRole($role);
 
-        $response = $this->get('/staff');
+        $response = $this->get('/jobs');
 
         $response->assertSuccessful();
-        $response->assertViewIs('tenants.staff.show');
-        $response->assertViewHas('staff');
+        $response->assertViewIs('tenants.jobs.show');
+        $response->assertViewHas('jobs');
         $response->assertViewHas('staffTypes');
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
@@ -60,17 +61,19 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function regular_user_not_authorized_to_show_staff_management()
     {
+        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user);
         Config::set('auth.providers.users.model', User::class);
-        $response = $this->get('/staff');
+        $response = $this->get('/jobs');
         $response->assertStatus(403);
     }
 
     /** @test */
     public function add_staff()
     {
-        initialize_staff_types();
+        $this->withoutExceptionHandling();
+        initialize_job_types();
         initialize_forces();
         initialize_families();
         initialize_specialities();
@@ -80,8 +83,8 @@ class StaffControllerTest extends BaseTenantTest
         $staffManager->assignRole($role);
         $this->actingAs($staffManager,'api');
 
-        $this->assertCount(0, Staff::all());
-        $response = $this->json('POST','/api/v1/staff', [
+        $this->assertCount(0, Job::all());
+        $response = $this->json('POST','/api/v1/jobs', [
             'code' => '040',
             'type' => 'Professor/a',
             'family' => 1,
@@ -92,29 +95,30 @@ class StaffControllerTest extends BaseTenantTest
         ]);
         $response->assertSuccessful();
 
-        $this->assertCount(1, Staff::all());
+        $this->assertCount(1, Job::all());
 
-        $staff = Staff::find(1);
-        $this->assertEquals('040', $staff->code);
-        $this->assertEquals('Prova a veure que tal',$staff->notes);
-        $this->assertEquals('Professor/a', StaffType::find($staff->type_id)->name);
-        $this->assertEquals(1, $staff->user_id);
-        $this->assertEquals(1, $staff->family_id);
-        $this->assertEquals('Sanitat', Family::find($staff->family_id)->name);
-        $this->assertEquals('Processos diagnòstics clínics i productes ortoprotètics', Specialty::find($staff->specialty_id)->name);
+        $job = Job::find(1);
+        $this->assertEquals('040', $job->code);
+        $this->assertEquals('Prova a veure que tal',$job->notes);
+        $this->assertEquals('Professor/a', JobType::find($job->type_id)->name);
+        $this->assertEquals(1, $job->user_id);
+        $this->assertEquals(1, $job->family_id);
+        $this->assertEquals('Sanitat', Family::find($job->family_id)->name);
+        $this->assertEquals('Processos diagnòstics clínics i productes ortoprotètics', Specialty::find($job->specialty_id)->name);
 
     }
 
     /** @test */
     public function add_staff_validation()
     {
+        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
         Config::set('auth.providers.users.model', User::class);
         $staffManager->assignRole($role);
         $this->actingAs($staffManager,'api');
 
-        $response = $this->json('POST','/api/v1/staff', [
+        $response = $this->json('POST','/api/v1/jobs', [
 
         ]);
         $result = json_decode($response->getContent());
@@ -123,7 +127,7 @@ class StaffControllerTest extends BaseTenantTest
         $this->assertEquals('El camp code és obligatori.',$result->errors->code[0]);
         $this->assertEquals('El camp type és obligatori.',$result->errors->type[0]);
 
-        $response = $this->json('POST','/api/v1/staff', [
+        $response = $this->json('POST','/api/v1/jobs', [
           'code' => '040',
           'type' => 'Professor/a'
         ]);
@@ -139,9 +143,10 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function user_cannot_add_staff()
     {
+        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/staff', [
+        $response = $this->json('POST','/api/v1/jobs', [
 
         ]);
 
@@ -151,7 +156,8 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function remove_staff()
     {
-        initialize_staff_types();
+        $this->withoutExceptionHandling();
+        initialize_job_types();
         initialize_forces();
         initialize_families();
         initialize_specialities();
@@ -161,9 +167,9 @@ class StaffControllerTest extends BaseTenantTest
         $staffManager->assignRole($role);
         $this->actingAs($staffManager,'api');
 
-        $staff = Staff::create([
+        $job = Job::create([
             'code' => '040',
-            'type_id' => $type = StaffType::findByName('Professor/a')->id,
+            'type_id' => $type = JobType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
             'order' => 1,
@@ -171,11 +177,11 @@ class StaffControllerTest extends BaseTenantTest
             'notes' => 'bla bla bla'
         ]);
 
-        $this->assertCount(1, Staff::all());
-        $response = $this->json('DELETE','/api/v1/staff/' . $staff->id);
+        $this->assertCount(1, Job::all());
+        $response = $this->json('DELETE','/api/v1/jobs/' . $job->id);
         $response->assertSuccessful();
 
-        $this->assertCount(0, Staff::all());
+        $this->assertCount(0, Job::all());
         $result = json_decode($response->getContent());
 
         $this->assertEquals('040',$result->code);
@@ -189,18 +195,18 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function user_cannot_remove_staff()
+    public function user_cannot_remove_jobs()
     {
-        initialize_staff_types();
+        initialize_job_types();
         initialize_forces();
         initialize_families();
         initialize_specialities();
         $user = create(User::class);
         $this->actingAs($user,'api');
 
-        $staff = Staff::create([
+        $job = Job::create([
             'code' => '040',
-            'type_id' => StaffType::findByName('Professor/a')->id,
+            'type_id' => JobType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
             'order' => 1,
@@ -208,7 +214,7 @@ class StaffControllerTest extends BaseTenantTest
             'notes' => 'bla bla bla'
         ]);
 
-        $response = $this->json('DELETE','/api/v1/staff/' . $staff->id);
+        $response = $this->json('DELETE','/api/v1/jobs/' . $job->id);
         $response->assertStatus(403);
     }
 }

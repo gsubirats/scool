@@ -6,11 +6,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ShowStaffManagement.
+ * Class ShowJobsManagement.
  *
  * @package App\Http\Requests
  */
-class ShowStaffManagement extends FormRequest
+class ShowJobsManagement extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +19,7 @@ class ShowStaffManagement extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->can('show-staff');
+        return Auth::user()->can('show-jobs');
     }
 
     /**

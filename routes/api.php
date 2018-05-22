@@ -51,9 +51,9 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             //User photos
             Route::post('/user/{user}/photo','Tenant\UserPhotoController@store');
 
-            //Staff
-            Route::post('/staff', 'Tenant\StaffController@store');
-            Route::delete('/staff/{staff}', 'Tenant\StaffController@destroy');
+            //Jobs
+            Route::post('/jobs', 'Tenant\JobsController@store');
+            Route::delete('/jobs/{job}', 'Tenant\JobsController@destroy');
 
             //Google GSuite users
             Route::get('/gsuite/users', 'Tenant\GoogleSuiteUsersController@index');

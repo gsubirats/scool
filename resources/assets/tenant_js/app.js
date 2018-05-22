@@ -25,10 +25,10 @@ Vue.component('users-dashboard', require('./components/users/UsersDashboardCompo
 Vue.component('users-list', require('./components/users/UsersListComponent.vue'));
 Vue.component('user-add', require('./components/users/UserAddComponent.vue'));
 
-Vue.component('staff-list', require('./components/staff/StaffListComponent.vue'));
-Vue.component('staff-add', require('./components/staff/StaffAddComponent.vue'));
-Vue.component('staff-list-by-family', require('./components/staff/StaffListByFamilyComponent.vue'));
-Vue.component('staff-list-by-specialty', require('./components/staff/StaffListBySpecialtyComponent.vue'));
+Vue.component('jobs-list', require('./components/jobs/JobsListComponent.vue'));
+Vue.component('job-add', require('./components/jobs/JobAddComponent.vue'));
+Vue.component('jobs-list-by-family', require('./components/jobs/JobsListByFamilyComponent.vue'));
+Vue.component('jobs-list-by-specialty', require('./components/jobs/JobsListBySpecialtyComponent.vue'));
 Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
 
 Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));

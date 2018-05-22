@@ -6,11 +6,11 @@ use App\Models\Traits\FormattedDates;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Staff.
+ * Class Job.
  *
  * @package App\Tenant
  */
-class Staff extends Model
+class Job extends Model
 {
     use FormattedDates;
     
@@ -24,15 +24,15 @@ class Staff extends Model
     ];
 
     /**
-     * Get the staff type
+     * Get the job type
      */
     public function type()
     {
-        return $this->belongsTo(StaffType::class);
+        return $this->belongsTo(JobType::class);
     }
 
     /**
-     * Get the staff family
+     * Get the job family
      */
     public function family()
     {
@@ -40,7 +40,7 @@ class Staff extends Model
     }
 
     /**
-     * Get the staff specialty
+     * Get the job specialty
      */
     public function specialty()
     {
@@ -48,7 +48,7 @@ class Staff extends Model
     }
 
     /**
-     * Get the user associated to the staff.
+     * Get the user associated to the job.
      */
     public function user()
     {

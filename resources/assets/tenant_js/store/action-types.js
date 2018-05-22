@@ -12,7 +12,6 @@ export const SELECTED_USER = 'SELECTED_USER'
 export const STORE_USER = 'STORE_USER'
 export const DELETE_USER = 'DELETE_USER'
 
-
-// STAFF MODULE
-export const STORE_STAFF = 'STORE_STAFF'
-export const DELETE_STAFF = 'DELETE_STAFF'
+// JOBS MODULE
+export const STORE_JOB = 'STORE_JOB'
+export const DELETE_JOB = 'DELETE_JOB'

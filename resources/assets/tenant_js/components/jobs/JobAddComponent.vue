@@ -28,15 +28,15 @@
                                                 </v-flex>
                                                 <v-flex md2>
                                                     <v-select
-                                                            :items="staffTypes"
-                                                            v-model="staffType"
+                                                            :items="jobTypes"
+                                                            v-model="jobType"
                                                             item-text="name"
                                                             label="Tipus"
                                                             :clearable="true"
                                                             single-line
-                                                            :error-messages="staffTypeErrors"
-                                                            @input="$v.staffType.$touch()"
-                                                            @blur="$v.staffType.$touch()"
+                                                            :error-messages="jobTypeErrors"
+                                                            @input="$v.jobType.$touch()"
+                                                            @blur="$v.jobType.$touch()"
                                                             autocomplete
                                                     ></v-select>
                                                 </v-flex>
@@ -150,12 +150,12 @@
     mixins: [validationMixin, withSnackbar],
     validations: {
       code: {required, maxLength: maxLength(4)},
-      staffType: {required},
+      jobType: {required},
       family: {required: requiredIf((component) => {
-        return component.staffType.name === 'Professor/a'
+        return component.jobType.name === 'Professor/a'
       })},
       specialty: {required: requiredIf((component) => {
-        return component.staffType.name === 'Professor/a'
+        return component.jobType.name === 'Professor/a'
       })}
     },
     data () {
@@ -163,7 +163,7 @@
         error: false,
         errors: [],
         adding: false,
-        staffType: null,
+        jobType: null,
         specialty: null,
         code: '',
         family: null,
@@ -176,7 +176,7 @@
         type: String,
         required: true
       },
-      staffTypes: {
+      jobTypes: {
         type: Array,
         required: true
       },
@@ -195,7 +195,7 @@
     },
     computed: {
       isTeacher () {
-        return this.staffType && this.staffType.name === this.teacherType
+        return this.jobType && this.jobType.name === this.teacherType
       },
       codeErrors () {
         const errors = []
@@ -204,10 +204,10 @@
         !this.$v.code.required && errors.push('El codi és obligatori.')
         return errors
       },
-      staffTypeErrors () {
+      jobTypeErrors () {
         const errors = []
-        if (!this.$v.staffType.$dirty) return errors
-        !this.$v.staffType.required && errors.push('El tipus és obligatori.')
+        if (!this.$v.jobType.$dirty) return errors
+        !this.$v.jobType.required && errors.push('El tipus és obligatori.')
         return errors
       },
       familyErrors () {
@@ -227,8 +227,8 @@
       add () {
         if (!this.$v.$invalid) {
           this.adding = true
-          this.$store.dispatch(actions.STORE_STAFF, {
-            type: this.staffType.name,
+          this.$store.dispatch(actions.STORE_JOB, {
+            type: this.jobType.name,
             code: this.code,
             family: this.family && this.family.id,
             specialty: this.specialty && this.specialty.id,
@@ -255,7 +255,7 @@
       },
       clear () {
         this.code = null
-        this.staffType = null
+        this.jobType = null
         this.specialty = null
         this.family = null
         this.holder = null

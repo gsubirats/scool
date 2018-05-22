@@ -9,8 +9,8 @@ use App\Models\Menu;
 use App\Models\PendingTeacher;
 use App\Models\Position;
 use App\Models\Specialty;
-use App\Models\Staff;
-use App\Models\StaffType;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
@@ -612,16 +612,16 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('UsersManager');
         });
 
-        // STAFF
-        Gate::define('show-staff', function ($user) {
+        // STAFF/JOBS
+        Gate::define('show-jobs', function ($user) {
             return $user->hasRole('StaffManager');
         });
 
-        Gate::define('store-staff', function ($user) {
+        Gate::define('store-job', function ($user) {
             return $user->hasRole('StaffManager');
         });
 
-        Gate::define('delete-staff', function ($user) {
+        Gate::define('delete-job', function ($user) {
             return $user->hasRole('StaffManager');
         });
 
@@ -721,7 +721,7 @@ if (!function_exists('initialize_menus')) {
 
         Menu::firstOrCreate([
             'text' => 'Plantilla',
-            'href' => '/staff',
+            'href' => '/jobs',
             'role' => 'StaffManager'
         ]);
 
@@ -748,18 +748,18 @@ if (!function_exists('initialize_menus')) {
 
 
 
-if (!function_exists('initialize_staff_types')) {
-    function initialize_staff_types()
+if (!function_exists('initialize_job_types')) {
+    function initialize_job_types()
     {
-        StaffType::firstOrCreate([
+        JobType::firstOrCreate([
             'name' => 'Professor/a'
         ]);
 
-        StaffType::firstOrCreate([
+        JobType::firstOrCreate([
             'name' => 'Conserge'
         ]);
 
-        StaffType::firstOrCreate([
+        JobType::firstOrCreate([
             'name' => 'Administratiu/va'
         ]);
     }
@@ -806,9 +806,9 @@ if (!function_exists('initialize_administrative_assistants')) {
                 'sn1' => 'Vericat',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Administratiu/va')->id,
                     'code' => 'A1',
                     'order' => 1
                 ])
@@ -825,9 +825,9 @@ if (!function_exists('initialize_administrative_assistants')) {
                 'sn1' => 'Tomas',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Administratiu/va')->id,
                     'code' => 'A2',
                     'order' => 1
                 ])
@@ -844,9 +844,9 @@ if (!function_exists('initialize_administrative_assistants')) {
                 'sn1' => 'Garcia',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Administratiu/va')->id,
                     'code' => 'A3',
                     'order' => 1
                 ])
@@ -863,9 +863,9 @@ if (!function_exists('initialize_administrative_assistants')) {
                 'sn1' => 'Alegria',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Administratiu/va')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Administratiu/va')->id,
                     'code' => 'F4',
                     'order' => 1
                 ])
@@ -887,9 +887,9 @@ if (!function_exists('initialize_janitors')) {
                 'sn1' => 'Benaiges',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Conserge')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Conserge')->id,
                     'code' => 'C1',
                     'order' => 1
                 ])
@@ -906,9 +906,9 @@ if (!function_exists('initialize_janitors')) {
                 'sn1' => 'Caudet',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Conserge')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Conserge')->id,
                     'code' => 'C2',
                     'order' => 2
                 ])
@@ -925,9 +925,9 @@ if (!function_exists('initialize_janitors')) {
                 'sn1' => 'Agramunt',
                 'sn2' => '',
             ])
-            ->assignStaff(
-                Staff::firstOrCreate([
-                    'type_id' => StaffType::findByName('Conserge')->id,
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Conserge')->id,
                     'code' => 'C3',
                     'order' => 3
                 ])
@@ -949,9 +949,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sanjuan',
             'sn2' => 'Aubà',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('CAS')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '002',
@@ -974,9 +974,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Bordes',
             'sn2' => 'Vidal',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('524')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '028',
@@ -997,9 +997,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Llopis',
             'sn2' => 'Lozano',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '029',
@@ -1020,9 +1020,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Favà',
             'sn2' => 'Figueres',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '030',
@@ -1043,9 +1043,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Baubí',
             'sn2' => 'Rovira',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '031',
@@ -1066,9 +1066,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Cid',
             'sn2' => 'Castellar',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('513')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '116',
@@ -1089,9 +1089,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Puig',
             'sn2' => 'Rios',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('602')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '032',
@@ -1112,9 +1112,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ferré',
             'sn2' => 'Menasanch',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('602')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '033',
@@ -1135,9 +1135,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Canalda',
             'sn2' => 'Vidal',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('605')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '034',
@@ -1158,9 +1158,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Bel',
             'sn2' => 'Fernández',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '035',
@@ -1181,9 +1181,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Colomé',
             'sn2' => 'Monllao',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '036',
@@ -1204,9 +1204,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Portillo',
             'sn2' => 'Lucas',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
                 'code' => '037',
@@ -1227,9 +1227,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Valls',
             'sn2' => 'Montagut',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '064',
@@ -1250,9 +1250,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Benaiges',
             'sn2' => 'Bertomeu',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '065',
@@ -1273,9 +1273,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Figueres',
             'sn2' => 'Brescolí',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '067',
@@ -1296,9 +1296,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Cugat',
             'sn2' => 'Tomàs',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '066',
@@ -1319,9 +1319,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Safont',
             'sn2' => 'Recatalà',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '062',
@@ -1342,9 +1342,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sales',
             'sn2' => 'Berire',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '060',
@@ -1365,9 +1365,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Asensi',
             'sn2' => 'Moltalva',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '061',
@@ -1388,9 +1388,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'López',
             'sn2' => 'Garcia',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '063',
@@ -1411,9 +1411,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ventura',
             'sn2' => 'Forner',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '069',
@@ -1434,9 +1434,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pons',
             'sn2' => 'Albalat',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '070',
@@ -1457,9 +1457,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Fàbrega',
             'sn2' => 'Martínez',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '071',
@@ -1480,9 +1480,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Benabent',
             'sn2' => 'Gil',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '072',
@@ -1503,9 +1503,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Salvador',
             'sn2' => 'Jovaní',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '068',
@@ -1526,9 +1526,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Caballé',
             'sn2' => 'Valverde',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '074',
@@ -1549,9 +1549,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ramón',
             'sn2' => 'Pérez',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '073',
@@ -1572,9 +1572,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Puig',
             'sn2' => 'Moll',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '075',
@@ -1595,9 +1595,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Hidalgo',
             'sn2' => 'Vilar',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '076',
@@ -1618,9 +1618,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sambartolomé',
             'sn2' => 'Sancho',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '077',
@@ -1641,9 +1641,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Mestre',
             'sn2' => 'Escrihuela',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '078',
@@ -1664,9 +1664,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Tomas',
             'sn2' => 'Forcadell',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '080',
@@ -1687,9 +1687,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pérez',
             'sn2' => 'López',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'code' => '081',
@@ -1710,9 +1710,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Royo',
             'sn2' => 'Cruselles',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '082',
@@ -1733,9 +1733,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Maturana',
             'sn2' => 'Andreu',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '084',
@@ -1756,9 +1756,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Cabó',
             'sn2' => 'Bertomeu',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '085',
@@ -1779,9 +1779,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Gilo',
             'sn2' => 'Ortiz',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '086',
@@ -1802,9 +1802,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Cardona',
             'sn2' => 'Romero',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '087',
@@ -1825,9 +1825,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Gàmez',
             'sn2' => 'Balaguer',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '088',
@@ -1848,9 +1848,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Garrido',
             'sn2' => 'Borja',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '089',
@@ -1871,9 +1871,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Gamundi',
             'sn2' => 'Vilà',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '090',
@@ -1894,9 +1894,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Gonzalez',
             'sn2' => 'Castelló',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '091',
@@ -1917,9 +1917,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Mauri',
             'sn2' => 'Cuenca',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '092',
@@ -1940,9 +1940,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Alegre',
             'sn2' => 'Chavarria',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '093',
@@ -1963,9 +1963,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Alegre',
             'sn2' => 'Chavarria',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
                 'code' => '108',
@@ -1986,9 +1986,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Samo',
             'sn2' => 'Franch',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '014',
@@ -2009,9 +2009,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Garcia',
             'sn2' => 'Carcelén',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '015',
@@ -2032,9 +2032,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ralda',
             'sn2' => 'Simó',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '016',
@@ -2055,9 +2055,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Nuez',
             'sn2' => 'Garcia',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '017',
@@ -2078,9 +2078,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ubalde',
             'sn2' => 'Bellot',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '018',
@@ -2101,9 +2101,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pinyol',
             'sn2' => 'Moreso',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '019',
@@ -2124,9 +2124,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Subirats',
             'sn2' => 'Fabra',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '020',
@@ -2147,9 +2147,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sabaté',
             'sn2' => 'Borras',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '021',
@@ -2170,9 +2170,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Esteller',
             'sn2' => 'Hierro',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '022',
@@ -2193,9 +2193,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Santamaria',
             'sn2' => 'Andreu',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
                 'code' => '023',
@@ -2216,9 +2216,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Moreso',
             'sn2' => 'Garcia',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '024',
@@ -2239,9 +2239,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Vega',
             'sn2' => 'Guerra',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '025',
@@ -2262,9 +2262,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ferreres',
             'sn2' => 'Gasulla',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '106',
@@ -2285,9 +2285,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Abad',
             'sn2' => 'Bueno',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '107',
@@ -2308,9 +2308,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pérez',
             'sn2' => 'Santiago',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '026',
@@ -2331,9 +2331,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pons',
             'sn2' => 'Roda',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '027',
@@ -2354,9 +2354,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Pons',
             'sn2' => 'Roda',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
                 'code' => '105',
@@ -2377,9 +2377,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Grau',
             'sn2' => 'Ferrer',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('522')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '094',
@@ -2400,9 +2400,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Domenech',
             'sn2' => 'Vendrell',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('623')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '095',
@@ -2423,9 +2423,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Fernández',
             'sn2' => 'Herraez',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('623')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '096',
@@ -2446,9 +2446,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Moreno',
             'sn2' => 'Dionis',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
                 'code' => '097',
@@ -2469,9 +2469,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sabaté',
             'sn2' => 'Sanz',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '038',
@@ -2492,9 +2492,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Varas',
             'sn2' => 'Aliau',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '039',
@@ -2515,9 +2515,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Tur',
             'sn2' => 'Badenas',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '040',
@@ -2538,9 +2538,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ramos',
             'sn2' => 'Prades',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '041',
@@ -2561,9 +2561,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Lorente',
             'sn2' => 'Fuertes',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '046',
@@ -2584,9 +2584,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Verge',
             'sn2' => 'Arnau',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '117',
@@ -2607,9 +2607,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Consarnau',
             'sn2' => 'Pallarés',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '042',
@@ -2630,9 +2630,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Macías',
             'sn2' => 'Valanzuela',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '043',
@@ -2653,9 +2653,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Cervellera',
             'sn2' => 'Forcadell',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
                 'code' => '045',
@@ -2676,9 +2676,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Calderon',
             'sn2' => 'Furió',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '051',
@@ -2699,9 +2699,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Jareño',
             'sn2' => 'Gas',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '052',
@@ -2722,9 +2722,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Brau',
             'sn2' => 'Marza',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '053',
@@ -2745,9 +2745,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Tiron',
             'sn2' => 'Ferré',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '054',
@@ -2768,9 +2768,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Fernandez',
             'sn2' => 'Burato',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '055',
@@ -2791,9 +2791,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Arroyo',
             'sn2' => 'Martínez',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '056',
@@ -2814,9 +2814,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Segura',
             'sn2' => 'Venezia',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '057',
@@ -2837,9 +2837,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Besalduch',
             'sn2' => 'Piñol',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '058',
@@ -2860,9 +2860,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Segarra',
             'sn2' => 'Capera',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '059',
@@ -2883,9 +2883,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Ferri',
             'sn2' => 'Marzo',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '049',
@@ -2906,9 +2906,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Sanchez',
             'sn2' => 'Bel',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
                 'code' => '050',
@@ -2929,9 +2929,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Rofí',
             'sn2' => 'Estelles',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('504')->id,
                 'family_id' => Family::findByCode('EDIFIC')->id,
                 'code' => '047',
@@ -2952,9 +2952,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Guerrero',
             'sn2' => 'López',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('612')->id,
                 'family_id' => Family::findByCode('EDIFIC')->id,
                 'code' => '048',
@@ -2975,9 +2975,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Lasala',
             'sn2' => 'Descarrega',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '009',
@@ -2998,9 +2998,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Andreu',
             'sn2' => 'Pons',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '010',
@@ -3021,9 +3021,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Brocal',
             'sn2' => 'Safont',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '011',
@@ -3044,9 +3044,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Fadurdo',
             'sn2' => 'Estrada',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '012',
@@ -3067,9 +3067,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Querol',
             'sn2' => 'Bel',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '013',
@@ -3090,9 +3090,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Grau',
             'sn2' => 'Campeón',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
                 'code' => '003',
@@ -3113,9 +3113,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Jordà',
             'sn2' => 'Cabaces',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '004',
@@ -3136,9 +3136,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Querol',
             'sn2' => 'Coll',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '005',
@@ -3159,9 +3159,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Melich',
             'sn2' => 'Cañado',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '006',
@@ -3182,9 +3182,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Aznar',
             'sn2' => 'Pedret',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '007',
@@ -3205,9 +3205,9 @@ if (!function_exists('initialize_teachers')) {
             'sn1' => 'Curto',
             'sn2' => 'De la Vega',
         ])
-        ->assignStaff(
-            Staff::firstOrCreate([
-                'type_id' => StaffType::findByName('Professor/a')->id,
+        ->assignJob(
+            Job::firstOrCreate([
+                'type_id' => JobType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('MA')->id,
                 'family_id' => Family::findByCode('CA')->id,
                 'code' => '008',

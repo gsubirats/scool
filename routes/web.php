@@ -67,7 +67,7 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
             Route::get('/users', 'Tenant\UsersController@show');
 
-            Route::get('/staff', 'Tenant\StaffController@show');
+            Route::get('/jobs', 'Tenant\JobsController@show');
 
             Route::get('/teachers', 'Tenant\TeachersController@show');
 

@@ -3,16 +3,16 @@
 namespace Tests\Unit\Tenants;
 
 use App\Console\Kernel;
-use App\Models\StaffType;
+use App\Models\JobType;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class StaffTypeTest.
+ * Class JobTypeTest.
  *
  * @package Tests\Unit
  */
-class StaffTypeTest extends TestCase
+class JobTypeTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -33,11 +33,11 @@ class StaffTypeTest extends TestCase
     /** @test */
     public function find_staff_type_by_name()
     {
-        $this->assertNull(StaffType::findByName('Administratiu/va'));
-        $type = StaffType::firstOrCreate([
+        $this->assertNull(JobType::findByName('Administratiu/va'));
+        $type = JobType::firstOrCreate([
             'name' => 'Administratiu/va'
         ]);
 
-        $this->assertTrue($type->is(StaffType::findByName('Administratiu/va')));
+        $this->assertTrue($type->is(JobType::findByName('Administratiu/va')));
     }
 }

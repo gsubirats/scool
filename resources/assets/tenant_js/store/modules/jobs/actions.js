@@ -1,24 +1,24 @@
 import * as mutations from '../../mutation-types'
 import * as actions from '../../action-types'
-import api from '../../../api/staff'
+import api from '../../../api/jobs'
 
 export default {
-  [ actions.STORE_STAFF ] (context, staff) {
+  [ actions.STORE_JOB ] (context, job) {
     return new Promise((resolve, reject) => {
-      api.store(staff).then(response => {
+      api.store(job).then(response => {
         console.log('STHJI')
         console.log(response.data)
-        context.commit(mutations.ADD_STAFF, response.data)
+        context.commit(mutations.ADD_JOB, response.data)
         resolve(response)
       }).catch(error => {
         reject(error)
       })
     })
   },
-  [ actions.DELETE_STAFF ] (context, staff) {
+  [ actions.DELETE_JOB ] (context, job) {
     return new Promise((resolve, reject) => {
-      api.delete(staff).then(response => {
-        context.commit(mutations.DELETE_STAFF, staff)
+      api.delete(job).then(response => {
+        context.commit(mutations.DELETE_JOB, job)
         resolve(response)
       }).catch(error => {
         reject(error)

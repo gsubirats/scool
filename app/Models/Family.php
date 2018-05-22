@@ -30,6 +30,6 @@ class Family extends Model
      */
     public function staff()
     {
-        return $this->hasMany(Staff::class);
+        return $this->hasMany(Job::class);
     }
 }

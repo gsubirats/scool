@@ -26,11 +26,11 @@ class Specialty extends Model
     }
 
     /**
-     * Get the staff associated to the family.
+     * Get the job associated to the family.
      */
-    public function staff()
+    public function job()
     {
-        return $this->hasMany(Staff::class);
+        return $this->hasMany(Job::class);
     }
 
     /**

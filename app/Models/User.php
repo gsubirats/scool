@@ -99,22 +99,22 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the staffs for the user.
+     * Get the jobs for the user.
      */
-    public function staffs()
+    public function jobs()
     {
-        return $this->hasMany(Staff::class);
+        return $this->hasMany(Job::class);
     }
 
     /**
-     * Assign staff.
+     * Assign job.
      *
-     * @param $staff
+     * @param $job
      * @return $this
      */
-    public function assignStaff($staff)
+    public function assignJob($job)
     {
-        $this->staffs()->save($staff);
+        $this->jobs()->save($job);
         return $this;
     }
 
@@ -158,10 +158,10 @@ class User extends Authenticatable
     public function scopeTeachers($query)
     {
         return $query->role('Teacher')
-            ->whereHas('staffs', function ($query) {
-                $query->where('type_id','=',StaffType::findByName('Professor/a')->id);
-            })->whereHas('staffs', function ($query) {
-                $query->where('type_id','=',StaffType::findByName('Professor/a')->id);
+            ->whereHas('jobs', function ($query) {
+                $query->where('type_id','=',JobType::findByName('Professor/a')->id);
+            })->whereHas('jobs', function ($query) {
+                $query->where('type_id','=',JobType::findByName('Professor/a')->id);
         });
     }
 

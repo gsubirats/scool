@@ -27,9 +27,9 @@
                                     </v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
-                            <v-list-tile v-for="staff in family.staff" :key="staff.id">
+                            <v-list-tile v-for="job in family.jobs" :key="job.id">
                                 <v-list-tile-content>
-                                    <v-list-tile-title>{{ staff.specialty && staff.specialty.code }} | {{ staff.specialty && staff.specialty.name }}</v-list-tile-title>
+                                    <v-list-tile-title>{{ job.specialty && job.specialty.code }} | {{ job.specialty && job.specialty.name }}</v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
                         </v-list-group>

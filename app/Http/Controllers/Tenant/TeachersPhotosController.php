@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Tenant;
 use App\Events\TeacherPhotosUploaded;
 use App\Http\Requests\ShowTeachersPhotosManagment;
 use App\Http\Requests\StoreTeachersPhotosManagment;
-use App\Models\StaffType;
+use App\Models\JobType;
 use App\Models\Teacher;
-use App\Models\User;
-use Illuminate\Support\Facades\File;
 use Storage;
 
 /**

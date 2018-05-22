@@ -3,7 +3,7 @@
 namespace Tests\Unit\Tenants;
 
 use App\Console\Kernel;
-use App\Models\Staff;
+use App\Models\Job;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,7 +34,7 @@ class StaffTest extends TestCase
     /** @test */
     function can_get_formatted_created_at_date()
     {
-        $staff = Staff::create([
+        $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
             'created_at' => Carbon::parse('2016-12-01 8:00pm'),
@@ -48,7 +48,7 @@ class StaffTest extends TestCase
     /** @test */
     function can_get_formatted_updated_at_date()
     {
-        $staff = Staff::create([
+        $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
             'updated_at' => Carbon::parse('2016-12-01 8:00pm'),
@@ -62,7 +62,7 @@ class StaffTest extends TestCase
     /** @test */
     function can_get_formatted_created_at_date_diff()
     {
-        $staff = Staff::create([
+        $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
             'created_at' => Carbon::now()->subMonth(),
@@ -76,7 +76,7 @@ class StaffTest extends TestCase
     /** @test */
     function can_get_formatted_updated_at_date_diff()
     {
-        $staff = Staff::create([
+        $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
             'updated_at' => Carbon::now()->subMonth(),

@@ -53,7 +53,7 @@ class TeachersPhotosControllerTest extends BaseTenantTest
     {
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
-        initialize_staff_types();
+        initialize_job_types();
         initialize_forces();
         initialize_families();
         initialize_specialities();
