@@ -32,21 +32,26 @@
                                         <td class="text-xs-left">{{ teacher.code }}</td>
                                         <td class="text-xs">
                                             <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + teacher.user.hashid + '/photo'" :alt="teacher.name">
+                                                <img :src="'/user/' + teacher.user.hashid + '/photo'" :alt="teacher.user.name" :title="teacher.user.name">
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            TODO name
+                                            <span :title="teacher.user.email">{{ name(teacher) }}</span>
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ teacher.user.name }}
+                                            <span :title="specialtyName(teacher)">{{specialtyCode(teacher)}}</span>
                                         </td>
-                                        <td class="text-xs-left">{{ teacher.user.email }}</td>
+                                        <td class="text-xs-left">
+                                            <span :title="familyName(teacher)">{{familyCode(teacher)}}</span>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <span :title="administrativeStatusName(teacher)">{{administrativeStatusCode(teacher)}}</span>
+                                        </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             {{ showTeacherStaff(teacher) }}
                                         </td>
-                                        <td class="text-xs-left">{{ teacher.created_at }}</td>
-                                        <td class="text-xs-left">{{ teacher.updated_at }}</td>
+                                        <td class="text-xs-left" v-html="teacher.created_at"></td>
+                                        <td class="text-xs-left" v-html="teacher.updated_at"></td>
                                         <td class="text-xs-left">
 
                                             <show-teacher-icon :teacher="teacher"></show-teacher-icon>
@@ -137,10 +142,11 @@
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
           {text: 'Codi', value: 'user.code'},
-          {text: 'Photo', value: 'photo'},
-          {text: 'Name', value: 'name'},
-          {text: 'UserName', value: 'username'},
-          {text: 'Email', value: 'email'},
+          {text: 'Foto', value: 'photo'},
+          {text: 'Nom', value: 'name'},
+          {text: 'Especialitat', value: 'username'},
+          {text: 'Familia', value: 'email'},
+          {text: 'Estatus', value: 'todo'},
           {text: 'Plaça', value: 'roles'},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
@@ -160,6 +166,29 @@
       }
     },
     methods: {
+      specialtyCode (teacher) {
+        if (teacher.specialty) {
+          return teacher.specialty.code
+        }
+      },
+      specialtyName (teacher) {
+        if (teacher.specialty) {
+          return teacher.specialty.name
+        }
+      },
+      familyCode (teacher) {
+        if (teacher.specialty && teacher.specialty.family) {
+          return teacher.specialty.family.code
+        }
+      },
+      familyName (teacher) {
+        if (teacher.specialty && teacher.specialty.family) {
+          return teacher.specialty.family.name
+        }
+      },
+      name (teacher) {
+        return teacher.user.person.sn1 + ' ' + teacher.user.person.sn2 + ', ' + teacher.user.person.givenName
+      },
       showTeacherStaff (teacher) {
         return teacher.user.staffs[0]
       }

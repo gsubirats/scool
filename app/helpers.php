@@ -3189,31 +3189,38 @@ if (!function_exists('initialize_administrative_statuses')) {
     function initialize_administrative_statuses()
     {
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Funcionari/a amb plaça definitiva'
+            'name' => 'Funcionari/a amb plaça definitiva',
+            'code' => 'Funcionari DEF'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Funcionari/a propietari provisional'
+            'name' => 'Funcionari/a propietari provisional',
+            'code' => 'Funcionari PROV'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Funcionari/a en pràctiques'
+            'name' => 'Funcionari/a en pràctiques',
+            'code' => 'Funcionari PRAC'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Comissió de serveis'
+            'name' => 'Comissió de serveis',
+            'code' => 'COMISSIÓ'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Interí/na'
+            'name' => 'Interí/na',
+            'code' => 'INTERÍ'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Substitut/a'
+            'name' => 'Substitut/a',
+            'code' => 'SUBSTITUT'
         ]);
 
         AdministrativeStatus::firstOrCreate([
-            'name' => 'Expert/a'
+            'name' => 'Expert/a',
+            'code' => 'EXPERT'
         ]);
     }
 }

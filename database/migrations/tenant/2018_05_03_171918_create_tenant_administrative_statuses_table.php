@@ -19,6 +19,7 @@ class CreateTenantAdministrativeStatusesTable extends Migration
         Schema::create('administrative_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
