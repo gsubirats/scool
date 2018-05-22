@@ -7,6 +7,7 @@ use App\Models\Force;
 use App\Models\IdentifierType;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
+use App\Models\Position;
 use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\StaffType;
@@ -3326,6 +3327,21 @@ if (!function_exists('initialize_administrative_statuses')) {
             'name' => 'Expert/a',
             'code' => 'EXPERT'
         ]);
+    }
+}
+
+if (!function_exists('initialize_positions')) {
+    function initialize_positions()
+    {
+        Position::firstOrCreate([
+            'name' => 'Coordinador TIC/TAC',
+        ]);
+
+        Position::firstOrCreate([
+            'name' => 'Director',
+        ]);
+
+        // TODO
     }
 }
 

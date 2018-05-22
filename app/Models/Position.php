@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Force.
+ * Class Position.
  *
  * @package App\Models
  */
-class Force extends Model
+class Position extends Model
 {
     protected $guarded = [];
 
     /**
-     * Find by code.
+     * Find by name.
      *
-     * @param $code
+     * @param $name
      * @return mixed
      */
-    public static function findByCode($code)
+    public static function findByName($name)
     {
-        return static::where('code','=',$code)->first();
+        return static::where('name','=',$name)->first();
     }
 }
