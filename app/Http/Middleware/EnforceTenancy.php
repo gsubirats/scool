@@ -26,7 +26,7 @@ class EnforceTenancy
             return $next($request);
         }
         Config::set('database.default', 'tenant');
-        Config::set('app.url', 'http://' . $request->tenant . '.scool.acacha.test');
+        Config::set('app.url', 'http://' . $request->tenant . '.' . config('app.domain','scool.test'));
         return $next($request);
     }
 }
