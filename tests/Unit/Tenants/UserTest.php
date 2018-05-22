@@ -9,6 +9,7 @@ use App\Models\Force;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
+use App\Models\Position;
 use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Staff;
@@ -558,7 +559,19 @@ class UserTest extends TestCase
         $this->assertEquals($user2->teacher->data_incorporacio_centre, '2009-09-01 00:00:00');
         $this->assertEquals($user2->teacher->data_superacio_oposicions, 'Juny 2008');
         $this->assertInstanceOf(User::class,$result);
+    }
 
+    /** @test */
+    public function can_assign_position()
+    {
+        $user = factory(User::class)->create();
+        $this->assertCount(0,$user->positions);
+        $result = $user->assignPosition(Position::firstOrCreate([
+            'name' => 'Director/a'
+        ]));
+        $user = $user->fresh();
+        $this->assertCount(1, $user->positions);
+        $this->assertInstanceOf(User::class,$result);
     }
 
 }

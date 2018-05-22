@@ -378,4 +378,24 @@ class User extends Authenticatable
 
         return $this;
     }
+
+    /**
+     * The positions that belong to the user.
+     */
+    public function positions()
+    {
+        return $this->belongsToMany(Position::class);
+    }
+
+    /**
+     * Assignar una posició a un usuari
+     *
+     * @param $position
+     * @return $this
+     */
+    public function assignPosition($position)
+    {
+        $this->positions()->save($position);
+        return $this;
+    }
 }
