@@ -53,6 +53,7 @@ class StaffController extends Controller
             'specialty_id' => $request->specialty,
             'family_id' => $request->family,
             'user_id' => $request->holder,
+            'order' => $request->order,
             'notes' => $request->notes
         ])->load('type','specialty','family','user');
     }

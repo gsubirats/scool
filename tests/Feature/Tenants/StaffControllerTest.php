@@ -87,6 +87,7 @@ class StaffControllerTest extends BaseTenantTest
             'family' => 1,
             'specialty' => 1,
             'holder' => 1,
+            'order' => 1,
             'notes' => 'Prova a veure que tal'
         ]);
         $response->assertSuccessful();
@@ -150,7 +151,6 @@ class StaffControllerTest extends BaseTenantTest
     /** @test */
     public function remove_staff()
     {
-        $this->withoutExceptionHandling();
         initialize_staff_types();
         initialize_forces();
         initialize_families();
@@ -166,6 +166,7 @@ class StaffControllerTest extends BaseTenantTest
             'type_id' => $type = StaffType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
+            'order' => 1,
             'user_id' => 1,
             'notes' => 'bla bla bla'
         ]);
@@ -202,6 +203,7 @@ class StaffControllerTest extends BaseTenantTest
             'type_id' => StaffType::findByName('Professor/a')->id,
             'specialty_id' => 1,
             'family_id' => 1,
+            'order' => 1,
             'user_id' => 1,
             'notes' => 'bla bla bla'
         ]);

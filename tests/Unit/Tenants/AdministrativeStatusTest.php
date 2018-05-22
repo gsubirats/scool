@@ -45,7 +45,8 @@ class AdministrativeStatusTest extends TestCase
         $this->assertNull(AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva'));
 
         $status = AdministrativeStatus::create([
-            'name' => 'Funcionari/a amb plaça definitiva'
+            'name' => 'Funcionari/a amb plaça definitiva',
+            'code' => 'FUNCIONARI DEF'
         ]);
 
         $this->assertTrue($status->is(AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva')));

@@ -145,6 +145,7 @@ class UserTest extends TestCase
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
+                'order' => 1
             ]));
         $user = $user->fresh();
         $this->assertCount(1,$user->staffs);
@@ -475,7 +476,8 @@ class UserTest extends TestCase
     public function can_assign_teacher_data()
     {
         AdministrativeStatus::create([
-            'name' => 'Funcionari/a amb plaça definitiva'
+            'name' => 'Funcionari/a amb plaça definitiva',
+            'code' => 'FUNCIONARI DEF'
         ]);
         $definitiu = AdministrativeStatus::findByName('Funcionari/a amb plaça definitiva');
 
