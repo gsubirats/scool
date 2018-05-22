@@ -22,6 +22,5 @@ class AdministrativeStatus extends Model
     public static function findByName($name)
     {
         return static::where('name','=',$name)->first();
-
     }
 }

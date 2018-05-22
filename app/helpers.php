@@ -792,7 +792,8 @@ if (!function_exists('initialize_administrative_assistants')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
-                    'code' => 'A1'
+                    'code' => 'A1',
+                    'order' => 1
                 ])
             );
 
@@ -810,7 +811,8 @@ if (!function_exists('initialize_administrative_assistants')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
-                    'code' => 'A2'
+                    'code' => 'A2',
+                    'order' => 1
                 ])
             );
 
@@ -828,7 +830,8 @@ if (!function_exists('initialize_administrative_assistants')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
-                    'code' => 'A3'
+                    'code' => 'A3',
+                    'order' => 1
                 ])
             );
 
@@ -846,7 +849,8 @@ if (!function_exists('initialize_administrative_assistants')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Administratiu/va')->id,
-                    'code' => 'F4'
+                    'code' => 'F4',
+                    'order' => 1
                 ])
             );
     }
@@ -869,7 +873,8 @@ if (!function_exists('initialize_janitors')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
-                    'code' => 'C1'
+                    'code' => 'C1',
+                    'order' => 1
                 ])
             );
 
@@ -887,7 +892,8 @@ if (!function_exists('initialize_janitors')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
-                    'code' => 'C2'
+                    'code' => 'C2',
+                    'order' => 2
                 ])
             );
 
@@ -905,7 +911,8 @@ if (!function_exists('initialize_janitors')) {
             ->assignStaff(
                 Staff::firstOrCreate([
                     'type_id' => StaffType::findByName('Conserge')->id,
-                    'code' => 'C3'
+                    'code' => 'C3',
+                    'order' => 3
                 ])
             );
     }
@@ -930,7 +937,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('CAS')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '002'
+                'code' => '002',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
             'code' => '002'
@@ -952,7 +960,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('524')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '028'
+                'code' => '028',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '028'
@@ -974,10 +983,11 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '029'
+                'code' => '029',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
-                'code' => '029'
+                'code' => '029',
             ]));
 
         User::createIfNotExists([
@@ -996,7 +1006,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '030'
+                'code' => '030',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '030'
@@ -1018,7 +1029,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('525')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '031'
+                'code' => '031',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '031'
@@ -1040,7 +1052,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('513')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '116'
+                'code' => '116',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '116'
@@ -1062,7 +1075,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('602')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '032'
+                'code' => '032',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '032'
@@ -1084,7 +1098,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('602')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '033'
+                'code' => '033',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '033'
@@ -1106,7 +1121,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('605')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '034'
+                'code' => '034',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '034'
@@ -1128,7 +1144,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '035'
+                'code' => '035',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '035'
@@ -1150,7 +1167,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '036'
+                'code' => '036',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '036'
@@ -1172,7 +1190,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('606')->id,
                 'family_id' => Family::findByCode('ELECTRIC')->id,
-                'code' => '037'
+                'code' => '037',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '037'
@@ -1194,7 +1213,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '064'
+                'code' => '064',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '064'
@@ -1216,7 +1236,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '065'
+                'code' => '065',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '065'
@@ -1238,7 +1259,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '067'
+                'code' => '067',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '067'
@@ -1260,7 +1282,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('517')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '066'
+                'code' => '066',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '066'
@@ -1282,7 +1305,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '062'
+                'code' => '062',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '062'
@@ -1304,7 +1328,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '060'
+                'code' => '060',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '060'
@@ -1326,7 +1351,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '061'
+                'code' => '061',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '061'
@@ -1348,7 +1374,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('518')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '063'
+                'code' => '063',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '063'
@@ -1370,7 +1397,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '069'
+                'code' => '069',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '069'
@@ -1392,7 +1420,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '070'
+                'code' => '070',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '070'
@@ -1414,7 +1443,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '071'
+                'code' => '071',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '071'
@@ -1436,7 +1466,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '072'
+                'code' => '072',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '072'
@@ -1458,7 +1489,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('619')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '068'
+                'code' => '068',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '068'
@@ -1480,7 +1512,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '074'
+                'code' => '074',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '074'
@@ -1502,7 +1535,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '073'
+                'code' => '073',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '073'
@@ -1524,7 +1558,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '075'
+                'code' => '075',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '075'
@@ -1546,7 +1581,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '076'
+                'code' => '076',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '076'
@@ -1568,7 +1604,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '077'
+                'code' => '077',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '077'
@@ -1590,7 +1627,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '078'
+                'code' => '078',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '078'
@@ -1612,7 +1650,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '080'
+                'code' => '080',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '080'
@@ -1634,7 +1673,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('620')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
-                'code' => '081'
+                'code' => '081',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '081'
@@ -1656,7 +1696,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '082'
+                'code' => '082',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '082'
@@ -1678,7 +1719,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '084'
+                'code' => '084',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '084'
@@ -1700,7 +1742,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '085'
+                'code' => '085',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '085'
@@ -1722,7 +1765,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('508')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '086'
+                'code' => '086',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '086'
@@ -1744,7 +1788,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '087'
+                'code' => '087',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '087'
@@ -1766,7 +1811,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '088'
+                'code' => '088',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '088'
@@ -1788,7 +1834,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '089'
+                'code' => '089',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '089'
@@ -1810,7 +1857,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '090'
+                'code' => '090',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '090'
@@ -1832,7 +1880,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '091'
+                'code' => '091',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '091'
@@ -1854,7 +1903,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '092'
+                'code' => '092',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '092'
@@ -1876,7 +1926,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '093'
+                'code' => '093',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '093'
@@ -1898,7 +1949,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('625')->id,
                 'family_id' => Family::findByCode('SERVEIS')->id,
-                'code' => '108'
+                'code' => '108',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '108'
@@ -1920,7 +1972,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '014'
+                'code' => '014',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '014'
@@ -1942,7 +1995,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '015'
+                'code' => '015',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '015'
@@ -1964,7 +2018,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '016'
+                'code' => '016',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '016'
@@ -1986,7 +2041,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '017'
+                'code' => '017',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '017'
@@ -2008,7 +2064,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('501')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '018'
+                'code' => '018',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '018'
@@ -2030,7 +2087,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '019'
+                'code' => '019',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '019'
@@ -2052,7 +2110,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '020'
+                'code' => '020',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '020'
@@ -2074,7 +2133,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '021'
+                'code' => '021',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '021'
@@ -2096,7 +2156,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '022'
+                'code' => '022',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '022'
@@ -2118,7 +2179,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('622')->id,
                 'family_id' => Family::findByCode('ADMIN')->id,
-                'code' => '023'
+                'code' => '023',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '023'
@@ -2140,7 +2202,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '024'
+                'code' => '024',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '024'
@@ -2162,7 +2225,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '025'
+                'code' => '025',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '025'
@@ -2184,7 +2248,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '106'
+                'code' => '106',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '106'
@@ -2206,7 +2271,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('510')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '107'
+                'code' => '107',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '107'
@@ -2228,7 +2294,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '026'
+                'code' => '026',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '026'
@@ -2250,7 +2317,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '027'
+                'code' => '027',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '027'
@@ -2272,7 +2340,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('COMERÇ')->id,
-                'code' => '105'
+                'code' => '105',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '105'
@@ -2294,7 +2363,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('522')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
-                'code' => '094'
+                'code' => '094',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '094'
@@ -2316,7 +2386,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('623')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
-                'code' => '095'
+                'code' => '095',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '095'
@@ -2338,7 +2409,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('623')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
-                'code' => '096'
+                'code' => '096',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '096'
@@ -2360,7 +2432,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('621')->id,
                 'family_id' => Family::findByCode('ARTS')->id,
-                'code' => '097'
+                'code' => '097',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '097'
@@ -2382,7 +2455,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '038'
+                'code' => '038',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '038'
@@ -2404,7 +2478,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '039'
+                'code' => '039',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '039'
@@ -2426,7 +2501,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '040'
+                'code' => '040',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '040'
@@ -2448,7 +2524,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '041'
+                'code' => '041',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '041'
@@ -2470,7 +2547,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '046'
+                'code' => '046',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '046'
@@ -2492,7 +2570,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '117'
+                'code' => '117',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '117'
@@ -2514,7 +2593,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '042'
+                'code' => '042',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '042'
@@ -2536,7 +2616,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '043'
+                'code' => '043',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '043'
@@ -2558,7 +2639,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('627')->id,
                 'family_id' => Family::findByCode('INF')->id,
-                'code' => '045'
+                'code' => '045',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '045'
@@ -2580,7 +2662,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '051'
+                'code' => '051',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '051'
@@ -2602,7 +2685,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '052'
+                'code' => '052',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '052'
@@ -2624,7 +2708,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('512')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '053'
+                'code' => '053',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '053'
@@ -2646,7 +2731,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '054'
+                'code' => '054',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '054'
@@ -2668,7 +2754,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '055'
+                'code' => '055',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '055'
@@ -2690,7 +2777,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '056'
+                'code' => '056',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '056'
@@ -2712,7 +2800,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '057'
+                'code' => '057',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '057'
@@ -2734,7 +2823,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '058'
+                'code' => '058',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '058'
@@ -2756,7 +2846,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '059'
+                'code' => '059',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '059'
@@ -2778,7 +2869,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '049'
+                'code' => '049',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '049'
@@ -2800,7 +2892,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('611')->id,
                 'family_id' => Family::findByCode('FABRIC')->id,
-                'code' => '050'
+                'code' => '050',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '050'
@@ -2822,7 +2915,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('504')->id,
                 'family_id' => Family::findByCode('EDIFIC')->id,
-                'code' => '047'
+                'code' => '047',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '047'
@@ -2844,7 +2938,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('612')->id,
                 'family_id' => Family::findByCode('EDIFIC')->id,
-                'code' => '048'
+                'code' => '048',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '048'
@@ -2866,7 +2961,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '009'
+                'code' => '009',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '009'
@@ -2888,7 +2984,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '010'
+                'code' => '010',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '010'
@@ -2910,7 +3007,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '011'
+                'code' => '011',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '011'
@@ -2932,7 +3030,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '012'
+                'code' => '012',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '012'
@@ -2954,7 +3053,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '013'
+                'code' => '013',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '013'
@@ -2976,7 +3076,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('505')->id,
                 'family_id' => Family::findByCode('FOL')->id,
-                'code' => '003'
+                'code' => '003',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '003'
@@ -2998,7 +3099,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '004'
+                'code' => '004',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '004'
@@ -3020,7 +3122,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '005'
+                'code' => '005',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '005'
@@ -3042,7 +3145,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '006'
+                'code' => '006',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '006'
@@ -3064,7 +3168,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('AN')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '007'
+                'code' => '007',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '007'
@@ -3086,7 +3191,8 @@ if (!function_exists('initialize_teachers')) {
                 'type_id' => StaffType::findByName('Professor/a')->id,
                 'specialty_id' => Specialty::findByCode('MA')->id,
                 'family_id' => Family::findByCode('CA')->id,
-                'code' => '008'
+                'code' => '008',
+                'order' => 1
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '008'
@@ -3184,23 +3290,22 @@ if (!function_exists('initialize_forces')) {
 }
 
 
-
 if (!function_exists('initialize_administrative_statuses')) {
     function initialize_administrative_statuses()
     {
         AdministrativeStatus::firstOrCreate([
             'name' => 'Funcionari/a amb plaça definitiva',
-            'code' => 'Funcionari DEF'
+            'code' => 'FUNCIONARI DEF'
         ]);
 
         AdministrativeStatus::firstOrCreate([
             'name' => 'Funcionari/a propietari provisional',
-            'code' => 'Funcionari PROV'
+            'code' => 'FUNCIONARI PROV'
         ]);
 
         AdministrativeStatus::firstOrCreate([
             'name' => 'Funcionari/a en pràctiques',
-            'code' => 'Funcionari PRAC'
+            'code' => 'FUNCIONARI PRAC'
         ]);
 
         AdministrativeStatus::firstOrCreate([

@@ -22,6 +22,7 @@ class CreateTenantStaffTable extends Migration
             $table->unsignedInteger('type_id');
             $table->unsignedInteger('specialty_id')->nullable();
             $table->unsignedInteger('family_id')->nullable();
+            $table->integer('order');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();

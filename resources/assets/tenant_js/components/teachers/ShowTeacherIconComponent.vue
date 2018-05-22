@@ -281,14 +281,21 @@
                                     <v-flex xs12>
                                         <v-container grid-list-xs>
                                             <v-layout row wrap>
-                                                <v-flex xs6 >
+                                                <v-flex xs4 >
+                                                    <h1 class="title primary--text">
+                                                        <div>
+                                                            <p>Plaça i càrrecs</p>
+                                                        </div>
+                                                    </h1>
+                                                </v-flex>
+                                                <v-flex xs4 >
                                                     <h1 class="title primary--text">
                                                         <div>
                                                             <p>Formació</p>
                                                         </div>
                                                     </h1>
                                                 </v-flex>
-                                                <v-flex xs6 >
+                                                <v-flex xs4 >
                                                     <h1 class="title primary--text">
                                                         <div>
                                                             <p>Altres dades</p>
@@ -298,7 +305,48 @@
                                                 <v-flex xs12>
                                                     <v-container grid-list-xs>
                                                         <v-layout row wrap>
-                                                            <v-flex xs6>
+                                                            <v-flex xs4>
+                                                                <v-list two-line>
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title>
+                                                                                <span :title="staffDescription()">{{ staff() }}</span>
+                                                                            </v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Codi plaça</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                    <v-divider></v-divider>
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title v-html="staffFamily()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title >Família</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                    <v-divider></v-divider>
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title v-html="staffSpecialty()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                    <v-divider></v-divider>
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title v-html="staffOrder()"></v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Ordre</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                    <v-divider></v-divider>
+                                                                    <!--TODO-->
+                                                                    <v-list-tile>
+                                                                        <v-list-tile-content>
+                                                                            <v-list-tile-title>TODO</v-list-tile-title>
+                                                                            <v-list-tile-sub-title>Càrrecs</v-list-tile-sub-title>
+                                                                        </v-list-tile-content>
+                                                                    </v-list-tile>
+                                                                </v-list>
+                                                            </v-flex>
+                                                            <v-flex xs4>
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
@@ -336,7 +384,7 @@
                                                                     </v-list-tile>
                                                                 </v-list>
                                                             </v-flex>
-                                                            <v-flex xs6>
+                                                            <v-flex xs4>
                                                                 <v-list two-line>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
@@ -406,6 +454,10 @@
       teacher: {
         type: Object,
         required: true
+      },
+      teachers: {
+        type: Array,
+        required: true
       }
     },
     methods: {
@@ -423,7 +475,6 @@
       address () {
         if (this.teacher && this.teacher.user && this.teacher.user.person && this.teacher.user.person.address) {
           const address = this.teacher.user.person.address
-          console.log(address)
           return address.name + ' ' + address.number + ' ' + address.floor + ' ' + address.floor_number
         }
       },
@@ -476,6 +527,25 @@
           result = result + ' ' + JSON.parse(this.teacher.user.person.other_mobiles).join()
         }
         return result
+      },
+      staff () {
+        return this.teacher.user.staffs[0].family.code + '_' + this.teacher.user.staffs[0].specialty.code + '_' + this.teacher.user.staffs[0].order + '_' + this.teacher.user.staffs[0].code
+      },
+      staffDescription () {
+        return 'Plaça num ' + this.teacher.user.staffs[0].order + ' de la família ' + this.teacher.user.staffs[0].family.name + ', especialitat ' + this.teacher.user.staffs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(this.teacher.user.staffs[0].code)
+      },
+      staffFamily () {
+        return this.teacher.user.staffs[0].family.name
+      },
+      staffSpecialty () {
+        return this.teacher.user.staffs[0].specialty.name
+      },
+      staffOrder () {
+        return this.teacher.user.staffs[0].order
+      },
+      teacherDescription (teacherCode) {
+        let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
+        return teacher.user.name + ' (' + teacher.code + ')'
       }
     }
   }

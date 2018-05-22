@@ -45,16 +45,16 @@
                                             <span :title="familyName(teacher)">{{familyCode(teacher)}}</span>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="administrativeStatusName(teacher)">{{administrativeStatusCode(teacher)}}</span>
+                                            <span :title="administrativeStatusName(teacher)">{{ administrativeStatusCode(teacher) }}</span>
                                         </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ showTeacherStaff(teacher) }}
+                                            <span :title="staffDescription(teacher)">{{ staff(teacher) }}</span>
                                         </td>
                                         <td class="text-xs-left" v-html="teacher.created_at"></td>
                                         <td class="text-xs-left" v-html="teacher.updated_at"></td>
                                         <td class="text-xs-left">
 
-                                            <show-teacher-icon :teacher="teacher"></show-teacher-icon>
+                                            <show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>
 
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>
@@ -186,11 +186,28 @@
           return teacher.specialty.family.name
         }
       },
+      administrativeStatusName (teacher) {
+        if (teacher.administrative_status) {
+          return teacher.administrative_status.name
+        }
+      },
+      administrativeStatusCode (teacher) {
+        if (teacher.administrative_status) {
+          return teacher.administrative_status.code
+        }
+      },
       name (teacher) {
         return teacher.user.person.sn1 + ' ' + teacher.user.person.sn2 + ', ' + teacher.user.person.givenName
       },
-      showTeacherStaff (teacher) {
-        return teacher.user.staffs[0]
+      staff (teacher) {
+        return teacher.user.staffs[0].family.code + '_' + teacher.user.staffs[0].specialty.code + '_' + teacher.user.staffs[0].order + '_' + teacher.user.staffs[0].code
+      },
+      staffDescription (teacher) {
+        return 'Plaça num ' + teacher.user.staffs[0].order + ' de la família ' + teacher.user.staffs[0].family.name + ', especialitat ' + teacher.user.staffs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(teacher.user.staffs[0].code)
+      },
+      teacherDescription (teacherCode) {
+        let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
+        return teacher.user.name + ' (' + teacher.code + ')'
       }
     },
     created () {
