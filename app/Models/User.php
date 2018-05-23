@@ -6,6 +6,7 @@ use App\Models\Traits\FormattedDates;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Storage;
@@ -17,13 +18,29 @@ use Storage;
  */
 class User extends Authenticatable
 {
-    use Notifiable,HasApiTokens, HasRoles, FormattedDates;
+    use Notifiable,HasApiTokens, HasRoles, FormattedDates, Impersonate;
 
     const DEFAULT_PHOTO = 'default.png';
     const PHOTOS_PATH = 'user_photos';
     const DEFAULT_PHOTO_PATH = self::PHOTOS_PATH . '/' . self::DEFAULT_PHOTO;
 
     protected $guard_name = 'web';
+
+    /**
+     * @return bool
+     */
+    public function canImpersonate()
+    {
+        return $this->isSuperAdmin();
+    }
+
+    /**
+     * @return bool
+     */
+    public function canBeImpersonated()
+    {
+        return !$this->isSuperAdmin();
+    }
 
     /**
      * The attributes that are mass assignable.

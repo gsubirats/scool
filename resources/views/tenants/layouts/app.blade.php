@@ -164,6 +164,12 @@
                 <v-spacer></v-spacer>
             </v-card-actions>
         </v-card>
+        @canImpersonate
+            <v-card>
+                <v-card-title class="blue darken-3 white--text"><h2>Opcions administrador</h2></v-card-title>
+                <impersonate-user :users="{{$users}}"></impersonate-user>
+            </v-card>
+        @endCanImpersonate
     </v-navigation-drawer>
     <v-content>
         @yield('content')

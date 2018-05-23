@@ -36,6 +36,8 @@ Vue.component('teachers', require('./components/teachers/TeachersComponent.vue')
 
 Vue.component('teachers-photos', require('./components/teachers/TeachersPhotosComponent.vue'));
 
+Vue.component('impersonate-user', require('./components/admin/ImpersonateUserComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 
