@@ -31,6 +31,7 @@ class CreateTenantJobsTable extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('job_id')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -17,7 +17,7 @@ trait FormattedDates
      */
     public function getFormattedCreatedAtAttribute()
     {
-        return $this->created_at->format('h:i:sA d-m-Y');
+        return optional($this->created_at)->format('h:i:sA d-m-Y');
     }
 
     /**
@@ -27,7 +27,7 @@ trait FormattedDates
      */
     public function getFormattedUpdatedAtAttribute()
     {
-        return $this->updated_at->format('h:i:sA d-m-Y');
+        return optional($this->updated_at)->format('h:i:sA d-m-Y');
     }
 
     /**
@@ -38,7 +38,7 @@ trait FormattedDates
     public function getFormattedCreatedAtDiffAttribute()
     {
         Carbon::setLocale(config('app.locale'));
-        return $this->created_at->diffForHumans(Carbon::now());
+        return optional($this->created_at)->diffForHumans(Carbon::now());
     }
 
     /**
@@ -49,6 +49,6 @@ trait FormattedDates
     public function getFormattedUpdatedAtDiffAttribute()
     {
         Carbon::setLocale(config('app.locale'));
-        return $this->updated_at->diffForHumans(Carbon::now());
+        return optional($this->updated_at)->diffForHumans(Carbon::now());
     }
 }
