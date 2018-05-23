@@ -1,3 +1,3 @@
 export default {
-  staff: state => state.staff
+  jobs: state => state.jobs
 }

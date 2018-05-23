@@ -26,9 +26,9 @@ class Family extends Model
     }
 
     /**
-     * Get the staff associated to the family.
+     * Get the jobs associated to the family.
      */
-    public function staff()
+    public function jobs()
     {
         return $this->hasMany(Job::class);
     }

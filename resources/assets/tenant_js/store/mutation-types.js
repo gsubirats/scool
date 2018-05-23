@@ -15,10 +15,10 @@ export const SET_USERS = 'SET_USERS'
 export const ADD_USER = 'ADD_USER'
 export const DELETE_USER = 'DELETE_USER'
 
-// STAFF
-export const SET_STAFF = 'SET_STAFF'
-export const ADD_STAFF = 'ADD_STAFF'
-export const DELETE_STAFF = 'DELETE_STAFF'
+// JOBS
+export const SET_JOBS = 'SET_JOBS'
+export const ADD_JOB = 'ADD_JOB'
+export const DELETE_JOB = 'DELETE_JOB'
 
 // TEACHERS
 export const SET_PENDING_TEACHERS = 'SET_PENDING_TEACHERS'

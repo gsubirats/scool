@@ -19,50 +19,50 @@
                             <v-data-table
                                     class="px-0 mb-2 hidden-sm-and-down"
                                     :headers="headers"
-                                    :items="internalStaff"
+                                    :items="internaljobs"
                                     :search="search"
                                     item-key="id"
                             >
-                                <template slot="items" slot-scope="{item: staff}">
+                                <template slot="items" slot-scope="{item: job}">
                                     <tr>
                                         <td class="text-xs-left">
-                                            {{ staff.id }}
+                                            {{ job.id }}
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ type(staff) }}
+                                            {{ type(job) }}
                                         </td>
-                                        <td class="text-xs-left">{{ staff.code }}</td>
-                                        <td class="text-xs-left">{{ staff.family && staff.family.name}}</td>
-                                        <td class="text-xs-left">{{ staff.specialty && staff.specialty.code }}</td>
+                                        <td class="text-xs-left">{{ job.code }}</td>
+                                        <td class="text-xs-left">{{ job.family && job.family.name}}</td>
+                                        <td class="text-xs-left">{{ job.specialty && job.specialty.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ staff.user && staff.user.name }}
+                                            {{ job.user && job.user.name }}
                                         </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ staff.notes }}</span>
-                                                <span>{{ staff.notes }}</span>
+                                                <span slot="activator">{{ job.notes }}</span>
+                                                <span>{{ job.notes }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ staff.formatted_created_at_diff }}</span>
-                                                <span>{{ staff.formatted_created_at }}</span>
+                                                <span slot="activator">{{ job.formatted_created_at_diff }}</span>
+                                                <span>{{ job.formatted_created_at }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
-                                                <span slot="activator">{{ staff.formatted_updated_at_diff }}</span>
-                                                <span>{{ staff.formatted_updated_at }}</span>
+                                                <span slot="activator">{{ job.formatted_updated_at_diff }}</span>
+                                                <span>{{ job.formatted_updated_at }}</span>
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <v-btn icon class="mx-0" @click="edit(staff)">
+                                            <v-btn icon class="mx-0" @click="edit(job)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
                                             <confirm-icon icon="delete"
                                                           color="pink"
                                                           :working="deleting"
-                                                          @confirmed="remove(staff)"
+                                                          @confirmed="remove(job)"
                                                           tooltip="Eliminar"
                                             ></confirm-icon>
                                         </td>
@@ -76,7 +76,7 @@
                                 content-tag="v-layout"
                                 row
                                 wrap
-                                :items="internalStaff"
+                                :items="internaljobs"
                         >
                             <v-flex
                                     slot="item"
@@ -130,7 +130,6 @@
       return {
         search: '',
         deleting: false,
-        showDeleteStaffDialog: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
           {text: 'Tipus', align: 'left', value: 'type.name'},
@@ -147,11 +146,11 @@
     },
     computed: {
       ...mapGetters({
-        internalStaff: 'staff'
+        internaljobs: 'jobs'
       })
     },
     props: {
-      staff: {
+      jobs: {
         type: Array,
         required: true
       }
@@ -160,12 +159,12 @@
       edit () {
         console.log('TODO EDIT')
       },
-      type (staff) {
-        return staff.type && staff.type.name
+      type (job) {
+        return job.type && job.type.name
       },
-      remove (staff) {
+      remove (job) {
         this.deleting = true
-        this.$store.dispatch(actions.DELETE_STAFF, staff).then(response => {
+        this.$store.dispatch(actions.DELETE_JOB, job).then(response => {
           this.deleting = false
         }).catch(error => {
           this.deleting = false
@@ -175,7 +174,7 @@
       }
     },
     created () {
-      this.$store.commit(mutations.SET_STAFF, this.staff)
+      this.$store.commit(mutations.SET_JOBS, this.jobs)
     }
   }
 </script>

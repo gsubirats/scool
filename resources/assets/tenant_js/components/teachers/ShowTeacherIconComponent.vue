@@ -310,7 +310,7 @@
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
                                                                             <v-list-tile-title>
-                                                                                <span :title="staffDescription()">{{ staff() }}</span>
+                                                                                <span :title="jobDescription()">{{ job() }}</span>
                                                                             </v-list-tile-title>
                                                                             <v-list-tile-sub-title>Codi plaça</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
@@ -318,21 +318,21 @@
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title v-html="staffFamily()"></v-list-tile-title>
+                                                                            <v-list-tile-title v-html="jobFamily()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title >Família</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title v-html="staffSpecialty()"></v-list-tile-title>
+                                                                            <v-list-tile-title v-html="jobSpecialty()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
                                                                     <v-divider></v-divider>
                                                                     <v-list-tile>
                                                                         <v-list-tile-content>
-                                                                            <v-list-tile-title v-html="staffOrder()"></v-list-tile-title>
+                                                                            <v-list-tile-title v-html="jobOrder()"></v-list-tile-title>
                                                                             <v-list-tile-sub-title>Ordre</v-list-tile-sub-title>
                                                                         </v-list-tile-content>
                                                                     </v-list-tile>
@@ -528,20 +528,20 @@
         }
         return result
       },
-      staff () {
-        return this.teacher.user.staffs[0].family.code + '_' + this.teacher.user.staffs[0].specialty.code + '_' + this.teacher.user.staffs[0].order + '_' + this.teacher.user.staffs[0].code
+      jon () {
+        return this.teacher.user.jobs[0].family.code + '_' + this.teacher.user.jobs[0].specialty.code + '_' + this.teacher.user.jobs[0].order + '_' + this.teacher.user.jobs[0].code
       },
-      staffDescription () {
-        return 'Plaça num ' + this.teacher.user.staffs[0].order + ' de la família ' + this.teacher.user.staffs[0].family.name + ', especialitat ' + this.teacher.user.staffs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(this.teacher.user.staffs[0].code)
+      jobDescription () {
+        return 'Plaça num ' + this.teacher.user.jobs[0].order + ' de la família ' + this.teacher.user.jobs[0].family.name + ', especialitat ' + this.teacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(this.teacher.user.jobs[0].code)
       },
-      staffFamily () {
-        return this.teacher.user.staffs[0].family.name
+      jobFamily () {
+        return this.teacher.user.jobs[0].family.name
       },
-      staffSpecialty () {
-        return this.teacher.user.staffs[0].specialty.name
+      jobSpecialty () {
+        return this.teacher.user.jobs[0].specialty.name
       },
-      staffOrder () {
-        return this.teacher.user.staffs[0].order
+      jobOrder () {
+        return this.teacher.user.jobs[0].order
       },
       teacherDescription (teacherCode) {
         let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })

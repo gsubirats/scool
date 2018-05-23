@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import snackbar from './modules/snackbar'
 import users from './modules/users'
-import staff from './modules/staff'
+import staff from './modules/jobs'
 import teachers from './modules/teachers'
 
 Vue.use(Vuex)
