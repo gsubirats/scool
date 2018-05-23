@@ -509,6 +509,7 @@ class UserTest extends TestCase
             'altres_titulacions' => 'Postgrau en Programari Lliure',
             'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
             'altres_formacions' => 'Nivell D de Català',
+            'perfil_professional' => 'De perfil milloro sí',
             'data_inici_treball' => '29/09/2006',
             'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
             'data_superacio_oposicions' => 'Juny 2008'
@@ -524,6 +525,7 @@ class UserTest extends TestCase
         $this->assertEquals($user->teacher->altres_titulacions,'Postgrau en Programari Lliure');
         $this->assertEquals($user->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');
         $this->assertEquals($user->teacher->altres_formacions, 'Nivell D de Català');
+        $this->assertEquals($user->teacher->perfil_professional, 'De perfil milloro sí');
         $this->assertEquals($user->teacher->data_inici_treball, '29/09/2006');
         $this->assertEquals($user->teacher->data_incorporacio_centre, '2009-09-01 00:00:00');
         $this->assertEquals($user->teacher->data_superacio_oposicions, 'Juny 2008');
@@ -541,6 +543,7 @@ class UserTest extends TestCase
             'altres_titulacions' => 'Postgrau en Programari Lliure',
             'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
             'altres_formacions' => 'Nivell D de Català',
+            'perfil_professional' => 'De perfil milloro sí',
             'data_inici_treball' => '29/09/2006',
             'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
             'data_superacio_oposicions' => 'Juny 2008'
@@ -555,6 +558,7 @@ class UserTest extends TestCase
         $this->assertEquals($user2->teacher->altres_titulacions,'Postgrau en Programari Lliure');
         $this->assertEquals($user2->teacher->idiomes, 'Certificat Aptitud Anglès Escola Oficial Idiomes');
         $this->assertEquals($user2->teacher->altres_formacions, 'Nivell D de Català');
+        $this->assertEquals($user->teacher->perfil_professional, 'De perfil milloro sí');
         $this->assertEquals($user2->teacher->data_inici_treball, '29/09/2006');
         $this->assertEquals($user2->teacher->data_incorporacio_centre, '2009-09-01 00:00:00');
         $this->assertEquals($user2->teacher->data_superacio_oposicions, 'Juny 2008');

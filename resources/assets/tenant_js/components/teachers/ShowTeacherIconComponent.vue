@@ -528,7 +528,7 @@
         }
         return result
       },
-      jon () {
+      job () {
         return this.teacher.user.jobs[0].family.code + '_' + this.teacher.user.jobs[0].specialty.code + '_' + this.teacher.user.jobs[0].order + '_' + this.teacher.user.jobs[0].code
       },
       jobDescription () {

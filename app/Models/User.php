@@ -355,6 +355,7 @@ class User extends Authenticatable
             $this->teacher->altres_titulacions = isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null;
             $this->teacher->idiomes = isset($data['idiomes']) ? $data['idiomes'] : null;
             $this->teacher->altres_formacions = isset($data['altres_formacions']) ? $data['altres_formacions'] : null;
+            $this->teacher->perfil_professional = isset($data['perfil_professional']) ? $data['perfil_professional'] : null;
             $this->teacher->data_inici_treball = isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null;
             $this->teacher->data_incorporacio_centre = isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null;
             $this->teacher->data_superacio_oposicions = isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null;
@@ -368,6 +369,7 @@ class User extends Authenticatable
                 'altres_titulacions' => isset($data['altres_titulacions']) ? $data['altres_titulacions'] : null,
                 'idiomes' => isset($data['idiomes']) ? $data['idiomes'] : null,
                 'altres_formacions' => isset($data['altres_formacions']) ? $data['altres_formacions'] : null,
+                'perfil_professional' => isset($data['perfil_professional']) ? $data['perfil_professional'] : null,
                 'data_inici_treball' => isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null,
                 'data_incorporacio_centre' => isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null,
                 'data_superacio_oposicions' => isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null,
