@@ -39,7 +39,6 @@ class TeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function manager_teacher_photos_can_see_a_teacher_photo()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
         $files = FileFacade::allFiles(base_path('tests/__Fixtures__/photos/teachers'));
 
@@ -155,7 +154,6 @@ class TeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function can_change_photo_filename()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
 
         $photoTeachersManager = create(User::class);

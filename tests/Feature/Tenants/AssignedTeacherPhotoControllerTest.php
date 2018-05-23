@@ -41,7 +41,6 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
     /** @test */
     public function store_teacher_photo_from_available_teacher_photos()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
         Event::fake();
 

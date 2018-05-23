@@ -62,7 +62,6 @@ class LocalitiesControllerTest extends BaseTenantTest
     /** @test */
     public function list_locations()
     {
-        $this->withoutExceptionHandling();
         $this->seed_localities_sample();
         $response = $this->json('GET','/api/v1/localities');
 

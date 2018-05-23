@@ -51,7 +51,6 @@ class TeachersPhotosControllerTest extends BaseTenantTest
     /** @test */
     public function manager_teacher_photos_can_see_teacher_photos_management()
     {
-        $this->withoutExceptionHandling();
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
         initialize_job_types();

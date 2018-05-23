@@ -69,7 +69,6 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function add_job()
     {
-        $this->withoutExceptionHandling();
         initialize_job_types();
         initialize_forces();
         initialize_families();
@@ -167,7 +166,6 @@ class JobsControllerTest extends BaseTenantTest
             'specialty_id' => 1,
             'family_id' => 1,
             'order' => 1,
-            'user_id' => 1,
             'notes' => 'bla bla bla'
         ]);
 
@@ -204,7 +202,6 @@ class JobsControllerTest extends BaseTenantTest
             'specialty_id' => 1,
             'family_id' => 1,
             'order' => 1,
-            'user_id' => 1,
             'notes' => 'bla bla bla'
         ]);
 

@@ -59,7 +59,6 @@ class UnassignedTeacherPhotoControllerTest extends BaseTenantTest
             $files[2]->getContents()
         );
 
-        $this->withoutExceptionHandling();
         $photoTeachersManager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'PhotoTeachersManager']);
         Config::set('auth.providers.users.model', User::class);

@@ -20,7 +20,6 @@ class GoogleSuiteUsersPushNotificationController2Test extends TestCase
      */
     public function can_receive_google_suite_users_push_notifications1()
     {
-        $this->withoutExceptionHandling();
         $response = $this->post('https://iesebre.scool.iesebre.com/gsuite/notifications',[
             'kind' => "admin#directory#user",
             'id' => 2341412,

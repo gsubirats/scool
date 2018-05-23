@@ -102,7 +102,6 @@ class UsersControllerTest extends BaseTenantTest
     /** @test */
     public function user_manager_can_add_user_with_user_type_and_roles()
     {
-        $this->withoutExceptionHandling();
         $manager = create(User::class);
         $this->actingAs($manager,'api');
         $role = Role::firstOrCreate([
@@ -171,7 +170,6 @@ class UsersControllerTest extends BaseTenantTest
     /** @test */
     public function user_with_role_manager_can_see_users_management()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user);
         $role = Role::firstOrCreate(['name' => 'UsersManager']);
@@ -191,7 +189,6 @@ class UsersControllerTest extends BaseTenantTest
     /** @test */
     public function user_with_role_manager_can_delete_users()
     {
-        $this->withoutExceptionHandling();
         $manager = create(User::class);
         $role = Role::firstOrCreate(['name' => 'UsersManager']);
         Config::set('auth.providers.users.model', User::class);
@@ -229,7 +226,6 @@ class UsersControllerTest extends BaseTenantTest
     /** @test */
     public function super_admin_can_see_users_management()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $user->admin = true;
         $user->save();

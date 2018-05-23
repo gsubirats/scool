@@ -285,7 +285,6 @@ class GoogleSuiteUsersControllerTest extends BaseTenantTest
      */
     public function unremove_google_user()
     {
-        $this->withoutExceptionHandling();
         Config::set('google.service.enable', true);
         Config::set('google.service.file', './storage/app/gsuite_service_accounts/scool-07eed0b50a6f.json');
         Config::set('google.admin_email', 'sergitur@iesebre.com');

@@ -38,7 +38,6 @@ class StaffTest extends TestCase
             'type_id' => 2,
             'code' => 'CODE',
             'created_at' => Carbon::parse('2016-12-01 8:00pm'),
-            'user_id'=> 1,
             'order' => 1
         ]);
 
@@ -53,7 +52,6 @@ class StaffTest extends TestCase
             'code' => 'CODE',
             'updated_at' => Carbon::parse('2016-12-01 8:00pm'),
             'order' => 1,
-            'user_id'=> 1
         ]);
 
         $this->assertEquals('08:00:00PM 01-12-2016', $staff->formatted_updated_at);
@@ -66,7 +64,6 @@ class StaffTest extends TestCase
             'type_id' => 2,
             'code' => 'CODE',
             'created_at' => Carbon::now()->subMonth(),
-            'user_id'=> 1,
             'order' => 1
         ]);
 
@@ -80,7 +77,6 @@ class StaffTest extends TestCase
             'type_id' => 2,
             'code' => 'CODE',
             'updated_at' => Carbon::now()->subMonth(),
-            'user_id'=> 1,
             'order' => 1
         ]);
 

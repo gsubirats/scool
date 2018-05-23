@@ -52,7 +52,6 @@ class UserTenantTestAdminUserTestControllerTest extends TestCase
     /** @test */
     public function user_test_tenant_connection_fails_with_unexisting_admin_user()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user,'api');
 
