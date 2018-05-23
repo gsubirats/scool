@@ -11,15 +11,14 @@ use Config;
 use Illuminate\Contracts\Console\Kernel;
 use Spatie\Permission\Models\Role;
 use Tests\BaseTenantTest;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class StaffControllerTest.
+ * Class JobsControllerTest.
  *
  * @package Tests\Feature\Tenants
  */
-class StaffControllerTest extends BaseTenantTest
+class JobsControllerTest extends BaseTenantTest
 {
     use RefreshDatabase;
 
@@ -38,9 +37,8 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function show_staff_management()
+    public function show_jobs_management()
     {
-        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
@@ -52,16 +50,15 @@ class StaffControllerTest extends BaseTenantTest
         $response->assertSuccessful();
         $response->assertViewIs('tenants.jobs.show');
         $response->assertViewHas('jobs');
-        $response->assertViewHas('staffTypes');
+        $response->assertViewHas('jobTypes');
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
         $response->assertViewHas('users');
     }
 
     /** @test */
-    public function regular_user_not_authorized_to_show_staff_management()
+    public function regular_user_not_authorized_to_show_jobs_management()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user);
         Config::set('auth.providers.users.model', User::class);
@@ -70,7 +67,7 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function add_staff()
+    public function add_job()
     {
         $this->withoutExceptionHandling();
         initialize_job_types();
@@ -109,9 +106,8 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function add_staff_validation()
+    public function add_job_validation()
     {
-        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
         Config::set('auth.providers.users.model', User::class);
@@ -141,9 +137,8 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function user_cannot_add_staff()
+    public function user_cannot_add_job()
     {
-        $this->withoutExceptionHandling();
         $user = create(User::class);
         $this->actingAs($user,'api');
         $response = $this->json('POST','/api/v1/jobs', [
@@ -154,9 +149,8 @@ class StaffControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function remove_staff()
+    public function remove_job()
     {
-        $this->withoutExceptionHandling();
         initialize_job_types();
         initialize_forces();
         initialize_families();

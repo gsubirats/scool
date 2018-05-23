@@ -185,7 +185,16 @@ if (! function_exists('create_other_tenant_admin_users')) {
             App\Models\User::forceCreate([
                 'name' => env('ADMIN_USER_NAME1','Dídac Montero Borràs'),
                 'email' => env('ADMIN_USER_EMAIL1','dmontero@iesebre.com'),
-                'password' => env('ADMIN_USER_PASSWORD1','123456'),
+                'password' => env('ADMIN_USER_PASSWORD1','7c4a8d09ca3762af61e59520943dc26494f8941b'),
+                'admin' => true
+            ]);
+        }
+
+        if (! App\Models\User::where('email',env('ADMIN_USER_EMAIL2','dmontero@iesebre.com'))->first()) {
+            App\Models\User::forceCreate([
+                'name' => env('ADMIN_USER_NAME2','Dídac Montero Borràs'),
+                'email' => env('ADMIN_USER_EMAIL2','dmontero@iesebre.com'),
+                'password' => env('ADMIN_USER_PASSWORD12','7c4a8d09ca3762af61e59520943dc26494f8941b'),
                 'admin' => true
             ]);
         }

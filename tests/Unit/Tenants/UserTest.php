@@ -116,7 +116,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function can_assign_staff()
+    function can_assign_job()
     {
         $user = factory(User::class)->create();
 
@@ -138,9 +138,9 @@ class UserTest extends TestCase
         ]);
 
 
-        $this->assertCount(0,$user->staffs);
+        $this->assertCount(0,$user->jobs);
 
-        $result = $user->assignStaff(
+        $result = $user->assignJob(
             Job::firstOrCreate([
                 'code' => '01',
                 'type_id' => JobType::findByName('Professor/a')->id,

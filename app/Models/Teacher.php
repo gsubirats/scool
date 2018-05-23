@@ -74,7 +74,7 @@ class Teacher extends Model
         if ($this->administrativeStatus) {
             $searchString = $searchString . ' ' .  $this->administrativeStatus->name . ' ' .  $this->administrativeStatus->code;
         }
-        if ($this->specialty && $this->specialty->family && $this->specialty->job) {
+        if ($this->specialty && $this->specialty->family && $this->specialty->jobs) {
             $searchString = $searchString . ' ' .  $this->specialty->family->code . '_' . $this->specialty->code
                 . '_' . $this->specialty->jobs[0]->order . '_' . $this->specialty->jobs[0]->code;
         }

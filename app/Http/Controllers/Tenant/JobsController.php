@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Requests\DeleteJob;
 use App\Http\Requests\ShowJobsManagement;
 use App\Http\Requests\StoreJob;
 use App\Models\Family;
@@ -25,14 +26,14 @@ class JobsController extends Controller
      */
     public function show(ShowJobsManagement $request)
     {
-        $job = Job::with('type','family','specialty','user')->get();
+        $jobs = Job::with('type','family','specialty','user')->get();
         $jobTypes = JobType::all();
-        $specialties = Specialty::with('staff','staff.family')->get();
-        $families = Family::with('staff','staff.specialty')->get();
+        $specialties = Specialty::with('jobs','jobs.family')->get();
+        $families = Family::with('jobs','jobs.specialty')->get();
         $users = User::all();
-        return view('tenants.staff.show',compact(
-            'staff',
-            'staffTypes',
+        return view('tenants.jobs.show',compact(
+            'jobs',
+            'jobTypes',
             'specialties',
             'families',
             'users'
@@ -57,16 +58,15 @@ class JobsController extends Controller
         ])->load('type','specialty','family','user');
     }
 
-
     /**
      * Destroy.
      *
-     * @param DeleteJobs $request
+     * @param DeleteJob $request
      * @param $tenant
      * @param Job $job
-     * @return bool|null
+     * @return Job
      */
-    public function destroy(DeleteJobs $request, $tenant, Job $job)
+    public function destroy(DeleteJob $request, $tenant, Job $job)
     {
         $job->delete();
         return $job;

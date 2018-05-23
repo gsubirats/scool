@@ -102,7 +102,7 @@ class TeacherTest extends TestCase
                 'sn1' => 'Tur',
                 'sn2' => 'Badenas',
             ])
-            ->assignStaff(
+            ->assignJob(
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('507')->id,

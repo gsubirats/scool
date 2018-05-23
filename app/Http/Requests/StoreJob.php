@@ -30,7 +30,7 @@ class StoreJob extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|unique:staff|max:4',
+            'code' => 'required|unique:jobs|max:4',
             'type' => 'required',
             'family' => "required_if:type,Professor/a",
             'specialty' => "required_if:type,Professor/a",
