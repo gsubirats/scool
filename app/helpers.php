@@ -194,7 +194,7 @@ if (! function_exists('create_other_tenant_admin_users')) {
             App\Models\User::forceCreate([
                 'name' => env('ADMIN_USER_NAME2','Ferran Bonet Iborra'),
                 'email' => env('ADMIN_USER_EMAIL2','fbonet@iesebre.com'),
-                'password' => env('ADMIN_USER_PASSWORD12','7c4a8d09ca3762af61e59520943dc26494f8941b'),
+                'password' => env('ADMIN_USER_PASSWORD2','7c4a8d09ca3762af61e59520943dc26494f8941b'),
                 'admin' => true
             ]);
         }
