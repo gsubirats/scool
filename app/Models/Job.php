@@ -50,9 +50,9 @@ class Job extends Model
     /**
      * Get the user associated to the job.
      */
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class,'staff');
     }
 
     /**

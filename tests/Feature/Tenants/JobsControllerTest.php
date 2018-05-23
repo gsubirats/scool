@@ -69,6 +69,7 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function add_job()
     {
+        $this->withoutExceptionHandling();
         initialize_job_types();
         initialize_forces();
         initialize_families();
@@ -97,7 +98,7 @@ class JobsControllerTest extends BaseTenantTest
         $this->assertEquals('040', $job->code);
         $this->assertEquals('Prova a veure que tal',$job->notes);
         $this->assertEquals('Professor/a', JobType::find($job->type_id)->name);
-        $this->assertEquals(1, $job->user_id);
+        $this->assertEquals(1, $job->users()->first()->id);
         $this->assertEquals(1, $job->family_id);
         $this->assertEquals('Sanitat', Family::find($job->family_id)->name);
         $this->assertEquals('Processos diagnòstics clínics i productes ortoprotètics', Specialty::find($job->specialty_id)->name);

@@ -47,15 +47,17 @@ class JobsController extends Controller
      */
     public function store(StoreJob $request)
     {
-        return Job::create([
+        $job = Job::create([
             'code' => $request->code,
             'type_id' => JobType::findByName($request->type)->id,
             'specialty_id' => $request->specialty,
             'family_id' => $request->family,
-            'user_id' => $request->holder,
             'order' => $request->order,
             'notes' => $request->notes
-        ])->load('type','specialty','family','user');
+        ])->load('type','specialty','family','users');
+
+        $job->users()->save(User::findOrFail($request->holder));
+        return $job;
     }
 
     /**
