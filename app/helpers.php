@@ -1,13 +1,17 @@
 <?php
 
 use App\Http\Resources\UserResource;
+use App\Models\Address;
 use App\Models\AdministrativeStatus;
 use App\Models\Family;
 use App\Models\Force;
+use App\Models\Identifier;
 use App\Models\IdentifierType;
+use App\Models\Location;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
 use App\Models\Position;
+use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
@@ -15,6 +19,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
 use App\Tenant;
+use Carbon\Carbon;
 use PulkitJalan\Google\Client;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -3832,3 +3837,45 @@ if (! function_exists('seed_identifier_types')) {
         first_or_create_identifier_type('TIS');
     }
 }
+if (! function_exists('fake_personal_data_teachers')) {
+    function fake_personal_data_teachers() {
+        $nif = IdentifierType::findByName('NIF')->id;
+
+        // Note: names are already assigned in initialize_teachers helper
+        Teacher::findByCode('041')->user->assignPersonalData([
+            'identifier_id' => Identifier::firstOrCreate([
+                'value' => '14268002K',
+                'type_id' => $nif
+            ])->id,
+            'birthdate' => Carbon::parse('1978-03-02'),
+            'birthplace_id' => Location::findByName('BARCELONA')->id,
+            'gender' => 'Home',
+            'notes' => "Coordinador d'informàtica",
+            'mobile' => '679525437',
+            'other_mobiles' => '650192821',
+            'email' => 'sergiturbadenas@gmail.com',
+            'other_emails' => 'acacha@gmail.com,sergitur@iesebre.com',
+    //            'phone' => '977500949' // No en tinc
+    //        'other_phones' => '9677508695,977500949' // No en tinc
+        ])->assignAddress(Address::create([
+            'name' => 'C/ Beseit',
+            'number' => '16',
+            'floor' => '4',
+            'floor_number' => '2',
+            'location_id' => Location::findByName('TORTOSA')->id,
+            'province_id' => Province::findByName('TARRAGONA')->id,
+        ]))->assignTeacherData([  // Code ius already assigned at initialize_teachers helper
+            'administrative_status_id' => AdministrativeStatus::findByName('Substitut/a')->id,
+            'specialty_id' => Specialty::findByCode('507')->id,
+            'titulacio_acces' => 'Enginyer Superior en Telecomunicacions',
+            'altres_titulacions' => 'Postgrau en Programari Lliure',
+            'idiomes' => 'Certificat Aptitud Anglès Escola Oficial Idiomes',
+            'altres_formacions' => 'Nivell D de Català',
+            'data_inici_treball' => '29/09/2006',
+            'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
+            'data_superacio_oposicions' => 'Juny 2008'
+        ]);
+    }
+}
+
+

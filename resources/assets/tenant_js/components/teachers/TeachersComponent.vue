@@ -53,8 +53,24 @@
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <span :title="jobDescription(teacher)">{{ job(teacher) }}</span>
                                         </td>
-                                        <td class="text-xs-left" v-html="teacher.created_at"></td>
-                                        <td class="text-xs-left" v-html="teacher.updated_at"></td>
+                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">TODO2</span>
+                                                <span>TODO1</span>
+                                            </v-tooltip>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">{{ teacher.formatted_created_at_diff }}</span>
+                                                <span>{{ teacher.formatted_created_at }}</span>
+                                            </v-tooltip>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <v-tooltip bottom>
+                                                <span slot="activator">{{ teacher.formatted_updated_at_diff }}</span>
+                                                <span>{{ teacher.formatted_updated_at }}</span>
+                                            </v-tooltip>
+                                        </td>
                                         <td class="text-xs-left">
 
                                             <show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>
@@ -144,13 +160,14 @@
         deleting: false,
         headers: [
           {text: 'Id', align: 'left', value: 'id'},
-          {text: 'Codi', value: 'user.code'},
-          {text: 'Foto', value: 'photo'},
-          {text: 'Nom', value: 'name'},
+          {text: 'Codi', value: 'code'},
+          {text: 'Foto', value: 'photo', sortable: false},
+          {text: 'Nom', value: 'user.person.s1'},
           {text: 'Especialitat', value: 'username'},
           {text: 'Familia', value: 'email'},
           {text: 'Estatus', value: 'todo'},
           {text: 'Plaça', value: 'roles'},
+          {text: 'Data finalització', value: 'todo'},
           {text: 'Data creació', value: 'formatted_created_at'},
           {text: 'Data actualització', value: 'formatted_updated_at'},
           {text: 'Accions', value: 'full_search', sortable: false}

@@ -26,13 +26,6 @@ class CreateTenantJobsTable extends Migration
             $table->string('notes')->nullable();
             $table->timestamps();
         });
-
-        //job_user -> staff
-        Schema::create('staff', function (Blueprint $table) {
-            $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('job_id')->nullable();
-            $table->timestamps();
-        });
     }
 
     /**
@@ -43,6 +36,5 @@ class CreateTenantJobsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('jobs');
-        Schema::dropIfExists('staff');
     }
 }

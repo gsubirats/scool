@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\FormattedDates;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,9 +12,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Teacher extends Model
 {
+    use FormattedDates;
+
     protected $guarded = [];
 
-    protected $appends = ['full_search'];
+    protected $appends = [
+        'full_search',
+        'formatted_created_at',
+        'formatted_updated_at',
+        'formatted_created_at_diff',
+        'formatted_updated_at_diff'
+    ];
 
     /**
      * Get the user that owns the teacher.

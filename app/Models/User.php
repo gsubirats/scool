@@ -130,7 +130,7 @@ class User extends Authenticatable
      */
     public function jobs()
     {
-        return $this->belongsToMany(Job::class,'staff');
+        return $this->belongsToMany(Job::class,'employees')->withTimestamps();
     }
 
     /**
