@@ -28,13 +28,13 @@ class TeachersController extends Controller
         $pendingTeachers = PendingTeacher::with('specialty')->get();
         $teachers = Teacher::with([
             'specialty','specialty.force','specialty.family','administrativeStatus','user', 'user.jobs',
-            'user.jobs.specialty','user.jobs.family','user.person','user.person.birthplace',
+            'user.jobs', 'user.jobs.specialty','user.jobs.family','user.person','user.person.birthplace',
             'user.person.identifier','user.person.address','user.person.address.province',
             'user.person.address.location'])->orderByRaw('code + 0')->get();
         $specialties = Specialty::all();
         $forces = Force::all();
-        $administrative_statuses = AdministrativeStatus::all();
+        $administrativeStatuses = AdministrativeStatus::all();
         return view('tenants.teachers.show', compact(
-            'pendingTeachers','teachers','specialties','forces','administrative_statuses'));
+            'pendingTeachers','teachers','specialties','forces','administrativeStatuses'));
     }
 }

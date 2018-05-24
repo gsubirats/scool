@@ -65,7 +65,7 @@ export default {
       teacher_start_date: '',
       start_date: '',
       opositions_date: '',
-      administrative_status: '',
+      administrative_status: {},
       destination_place: '',
       teacher: {},
       checkbox: false,

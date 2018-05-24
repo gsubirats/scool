@@ -2,7 +2,7 @@
     <v-select
             :label="label"
             :items="teachers"
-            v-model="teacher"
+            v-model="internalTeacher"
             item-text="name"
             chips
             autocomplete
@@ -45,6 +45,11 @@
 
 <script>
   export default {
+    data () {
+      return {
+        internalTeacher: this.teacher
+      }
+    },
     model: {
       prop: 'teacher',
       event: 'input'

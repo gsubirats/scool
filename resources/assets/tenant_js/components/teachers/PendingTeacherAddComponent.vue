@@ -431,13 +431,8 @@
                                                 :error-messages="administrativeStatusErrors"
                                                 @input="$v.administrative_status.$touch()"
                                                 @blur="$v.administrative_status.$touch()"
+                                                item-text="name"
                                         >
-                                            <template slot="item" slot-scope="data">
-                                                {{data.item.name}}
-                                            </template>
-                                            <template slot="selection" slot-scope="data">
-                                                {{data.item.name}}
-                                            </template>
                                         </v-select>
                                     </v-flex>
                                     <v-flex md6>

@@ -52,7 +52,7 @@ class Job extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class,'employees')->withTimestamps();
+        return $this->belongsToMany(User::class,'employees')->as('employee')->withPivot('start_at', 'end_at')->withTimestamps();
     }
 
     /**

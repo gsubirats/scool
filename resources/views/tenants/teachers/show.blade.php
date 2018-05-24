@@ -6,10 +6,10 @@
             :teachers="{{ $pendingTeachers }}"
             :specialties="{{ $specialties }}"
             :forces="{{ $forces }}"
-            :administrative-statuses="{{ $administrative_statuses }}">
+            :administrative-statuses="{{ $administrativeStatuses }}">
     </pending-teachers>
 
-    <teachers :teachers="{{ $teachers }}"></teachers>
+    <teachers :teachers="{{ $teachers }}" :administrative-statuses="{{ $administrativeStatuses }}"></teachers>
 
 
 

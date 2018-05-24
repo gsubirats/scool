@@ -7,6 +7,10 @@
                     <v-card-text class="px-0 mb-2">
                         <v-card>
                             <v-card-title>
+                                <administrative-status-select
+                                        :administrative-statuses="administrativeStatuses"
+                                        v-model="administrativeStatus"
+                                ></administrative-status-select>
                                 <v-spacer></v-spacer>
                                 <v-text-field
                                         append-icon="search"
@@ -47,17 +51,11 @@
                                         <td class="text-xs-left">
                                             <span :title="familyName(teacher)">{{familyCode(teacher)}}</span>
                                         </td>
-                                        <td class="text-xs-left">
+                                        <td class="text-xs-left" v-if="showStatusHeader">
                                             <span :title="administrativeStatusName(teacher)">{{ administrativeStatusCode(teacher) }}</span>
                                         </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <span :title="jobDescription(teacher)">{{ job(teacher) }}</span>
-                                        </td>
-                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            <v-tooltip bottom>
-                                                <span slot="activator">TODO2</span>
-                                                <span>TODO1</span>
-                                            </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
@@ -148,39 +146,51 @@
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
   import ShowTeacherIcon from './ShowTeacherIconComponent.vue'
+  import AdministrativeStatusSelect from './AdministrativeStatusSelectComponent.vue'
 
   export default {
     components: {
-      ShowTeacherIcon
+      ShowTeacherIcon,
+      AdministrativeStatusSelect // administrative-status-select
     },
     data () {
       return {
+        administrativeStatus: {},
         showDeletePendingTeacherDialog: false,
         search: '',
-        deleting: false,
-        headers: [
-          {text: 'Id', align: 'left', value: 'id'},
-          {text: 'Codi', value: 'code'},
-          {text: 'Foto', value: 'photo', sortable: false},
-          {text: 'Nom', value: 'user.person.s1'},
-          {text: 'Especialitat', value: 'username'},
-          {text: 'Familia', value: 'email'},
-          {text: 'Estatus', value: 'todo'},
-          {text: 'Plaça', value: 'roles'},
-          {text: 'Data finalització', value: 'todo'},
-          {text: 'Data creació', value: 'formatted_created_at'},
-          {text: 'Data actualització', value: 'formatted_updated_at'},
-          {text: 'Accions', value: 'full_search', sortable: false}
-        ]
+        deleting: false
       }
     },
     computed: {
       ...mapGetters({
         internalTeachers: 'teachers'
-      })
+      }),
+      headers () {
+        let headers = []
+        headers.push({text: 'Id', align: 'left', value: 'id'})
+        headers.push({text: 'Codi', value: 'code'})
+        headers.push({text: 'Foto', value: 'photo', sortable: false})
+        headers.push({text: 'Nom', value: 'user.person.s1'})
+        headers.push({text: 'Especialitat', value: 'username'})
+        headers.push({text: 'Familia', value: 'email'})
+        if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'todo'})
+        headers.push({text: 'Plaça', value: 'roles'})
+        headers.push({text: 'Data creació', value: 'formatted_created_at'})
+        headers.push({text: 'Data actualització', value: 'formatted_updated_at'})
+        headers.push({text: 'Accions', value: 'full_search', sortable: false})
+        return headers
+      },
+      showStatusHeader () {
+        if (this.administrativeStatus != null && this.administrativeStatus && Object.keys(this.administrativeStatus).length !== 0) return false
+        return true
+      }
     },
     props: {
       teachers: {
+        type: Array,
+        required: true
+      },
+      administrativeStatuses: {
         type: Array,
         required: true
       }

@@ -59,6 +59,6 @@ class TeachersControllerTest extends BaseTenantTest
         $response->assertViewHas('teachers');
         $response->assertViewHas('specialties');
         $response->assertViewHas('forces');
-        $response->assertViewHas('administrative_statuses');
+        $response->assertViewHas('administrativeStatuses');
     }
 }
