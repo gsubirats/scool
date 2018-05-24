@@ -2,7 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
-use App\User;
+use App\Models\User;
 use Auth;
 use Illuminate\View\View;
 
@@ -22,7 +22,9 @@ class LayoutComposer
     public function compose(View $view)
     {
         if (Auth::user()->isSuperAdmin()) {
-            $view->with('users', User::all());
+            $view->with('users', User::all()->filter(function($user) {
+                return $user->canBeImpersonated();
+            })->values());
         }
     }
 }

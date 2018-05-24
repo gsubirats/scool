@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public function isSuperAdmin()
     {
-        return true;
+        return $this->admin;
     }
 }

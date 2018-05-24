@@ -135,6 +135,7 @@
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
+            this.loginLoading = false
             if (error.status === 422) {
               this.showError('Les dades no són vàlides')
             } else {

@@ -1,5 +1,6 @@
 <template>
     <v-select
+            name="user"
             :label="label"
             :items="users"
             v-model="user"
@@ -37,7 +38,6 @@
             </template>
         </template>
     </v-select>
-
 </template>
 
 <style>
@@ -58,13 +58,13 @@
       },
       label: {
         type: String,
-        default: "Escolliu l'usuari pel qual us voleu fer passar"
+        default: "Escolliu l'usuari a suplantar"
       }
     },
     methods: {
       impersonate (user) {
         if (user) {
-          console.log ('TODO impersonate ' + user.name + ' id: ' + user.id)
+          if (user) window.location.href = '/impersonate/take/' + user.id
         }
       }
     }

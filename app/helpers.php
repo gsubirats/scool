@@ -583,6 +583,10 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
 if (!function_exists('initialize_gates')) {
     function initialize_gates()
     {
+        Gate::define('impersonate-user', function ($user) {
+            return $user->isSuperAdmin();
+        });
+
         Gate::define('store-user-photo', function ($user) {
             return $user->hasRole(['UsersManager','TeachersManager']);
         });
@@ -698,8 +702,6 @@ if (!function_exists('initialize_gates')) {
                 return true;
             }
         });
-
-
     }
 }
 
