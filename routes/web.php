@@ -21,9 +21,6 @@ Route::bind('hashuser', function($value, $route)
     return User::findOrFail($id);
 });
 
-
-
-
 Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
@@ -88,18 +85,6 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
             Route::get('/unassigned_teacher_photos/{photo}','Tenant\UnassignedTeacherPhotosController@download');
             Route::get('/unassigned_teacher_photos','Tenant\UnassignedTeacherPhotosController@downloadAll');
 
-            //Admin
-            Route::post('/admin/impersonate/user', 'Tenant\Admin\ImpersonateUserController@store');
-
-            Route::get('prova', function() {
-                dump('dsasadsda');
-                $result = Auth::user()->impersonate(User::findOrFail(5));
-                dd($result);
-            });
-
-            Route::get('prova2', function() {
-                Auth::loginUsingId(5);
-            });
         });
     });
 
