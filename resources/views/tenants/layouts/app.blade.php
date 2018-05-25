@@ -148,9 +148,7 @@
                     <v-icon right dark>edit</v-icon>
                     Editar
                 </v-btn>
-                <v-btn :loading="logoutLoading" @click="logout" flat color="orange">
-                    <v-icon right dark>exit_to_app</v-icon>
-                    Sortir</v-btn>
+                <logout-button></logout-button>
                 <v-spacer></v-spacer>
             </v-card-actions>
             <v-card-actions>

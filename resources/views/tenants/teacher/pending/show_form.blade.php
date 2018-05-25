@@ -38,10 +38,23 @@
                         action="{{ $action or null }}"
                         token="{{ $token or null }}"
                         email="{{ $email or null }}"></reset-password>
+            @else
+                <v-spacer></v-spacer>
+                <v-btn href="/home">
+                    <v-icon right dark>home</v-icon> Principal
+                </v-btn>
+                <logout-button></logout-button>
             @endif
         </v-toolbar>
         <v-content>
             <section>
+                @if ( Auth::check() )
+                    <pending-teacher-add-warnings :logged-user="{{ Auth::user() }}"></pending-teacher-add-warnings>
+                @else
+                    <pending-teacher-add-warnings :logged-user="null"></pending-teacher-add-warnings>
+                @endif
+
+
                 <pending-teacher-add
                         :specialties="{{ $specialties }}"
                         :forces="{{ $forces }}"

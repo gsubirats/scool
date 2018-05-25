@@ -30,13 +30,16 @@ Vue.component('job-add', require('./components/jobs/JobAddComponent.vue'));
 Vue.component('jobs-list-by-family', require('./components/jobs/JobsListByFamilyComponent.vue'));
 Vue.component('jobs-list-by-specialty', require('./components/jobs/JobsListBySpecialtyComponent.vue'));
 Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
+Vue.component('pending-teacher-add-warnings', require('./components/teachers/PendingTeacherAddWarningsComponent.vue'));
+Vue.component('pending-teacher-warnings', require('./components/teachers/PendingTeachersComponent.vue'));
 
-Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));
 Vue.component('teachers', require('./components/teachers/TeachersComponent.vue'));
 
 Vue.component('teachers-photos', require('./components/teachers/TeachersPhotosComponent.vue'));
 
 Vue.component('impersonate-user', require('./components/admin/ImpersonateUserComponent.vue'));
+
+Vue.component('logout-button', require('./components/auth/LogoutButtonComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
@@ -61,7 +64,6 @@ const app = new Vue({
     drawer: null,
     drawerRight: false,
     editingUser: false,
-    logoutLoading: false,
     changingPassword: false,
     updatingUser: false,
     items: window.scool_menu
@@ -104,16 +106,6 @@ const app = new Vue({
         })
       }
       return true
-    },
-    logout () {
-      this.logoutLoading = true
-      this.$store.dispatch(actions.LOGOUT).then(response => {
-        window.location = '/'
-      }).catch(error => {
-        console.log(error)
-      }).then(() => {
-        this.logoutLoading = false
-      })
     },
     menuItemSelected (item) {
       if (item.href) {

@@ -124,7 +124,6 @@
     },
     methods: {
       login () {
-        console.log('LOGIN!!!!!!!!!!!!!')
         if (this.$refs.loginForm.validate()) {
           this.loginLoading = true
           const credentials = {
