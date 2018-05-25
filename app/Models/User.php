@@ -315,7 +315,6 @@ class User extends Authenticatable
      */
     public function routeNotificationForMail($notification)
     {
-        dd(get_class($notification));
         if ($this->person && $this->person->email) return [$this->email,$this->person->email];
         return $this->email;
     }

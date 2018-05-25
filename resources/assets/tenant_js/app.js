@@ -127,7 +127,7 @@ const app = new Vue({
     changePassword () {
       this.changingPassword = true
       this.$store.dispatch(actions.REMEMBER_PASSWORD, this.user.email).then(response => {
-        this.showMessage(`Email sent to change password`)
+        this.showMessage(`Correu electrònic enviat per canviar la paraula de pas`)
       }).catch(error => {
         console.dir(error)
         this.showError(error)

@@ -51,11 +51,11 @@
                         </v-flex>
                         <v-flex xs12>
                             <a href="/password/reset" color="blue darken-2">
-                                Remember password</a>
+                                Recordar paraula de pas</a>
                         </v-flex>
                         <v-flex xs12>
                             <a href="/register" color="blue darken-2">
-                                Register
+                                Registrar-se
                             </a>
                         </v-flex>
                     </v-layout>
@@ -63,7 +63,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-2" flat @click.native="showLogin = false">Close</v-btn>
+                <v-btn color="blue darken-2" flat @click.native="showLogin = false">Tancar</v-btn>
                 <v-btn color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Login</v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
@@ -93,8 +93,8 @@
         ],
         password: '',
         passwordRules: [
-          (v) => !!v || 'Password is mandatory',
-          (v) => v.length >= 6 || 'Password have to be at least 6 characters long'
+          (v) => !!v || 'La paraula de pas és obligatòria',
+          (v) => v.length >= 6 || 'La paraula de pas ha de tenir com a mínim 6 caràcters'
         ],
         valid: false,
         loginLoading: false
@@ -124,6 +124,7 @@
     },
     methods: {
       login () {
+        console.log('LOGIN!!!!!!!!!!!!!')
         if (this.$refs.loginForm.validate()) {
           this.loginLoading = true
           const credentials = {
@@ -135,6 +136,7 @@
             this.showLogin = false
             window.location = '/home'
           }).catch(error => {
+            console.log(error)
             this.loginLoading = false
             if (error.status === 422) {
               this.showError('Les dades no són vàlides')
@@ -142,11 +144,6 @@
               this.showError(error)
             }
             this.errors = error.data.errors
-          }).catch(error => {
-            console.log(error)
-            this.registerLoading = false
-          }).then(() => {
-            this.loginLoading = false
           })
         }
       }
