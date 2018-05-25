@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Auth\ScoolUserProvider;
+use App\Libraries\Sha1\HashManager;
+use App\Models\User;
+use Auth;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -30,6 +34,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        // TODO
+        Auth::provider('scool', function ($app, array $config) {
+            return new ScoolUserProvider(app(Hasher::class), User::class);
+        });
 
         Passport::routes();
 

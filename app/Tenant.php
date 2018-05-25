@@ -57,6 +57,7 @@ class Tenant extends Model
         Config::set('google.service.file', $this->gsuite_service_account_path);
         Config::set('google.admin_email', $this->gsuite_admin_email);
         Config::set('auth.providers.users.model', \App\Models\User::class);
+        Config::set('auth.providers.users.driver', 'scool');
         Config::set('hashing.driver', 'sha1');
 
     }

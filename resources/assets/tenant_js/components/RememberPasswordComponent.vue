@@ -2,12 +2,12 @@
     <v-dialog v-model="showRememberPassword" persistent max-width="500px">
         <v-card>
             <v-card-title>
-                <span class="headline">Send reset password email</span>
+                <span class="headline">Enviar e-mail de canvi de contrasenya</span>
             </v-card-title>
             <v-card-text>
                 <v-form ref="resetPasswordForm" v-model="valid">
                     <v-text-field
-                            label="E-mail"
+                            label="Correu electrònic"
                             v-model="email"
                             :rules="emailRules"
                             :error="errors['email']"
@@ -19,7 +19,7 @@
                     Login
                 </a> &nbsp; |
                 <a href="/register" color="blue darken-2">
-                    Register
+                    Registrar-se
                 </a>
             </v-card-text>
             <v-card-actions>
@@ -34,8 +34,8 @@
                     <v-icon v-if="!done">mail_outline</v-icon>
                     <v-icon v-else>done</v-icon>
                     &nbsp;
-                    <template v-if="!done">Send</template>
-                    <template v-else>Done</template>
+                    <template v-if="!done">Enviar</template>
+                    <template v-else>Fet</template>
                 </v-btn>
             </v-card-actions>
         </v-card>

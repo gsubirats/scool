@@ -510,9 +510,11 @@
         this.opositions_date = pendingTeacher.opositions_date
         this.administrative_status = this.getAdministrativestatus(pendingTeacher.administrative_status_id)
         this.destination_place = pendingTeacher.destination_place
-        console.log(this.teacher)
+        // TODO remove console comments
+//        console.log(this.teacher)
+//        console.log('Searching for: ' + pendingTeacher.teacher_id)
         this.teacher = this.getTeacher(pendingTeacher.teacher_id)
-        console.log(this.teacher)
+//        console.log(this.teacher)
       }
     },
     created () {

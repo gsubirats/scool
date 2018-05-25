@@ -308,6 +308,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Email to send notifications.
+     *
+     * @param $notification
+     * @return array|mixed
+     */
+    public function routeNotificationForMail($notification)
+    {
+        dd(get_class($notification));
+        if ($this->person && $this->person->email) return [$this->email,$this->person->email];
+        return $this->email;
+    }
+
+    /**
      * Assign personal data.
      *
      * @param $data
