@@ -3,7 +3,8 @@
 @section('content')
 
     <pending-teachers
-            :teachers="{{ $pendingTeachers }}"
+            :teachers="{{ $teachers->pluck('user') }}"
+            :pending-teachers="{{ $pendingTeachers }}"
             :specialties="{{ $specialties }}"
             :forces="{{ $forces }}"
             :administrative-statuses="{{ $administrativeStatuses }}">

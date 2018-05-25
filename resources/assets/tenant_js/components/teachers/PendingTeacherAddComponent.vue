@@ -349,13 +349,8 @@
                                                 @blur="$v.specialty.$touch()"
                                                 :items="specialties"
                                                 v-model="specialty"
+                                                item-text="name"
                                         >
-                                            <template slot="item" slot-scope="data">
-                                                {{data.item.code}} - {{data.item.name}}
-                                            </template>
-                                            <template slot="selection" slot-scope="data">
-                                                {{data.item.code}} - {{data.item.name}}
-                                            </template>
                                         </v-select>
 
                                     </v-flex>
@@ -371,13 +366,8 @@
                                                 @blur="$v.force.$touch()"
                                                 :items="forces"
                                                 v-model="force"
+                                                item-text="name"
                                         >
-                                            <template slot="item" slot-scope="data">
-                                                {{data.item.code}} - {{data.item.name}}
-                                            </template>
-                                            <template slot="selection" slot-scope="data">
-                                                {{data.item.code}}
-                                            </template>
                                         </v-select>
                                     </v-flex>
                                     <v-flex md4>

@@ -23,7 +23,7 @@
                             <v-data-table
                                     class="px-0 mb-2 hidden-sm-and-down"
                                     :headers="headers"
-                                    :items="internalTeachers"
+                                    :items="filteredTeachers"
                                     :search="search"
                                     item-key="id"
                                     disable-initial-sort
@@ -54,8 +54,18 @@
                                         <td class="text-xs-left" v-if="showStatusHeader">
                                             <span :title="administrativeStatusName(teacher)">{{ administrativeStatusCode(teacher) }}</span>
                                         </td>
+
+
+
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <span :title="jobDescription(teacher)">{{ job(teacher) }}</span>
+                                        </td>
+
+                                        <td class="text-xs-left" v-if="showSubstituteHeaders">
+                                            {{ jobStartAt(teacher) }}
+                                        </td>
+                                        <td class="text-xs-left" v-if="showSubstituteHeaders">
+                                            {{ jobEndAt(teacher) }}
                                         </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
@@ -150,7 +160,7 @@
 
   export default {
     components: {
-      ShowTeacherIcon,
+      ShowTeacherIcon, // show-teacher-icon
       AdministrativeStatusSelect // administrative-status-select
     },
     data () {
@@ -165,6 +175,10 @@
       ...mapGetters({
         internalTeachers: 'teachers'
       }),
+      filteredTeachers: function () {
+        if (this.showStatusHeader) return this.internalTeachers
+        return this.internalTeachers.filter(teacher => teacher.administrative_status_id === this.administrativeStatus.id)
+      },
       headers () {
         let headers = []
         headers.push({text: 'Id', align: 'left', value: 'id'})
@@ -175,14 +189,22 @@
         headers.push({text: 'Familia', value: 'email'})
         if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'todo'})
         headers.push({text: 'Plaça', value: 'roles'})
+        if (this.showSubstituteHeaders) {
+          headers.push({text: 'Data inici', value: 'todo'})
+          headers.push({text: 'Data fí', value: 'todo'})
+        }
         headers.push({text: 'Data creació', value: 'formatted_created_at'})
         headers.push({text: 'Data actualització', value: 'formatted_updated_at'})
         headers.push({text: 'Accions', value: 'full_search', sortable: false})
         return headers
       },
       showStatusHeader () {
-        if (this.administrativeStatus != null && this.administrativeStatus && Object.keys(this.administrativeStatus).length !== 0) return false
+        if (this.administrativeStatus != null && Object.keys(this.administrativeStatus).length !== 0) return false
         return true
+      },
+      showSubstituteHeaders () {
+        if (this.administrativeStatus != null && Object.keys(this.administrativeStatus).length !== 0 && this.administrativeStatus.code === 'SUBSTITUT') return true
+        return false
       }
     },
     props: {
@@ -231,6 +253,12 @@
       },
       job (teacher) {
         return teacher.user.jobs[0].family.code + '_' + teacher.user.jobs[0].specialty.code + '_' + teacher.user.jobs[0].order + '_' + teacher.user.jobs[0].code
+      },
+      jobStartAt (teacher) {
+        return teacher.user.jobs[0].employee.start_at
+      },
+      jobEndAt (teacher) {
+        return teacher.user.jobs[0].employee.end_at
       },
       jobDescription (teacher) {
         return 'Plaça num ' + teacher.user.jobs[0].order + ' de la família ' + teacher.user.jobs[0].family.name + ', especialitat ' + teacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(teacher.user.jobs[0].code)

@@ -204,12 +204,12 @@ export default {
       !this.$v.administrative_status.required && errors.push('La situació administrativa és obligatòria')
       return errors
     },
-    teacherErrors () {
-      const errors = []
-      if (!this.$v.teacher.$dirty) return errors
-      !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
-      return errors
-    }
+    // teacherErrors () {
+    //   const errors = []
+    //   if (!this.$v.teacher.$dirty) return errors
+    //   !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
+    //   return errors
+    // }
   },
   props: {
     specialties: {

@@ -3674,7 +3674,76 @@ if (!function_exists('add_fake_pending_teacher')) {
             'opositions_date' => '2009-06-10',
             'administrative_status_id' => 1,
             'destination_place' => 'La Seu Urgell',
-            'teacher_id' => 1
+            'teacher_id' => 8
+        ]);
+    }
+}
+
+if (!function_exists('add_fake_pending_teachers')) {
+    function add_fake_pending_teachers()
+    {
+        PendingTeacher::create([
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '84008343S',
+            'birthdate' => '1980-02-04',
+            'street' => 'Alcanyiz',
+            'number' => 40,
+            'floor' => 3,
+            'floor_number' => 1,
+            'postal_code' => 43500,
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepe@pardo.com',
+            'other_emails' => 'pepepardojeans@gmail.com,ppardo@xtec.cat',
+            'telephone' => '679852467',
+            'other_telephones' => '977854265,689578458',
+            'degree' => 'Enginyer en chapuzas varias',
+            'other_degrees' => 'Master emerito por la Juan Carlos Primero',
+            'languages' => 'Suajili',
+            'profiles' => 'Master of the Universe',
+            'other_training' => 'Fuster',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2015',
+            'start_date' => '2017-03-06',
+            'opositions_date' => '2009-06-10',
+            'administrative_status_id' => 1,
+            'destination_place' => 'La Seu Urgell',
+            'teacher_id' => 8
+        ]);
+
+        PendingTeacher::create([
+            'name' => 'Pepa',
+            'sn1' => 'Parda',
+            'sn2' => 'Jeans',
+            'identifier' => '69544773H',
+            'birthdate' => '1975-04-14',
+            'street' => 'Beseit',
+            'number' => 14,
+            'floor' => 2,
+            'floor_number' => 3,
+            'postal_code' => 43520,
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepa@parda.com',
+            'other_emails' => 'pepapardajeans@gmail.com,pparda@xtec.cat',
+            'telephone' => '674582467',
+            'other_telephones' => '977814265,689478458',
+            'degree' => 'Enginyera en chapuzas varias',
+            'other_degrees' => 'Master a por la Juan Carlos Primero',
+            'languages' => 'Suajila',
+            'profiles' => 'Mistress of the Universe',
+            'other_training' => 'Fustera',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2015',
+            'start_date' => '2017-03-06',
+            'opositions_date' => '2009-04-11',
+            'administrative_status_id' => 5,
+            'destination_place' => 'La Roca del Vallés',
+            'teacher_id' => 9
         ]);
     }
 }
