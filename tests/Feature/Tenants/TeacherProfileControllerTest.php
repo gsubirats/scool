@@ -37,9 +37,7 @@ class TeacherProfileControllerTest extends BaseTenantTest
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /** @test */
-    public function teacher_profile()
-    {
+    protected function createTeacher() {
         Role::firstOrCreate(['name' => 'Teacher']);
         JobType::firstOrCreate([
             'name' => 'Professor/a'
@@ -76,10 +74,20 @@ class TeacherProfileControllerTest extends BaseTenantTest
                 'code' => '002'
             ]));
         $teacher = $teacher->fresh();
+        return $teacher;
+    }
+
+    /** @test */
+    public function teacher_profile()
+    {
+        $teacher = $this->createTeacher();
         $this->actingAs($teacher);
         $response = $this->json('GET','/teacher/profile/');
 
         $response->assertSuccessful();
+        $response->assertViewIs('tenants.teacher.profile');
+        $response->assertViewHas('teacher');
+        $response->assertViewHas('teachers');
     }
 
     /** @test */

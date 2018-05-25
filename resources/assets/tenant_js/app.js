@@ -40,6 +40,7 @@ Vue.component('teachers-photos', require('./components/teachers/TeachersPhotosCo
 Vue.component('impersonate-user', require('./components/admin/ImpersonateUserComponent.vue'));
 
 Vue.component('logout-button', require('./components/auth/LogoutButtonComponent.vue'));
+Vue.component('teacher-profile', require('./components/teachers/TeacherProfileComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
