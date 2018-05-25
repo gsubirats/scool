@@ -46,7 +46,7 @@
                                         l20.596-0.009V45.045c-3.562-0.474-15.788-1.533-30.012-1.533c-29.695,0-50.025,18.126-50.025,51.413v28.684h-33.585v38.895h33.585
                                         v99.803H182.409z"/>
                                 </svg>
-                                <span class="ml-1">Login with Facebook</span>
+                                <span class="ml-1">Login amb Facebook</span>
                             </v-btn>
                         </v-flex>
                         <v-flex xs12>
@@ -108,6 +108,10 @@
       show: {
         type: Boolean,
         default: true
+      },
+      redirect: {
+        type: String,
+        default: '/home'
       }
     },
     computed: {
@@ -133,7 +137,7 @@
           this.$store.dispatch(actions.LOGIN, credentials).then(response => {
             this.loginLoading = false
             this.showLogin = false
-            window.location = '/home'
+            window.location = this.redirect
           }).catch(error => {
             console.log(error)
             this.loginLoading = false

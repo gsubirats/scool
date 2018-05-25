@@ -578,4 +578,53 @@ class UserTest extends TestCase
         $this->assertInstanceOf(User::class,$result);
     }
 
+    /** @test */
+    public function can_check_if_user_is_teacher()
+    {
+        $user = factory(User::class)->create();
+        $this->assertFalse($user->isTeacher());
+
+        Role::firstOrCreate(['name' => 'Teacher']);
+        JobType::firstOrCreate([
+            'name' => 'Professor/a'
+        ]);
+        Family::firstOrCreate([
+            'name' => 'Sanitat',
+            'code' => 'SANITAT'
+        ]);
+        Force::firstOrCreate([
+            'name' => "Professors d'ensenyament secundari",
+            'code' => 'SECUNDARIA'
+        ]);
+        Specialty::firstOrCreate([
+            'code' => 'CAS',
+            'name' => 'Castellà',
+            'force_id' => Force::findByCode('SECUNDARIA')->id,
+            'family_id' => Family::findByCode('SANITAT')->id
+        ]);
+
+
+        $teacher = User::createIfNotExists([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardo@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
+                    'specialty_id' => Specialty::findByCode('CAS')->id,
+                    'family_id' => Family::findByCode('SANITAT')->id,
+                    'code' => '002',
+                    'order' => 1
+                ])
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '002'
+            ]));
+        $teacher = $teacher->fresh();
+        $this->assertTrue($teacher->isTeacher());
+    }
+
+
+
 }

@@ -588,6 +588,10 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
 if (!function_exists('initialize_gates')) {
     function initialize_gates()
     {
+        Gate::define('show-teacher-profile', function ($user) {
+            return $user->isTeacher();
+        });
+
         Gate::define('impersonate-user', function ($user) {
             return $user->isSuperAdmin();
         });

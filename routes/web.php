@@ -85,6 +85,7 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
             Route::get('/unassigned_teacher_photos/{photo}','Tenant\UnassignedTeacherPhotosController@download');
             Route::get('/unassigned_teacher_photos','Tenant\UnassignedTeacherPhotosController@downloadAll');
 
+            Route::get('/teacher/profile','Tenant\TeacherProfileController@index');
         });
     });
 

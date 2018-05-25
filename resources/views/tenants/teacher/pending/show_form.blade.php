@@ -31,7 +31,7 @@
             <v-toolbar-title>{{ config('app.name') }}</v-toolbar-title>
             @if (Route::has('login') && ! Auth::check() )
                 <v-spacer></v-spacer>
-                <login-button action="{{ $action or null }}" ></login-button>
+                <login-button action="{{ $action or null }}" redirect="/teacher/profile"></login-button>
                 <register-button action="{{ $action or null }}" ></register-button>
                 <remember-password action="{{ $action or null }}"></remember-password>
                 <reset-password
@@ -43,7 +43,7 @@
                 <v-btn href="/home">
                     <v-icon right dark>home</v-icon> Principal
                 </v-btn>
-                <logout-button></logout-button>
+                <logout-button redirect="/nou_professor"></logout-button>
             @endif
         </v-toolbar>
         <v-content>

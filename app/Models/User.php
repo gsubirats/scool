@@ -440,4 +440,16 @@ class User extends Authenticatable
         $this->positions()->save($position);
         return $this;
     }
+
+    public function isTeacher()
+    {
+        if (
+            $this->hasRole('Teacher') &&
+            $this->teacher &&
+            $this->teacher->code &&
+            $this->jobs()->first() &&
+            $this->jobs()->first()->type_id == JobType::findByName('Professor/a')->id
+            ) return true;
+        return false;
+    }
 }

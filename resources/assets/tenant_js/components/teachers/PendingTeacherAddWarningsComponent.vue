@@ -4,6 +4,8 @@
             <v-flex xs12>
                 <v-alert v-model="showError" type="error" dismissible>
                     <span class="title">Aquest formulari ÉS NOMÉS PER A PROFESSORS NOUS</span><br/>
+                    Si ja disposeu d'usuari si us plau feu Login
+                    <login-button redirect="/teacher/profile"></login-button>
                 </v-alert>
             </v-flex>
             <v-alert v-model="showWarning" type="warning" dismissible v-if="loggedUser">

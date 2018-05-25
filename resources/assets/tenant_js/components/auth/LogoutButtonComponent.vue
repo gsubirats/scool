@@ -26,13 +26,17 @@
       flat: {
         type: Boolean,
         default: true
+      },
+      redirect: {
+        type: String,
+        default: '/'
       }
     },
     methods: {
       logout () {
         this.logoutLoading = true
         this.$store.dispatch(actions.LOGOUT).then(response => {
-          window.location = '/'
+          window.location = this.redirect
         }).catch(error => {
           console.log(error)
         }).then(() => {
