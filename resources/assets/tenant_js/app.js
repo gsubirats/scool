@@ -31,7 +31,7 @@ Vue.component('jobs-list-by-family', require('./components/jobs/JobsListByFamily
 Vue.component('jobs-list-by-specialty', require('./components/jobs/JobsListBySpecialtyComponent.vue'));
 Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
 Vue.component('pending-teacher-add-warnings', require('./components/teachers/PendingTeacherAddWarningsComponent.vue'));
-Vue.component('pending-teacher-warnings', require('./components/teachers/PendingTeachersComponent.vue'));
+Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));
 
 Vue.component('teachers', require('./components/teachers/TeachersComponent.vue'));
 
