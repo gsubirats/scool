@@ -438,18 +438,25 @@
                                                 v-model="teacher"
                                         ></teacher-select>
                                     </v-flex>
-                                    <v-flex md6>
-                                        <v-checkbox
-                                                label="Accepteu les condicions d'ús?"
-                                                v-model="checkbox"
-                                                :error-messages="checkboxErrors"
-                                                @change="$v.checkbox.$touch()"
-                                                @blur="$v.checkbox.$touch()"
-                                                required
-                                        ></v-checkbox>
-                                    </v-flex>
+                                    <!-- TODO: Terms of Service | Compliance with LOPD i GDPR -->
+                                    <!--<v-flex md6>-->
+                                        <!--<v-checkbox-->
+                                                <!--label="Accepteu les condicions d'ús?"-->
+                                                <!--v-model="checkbox"-->
+                                                <!--:error-messages="checkboxErrors"-->
+                                                <!--@change="$v.checkbox.$touch()"-->
+                                                <!--@blur="$v.checkbox.$touch()"-->
+                                                <!--required-->
+                                        <!--&gt;</v-checkbox>-->
+                                    <!--</v-flex>-->
                                 </v-layout>
                             </v-container>
+
+                            <h1 class="subheading primary--text">
+                                <div>
+                                    <p>Documentació</p>
+                                </div>
+                            </h1>
 
                             <v-btn @click="submit">Enviar</v-btn>
                         </form>
