@@ -583,7 +583,7 @@
       },
       preview () {
         if (this.$refs.photo.files && this.$refs.photo.files[0]) {
-          var reader = new FileReader()
+          let reader = new FileReader()
           reader.onload = e => {
             this.$refs.photoImage.setAttribute('src', e.target.result)
           }

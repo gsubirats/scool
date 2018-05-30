@@ -86,6 +86,9 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
             Route::get('/unassigned_teacher_photos','Tenant\UnassignedTeacherPhotosController@downloadAll');
 
             Route::get('/teacher/profile','Tenant\TeacherProfileController@index');
+
+            //File upload to storage
+            Route::post('file/upload/to/{storage}', 'Tenant\UploadFileToStorageController@store');
         });
     });
 

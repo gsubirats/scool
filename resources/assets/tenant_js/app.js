@@ -42,6 +42,8 @@ Vue.component('impersonate-user', require('./components/admin/ImpersonateUserCom
 Vue.component('logout-button', require('./components/auth/LogoutButtonComponent.vue'));
 Vue.component('teacher-profile', require('./components/teachers/TeacherProfileComponent.vue'));
 
+
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 

@@ -458,6 +458,26 @@
                                 </div>
                             </h1>
 
+                            <v-container grid-list-md fluid>
+                                <v-layout row wrap>
+                                    <v-flex md6>
+                                        <upload-card
+                                                name="identifier_photocopy"
+                                                label="Fotocopia del DNI, NIE o Passaport"
+                                                url="/api/v1/pending_teacher/identifier_photocopy"
+                                        ></upload-card>
+                                    </v-flex>
+                                    <v-flex md6>
+                                        <upload-card
+                                                name="photo"
+                                                label="Foto carnet"
+                                                url="/api/v1/pending_teacher/photo"
+                                        ></upload-card>
+                                    </v-flex>
+
+                                </v-layout>
+                            </v-container>
+
                             <v-btn @click="submit">Enviar</v-btn>
                         </form>
                     </v-card-text>
@@ -477,9 +497,13 @@
   import axios from 'axios'
   import PendingTeacher from './Mixins/PendingTeacher'
   import TeacherSelect from './TeacherSelectComponent.vue'
+  import UploadCardComponent from '../ui/UploadCardComponent.vue'
 
   export default {
-    components: { TeacherSelect },
+    components: {
+      'upload-card': UploadCardComponent,
+      TeacherSelect
+    },
     mixins: [validationMixin, withSnackbar, PendingTeacher],
     watch: {
       birthdateMenu (val) {

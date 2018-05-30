@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Passport\HasApiTokens;
 use Session;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Permission\Traits\HasRoles;
 use Storage;
 
@@ -17,9 +19,9 @@ use Storage;
  *
  * @package App
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, HasApiTokens, HasRoles, FormattedDates, Impersonate;
+    use Notifiable, HasApiTokens, HasRoles, FormattedDates, Impersonate, HasMediaTrait;
 
     const DEFAULT_PHOTO = 'default.png';
     const PHOTOS_PATH = 'user_photos';
@@ -34,6 +36,13 @@ class User extends Authenticatable
     {
         if ($this->isImpersonated()) return User::findOrFail(Session::get('impersonated_by'));
         return null;
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('photos')->useDisk('local');
+
+        $this->addMediaCollection('docs')->useDisk('local');
     }
 
     /**
