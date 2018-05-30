@@ -629,9 +629,10 @@
             opositions_date: this.opositions_date,
             administrative_status_id: this.administrative_status.id,
             destination_place: this.destination_place,
-            teacher_id: this.teacher.id
+            teacher_id: this.teacher.id,
+            photo: this.photo,
+            identifier_photocopy: this.identifier_photocopy
           }).then(response => {
-            console.log(response)
             this.showMessage('Dades enviades correctament')
             this.clear()
             this.$v.$reset()
