@@ -58,6 +58,7 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
         //File upload to storage
         Route::post('file/upload/to/{storage}', 'Tenant\UploadFileToStorageController@store');
+        Route::post('file/remove/from/{storage}', 'Tenant\UploadFileToStorageController@destroy');
 
         Route::group(['middleware' => 'auth'], function () {
 

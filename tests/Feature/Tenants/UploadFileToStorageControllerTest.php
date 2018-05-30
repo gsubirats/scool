@@ -35,7 +35,6 @@ class UploadFileToStorageControllerTest extends BaseTenantTest
     /** @test */
     public function upload_file()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
 
         $response = $this->json('POST', 'file/upload/to/local', [
@@ -61,6 +60,53 @@ class UploadFileToStorageControllerTest extends BaseTenantTest
         // Assert the file was stored...
         Storage::disk('public')->assertExists($path);
         $this->assertContains('tenant_test/uploads',$path);
+
+    }
+
+    /** @test */
+    public function cannot_remove_upload_files_not_owned()
+    {
+        $response = $this->json('POST', 'file/remove/from/local', [
+            'path' => 'avatar.jpg'
+        ]);
+
+        $response->assertStatus(403);
+
+        $response = $this->json('POST', 'file/remove/from/local', [
+            'path' => 'uploads/avatar.jpg'
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function remove_upload_file()
+    {
+        Storage::fake('local');
+
+        $path = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('avatar.jpg'));
+
+        $response = $this->json('POST', 'file/remove/from/local', [
+            'path' => $path
+        ]);
+
+        $response->assertSuccessful();
+
+        // Assert the file was removed...
+        Storage::disk('local')->assertMissing($path);
+
+        Storage::fake('public');
+
+        $path = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('avatar.jpg'));
+
+        $response = $this->json('POST', 'file/remove/from/public', [
+            'path' => $path
+        ]);
+
+        $response->assertSuccessful();
+
+        // Assert the file was removed...
+        Storage::disk('public')->assertMissing($path);
 
     }
 }

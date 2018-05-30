@@ -460,20 +460,18 @@
 
                             <v-container grid-list-md fluid>
                                 <v-layout row wrap>
-                                    <v-flex md6>
+                                    <v-flex md3>
                                         <upload-card
                                                 v-model="identifier_photocopy"
                                                 name="file"
                                                 label="Fotocopia del DNI, NIE o Passaport"
-                                                url="/file/upload/to/local"
                                         ></upload-card>
                                     </v-flex>
-                                    <v-flex md6>
+                                    <v-flex md3>
                                         <upload-card
                                                 v-model="photo"
                                                 name="file"
                                                 label="Foto carnet"
-                                                url="/file/upload/to/local"
                                         ></upload-card>
                                     </v-flex>
 

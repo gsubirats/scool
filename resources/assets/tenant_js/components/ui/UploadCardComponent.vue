@@ -27,13 +27,12 @@
             >
                 <v-icon dark>file_upload</v-icon>
             </v-btn>
-            <v-btn
-                    flat color="red"
-                    @click="confirmRemove()"
-                    icon
-            >
-                <v-icon dark>delete</v-icon>
-            </v-btn>
+            <confirm-icon icon="delete"
+                          color="pink"
+                          :working="deleting"
+                          @confirmed="remove()"
+                          tooltip="Eliminar"
+            ></confirm-icon>
         </v-card-actions>
     </v-card>
 </template>
@@ -41,13 +40,18 @@
 <script>
   import axios from 'axios'
   import withSnackbar from '../mixins/withSnackbar'
+  import ConfirmIconComponent from './ConfirmIconComponent'
 
   export default {
+    components: {
+      'confirm-icon': ConfirmIconComponent
+    },
     name: 'UploadCardComponent',
     mixins: [withSnackbar],
     data () {
       return {
         uploading: false,
+        deleting: false,
         path: ''
       }
     },
@@ -62,7 +66,11 @@
       },
       url: {
         type: String,
-        required: true
+        default: '/file/upload/to/local'
+      },
+      removeUrl: {
+        type: String,
+        default: '/file/remove/from/local'
       }
     },
     methods: {
@@ -100,6 +108,22 @@
       },
       upload () {
         this.$refs.file.click()
+      },
+      remove () {
+        this.deleting = true
+        console.log('REMOVE TODO')
+        axios.post(this.removeUrl, { path: this.path })
+          .then(response => {
+            this.deleting = false
+            this.path = ''
+            this.$emit('input', this.path)
+            this.$refs.previewImage.setAttribute('src', '')
+          })
+          .catch(error => {
+            this.deleting = false
+            console.log(error)
+            this.showError(error)
+          })
       }
     }
 
