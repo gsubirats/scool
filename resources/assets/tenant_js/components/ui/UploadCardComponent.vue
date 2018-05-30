@@ -111,13 +111,12 @@
       },
       remove () {
         this.deleting = true
-        console.log('REMOVE TODO')
         axios.post(this.removeUrl, { path: this.path })
           .then(response => {
             this.deleting = false
             this.path = ''
             this.$emit('input', this.path)
-            this.$refs.previewImage.setAttribute('src', '')
+            this.$refs.previewImage.setAttribute('src', 'img/placeholder.png')
           })
           .catch(error => {
             this.deleting = false

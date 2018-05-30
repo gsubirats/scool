@@ -7,7 +7,9 @@ use App\Models\PendingTeacher;
 use App\Models\User;
 use Config;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Spatie\Permission\Models\Role;
+use Storage;
 use Tests\BaseTenantTest;
 
 /**
@@ -284,6 +286,172 @@ class PendingTeachersControllerTest extends BaseTenantTest
         ]);
 
         $this->assertCount(1, PendingTeacher::all());
+    }
+
+    /** @test */
+    public function users_can_create_pending_teacher_with_docs_validation()
+    {
+
+        $this->assertCount(0, PendingTeacher::all());
+
+        $response = $this->json('POST', 'api/v1/add_teacher', [
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '38111210A',
+            'birthdate' => '1978-02-03',
+            'street' => 'Plaza Catalunya',
+            'number' => '1714',
+            'floor' => '4',
+            'floor_number' => '2',
+            'postal_code' => '43500',
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepepardo@jeans.com',
+            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
+            'telephone' => '689568945',
+            'other_telephones' => '689568945',
+            'degree' => 'Enginyer en telecomunicacions',
+            'other_degrees' => 'Master Cifuentes, Master professors',
+            'languages' => 'Anglès B1, Alemany B2',
+            'profiles' => 'Puto crack, Director de directors',
+            'other_training' => 'Puto crack, Director de directors',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2018-04-03',
+            'start_date' => '2015-09-01',
+            'opositions_date' => '2014-06-03',
+            'administrative_status_id' => 1,
+            'destination_place' => 'Quinta forca',
+            'teacher_id' => 1,
+            'photo' => '',
+            'identifier_photocopy' => ''
+        ]);
+        $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function users_can_create_pending_teacher_with_docs()
+    {
+        $this->withoutExceptionHandling();
+        $this->assertCount(0,PendingTeacher::all());
+
+        Storage::fake('local');
+
+        $PhotoPath = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('photo.jpg'));
+        $IdentifierPhotocopyPath = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('dni.jpg'));
+
+        $response = $this->json('POST','api/v1/add_teacher', [
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '38111210A',
+            'birthdate' => '1978-02-03',
+            'street' => 'Plaza Catalunya',
+            'number' => '1714',
+            'floor' => '4',
+            'floor_number' => '2',
+            'postal_code' => '43500',
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepepardo@jeans.com',
+            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
+            'telephone' => '689568945',
+            'other_telephones' => '689568945',
+            'degree' => 'Enginyer en telecomunicacions',
+            'other_degrees' => 'Master Cifuentes, Master professors',
+            'languages' => 'Anglès B1, Alemany B2',
+            'profiles' => 'Puto crack, Director de directors',
+            'other_training' => 'Puto crack, Director de directors',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2018-04-03',
+            'start_date' =>  '2015-09-01',
+            'opositions_date' => '2014-06-03',
+            'administrative_status_id' => 1,
+            'destination_place' => 'Quinta forca',
+            'teacher_id' => 1,
+            'photo' => $PhotoPath,
+            'identifier_photocopy' => $IdentifierPhotocopyPath
+        ]);
+
+        $response->assertSuccessful();
+
+        $response->assertJsonStructure([
+            'name',
+            'sn1',
+            'sn2',
+            'identifier',
+            'birthdate',
+            'street',
+            'number',
+            'floor',
+            'floor_number',
+            'postal_code',
+            'locality',
+            'province',
+            'email',
+            'other_emails',
+            'telephone',
+            'other_telephones',
+            'degree',
+            'other_degrees',
+            'languages',
+            'profiles',
+            'other_training',
+            'force_id',
+            'specialty_id',
+            'teacher_start_date',
+            'start_date',
+            'opositions_date',
+            'administrative_status_id',
+            'destination_place',
+            'teacher_id',
+            'photo',
+            'identifier_photocopy'
+        ]);
+
+        $response->assertJson([
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '38111210A',
+            'birthdate' => '1978-02-03',
+            'street' => 'Plaza Catalunya',
+            'number' => '1714',
+            'floor' => '4',
+            'floor_number' => '2',
+            'postal_code' => '43500',
+            'locality' => 'TORTOSA',
+            'province' => 'TARRAGONA',
+            'email' => 'pepepardo@jeans.com',
+            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
+            'telephone' => '689568945',
+            'other_telephones' => '689568945',
+            'degree' => 'Enginyer en telecomunicacions',
+            'other_degrees' => 'Master Cifuentes, Master professors',
+            'languages' => 'Anglès B1, Alemany B2',
+            'profiles' => 'Puto crack, Director de directors',
+            'other_training' => 'Puto crack, Director de directors',
+            'force_id' => 1,
+            'specialty_id' => 1,
+            'teacher_start_date' => '2018-04-03',
+            'start_date' =>  '2015-09-01',
+            'opositions_date' => '2014-06-03',
+            'administrative_status_id' => 1,
+            'destination_place' => 'Quinta forca',
+            'teacher_id' => 1,
+            'photo' => $PhotoPath,
+            'identifier_photocopy' => $IdentifierPhotocopyPath
+        ]);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertCount(1, PendingTeacher::all());
+
+        Storage::disk('local')->assertExists($result->photo);
+        Storage::disk('local')->assertExists($result->identifier_photocopy);
+
     }
 
     /** @test */

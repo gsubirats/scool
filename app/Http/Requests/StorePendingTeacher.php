@@ -43,7 +43,9 @@ class StorePendingTeacher extends FormRequest
             'degree' => 'required',
             'force_id' => 'required',
             'start_date' => 'required',
-            'administrative_status_id' => 'required'
+            'administrative_status_id' => 'required',
+            'photo' => 'sometimes|required',
+            'identifier_photocopy' => 'sometimes|required',
         ];
     }
 }

@@ -39,6 +39,8 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->string('languages')->nullable();
             $table->string('profiles')->nullable();
             $table->string('other_training')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('identifier_photocopy')->nullable();
             $table->unsignedInteger('force_id'); //Cos
             $table->unsignedInteger('specialty_id'); // Especialitat
             $table->year('teacher_start_date')->nullable();

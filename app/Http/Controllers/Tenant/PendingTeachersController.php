@@ -92,7 +92,9 @@ class PendingTeachersController extends Controller
             'opositions_date',
             'administrative_status_id',
             'destination_place',
-            'teacher_id'
+            'teacher_id',
+            'photo',
+            'identifier_photocopy'
         ]));
     }
 
