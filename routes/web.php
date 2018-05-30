@@ -25,13 +25,6 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
 
-//        Route::impersonate() but be careful about tenant!
-        Route::get('/impersonate/take/{id}', function($tenant, $id) {
-            return App::call('\Lab404\Impersonate\Controllers\ImpersonateController@take', ['tenant' => $tenant, 'id' => $id]);
-        });
-        Route::get('/impersonate/leave',
-            '\Lab404\Impersonate\Controllers\ImpersonateController@leave')->name('impersonate.leave');
-
         // Authentication Routes...
         Route::get('login', 'Auth\Tenant\LoginController@showLoginForm')->name('login');
         Route::post('login', 'Auth\Tenant\LoginController@login');
@@ -63,8 +56,18 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
         Route::get('/user/{hashuser}/photo','Tenant\UserPhotoController@show')->name('user.photo.show');
         Route::get('/user/{hashuser}/photo/download', 'Tenant\UserPhotoController@download')->name('user.photo.download');
 
+        //File upload to storage
+        Route::post('file/upload/to/{storage}', 'Tenant\UploadFileToStorageController@store');
 
         Route::group(['middleware' => 'auth'], function () {
+
+            //        Route::impersonate() but be careful about tenant!
+            Route::get('/impersonate/take/{id}', function($tenant, $id) {
+                return App::call('\Lab404\Impersonate\Controllers\ImpersonateController@take', ['tenant' => $tenant, 'id' => $id]);
+            });
+            Route::get('/impersonate/leave',
+                '\Lab404\Impersonate\Controllers\ImpersonateController@leave')->name('impersonate.leave');
+
             Route::get('/home', function ($tenant) {
                 return view('tenants.home');
             });
@@ -87,8 +90,6 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
             Route::get('/teacher/profile','Tenant\TeacherProfileController@index');
 
-            //File upload to storage
-            Route::post('file/upload/to/{storage}', 'Tenant\UploadFileToStorageController@store');
         });
     });
 

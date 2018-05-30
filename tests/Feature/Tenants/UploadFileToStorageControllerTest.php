@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\UploadedFile;
 use Storage;
@@ -42,10 +43,11 @@ class UploadFileToStorageControllerTest extends BaseTenantTest
         ]);
 
         $response->assertSuccessful();
-        $result = json_encode($response->getContent());
+        $path = $response->getContent();
 
         // Assert the file was stored...
-        Storage::disk('local')->assertExists($result->path);
+        Storage::disk('local')->assertExists($path);
+        $this->assertContains('tenant_test/uploads',$path);
 
         Storage::fake('public');
 
@@ -54,9 +56,11 @@ class UploadFileToStorageControllerTest extends BaseTenantTest
         ]);
 
         $response->assertSuccessful();
-        $result = json_encode($response->getContent());
+        $path = $response->getContent();
 
         // Assert the file was stored...
-        Storage::disk('public')->assertExists($result->path);
+        Storage::disk('public')->assertExists($path);
+        $this->assertContains('tenant_test/uploads',$path);
+
     }
 }

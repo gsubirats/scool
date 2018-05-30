@@ -462,16 +462,18 @@
                                 <v-layout row wrap>
                                     <v-flex md6>
                                         <upload-card
-                                                name="identifier_photocopy"
+                                                v-model="identifier_photocopy"
+                                                name="file"
                                                 label="Fotocopia del DNI, NIE o Passaport"
-                                                url="/api/v1/pending_teacher/identifier_photocopy"
+                                                url="/file/upload/to/local"
                                         ></upload-card>
                                     </v-flex>
                                     <v-flex md6>
                                         <upload-card
-                                                name="photo"
+                                                v-model="photo"
+                                                name="file"
                                                 label="Foto carnet"
-                                                url="/api/v1/pending_teacher/photo"
+                                                url="/file/upload/to/local"
                                         ></upload-card>
                                     </v-flex>
 

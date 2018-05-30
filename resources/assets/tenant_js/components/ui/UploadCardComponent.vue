@@ -47,7 +47,8 @@
     mixins: [withSnackbar],
     data () {
       return {
-        uploading: false
+        uploading: false,
+        path: ''
       }
     },
     props: {
@@ -88,7 +89,8 @@
         axios.post(this.url, formData)
           .then(response => {
             this.uploading = false
-            this.errors = []
+            this.path = response.data
+            this.$emit('input', this.path)
           })
           .catch(error => {
             this.uploading = false

@@ -70,7 +70,9 @@ export default {
       teacher: {},
       checkbox: false,
       birthdateMenu: false,
-      startDateMenu: false
+      startDateMenu: false,
+      identifier_photocopy: '',
+      photo: ''
     }
   },
   computed: {
