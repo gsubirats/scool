@@ -12,7 +12,7 @@
                                     <p>Dades personals</p>
                                 </div>
                             </h1>
-                            <v-container grid-list-md text-xs-center>
+                            <v-container fluid grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md3>
                                         <v-text-field
@@ -85,7 +85,7 @@
                                             <v-text-field
                                                     slot="activator"
                                                     label="Data de naixement"
-                                                    v-model="birthdate"
+                                                    v-model="formattedBirthdate"
                                                     :error-messages="birthdateErrors"
                                                     @input="$v.birthdate.$touch()"
                                                     @blur="$v.birthdate.$touch()"
@@ -111,7 +111,7 @@
                                 </div>
                             </h1>
 
-                            <v-container grid-list-md text-xs-center>
+                            <v-container fluid grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md3>
                                         <v-text-field
@@ -212,7 +212,7 @@
                                 </div>
                             </h1>
 
-                            <v-container grid-list-md text-xs-center>
+                            <v-container fluid grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md2>
                                         <v-text-field
@@ -286,7 +286,7 @@
                                 </div>
                             </h1>
 
-                            <v-container grid-list-md text-xs-center>
+                            <v-container fluid grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md6>
                                         <v-text-field
@@ -336,7 +336,7 @@
                                 </div>
                             </h1>
 
-                            <v-container grid-list-md text-xs-center>
+                            <v-container fluid grid-list-md text-xs-center>
                                 <v-layout row wrap>
                                     <v-flex md3>
                                         <v-select
@@ -458,7 +458,7 @@
                                 </div>
                             </h1>
 
-                            <v-container grid-list-md fluid>
+                            <v-container fluid grid-list-md fluid>
                                 <v-layout row wrap>
                                     <v-flex md3>
                                         <upload-card

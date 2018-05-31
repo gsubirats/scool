@@ -42,6 +42,7 @@ export default {
       identifierTypes: ['DNI/NIF', 'NIE', 'Passaport'],
       identifier: '',
       birthdate: '',
+      formattedBirthdate: '',
       street: '',
       number: '',
       floor: '',
@@ -205,13 +206,18 @@ export default {
       if (!this.$v.administrative_status.$dirty) return errors
       !this.$v.administrative_status.required && errors.push('La situació administrativa és obligatòria')
       return errors
-    },
+    }
     // teacherErrors () {
     //   const errors = []
     //   if (!this.$v.teacher.$dirty) return errors
     //   !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
     //   return errors
     // }
+  },
+  watch: {
+    birthdate (val) {
+      this.formattedBirthdate = this.formatDate(this.birthdate)
+    }
   },
   props: {
     specialties: {
@@ -232,6 +238,11 @@ export default {
     }
   },
   methods: {
+    formatDate (date) {
+      if (!date) return null
+      const [year, month, day] = date.split('-')
+      return `${day}/${month}/${year}`
+    },
     clear () {
       this.name = ''
       this.sn1 = ''
