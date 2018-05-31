@@ -163,27 +163,30 @@
                 <v-spacer></v-spacer>
             </v-card-actions>
         </v-card>
-        <v-card>
-            <v-card-title class="blue darken-3 white--text"><h2>Opcions administrador</h2></v-card-title>
-            <v-container fluid grid-list-md class="grey lighten-4">
-                <v-layout row wrap>
-                    @impersonating
+        {{Auth::user()}}
+        @if (Auth::user()->isAdmin)
+            <v-card>
+                <v-card-title class="blue darken-3 white--text"><h2>Opcions administrador</h2></v-card-title>
+                <v-container fluid grid-list-md class="grey lighten-4">
+                    <v-layout row wrap>
+                        @impersonating
                         <v-flex xs12>
                             <gravatar :user="{{ Auth::user()->impersonatedBy() }}" size="100px"></gravatar>
                         </v-flex>
-                    @endImpersonating
-                    <v-flex xs12>
-                        @canImpersonate
+                        @endImpersonating
+                        <v-flex xs12>
+                            @canImpersonate
                             <impersonate-user :users="{{$users}}"></impersonate-user>
-                        @endCanImpersonate
-                        @impersonating
+                            @endCanImpersonate
+                            @impersonating
                             {{ Auth::user()->impersonatedBy()->name }} està suplantant {{ Auth::user()->name }}
                             <a href="impersonate/leave">Abandonar la suplantació</a>
-                        @endImpersonating
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-card>
+                            @endImpersonating
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-card>
+        @endif
     </v-navigation-drawer>
     <v-content>
         @yield('content')

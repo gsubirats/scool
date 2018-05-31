@@ -70,7 +70,12 @@ class User extends Authenticatable implements HasMedia
         'name', 'email', 'password' ,
     ];
 
-    protected $appends = ['formatted_created_at','formatted_updated_at','hashid'];
+    protected $appends = [
+        'formatted_created_at',
+        'formatted_updated_at',
+        'hashid',
+        'admin'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
