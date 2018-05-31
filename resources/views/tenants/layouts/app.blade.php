@@ -13,7 +13,7 @@
     {{--<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.0.18/vuetify.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-corner-indicator.min.css" rel="stylesheet">
-    <link href="tenant/css/app.css" rel="stylesheet">
+    <link href="/tenant/css/app.css" rel="stylesheet">
 </head>
 <body>
 <v-app id="app" v-cloak>
@@ -164,11 +164,13 @@
                 <v-container fluid grid-list-md class="grey lighten-4">
                     <v-layout row wrap>
                         <v-flex xs12 >
-                            TODO
+
                         </v-flex>
                     </v-layout>
+                    <v-btn class="mx-0" title="Vegeu la fitxa del professor" href="/teacher/profile">
+                        <v-icon color="primary">visibility</v-icon> Fitxa del professor
+                    </v-btn>
                 </v-container>
-                <show-teacher-icon :icon="false" class="ml-2"></show-teacher-icon>
             </v-card>
         @endif
         @if (Auth::user()->isSuperAdmin() || Auth::user()->isImpersonated())

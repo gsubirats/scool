@@ -3236,6 +3236,233 @@ if (!function_exists('initialize_teachers')) {
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '008'
             ]));
+
+        User::createIfNotExists([
+            'name' => 'Marta Delgado Escura',
+            'email' => 'martadelgado@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Marta',
+                'sn1' => 'Delgado',
+                'sn2' => 'Escura',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '099'
+            ]));
+
+
+        User::createIfNotExists([
+            'name' => 'Ferré Serret, Carles',
+            'email' => 'carlesferre@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Carles',
+                'sn1' => 'Ferré',
+                'sn2' => 'Serret',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '100'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'María José Domínguez Rodríguez',
+            'email' => 'mariajosedominguez@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'María José',
+                'sn1' => 'Domínguez',
+                'sn2' => 'Rodríguez',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '101'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Eva Benet Escoda',
+            'email' => 'evabenet@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Eva',
+                'sn1' => 'Benet',
+                'sn2' => 'Escoda',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '102'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Miguel Bardi Alegre',
+            'email' => 'miguelbardi@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Miguel',
+                'sn1' => 'Bardi',
+                'sn2' => 'Alegre',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '111'
+            ]));
+
+
+        User::createIfNotExists([
+            'name' => 'Mercè Ferré Aixalà',
+            'email' => 'merceferre1@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Mercè',
+                'sn1' => 'Ferré',
+                'sn2' => 'Aixalà',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '112'
+            ]));
+
+
+        User::createIfNotExists([
+            'name' => 'Fabiola Grau Talens',
+            'email' => 'fgrau@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Fabiola',
+                'sn1' => 'Grau',
+                'sn2' => 'Talens',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '079'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'MªCarmen Lorenzo Monfó',
+            'email' => 'carmelorenzo@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'MªCarmen',
+                'sn1' => 'Lorenzo',
+                'sn2' => 'Monfó',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '083'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'MªPiedad Martin Borràs',
+            'email' => 'mariapiedadmartin@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'MªPiedad',
+                'sn1' => 'Martin',
+                'sn2' => 'Borràs',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '103'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Carlos Montesó Esmel',
+            'email' => 'carlosmonteso@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Carlos',
+                'sn1' => 'Montesó',
+                'sn2' => 'Esmel',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '115'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Luís Pérez Càrcel',
+            'email' => 'luisperez@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Luís',
+                'sn1' => 'Pérez',
+                'sn2' => 'Càrcel',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '044'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Patricia Prado Villegas',
+            'email' => 'patriciaprado@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Patricia',
+                'sn1' => 'Prado',
+                'sn2' => 'Villegas',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '110'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Ivan Roche Jodar',
+            'email' => 'ivanroche@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Ivan',
+                'sn1' => 'Roche',
+                'sn2' => 'Jodar',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '118'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Eduard Serra Pons',
+            'email' => 'eduardserra@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Eduard',
+                'sn1' => 'Serra',
+                'sn2' => 'Pons',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '098'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Núria Suñé Alaña',
+            'email' => 'eduardserra@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Núria',
+                'sn1' => 'Suñé',
+                'sn2' => 'Alaña',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '109'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Lluc Ulldemolins Nolla',
+            'email' => 'lluculldemolins@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Lluc',
+                'sn1' => 'Ulldemolins',
+                'sn2' => 'Nolla',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '114'
+            ]));
     }
 }
 
