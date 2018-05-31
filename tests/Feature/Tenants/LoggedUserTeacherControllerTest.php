@@ -53,7 +53,8 @@ class LoggedUserTeacherControllerTest extends BaseTenantTest
     }
 
     /** @test
-     *  @group working TODO: funciona a PHPSTORM però no per línia de comandes!!!
+     *  @group working
+     *  TODO: funciona a PHPSTORM però no per línia de comandes!!!
      */
     public function logged_user_as_teacher()
     {

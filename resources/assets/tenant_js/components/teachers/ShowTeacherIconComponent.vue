@@ -1,7 +1,10 @@
 <template>
     <span style="display:inline-block">
-        <v-btn icon class="mx-0" title="Vegeu la fitxa del professor" @click.native.stop="prepareDialog">
+        <v-btn v-if="icon" icon class="mx-0" title="Vegeu la fitxa del professor" @click.native.stop="prepareDialog">
             <v-icon color="primary">visibility</v-icon>
+        </v-btn>
+        <v-btn v-else class="mx-0" title="Vegeu la fitxa del professor" @click.native.stop="prepareDialog">
+            <v-icon color="primary">visibility</v-icon> Fitxa del professor
         </v-btn>
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" @keydown.esc="dialog = false">
             <v-card>
@@ -463,6 +466,10 @@
       teachers: {
         type: Array,
         default: () => []
+      },
+      icon: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {
