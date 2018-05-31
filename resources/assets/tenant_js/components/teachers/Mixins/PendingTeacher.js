@@ -65,6 +65,7 @@ export default {
       specialty: '',
       teacher_start_date: '',
       start_date: '',
+      formatted_start_date: '',
       opositions_date: '',
       administrative_status: {},
       destination_place: '',
@@ -217,6 +218,9 @@ export default {
   watch: {
     birthdate (val) {
       this.formattedBirthdate = this.formatDate(this.birthdate)
+    },
+    start_date () {
+      this.formatted_start_date = this.formatDate(this.start_date)
     }
   },
   props: {

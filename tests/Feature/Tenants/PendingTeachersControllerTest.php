@@ -448,7 +448,6 @@ class PendingTeachersControllerTest extends BaseTenantTest
         $result = json_decode($response->getContent());
 
         $this->assertCount(1, PendingTeacher::all());
-
         Storage::disk('local')->assertExists($result->photo);
         Storage::disk('local')->assertExists($result->identifier_photocopy);
 

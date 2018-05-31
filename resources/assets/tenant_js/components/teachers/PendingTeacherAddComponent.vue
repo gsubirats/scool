@@ -392,7 +392,7 @@
                                                     hint="DD/MM/YYYY format"
                                                     persistent-hint
                                                     prepend-icon="event"
-                                                    v-model="start_date"
+                                                    v-model="formatted_start_date"
                                                     :error-messages="startDateErrors"
                                                     @input="$v.start_date.$touch()"
                                                     @blur="$v.start_date.$touch()"
