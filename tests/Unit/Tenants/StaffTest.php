@@ -63,11 +63,11 @@ class StaffTest extends TestCase
         $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
-            'created_at' => Carbon::now()->subMonth(),
+            'created_at' => Carbon::now()->subDay(),
             'order' => 1
         ]);
 
-        $this->assertEquals('1 mes abans', $staff->formatted_created_at_diff);
+        $this->assertEquals('1 dia abans', $staff->formatted_created_at_diff);
     }
 
     /** @test */
@@ -76,10 +76,10 @@ class StaffTest extends TestCase
         $staff =Job::create([
             'type_id' => 2,
             'code' => 'CODE',
-            'updated_at' => Carbon::now()->subMonth(),
+            'updated_at' => Carbon::now()->subDay(),
             'order' => 1
         ]);
 
-        $this->assertEquals('1 mes abans', $staff->formatted_updated_at_diff);
+        $this->assertEquals('1 dia abans', $staff->formatted_updated_at_diff);
     }
 }

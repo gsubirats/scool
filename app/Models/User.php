@@ -30,6 +30,30 @@ class User extends Authenticatable implements HasMedia
     protected $guard_name = 'web';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password' ,
+    ];
+
+    protected $appends = [
+        'formatted_created_at',
+        'formatted_updated_at',
+        'hashid'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
      * @return bool
      */
     public function impersonatedBy()
@@ -60,31 +84,6 @@ class User extends Authenticatable implements HasMedia
     {
         return !$this->isSuperAdmin();
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password' ,
-    ];
-
-    protected $appends = [
-        'formatted_created_at',
-        'formatted_updated_at',
-        'hashid',
-        'admin'
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 
     /**
      * Get the value of the model's route key.
@@ -353,6 +352,7 @@ class User extends Authenticatable implements HasMedia
             $this->person->email = isset($data['email']) ? $data['email'] : null;
             $this->person->other_emails = isset($data['other_emails']) ? json_encode(explode(',',$data['other_emails'])) : null;
             $this->person->notes = isset($data['notes']) ? $data['notes'] : null;
+            $this->person->civil_status = isset($data['civil_status']) ? $data['civil_status'] : null;
             $this->person->save();
         } else {
             $person = Person::create([
@@ -366,7 +366,8 @@ class User extends Authenticatable implements HasMedia
                 'other_phones' => isset($data['other_phones']) ? json_encode(explode(',',$data['other_phones'])) : null,
                 'email' => isset($data['email']) ? $data['email'] : null,
                 'other_emails' => isset($data['other_emails']) ? json_encode(explode(',',$data['other_emails'])) : null,
-                'notes' => isset($data['notes']) ? $data['notes']  : null
+                'notes' => isset($data['notes']) ? $data['notes']  : null,
+                'civil_status' => isset($data['civil_status']) ? $data['civil_status']  : null
             ]);
             $person->user_id = $this->id;
             $person->save();
@@ -413,6 +414,7 @@ class User extends Authenticatable implements HasMedia
             $this->teacher->data_inici_treball = isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null;
             $this->teacher->data_incorporacio_centre = isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null;
             $this->teacher->data_superacio_oposicions = isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null;
+            $this->teacher->lloc_destinacio_definitiva = isset($data['lloc_destinacio_definitiva']) ? $data['lloc_destinacio_definitiva'] : null;
             $this->teacher->save();
         } else {
             $teacher = Teacher::create([
@@ -427,6 +429,7 @@ class User extends Authenticatable implements HasMedia
                 'data_inici_treball' => isset($data['data_inici_treball']) ? $data['data_inici_treball'] : null,
                 'data_incorporacio_centre' => isset($data['data_incorporacio_centre']) ? $data['data_incorporacio_centre'] : null,
                 'data_superacio_oposicions' => isset($data['data_superacio_oposicions']) ? $data['data_superacio_oposicions'] : null,
+                'lloc_destinacio_definitiva' => isset($data['lloc_destinacio_definitiva']) ? $data['lloc_destinacio_definitiva'] : null
             ]);
             $teacher->user_id = $this->id;
             $teacher->save();

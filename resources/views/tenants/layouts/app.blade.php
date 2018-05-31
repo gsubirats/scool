@@ -157,14 +157,25 @@
                 <v-btn :loading="changingPassword" flat color="red" @click="changePassword">Canviar Password</v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <a href="https://en.gravatar.com/connect/">Canviar Avatar</a>
-                <v-spacer></v-spacer>
-            </v-card-actions>
         </v-card>
-        {{Auth::user()}}
-        @if (Auth::user()->isAdmin)
+        @if (Auth::user()->isTeacher())
+            <v-card>
+                <v-card-title class="blue darken-3 white--text"><h2>Opcions professor</h2></v-card-title>
+                <v-container fluid grid-list-md class="grey lighten-4">
+                    <v-layout row wrap>
+                        <v-flex xs12>
+                            TODO
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+                <v-btn flat color="green">
+                    <v-icon right dark>visibility</v-icon> &nbsp;
+                    Fitxa professor
+                </v-btn>
+                <show-teacher-icon></show-teacher-icon>
+            </v-card>
+        @endif
+        @if (Auth::user()->isSuperAdmin() || Auth::user()->isImpersonated())
             <v-card>
                 <v-card-title class="blue darken-3 white--text"><h2>Opcions administrador</h2></v-card-title>
                 <v-container fluid grid-list-md class="grey lighten-4">

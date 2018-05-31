@@ -28,7 +28,7 @@ class TeachersController extends Controller
         $pendingTeachers = PendingTeacher::with('specialty')->get();
         $teachers = Teacher::with([
             'specialty','specialty.force','specialty.family','administrativeStatus','user', 'user.jobs',
-            'user.jobs', 'user.jobs.specialty','user.jobs.family','user.person','user.person.birthplace',
+            'user.jobs.specialty','user.jobs.family','user.person','user.person.birthplace',
             'user.person.identifier','user.person.address','user.person.address.province',
             'user.person.address.location'])->orderByRaw('code + 0')->get();
         $specialties = Specialty::all();

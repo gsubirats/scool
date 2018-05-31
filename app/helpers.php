@@ -3912,6 +3912,7 @@ if (! function_exists('seed_identifier_types')) {
 }
 if (! function_exists('fake_personal_data_teachers')) {
     function fake_personal_data_teachers() {
+        first_or_create_identifier_type('NIF');
         $nif = IdentifierType::findByName('NIF')->id;
 
         // Note: names are already assigned in initialize_teachers helper
@@ -3923,13 +3924,14 @@ if (! function_exists('fake_personal_data_teachers')) {
             'birthdate' => Carbon::parse('1978-03-02'),
             'birthplace_id' => Location::findByName('BARCELONA')->id,
             'gender' => 'Home',
+            'civil_status' => 'Casat/da',
             'notes' => "Coordinador d'informàtica",
             'mobile' => '679525437',
             'other_mobiles' => '650192821',
             'email' => 'sergiturbadenas@gmail.com',
             'other_emails' => 'acacha@gmail.com,sergitur@iesebre.com',
-    //            'phone' => '977500949' // No en tinc
-    //        'other_phones' => '9677508695,977500949' // No en tinc
+            'phone' => '977500949',
+            'other_phones' => '9677508695,977500949'
         ])->assignAddress(Address::create([
             'name' => 'C/ Beseit',
             'number' => '16',
@@ -3946,7 +3948,9 @@ if (! function_exists('fake_personal_data_teachers')) {
             'altres_formacions' => 'Nivell D de Català',
             'data_inici_treball' => '29/09/2006',
             'data_incorporacio_centre' => Carbon::parse('2009-09-01'),
-            'data_superacio_oposicions' => 'Juny 2008'
+            'data_superacio_oposicions' => 'Juny 2008',
+            'perfil_professional' => 'De perfil més guapo sí',
+            'lloc_destinacio_definitiva' => 'Al quinto pino!',
         ]);
     }
 }

@@ -42,7 +42,9 @@ Vue.component('impersonate-user', require('./components/admin/ImpersonateUserCom
 Vue.component('logout-button', require('./components/auth/LogoutButtonComponent.vue'));
 Vue.component('teacher-profile', require('./components/teachers/TeacherProfileComponent.vue'));
 
+Vue.component('teacher-profile', require('./components/teachers/TeacherProfileComponent.vue'));
 
+Vue.component('show-teacher-icon', require('./components/teachers/ShowTeacherIconComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
