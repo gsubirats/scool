@@ -5,10 +5,10 @@
             :items="users"
             v-model="user"
             item-text="name"
+            item-value="id"
             chips
             autocomplete
             clearable
-            @change="impersonate"
     >
         <template slot="selection" slot-scope="data">
             <v-chip
@@ -61,10 +61,10 @@
         default: "Escolliu l'usuari a suplantar"
       }
     },
-    methods: {
-      impersonate (user) {
+    watch: {
+      user (user) {
         if (user) {
-          if (user) window.location.href = '/impersonate/take/' + user.id
+          window.location.href = '/impersonate/take/' + user
         }
       }
     }
