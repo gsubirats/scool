@@ -1810,14 +1810,14 @@ if (!function_exists('initialize_teachers')) {
             ]));
 
         User::createIfNotExists([
-            'name' => 'Llatzer Cabó Bertomeu',
+            'name' => 'Llatzer Carbó Bertomeu',
             'email' => 'llatzercarbo@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName([
             'givenName' => 'Llatzer',
-            'sn1' => 'Cabó',
+            'sn1' => 'Carbó',
             'sn2' => 'Bertomeu',
         ])
         ->assignJob(
@@ -2023,9 +2023,9 @@ if (!function_exists('initialize_teachers')) {
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName([
-            'givenName' => 'Irene',
-            'sn1' => 'Alegre',
-            'sn2' => 'Chavarria',
+            'givenName' => 'Maria',
+            'sn1' => 'Castells',
+            'sn2' => 'Gilabert',
         ])
         ->assignJob(
             Job::firstOrCreate([
@@ -3189,15 +3189,15 @@ if (!function_exists('initialize_teachers')) {
             ]));
 
         User::createIfNotExists([
-            'name' => 'Isabel Jordà Cabacès',
-            'email' => 'ijorda@iesebre.com',
+            'name' => 'Núria Vallés Machirant',
+            'email' => 'nuriavalles@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName([
-            'givenName' => 'Isabel',
-            'sn1' => 'Jordà',
-            'sn2' => 'Cabaces',
+            'givenName' => 'Núria',
+            'sn1' => 'Vallés',
+            'sn2' => 'Machirant',
         ])
         ->assignJob(
             Job::firstOrCreate([

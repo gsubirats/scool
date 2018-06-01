@@ -13,6 +13,11 @@ class Person extends Model
 {
     protected $guarded = [];
 
+    protected $appends = [
+        'name',
+        'fullname'
+    ];
+
     /**
      * Get the user.
      */
@@ -43,5 +48,32 @@ class Person extends Model
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * Get the fullname.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFullnameAttribute($value)
+    {
+        $fullname = $this->sn1;
+        if ($this->sn2) {
+            $fullname = $fullname . ' ' . $this->sn2;
+        }
+        $fullname = $fullname . ', ' . $this->givenName;
+        return trim($fullname);
+    }
+
+    /**
+     * Get the name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getNameAttribute($value)
+    {
+        return trim($this->givenName . ' ' . $this->sn1 . ' ' . $this->sn2);
     }
 }

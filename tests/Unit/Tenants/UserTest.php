@@ -624,7 +624,4 @@ class UserTest extends TestCase
         $teacher = $teacher->fresh();
         $this->assertTrue($teacher->isTeacher());
     }
-
-
-
 }

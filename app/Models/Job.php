@@ -20,7 +20,9 @@ class Job extends Model
         'formatted_created_at',
         'formatted_updated_at',
         'formatted_created_at_diff',
-        'formatted_updated_at_diff'
+        'formatted_updated_at_diff',
+        'description',
+        'fullcode'
     ];
 
     /**
@@ -62,4 +64,27 @@ class Job extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the description.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDescriptionAttribute($value)
+    {
+        return 'Plaça num ' . $this->order . ' de la família ' . $this->family->name . ', especialitat ' . $this->specialty->name;
+    }
+
+    /**
+     * Get the full code.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFullcodeAttribute($value)
+    {
+        return $this->family->code . '_' . $this->specialty->code . '_' . $this->order . '_' . $this->code;
+    }
+
 }

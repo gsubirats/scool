@@ -43,7 +43,7 @@
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="teacher.user.email">{{ name(teacher) }}</span>
+                                            <span :title="teacher.user.email">{{ teacher.user.person.fullname }}</span>
                                         </td>
                                         <td class="text-xs-left">
                                             <span :title="specialtyName(teacher)">{{specialtyCode(teacher)}}</span>
@@ -54,8 +54,6 @@
                                         <td class="text-xs-left" v-if="showStatusHeader">
                                             <span :title="administrativeStatusName(teacher)">{{ administrativeStatusCode(teacher) }}</span>
                                         </td>
-
-
 
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <span :title="jobDescription(teacher)">{{ job(teacher) }}</span>
@@ -80,7 +78,6 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-
                                             <show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>
 
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
@@ -105,42 +102,6 @@
                                 </template>
                             </v-data-table>
                         </v-card>
-
-                        <v-data-iterator
-                                class="hidden-md-and-up"
-                                content-tag="v-layout"
-                                row
-                                wrap
-                                :items="internalTeachers"
-                        >
-                            <v-flex
-                                    slot="item"
-                                    slot-scope="props"
-                                    xs12
-                                    sm6
-                                    md4
-                                    lg3
-                            >
-                                <v-card>
-                                    <v-card-title><h4>{{ props.item.name }}</h4></v-card-title>
-                                    <v-divider></v-divider>
-                                    <v-list dense>
-                                        <v-list-tile>
-                                            <v-list-tile-content>Email:</v-list-tile-content>
-                                            <v-list-tile-content class="align-end">{{ props.item.email }}</v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile>
-                                            <v-list-tile-content>Created at:</v-list-tile-content>
-                                            <v-list-tile-content class="align-end">{{ props.item.created_at }}</v-list-tile-content>
-                                        </v-list-tile>
-                                        <v-list-tile>
-                                            <v-list-tile-content>Updated at:</v-list-tile-content>
-                                            <v-list-tile-content class="align-end">{{ props.item.updated_at }}</v-list-tile-content>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-card>
-                            </v-flex>
-                        </v-data-iterator>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -183,19 +144,19 @@
         let headers = []
         headers.push({text: 'Id', align: 'left', value: 'id'})
         headers.push({text: 'Codi', value: 'code'})
-        headers.push({text: 'Foto', value: 'photo', sortable: false})
-        headers.push({text: 'Nom', value: 'user.person.s1'})
-        headers.push({text: 'Especialitat', value: 'username'})
-        headers.push({text: 'Familia', value: 'email'})
-        if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'todo'})
-        headers.push({text: 'Plaça', value: 'roles'})
+        headers.push({text: 'Foto', value: 'full_search', sortable: false})
+        headers.push({text: 'Nom', value: 'user.person.fullname' })
+        headers.push({text: 'Especialitat', value: 'specialty.code'})
+        headers.push({text: 'Familia', value: 'specialty.family.code'})
+        if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'administrative_status.code'})
+        headers.push({text: 'Plaça', value: 'user.jobs[0].fullcode'})
         if (this.showSubstituteHeaders) {
           headers.push({text: 'Data inici', value: 'todo'})
           headers.push({text: 'Data fí', value: 'todo'})
         }
         headers.push({text: 'Data creació', value: 'formatted_created_at'})
         headers.push({text: 'Data actualització', value: 'formatted_updated_at'})
-        headers.push({text: 'Accions', value: 'full_search', sortable: false})
+        headers.push({text: 'Accions', sortable: false})
         return headers
       },
       showStatusHeader () {
@@ -248,25 +209,34 @@
           return teacher.administrative_status.code
         }
       },
-      name (teacher) {
-        return teacher.user.person.sn1 + ' ' + teacher.user.person.sn2 + ', ' + teacher.user.person.givenName
-      },
       job (teacher) {
-        if (teacher.user && teacher.user.jobs && teacher.user.jobs[0]) {
-          return teacher.user.jobs[0].family.code + '_' + teacher.user.jobs[0].specialty.code + '_' + teacher.user.jobs[0].order + '_' + teacher.user.jobs[0].code
+        const job = teacher.user.jobs[0]
+        if (teacher.user && teacher.user.jobs && job) {
+          return job.fullcode
         } else {
           return ''
         }
       },
       jobStartAt (teacher) {
-        return teacher.user.jobs[0].employee.start_at
+        const job = teacher.user.jobs[0]
+        if (teacher.user && teacher.user.jobs && job) {
+          return teacher.user.jobs[0].employee.start_at
+        } else {
+          return ''
+        }
       },
       jobEndAt (teacher) {
-        return teacher.user.jobs[0].employee.end_at
+        const job = teacher.user.jobs[0]
+        if (teacher.user && teacher.user.jobs && job) {
+          return teacher.user.jobs[0].employee.end_at
+        } else {
+          return ''
+        }
       },
       jobDescription (teacher) {
-        if (teacher.user && teacher.user.jobs && teacher.user.jobs[0]) {
-          return 'Plaça num ' + teacher.user.jobs[0].order + ' de la família ' + teacher.user.jobs[0].family.name + ', especialitat ' + teacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(teacher.user.jobs[0].code)
+        const job = teacher.user.jobs[0]
+        if (teacher.user && teacher.user.jobs && job) {
+          return job.description + ', assignada al professor ' + this.teacherDescription(job.code)
         } else {
           return ''
         }

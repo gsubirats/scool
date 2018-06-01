@@ -208,6 +208,12 @@
         required: true
       }
     },
+    watch: {
+      user: function (newUser) {
+        console.log('User changed to ' + newUser.id)
+        this.internalUser = this.user
+      }
+    },
     methods: {
       formatDate (date) {
         if (!date) return null

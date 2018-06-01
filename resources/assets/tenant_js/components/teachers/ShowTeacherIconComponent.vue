@@ -290,6 +290,12 @@
         default: true
       }
     },
+    watch: {
+      teacher: function (newTeacher) {
+        console.log('Teacher changed to ' + newTeacher.code)
+        this.internalTeacher = this.teacher
+      }
+    },
     methods: {
       prepareDialog () {
         if (! _.isEmpty(this.internalTeacher) && this.teachers.length > 0) {
