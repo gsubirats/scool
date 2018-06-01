@@ -7,6 +7,10 @@
                     <v-card-text class="px-0 mb-2">
                         <v-card>
                             <v-card-title>
+                                <job-type-select
+                                        :job-types="jobTypes"
+                                        v-model="jobType"
+                                ></job-type-select>
                                 <v-spacer></v-spacer>
                                 <v-text-field
                                         append-icon="search"
@@ -19,7 +23,7 @@
                             <v-data-table
                                     class="px-0 mb-2 hidden-sm-and-down"
                                     :headers="headers"
-                                    :items="internaljobs"
+                                    :items="filteredJobs"
                                     :search="search"
                                     item-key="id"
                             >
@@ -28,10 +32,12 @@
                                         <td class="text-xs-left">
                                             {{ job.id }}
                                         </td>
-                                        <td class="text-xs-left">
+                                        <td class="text-xs-left" v-if="showJobTypeHeader">
                                             {{ type(job) }}
                                         </td>
                                         <td class="text-xs-left">{{ job.code }}</td>
+                                        <td class="text-xs-left">{{ job.fullcode }}</td>
+                                        <td class="text-xs-left">{{ job.order }}</td>
                                         <td class="text-xs-left">{{ job.family && job.family.name}}</td>
                                         <td class="text-xs-left">{{ job.specialty && job.specialty.code }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -118,34 +124,61 @@
   import * as mutations from '../../store/mutation-types'
   import * as actions from '../../store/action-types'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
+  import JobTypeSelect from './JobTypeSelectComponent.vue'
 
   export default {
-    components: { ConfirmIcon },
+    components: {
+      ConfirmIcon,
+      'job-type-select': JobTypeSelect
+    },
     data () {
       return {
         search: '',
         deleting: false,
-        headers: [
-          {text: 'Id', align: 'left', value: 'id'},
-          {text: 'Tipus', align: 'left', value: 'type.name'},
-          {text: 'Code', align: 'left', value: 'code'},
-          {text: 'Família', value: 'family.name'},
-          {text: 'Especialitat', value: 'specialty.code'},
-          {text: 'Titular', value: 'user.name'},
-          {text: 'Notes', value: 'notes'},
-          {text: 'Data creació', value: 'formatted_created_at_diff'},
-          {text: 'Data actualització', value: 'formatted_updated_at_diff'},
-          {text: 'Accions', sortable: false}
-        ]
+        jobType: {}
       }
     },
     computed: {
       ...mapGetters({
         internaljobs: 'jobs'
-      })
+      }),
+      filteredJobs: function () {
+        if (this.showJobTypeHeader) return this.internaljobs
+        return this.internaljobs.filter(job => job.type.id === this.jobType.id)
+      },
+      headers () {
+        let headers = []
+        headers.push({text: 'Id', align: 'left', value: 'id'})
+        if (this.showJobTypeHeader) {
+          headers.push({text: 'Tipus', value: 'type.name'})
+        }
+        headers.push({text: 'Code', value: 'code'})
+        headers.push({text: 'Full code', value: 'fullcode'})
+        headers.push({text: 'Order', value: 'order'})
+        headers.push({text: 'Família', value: 'family.name'})
+        headers.push({text: 'Especialitat', value: 'specialty.code'})
+        headers.push({text: 'Notes', value: 'notes'})
+        headers.push({text: 'TODO', value: 'notes'})
+        if (this.showSubstituteHeaders) {
+          headers.push({text: 'Data inici', value: 'todo'})
+          headers.push({text: 'Data fí', value: 'todo'})
+        }
+        headers.push({text: 'Data creació', value: 'formatted_created_at_diff'})
+        headers.push({text: 'Data actualització', value: 'formatted_updated_at_diff'})
+        headers.push({text: 'Accions', sortable: false})
+        return headers
+      },
+      showJobTypeHeader () {
+        if (this.jobType != null && Object.keys(this.jobType).length !== 0) return false
+        return true
+      }
     },
     props: {
       jobs: {
+        type: Array,
+        required: true
+      },
+      jobTypes: {
         type: Array,
         required: true
       }

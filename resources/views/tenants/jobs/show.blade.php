@@ -10,7 +10,7 @@
             :users="{{ $users }}"
     ></job-add>
 
-    <jobs-list :jobs="{{ $jobs }}" ></jobs-list>
+    <jobs-list :jobs="{{ $jobs }}" :job-types="{{ $jobTypes }}"></jobs-list>
 
     <jobs-list-by-family :families="{{ $families }}"></jobs-list-by-family>
 

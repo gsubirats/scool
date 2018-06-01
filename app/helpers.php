@@ -4238,3 +4238,79 @@ if (!function_exists('initialize_teacher_photos')) {
         autoassign_photos_to_teachers($dest,$tenant);
     }
 }
+
+if (!function_exists('initialize_departments')) {
+    function initialize_departments()
+    {
+        Family::firstOrCreate([
+            'name' => 'Departament d\'administració i gestió',
+            'shortname' => 'Administració i gestió',
+            'code' => 'ADMINISTRACIÓ',
+            'head' => User::findByName('Eduard Raldà Simó')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament d\'informàtica',
+            'shortname' => 'Informàtica',
+            'code' => 'INFORMÀTICA',
+            'head' => User::findByName('Jordi Varas Aliau')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament de formació i orientació laboral',
+            'shortname' => 'Formació i orientació laboral',
+            'code' => 'FOL',
+            'head' => User::findByName('Carmina Andreu Pons')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament d\'electricitat i electrònica',
+            'shortname' => 'Electricitat i electrònica',
+            'code' => 'ELÈCTRICS',
+            'head' => User::findByName('Xavier Bel ')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament de comerç i màrqueting',
+            'shortname' => 'Comerç i màrqueting',
+            'code' => 'COMERÇ',
+            'head' => User::findByName('Agustí Moreso García')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament de fabricació mecànica',
+            'shortname' => 'Fabricació mecànica',
+            'code' => 'MECÀNICA',
+            'head' => User::findByName('Fernando Segura Venezia')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament de sanitat',
+            'shortname' => 'Sanitat',
+            'code' => 'SANITAT',
+            'head' => User::findByName('Berta Safont Recatalà')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament de serveis socioculturals i a la comunitat',
+            'shortname' => 'Serveis socioculturals i a la comunitat',
+            'code' => 'SERVEIS',
+            'head' => User::findByName('Elena Mauri Cuenca')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament preparació proves d\'accès a superior',
+            'shortname' => 'Curs d\'accès | Àngles',
+            'code' => 'PPAS',
+            'head' => User::findByName('Carme Aznar')->id
+        ]);
+
+        Family::firstOrCreate([
+            'name' => 'Departament d\'Arts gràfiques',
+            'shortname' => 'Arts gràfiques',
+            'code' => 'ARTS',
+            'head' => User::findByName('Gerard Domènech Vendrell')->id
+        ]);
+
+    }
+}
