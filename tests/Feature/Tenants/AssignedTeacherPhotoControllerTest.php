@@ -204,9 +204,9 @@ class AssignedTeacherPhotoControllerTest extends BaseTenantTest
         $teacher2 = Teacher::where('code','041')->get()->first();
         $teacher3 = Teacher::where('code','042')->get()->first();
 
-        $this->assertEquals('tenant_test/user_photos/69_sergi-tur-badenas_stur-at-iesebrecom.jpg', $teacher1->user->photo);
-        $this->assertEquals('tenant_test/user_photos/70_jaume-ramos-prades_jaumeramos-at-iesebrecom.jpg', $teacher2->user->photo);
-        $this->assertEquals('tenant_test/user_photos/73_mireia-consarnau-pallares_mireiaconsarnau-at-iesebrecom.jpg', $teacher3->user->photo);
+        $this->assertEquals('tenant_test/user_photos/71_sergi-tur-badenas_stur-at-iesebrecom.jpg', $teacher1->user->photo);
+        $this->assertEquals('tenant_test/user_photos/72_jaume-ramos-prades_jaumeramos-at-iesebrecom.jpg', $teacher2->user->photo);
+        $this->assertEquals('tenant_test/user_photos/75_mireia-consarnau-pallares_mireiaconsarnau-at-iesebrecom.jpg', $teacher3->user->photo);
 
         Storage::exists($teacher1->user->photo);
         Storage::exists($teacher2->user->photo);

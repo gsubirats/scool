@@ -30,6 +30,9 @@ class TenantDatabaseSeeder extends Seeder
         initialize_administrative_statuses();
         initialize_users();
         initialize_teachers();
+        seed_identifier_types();
+        inititialize_teachers_personal_data();
+        initialize_teacher_photos();
 
         initialize_janitors();
         initialize_administrative_assistants();

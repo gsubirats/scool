@@ -80,7 +80,7 @@
                                                         <v-list-tile-sub-title v-html="identifierType()"></v-list-tile-sub-title>
                                                     </v-list-tile-content>
                                                 </v-list-tile>
-                                                <v-list-tile v-if="hasTIS">
+                                                <v-list-tile v-if="hasTIS()">
                                                     <v-list-tile-content>
                                                         <v-list-tile-title v-html="TIS()"></v-list-tile-title>
                                                         <v-list-tile-sub-title>TIS</v-list-tile-sub-title>
@@ -88,7 +88,7 @@
                                                 </v-list-tile>
                                                 <v-list-tile>
                                                     <v-list-tile-content>
-                                                        <v-list-tile-title v-html="internalUser.person && internalUser.person.birthdate"></v-list-tile-title>
+                                                        <v-list-tile-title v-html="birthdate()"></v-list-tile-title>
                                                         <v-list-tile-sub-title>Data de naixement</v-list-tile-sub-title>
                                                     </v-list-tile-content>
                                                 </v-list-tile>
@@ -209,6 +209,17 @@
       }
     },
     methods: {
+      formatDate (date) {
+        if (!date) return null
+        const [year, month, day] = date.split('-')
+        return `${day}/${month}/${year}`
+      },
+      birthdate () {
+        if (this.internalUser.person && this.internalUser.person.birthdate) {
+          return this.formatDate(this.internalUser.person.birthdate)
+        }
+        return ''
+      },
       photoSrc () {
         if (this.internalUser && this.internalUser.hashid) {
           return '/user/' + this.internalUser.hashid + '/photo'

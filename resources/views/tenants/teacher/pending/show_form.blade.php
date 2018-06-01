@@ -50,9 +50,9 @@
         <v-content>
             <section>
                 @if ( Auth::check() )
-                    <pending-teacher-add-warnings :logged-user="{{ Auth::user() }}"></pending-teacher-add-warnings>
+                    <pending-teacher-add-warnings logged-user="{{ Auth::user()->name }}"></pending-teacher-add-warnings>
                 @else
-                    <pending-teacher-add-warnings :logged-user="{}"></pending-teacher-add-warnings>
+                    <pending-teacher-add-warnings logged-user=""></pending-teacher-add-warnings>
                 @endif
 
 

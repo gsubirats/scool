@@ -252,7 +252,11 @@
         return teacher.user.person.sn1 + ' ' + teacher.user.person.sn2 + ', ' + teacher.user.person.givenName
       },
       job (teacher) {
-        return teacher.user.jobs[0].family.code + '_' + teacher.user.jobs[0].specialty.code + '_' + teacher.user.jobs[0].order + '_' + teacher.user.jobs[0].code
+        if (teacher.user && teacher.user.jobs && teacher.user.jobs[0]) {
+          return teacher.user.jobs[0].family.code + '_' + teacher.user.jobs[0].specialty.code + '_' + teacher.user.jobs[0].order + '_' + teacher.user.jobs[0].code
+        } else {
+          return ''
+        }
       },
       jobStartAt (teacher) {
         return teacher.user.jobs[0].employee.start_at
@@ -261,11 +265,16 @@
         return teacher.user.jobs[0].employee.end_at
       },
       jobDescription (teacher) {
-        return 'Plaça num ' + teacher.user.jobs[0].order + ' de la família ' + teacher.user.jobs[0].family.name + ', especialitat ' + teacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(teacher.user.jobs[0].code)
+        if (teacher.user && teacher.user.jobs && teacher.user.jobs[0]) {
+          return 'Plaça num ' + teacher.user.jobs[0].order + ' de la família ' + teacher.user.jobs[0].family.name + ', especialitat ' + teacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(teacher.user.jobs[0].code)
+        } else {
+          return ''
+        }
       },
       teacherDescription (teacherCode) {
         let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
-        return teacher.user.name + ' (' + teacher.code + ')'
+        if (teacher) return teacher.user.name + ' (' + teacher.code + ')'
+        return ''
       }
     },
     created () {

@@ -11,7 +11,7 @@
                 </v-alert>
             </v-flex>
             <v-alert v-model="showWarning" type="warning" dismissible v-if="loggedUser">
-                <span class="title">Actualment esteu dins del sistema amb l'usuari <strong>{{loggedUser.name}}</strong></span><br/>
+                <span class="title">Actualment esteu dins del sistema amb l'usuari <strong>{{loggedUser}}</strong></span><br/>
                 <span class="subheading">Podeu canviar les vostres dades de professor al <a href="/teacher/profile">perfil de professor</a></span><br/>
                 <span class="subheading">No cal que torneu a introduir les vostres dades, aquest formulari és només per a professors nous</span>
             </v-alert>
@@ -33,7 +33,7 @@
     },
     props: {
       loggedUser: {
-        type: Object,
+        type: String,
         required: true
       }
     }

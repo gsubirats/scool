@@ -1651,7 +1651,7 @@ if (!function_exists('initialize_teachers')) {
             ]));
 
         User::createIfNotExists([
-            'name' => 'Cinta Mestre Escrihuela',
+            'name' => 'Cinta Mestre Escorihuela',
             'email' => 'cintamestre@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
@@ -1659,7 +1659,7 @@ if (!function_exists('initialize_teachers')) {
         ->assignFullName([
             'givenName' => 'Cinta',
             'sn1' => 'Mestre',
-            'sn2' => 'Escrihuela',
+            'sn2' => 'Escorihuela',
         ])
         ->assignJob(
             Job::firstOrCreate([
@@ -1671,6 +1671,28 @@ if (!function_exists('initialize_teachers')) {
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '078'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'Fabiola Grau Talens',
+            'email' => 'fgrau@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Fabiola',
+                'sn1' => 'Grau',
+                'sn2' => 'Talens',
+            ])->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
+                    'specialty_id' => Specialty::findByCode('620')->id,
+                    'family_id' => Family::findByCode('SANITAT')->id,
+                    'code' => '079',
+                    'order' => 1
+                ])
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '079'
             ]));
 
         User::createIfNotExists([
@@ -1740,6 +1762,28 @@ if (!function_exists('initialize_teachers')) {
             ])
         )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '082'
+            ]));
+
+        User::createIfNotExists([
+            'name' => 'MªCarmen Lorenzo Monfó',
+            'email' => 'carmelorenzo@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'MªCarmen',
+                'sn1' => 'Lorenzo',
+                'sn2' => 'Monfó',
+            ])->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
+                    'specialty_id' => Specialty::findByCode('508')->id,
+                    'family_id' => Family::findByCode('SERVEIS')->id,
+                    'code' => '082',
+                    'order' => 1
+                ])
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '083'
             ]));
 
         User::createIfNotExists([
@@ -2663,13 +2707,35 @@ if (!function_exists('initialize_teachers')) {
             ]));
 
         User::createIfNotExists([
+            'name' => 'Luís Pérez Càrcel',
+            'email' => 'luisperez@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Luís',
+                'sn1' => 'Pérez',
+                'sn2' => 'Càrcel',
+            ])->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
+                    'specialty_id' => Specialty::findByCode('627')->id,
+                    'family_id' => Family::findByCode('INF')->id,
+                    'code' => '044',
+                    'order' => 1
+                ])
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '044'
+            ]));
+
+        User::createIfNotExists([
             'name' => 'Josep Dieg Cervellera Forcadell',
             'email' => 'josediegocervellera@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
         ])->addRole(Role::findByName('Teacher'))
         ->assignFullName([
-            'givenName' => 'Josep Dieg0',
+            'givenName' => 'Josep Diego',
             'sn1' => 'Cervellera',
             'sn2' => 'Forcadell',
         ])
@@ -3123,7 +3189,7 @@ if (!function_exists('initialize_teachers')) {
             ]));
 
         User::createIfNotExists([
-            'name' => 'Isabel Jordà Cabaces',
+            'name' => 'Isabel Jordà Cabacès',
             'email' => 'ijorda@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
@@ -3325,34 +3391,6 @@ if (!function_exists('initialize_teachers')) {
 
 
         User::createIfNotExists([
-            'name' => 'Fabiola Grau Talens',
-            'email' => 'fgrau@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-            ->assignFullName([
-                'givenName' => 'Fabiola',
-                'sn1' => 'Grau',
-                'sn2' => 'Talens',
-            ])->assignTeacher(Teacher::firstOrCreate([
-                'code' => '079'
-            ]));
-
-        User::createIfNotExists([
-            'name' => 'MªCarmen Lorenzo Monfó',
-            'email' => 'carmelorenzo@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-            ->assignFullName([
-                'givenName' => 'MªCarmen',
-                'sn1' => 'Lorenzo',
-                'sn2' => 'Monfó',
-            ])->assignTeacher(Teacher::firstOrCreate([
-                'code' => '083'
-            ]));
-
-        User::createIfNotExists([
             'name' => 'MªPiedad Martin Borràs',
             'email' => 'mariapiedadmartin@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -3378,20 +3416,6 @@ if (!function_exists('initialize_teachers')) {
                 'sn2' => 'Esmel',
             ])->assignTeacher(Teacher::firstOrCreate([
                 'code' => '115'
-            ]));
-
-        User::createIfNotExists([
-            'name' => 'Luís Pérez Càrcel',
-            'email' => 'luisperez@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-            ->assignFullName([
-                'givenName' => 'Luís',
-                'sn1' => 'Pérez',
-                'sn2' => 'Càrcel',
-            ])->assignTeacher(Teacher::firstOrCreate([
-                'code' => '044'
             ]));
 
         User::createIfNotExists([
@@ -4182,4 +4206,35 @@ if (! function_exists('fake_personal_data_teachers')) {
     }
 }
 
+if (! function_exists('autoassign_photos_to_teachers')) {
+    function autoassign_photos_to_teachers($path, $tenant)
+    {
+        $teachersWithoutFoto = Teacher::with(['user'])->get()->filter(function($teacher) {
+            if ($teacher->user) return $teacher->user->photo === null;
+        });
+        $counter= 0;
+        $availablephotos = collect(File::allFiles($path));
+        foreach ($teachersWithoutFoto as $teacher) {
+            $foundPhotos = $availablephotos->filter(function($photo) use ($teacher) {
+                return str_contains($photo->getFileName(),$teacher->code);
+            });
+            if ($foundPhoto = $foundPhotos->first()) {
+                $teacher->user->assignPhoto($foundPhoto->getPathname(),$tenant);
+                $counter++;
+            }
+        }
 
+        return $counter;
+    }
+}
+
+if (!function_exists('initialize_teacher_photos')) {
+    function initialize_teacher_photos() {
+        $tenant = Config::get('database.connections.tenant.database');
+        $src = base_path('storage/photos/' . $tenant . '/teachers/*.*');
+
+        $dest = storage_path('app/' . $tenant . '/teacher_photos');
+        shell_exec("cp -r $src $dest");
+        autoassign_photos_to_teachers($dest,$tenant);
+    }
+}
