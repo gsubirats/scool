@@ -31,6 +31,7 @@ class JobsController extends Controller
         $specialties = Specialty::with('jobs','jobs.family')->get();
         $families = Family::with('jobs','jobs.specialty')->get();
         $users = User::all();
+
         return view('tenants.jobs.show',compact(
             'jobs',
             'jobTypes',

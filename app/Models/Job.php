@@ -73,7 +73,11 @@ class Job extends Model
      */
     public function getDescriptionAttribute($value)
     {
-        return 'Plaça num ' . $this->order . ' de la família ' . $this->family->name . ', especialitat ' . $this->specialty->name;
+        $familyName = '';
+        if ($this->family) $familyName = $this->family->name;
+        $specialtyName = '';
+        if ($this->specialty) $specialtyName = $this->specialty->name;
+        return 'Plaça num ' . $this->order . ' de la família ' . $familyName . ', especialitat ' . $specialtyName;
     }
 
     /**
@@ -84,7 +88,11 @@ class Job extends Model
      */
     public function getFullcodeAttribute($value)
     {
-        return $this->family->code . '_' . $this->specialty->code . '_' . $this->order . '_' . $this->code;
+        $familyCode = '';
+        if ($this->family) $familyCode = $this->family->code;
+        $specialtyCode = '';
+        if ($this->specialty) $specialtyCode = $this->specialty->code;
+        return $familyCode . '_' . $specialtyCode . '_' . $this->order . '_' . $this->code;
     }
 
 }

@@ -113,11 +113,6 @@
     </v-container>
 </template>
 
-
-<style>
-
-</style>
-
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'

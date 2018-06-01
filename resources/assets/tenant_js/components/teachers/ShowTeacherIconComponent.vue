@@ -330,28 +330,33 @@
         }
       },
       job () {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          return this.internalTeacher.user.jobs[0].family.code + '_' + this.internalTeacher.user.jobs[0].specialty.code + '_' + this.internalTeacher.user.jobs[0].order + '_' + this.internalTeacher.user.jobs[0].code
+        const job = this.internalTeacher.user.jobs[0]
+        if (this.internalTeacher && this.internalTeacher.user && job) {
+          return job.fullcode
         }
       },
       jobDescription () {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          return 'Plaça num ' + this.internalTeacher.user.jobs[0].order + ' de la família ' + this.internalTeacher.user.jobs[0].family.name + ', especialitat ' + this.internalTeacher.user.jobs[0].specialty.name + ', assignada al professor ' + this.teacherDescription(this.internalTeacher.user.jobs[0].code)
+        const job = this.internalTeacher.user.jobs[0]
+        if (this.internalTeacher && this.internalTeacher.user && job) {
+          return job.description + ', assignada al professor ' + this.teacherDescription(job.code)
         }
       },
       jobFamily () {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          return this.internalTeacher.user.jobs[0].family.name
+        const job = this.internalTeacher.user.jobs[0]
+        if (this.internalTeacher && this.internalTeacher.user && job) {
+          return job.family.name
         }
       },
       jobSpecialty () {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          return this.internalTeacher.user.jobs[0].specialty.name
+        const job = this.internalTeacher.user.jobs[0]
+        if (this.internalTeacher && this.internalTeacher.user && job) {
+          return job.specialty.name
         }
       },
       jobOrder () {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          return this.internalTeacher.user.jobs[0].order
+        const job = this.internalTeacher.user.jobs[0]
+        if (this.internalTeacher && this.internalTeacher.user && job) {
+          return job.order
         }
       },
       teacherDescription (teacherCode) {
