@@ -39,7 +39,9 @@
                                         <td class="text-xs-left">{{ job.fullcode }}</td>
                                         <td class="text-xs-left">{{ job.order }}</td>
                                         <td class="text-xs-left">{{ job.family && job.family.name}}</td>
-                                        <td class="text-xs-left">{{ job.specialty && job.specialty.code }}</td>
+                                        <td class="text-xs-left">
+                                            <span :title="specialtyDescription(job)"> {{ specialty(job) }} </span>
+                                        </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             {{ job.user && job.user.name }}
                                         </td>
@@ -189,6 +191,16 @@
       },
       type (job) {
         return job.type && job.type.name
+      },
+      specialty (job) {
+        if (job.specialty) {
+          return job.specialty.code
+        }
+      },
+      specialtyDescription (job) {
+        if (job.specialty) {
+          return job.specialty.name
+        }
       },
       remove (job) {
         this.deleting = true

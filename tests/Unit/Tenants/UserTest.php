@@ -187,6 +187,7 @@ class UserTest extends TestCase
         initialize_families();
         initialize_specialities();
         initialize_users();
+        initialize_departments();
         initialize_teachers();
 
         $teachers = User::teachers()->get();

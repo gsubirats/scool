@@ -88,7 +88,7 @@ class Job extends Model
      */
     public function getFullcodeAttribute($value)
     {
-        $familyCode = '';
+        $familyCode = 'TOTS';
         if ($this->family) $familyCode = $this->family->code;
         $specialtyCode = '';
         if ($this->specialty) $specialtyCode = $this->specialty->code;

@@ -985,6 +985,29 @@ if (!function_exists('initialize_teachers_ppas')) {
             ]));
 
         User::createIfNotExists([
+            'name' => 'Julià Curto De la Vega',
+            'email' => 'jcurto@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Julià',
+                'sn1' => 'Curto',
+                'sn2' => 'De la Vega',
+            ])
+            ->assignJob(
+                Job::firstOrCreate([
+                    'type_id' => JobType::findByName('Professor/a')->id,
+                    'specialty_id' => Specialty::findByCode('MA')->id,
+                    'code' => '002',
+                    'order' => 1
+                ])
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => '008',
+                'department_id' => Department::findByCode('PPAS')->id
+            ]));
+
+        User::createIfNotExists([
             'name' => 'Núria Vallés Machirant',
             'email' => 'nuriavalles@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
@@ -999,7 +1022,7 @@ if (!function_exists('initialize_teachers_ppas')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('AN')->id,
-                    'code' => '004',
+                    'code' => '003',
                     'order' => 1
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
@@ -1022,7 +1045,7 @@ if (!function_exists('initialize_teachers_ppas')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('AN')->id,
-                    'code' => '005',
+                    'code' => '003',
                     'order' => 1
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
@@ -1045,7 +1068,7 @@ if (!function_exists('initialize_teachers_ppas')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('AN')->id,
-                    'code' => '006',
+                    'code' => '004',
                     'order' => 1
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
@@ -1068,34 +1091,11 @@ if (!function_exists('initialize_teachers_ppas')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('AN')->id,
-                    'code' => '007',
+                    'code' => '005',
                     'order' => 1
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '007',
-                'department_id' => Department::findByCode('PPAS')->id
-            ]));
-
-        User::createIfNotExists([
-            'name' => 'Julià Curto De la Vega',
-            'email' => 'jcurto@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-            ->assignFullName([
-                'givenName' => 'Julià',
-                'sn1' => 'Curto',
-                'sn2' => 'De la Vega',
-            ])
-            ->assignJob(
-                Job::firstOrCreate([
-                    'type_id' => JobType::findByName('Professor/a')->id,
-                    'specialty_id' => Specialty::findByCode('MA')->id,
-                    'code' => '008',
-                    'order' => 1
-                ])
-            )->assignTeacher(Teacher::firstOrCreate([
-                'code' => '008',
                 'department_id' => Department::findByCode('PPAS')->id
             ]));
     }
@@ -1119,7 +1119,7 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '009',
+                    'code' => '008',
                     'order' => 1
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
@@ -1142,8 +1142,8 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '010',
-                    'order' => 1
+                    'code' => '009',
+                    'order' => 2
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '010',
@@ -1165,8 +1165,8 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '011',
-                    'order' => 1
+                    'code' => '010',
+                    'order' => 3
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '011',
@@ -1188,8 +1188,8 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '012',
-                    'order' => 1
+                    'code' => '011',
+                    'order' => 4
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '012',
@@ -1211,8 +1211,8 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '013',
-                    'order' => 1
+                    'code' => '012',
+                    'order' => 5
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '013',
@@ -1234,8 +1234,8 @@ if (!function_exists('initialize_teachers_fol')) {
                 Job::firstOrCreate([
                     'type_id' => JobType::findByName('Professor/a')->id,
                     'specialty_id' => Specialty::findByCode('505')->id,
-                    'code' => '003',
-                    'order' => 1
+                    'code' => '013',
+                    'order' => 6
                 ])
             )->assignTeacher(Teacher::firstOrCreate([
                 'code' => '003',

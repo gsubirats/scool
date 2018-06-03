@@ -43,6 +43,7 @@ class TeachersControllerTest extends BaseTenantTest
         initialize_families();
         initialize_specialities();
         initialize_users();
+        initialize_departments();
         initialize_teachers();
 
         $staffManager = create(User::class);
