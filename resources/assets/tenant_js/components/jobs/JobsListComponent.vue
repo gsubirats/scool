@@ -44,8 +44,13 @@
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            {{ job.activeUser }}
-                                            
+                                            <template v-if="job.activeUser">
+                                                <v-avatar color="grey lighten-4" :size="40">
+                                                    <img :src="'/user/' + job.activeUser.hashid + '/photo'"
+                                                         :alt="teacherDescription(job.activeUser)"
+                                                         :title="teacherDescription(job.activeUser)">
+                                                </v-avatar>
+                                            </template>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id">
