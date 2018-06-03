@@ -8,6 +8,7 @@ use App\Models\Job;
 use App\Models\JobType;
 use App\Models\Specialty;
 use App\Models\User;
+use Carbon\Carbon;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
 use Tests\TestCase;
@@ -42,6 +43,11 @@ class JobTest extends TestCase
         $this->app[Kernel::class]->setArtisan(null);
     }
 
+    /**
+     * Create example job.
+     *
+     * @return mixed
+     */
     protected function create_example_job() {
         JobType::create([
             'name' => 'Professor/a'
@@ -87,7 +93,7 @@ class JobTest extends TestCase
             'order' => 1
         ]);
 
-        $this->assertEquals($job2->fullcode,'TOTS_518_1_003');
+        $this->assertEquals($job2->fullcode,'TOTES_518_1_003');
 
     }
 
@@ -106,4 +112,190 @@ class JobTest extends TestCase
 
         $this->assertEquals($job2->description,'Plaça num 1, especialitat Processos sanitaris');
     }
+
+    /** @test */
+    public function find_by_code()
+    {
+        $this->assertNull(Job::findByCode('041'));
+
+        $job = Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '041',
+            'order' => 1
+        ]);
+
+        $this->assertTrue($job->is(Job::findByCode('041')));
+    }
+
+    /** @test */
+    public function active_user_accessor()
+    {
+        $job = Job::firstOrCreate([
+            'type_id' => 1,
+            'code' => '041',
+            'order' => 1
+        ]);
+        $this->assertEquals(null,$job->activeUser);
+
+        $user = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans',
+            'email' => 'pepepardojeans@iesebre.com'
+        ]);
+        $user->assignJob($job);
+        $job = $job->fresh();
+        $this->assertTrue($user->is($job->activeUser));
+
+        $user2 = factory(User::class)->create([
+            'name' => 'Pepa Parda Jeans',
+            'email' => 'pepapardajeans@iesebre.com'
+        ]);
+        $user2->assignJob($job,false, Carbon::now()->subMonths(1), Carbon::now()->addMonths(1));
+        $job = $job->fresh();
+        $this->assertTrue($user2->is($job->activeUser));
+
+
+        $job2 = Job::firstOrCreate([
+            'type_id' => 1,
+            'code' => '042',
+            'order' => 1
+        ]);
+        $this->assertEquals(null,$job2->activeUser);
+
+        $user3 = factory(User::class)->create([
+            'name' => 'Ramona',
+            'email' => 'ramona@iesebre.com'
+        ]);
+        $user3->assignJob($job2);
+
+        $job2 = $job2->fresh();
+        $this->assertTrue($user3->is($job2->activeUser));
+
+        $user4 = factory(User::class)->create([
+            'name' => 'Heidi',
+            'email' => 'heidi@iesebre.com'
+        ]);
+        $user4->assignJob($job2,false, Carbon::now()->subMonths(1));
+        $job2 = $job2->fresh();
+        $this->assertTrue($user4->is($job2->activeUser));
+
+    }
+
+    /** @test */
+    public function first_available_code()
+    {
+        $this->assertEquals('001',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '001',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('002',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '002',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('003',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '004',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('003',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '003',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('005',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '005',
+            'order' => 1
+        ]);
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '006',
+            'order' => 1
+        ]);
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '007',
+            'order' => 1
+        ]);
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '008',
+            'order' => 1
+        ]);
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '009',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('010',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '011',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('010',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '010',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('012',Job::firstAvailableCode());
+
+        Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '080',
+            'order' => 1
+        ]);
+
+        $this->assertEquals('012',Job::firstAvailableCode());
+    }
+
 }

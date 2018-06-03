@@ -4,6 +4,7 @@ namespace Tests\Unit\Tenants;
 
 use App\Models\Address;
 use App\Models\AdministrativeStatus;
+use App\Models\Employee;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Identifier;
@@ -147,15 +148,61 @@ class UserTest extends TestCase
                 'specialty_id' => Specialty::findByCode('507')->id,
                 'family_id' => Family::findByCode('SANITAT')->id,
                 'order' => 1
+            ]), false);
+        $user = $user->fresh();
+        $this->assertCount(1,$user->jobs);
+        $job = $user->jobs()->first();
+        $this->assertEquals('01',$job->code);
+        $this->assertEquals('Professor/a',$job->type->name);
+        $this->assertEquals('507',$job->specialty->code);
+        $this->assertEquals('SANITAT',$job->family->code);
+        $this->assertInstanceOf(User::class,$result);
+        $this->assertEquals(0,Employee::where('user_id',$user->id)->where('job_id',$job->id)->first()->holder);
+
+    }
+
+    /** @test */
+    function can_assign_job_as_holder()
+    {
+        $user = factory(User::class)->create();
+
+        JobType::create(['name' => 'Professor/a']);
+        Force::create([
+            'name' => 'Secundària',
+            'code' => 'SECUNDARIA'
+        ]);
+
+        $family = Family::create([
+            'name' => 'Sanitat',
+            'code' => 'SANITAT'
+        ]);
+        Specialty::create([
+            'name' => 'Informàtica',
+            'code' => '507',
+            'force_id' => Force::findByCode('SECUNDARIA'),
+            'family_id' => $family->id
+        ]);
+
+        $this->assertCount(0,$user->jobs);
+
+        $result = $user->assignJob(
+            Job::firstOrCreate([
+                'code' => '01',
+                'type_id' => JobType::findByName('Professor/a')->id,
+                'specialty_id' => Specialty::findByCode('507')->id,
+                'family_id' => Family::findByCode('SANITAT')->id,
+                'order' => 1
             ]));
         $user = $user->fresh();
         $this->assertCount(1,$user->jobs);
-        $staff = $user->jobs()->first();
-        $this->assertEquals('01',$staff->code);
-        $this->assertEquals('Professor/a',$staff->type->name);
-        $this->assertEquals('507',$staff->specialty->code);
-        $this->assertEquals('SANITAT',$staff->family->code);
+        $job = $user->jobs()->first();
+        $this->assertEquals('01',$job->code);
+        $this->assertEquals('Professor/a',$job->type->name);
+        $this->assertEquals('507',$job->specialty->code);
+        $this->assertEquals('SANITAT',$job->family->code);
         $this->assertInstanceOf(User::class,$result);
+
+        $this->assertEquals(1,Employee::where('user_id',$user->id)->where('job_id',$job->id)->first()->holder);
 
     }
 

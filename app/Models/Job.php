@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\FormattedDates;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,7 +23,8 @@ class Job extends Model
         'formatted_created_at_diff',
         'formatted_updated_at_diff',
         'description',
-        'fullcode'
+        'fullcode',
+        'activeUser'
     ];
 
     /**
@@ -50,6 +52,29 @@ class Job extends Model
     }
 
     /**
+     * Get the current active user associated to the job.
+     */
+    public function getActiveUserAttribute($value) {
+        if (count($this->users) == 0) return null;
+        if (count($this->users) == 1) return $this->holders()->first();
+        if (count($this->users) > 1) {
+            $actives = $this->users->filter(function ($user) {
+                if ($user->employee) {
+                    if ($user->employee->start_at && $user->employee->end_at) {
+                        return Carbon::now()->between(
+                            Carbon::parse($user->employee->start_at),
+                            Carbon::parse($user->employee->end_at));
+                    }
+                    if ($user->employee->start_at && $user->employee->end_at == null ) {
+                        return Carbon::now()->gt(Carbon::parse($user->employee->start_at));
+                    }
+                }
+            });
+            return $actives->first();
+        }
+    }
+
+    /**
      * Get the user associated to the job.
      */
     public function users()
@@ -58,11 +83,19 @@ class Job extends Model
     }
 
     /**
-     * Get the holder of the place.
+     * Get the holder of the place/job.
      */
-    public function holder()
+    public function holders()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class,'employees')->wherePivot('holder', 1);
+    }
+
+    /**
+     * Get the holder of the place/job.
+     */
+    public function substitutes()
+    {
+        return $this->belongsToMany(User::class,'employees')->wherePivot('holder', 0)->withPivot('start_at', 'end_at');
     }
 
     /**
@@ -88,11 +121,35 @@ class Job extends Model
      */
     public function getFullcodeAttribute($value)
     {
-        $familyCode = 'TOTS';
+        $familyCode = 'TOTES';
         if ($this->family) $familyCode = $this->family->code;
         $specialtyCode = '';
         if ($this->specialty) $specialtyCode = $this->specialty->code;
         return $familyCode . '_' . $specialtyCode . '_' . $this->order . '_' . $this->code;
+    }
+
+    /**
+     * Find by code.
+     *
+     * @param $code
+     * @return mixed
+     */
+    public static function findByCode($code)
+    {
+        return self::where('code',$code)->first();
+    }
+
+    /**
+     * First available code.
+     *
+     * @return string
+     */
+    public static function firstAvailableCode()
+    {
+        foreach (range(1, 999) as $value) {
+            $code = sprintf('%03d', $value);
+            if (!self::where('code',$code)->first()) return $code;
+        }
     }
 
 }

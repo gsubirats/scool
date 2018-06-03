@@ -1007,6 +1007,10 @@ if (!function_exists('initialize_teachers_ppas')) {
                 'department_id' => Department::findByCode('PPAS')->id
             ]));
 
+        // Principi de curs
+        // Sílvia Armengol Bosch (nº 4). Anglès. DNI: 47829022Q. DNI: 47829022Q.Fa la baixa d'Isabel Jordà:
+        // sarmeng5@xtec.com (crec que deuria ser .cat; però m'ha posat .com?)
+        // TODO ?? No tenim Sílvia Armengol
         User::createIfNotExists([
             'name' => 'Núria Vallés Machirant',
             'email' => 'nuriavalles@iesebre.com',
@@ -1463,6 +1467,8 @@ if (!function_exists('initialize_teachers_electrics')) {
                 'department_id' => Department::findByCode('ELÈCTRICS')->id
             ]));
 
+        // TODO ->
+        // A Ebreescool surt Francesc Audí Povedano. Es va jubilar?
         User::createIfNotExists([
             'name' => 'J.Luís Colomé Monllao',
             'email' => 'jcolome@iesebre.com',
@@ -3441,6 +3447,65 @@ if (!function_exists('initialize_teachers_mecanica')) {
     }
 }
 
+if (!function_exists('initialize_substitutes')) {
+    function initialize_substitutes()
+    {
+        // Plaça 004 Dos substituts
+        // Núria Vallés Machirant (nº4) Anglès -> S04 Silvia Armengol Bosch (47829022Q)
+
+        // Patrícia Prado Villegas (nº 110) esp. 518 (Dep. Sanitat)
+
+        // Plaça 114 -> No sembla que substituexi a ningú! Nova plaça de centre?
+        // Lluc Ulldemolins Nolla (nº 114) esp. 525 (Dep. Electricitat....)
+        // Plaça 115 -> No sembla que substituexi a ningú! Nova plaça de centre?
+        // Carlos Montesó Esmel (nº115) esp. 524 (Dep. Electricitat...)
+
+        // Dades que falten i surten a Ebre-escool:
+        // Núria Sayas Espuny (s24) 52601105J va substituir Agustí Moreso? profe 24
+        // Núria Segura Capera (s36) 18967997H -> Francesc Audi Povedano -> Jubilació Colomé
+
+        // Javier (Xavi) Sancho Fabregat substitut de profe 41 Jaume Ramos 47643281T
+        User::createIfNotExists([
+            'name' => 'Javier Sancho Fabregat',
+            'email' => 'javiersancho@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'Javier',
+                'sn1' => 'Sancho',
+                'sn2' => 'Fabregat',
+            ])
+            ->assignJob(
+                Job::findByCode('041'), // Subtitut de Jaume Ramos
+                false,
+                Carbon::parse('2018-03-30'),
+                Carbon::parse('2018-06-30')
+            )->assignTeacher(Teacher::firstOrCreate([
+                'code' => Teacher::firstAvailableCode(),
+                'department_id' => Department::findByCode('INFORMÀTICA')->id
+            ]));
+
+        // S47 Josep Vilanova Roig Substitut de Peré Ferre 47626309W
+
+        // S55 Albert Tiron -> Ricard Fernandez Burato 47476671W
+
+        // S66 Laura Vidal Sancho -> Substituta de Pepa Cugat 4782673B
+
+        // S72 Felipe Perez Viana 73563814Q
+
+        // S79 Patrícia García Saez 21677820K
+
+        // S83 Isabel Jovani Castillo 20470918K
+
+        // S93 Vicente Martínez Aznar 19000244J
+
+
+        // Mª José Dominguez Rodríguez (nº101) esp. 620 (Dep. Sanitat)
+        // Núria Suñé Alañá (nº 109) esp. 620 (Dep. Sanitat)
+    }
+}
+
 if (!function_exists('initialize_teachers')) {
     function initialize_teachers()
     {
@@ -3457,6 +3522,7 @@ if (!function_exists('initialize_teachers')) {
 
         // TODO: Professors substituts falta alguna informació!
 
+        // És la substituta que farà 0,33 jornada de Pepa Cugat TODO 0,33!!!!!!!!!!!!!!!!!
         User::createIfNotExists([
             'name' => 'Marta Delgado Escura',
             'email' => 'martadelgado@iesebre.com',
@@ -3471,9 +3537,11 @@ if (!function_exists('initialize_teachers')) {
                 'code' => '099'
             ]));
 
+//        Carles Ferré Serret (nº 100). esp .620. Dep.Sanitat. DNI: 40929388Z. Té una jornada de 0,83 i estarà tot el curs.
+//    carlesferre78@gmail.com
 
         User::createIfNotExists([
-            'name' => 'Ferré Serret, Carles',
+            'name' => 'Carles Ferré Serret',
             'email' => 'carlesferre@iesebre.com',
             'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
             'remember_token' => str_random(10),
@@ -3484,6 +3552,22 @@ if (!function_exists('initialize_teachers')) {
                 'sn2' => 'Serret',
             ])->assignTeacher(Teacher::firstOrCreate([
                 'code' => '100'
+            ]));
+
+        //Mª Piedad Martin Borràs (nº 103) esp. 619. Dep. Sanitat DNI: 52609442R. Jornada de 0,33. Estarà tot el curs.
+//    pmartin@coft.org
+        User::createIfNotExists([
+            'name' => 'MªPiedad Martin Borràs',
+            'email' => 'mariapiedadmartin@iesebre.com',
+            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
+            'remember_token' => str_random(10),
+        ])->addRole(Role::findByName('Teacher'))
+            ->assignFullName([
+                'givenName' => 'MªPiedad',
+                'sn1' => 'Martin',
+                'sn2' => 'Borràs',
+            ])->assignTeacher(Teacher::firstOrCreate([
+                'code' => '103'
             ]));
 
         User::createIfNotExists([
@@ -3543,20 +3627,6 @@ if (!function_exists('initialize_teachers')) {
                 'code' => '112'
             ]));
 
-
-        User::createIfNotExists([
-            'name' => 'MªPiedad Martin Borràs',
-            'email' => 'mariapiedadmartin@iesebre.com',
-            'password' => 'e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4', // secret
-            'remember_token' => str_random(10),
-        ])->addRole(Role::findByName('Teacher'))
-            ->assignFullName([
-                'givenName' => 'MªPiedad',
-                'sn1' => 'Martin',
-                'sn2' => 'Borràs',
-            ])->assignTeacher(Teacher::firstOrCreate([
-                'code' => '103'
-            ]));
 
         User::createIfNotExists([
             'name' => 'Carlos Montesó Esmel',

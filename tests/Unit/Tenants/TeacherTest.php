@@ -123,4 +123,45 @@ class TeacherTest extends TestCase
         $this->assertEquals('040 Acacha stur@iesebre.com Sergi Tur Badenas 507 Informàtica INF FAMInformàtica Funcionari/a amb plaça definitiva FUNCIONARI DEF INF_507_1_040', $teacher2->full_search);
 
     }
+
+    /** @test */
+    public function first_available_code()
+    {
+        $this->assertEquals('001',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '001']);
+
+        $this->assertEquals('002',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '002']);
+
+        $this->assertEquals('003',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '004']);
+
+        $this->assertEquals('003',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '003']);
+
+        $this->assertEquals('005',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '005']);
+        Teacher::firstOrCreate([ 'code' => '006']);
+        Teacher::firstOrCreate([ 'code' => '007']);
+        Teacher::firstOrCreate([ 'code' => '008']);
+        Teacher::firstOrCreate([ 'code' => '008']);
+        Teacher::firstOrCreate([ 'code' => '009']);
+
+        $this->assertEquals('010',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '011']);
+
+        $this->assertEquals('010',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '010']);
+        $this->assertEquals('012',Teacher::firstAvailableCode());
+
+        Teacher::firstOrCreate([ 'code' => '080']);
+        $this->assertEquals('012',Teacher::firstAvailableCode());
+    }
 }

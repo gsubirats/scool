@@ -98,4 +98,17 @@ class Teacher extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    /**
+     * First available code.
+     *
+     * @return string
+     */
+    public static function firstAvailableCode()
+    {
+        foreach (range(1, 999) as $value) {
+            $code = sprintf('%03d', $value);
+            if (!self::where('code',$code)->first()) return $code;
+        }
+    }
 }

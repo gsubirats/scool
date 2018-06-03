@@ -36,14 +36,29 @@
                                             {{ type(job) }}
                                         </td>
                                         <td class="text-xs-left">{{ job.code }}</td>
+                                        <td class="text-xs-left">
+                                            <v-avatar color="grey lighten-4" :size="40">
+                                                <img :src="'/user/' + job.holders[0].hashid + '/photo'"
+                                                     :alt="teacherDescription(job.holders[0])"
+                                                     :title="teacherDescription(job.holders[0])">
+                                            </v-avatar>
+                                        </td>
+                                        <td class="text-xs-left">
+                                            {{ job.activeUser }}
+                                            
+                                        </td>
+                                        <td class="text-xs-left">
+                                            <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id">
+                                                <img :src="'/user/' + substitute.hashid + '/photo'"
+                                                     :alt="substituteDescription(substitute)"
+                                                     :title="substituteDescription(substitute)">
+                                            </v-avatar>
+                                        </td>
                                         <td class="text-xs-left">{{ job.fullcode }}</td>
                                         <td class="text-xs-left">{{ job.order }}</td>
                                         <td class="text-xs-left">{{ job.family && job.family.name}}</td>
                                         <td class="text-xs-left">
                                             <span :title="specialtyDescription(job)"> {{ specialty(job) }} </span>
-                                        </td>
-                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ job.user && job.user.name }}
                                         </td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <v-tooltip bottom>
@@ -155,12 +170,14 @@
           headers.push({text: 'Tipus', value: 'type.name'})
         }
         headers.push({text: 'Code', value: 'code'})
-        headers.push({text: 'Full code', value: 'fullcode'})
+        headers.push({text: 'Titular', sortable: false})
+        headers.push({text: 'Professor actual', sortable: false})
+        headers.push({text: 'Substituts', sortable: false})
+        headers.push({text: 'Codi complet', value: 'fullcode'})
         headers.push({text: 'Order', value: 'order'})
         headers.push({text: 'Família', value: 'family.name'})
         headers.push({text: 'Especialitat', value: 'specialty.code'})
         headers.push({text: 'Notes', value: 'notes'})
-        headers.push({text: 'TODO', value: 'notes'})
         if (this.showSubstituteHeaders) {
           headers.push({text: 'Data inici', value: 'todo'})
           headers.push({text: 'Data fí', value: 'todo'})
@@ -186,6 +203,20 @@
       }
     },
     methods: {
+      teacherDescription (teacher) {
+        if (teacher.teacher) {
+          return teacher.teacher.code + ' ' + teacher.name
+        } else {
+          return teacher.name
+        }
+      },
+      substituteDescription (substitute) {
+        if (substitute.teacher) {
+          return substitute.teacher.code + ' ' + substitute.name + ' ' + substitute.pivot.start_at + '-' + substitute.pivot.end_at
+        } else {
+          return substitute.name
+        }
+      },
       edit () {
         console.log('TODO EDIT')
       },

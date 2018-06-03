@@ -151,11 +151,19 @@ class User extends Authenticatable implements HasMedia
      * Assign job.
      *
      * @param $job
+     * @param bool $holder
+     * @param null $start
+     * @param null $end
      * @return $this
      */
-    public function assignJob($job)
+    public function assignJob($job, $holder = true, $start = null, $end = null)
     {
-        $this->jobs()->save($job);
+        if ($holder) {
+            $this->jobs()->save($job,['holder' => true]);
+        } else {
+            $this->jobs()->save($job,['start_at' => $start, 'end_at' => $end, ]);
+        }
+
         return $this;
     }
 

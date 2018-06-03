@@ -26,7 +26,8 @@ class JobsController extends Controller
      */
     public function show(ShowJobsManagement $request)
     {
-        $jobs = Job::with('type','family','specialty','users')->get();
+        $jobs = Job::with('type','family','specialty','users','holders','holders.teacher','substitutes',
+            'substitutes.teacher')->get();
         $jobTypes = JobType::all();
         $specialties = Specialty::with('jobs','jobs.family')->get();
         $families = Family::with('jobs','jobs.specialty')->get();

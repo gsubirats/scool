@@ -20,6 +20,7 @@ class CreateTenantEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('job_id')->nullable();
+            $table->boolean('holder')->default(false);
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->timestamps();
