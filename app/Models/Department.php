@@ -34,4 +34,12 @@ class Department extends Model
     {
         return static::where('code','=',$code)->first();
     }
+
+    /**
+     * Get the department teachers.
+     */
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
 }

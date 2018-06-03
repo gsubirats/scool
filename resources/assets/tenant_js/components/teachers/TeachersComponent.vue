@@ -46,6 +46,9 @@
                                             <span :title="teacher.user.email">{{ teacher.user.person.fullname }}</span>
                                         </td>
                                         <td class="text-xs-left">
+                                            <span :title="departmentDescription(teacher)">{{department(teacher)}}</span>
+                                        </td>
+                                        <td class="text-xs-left">
                                             <span :title="specialtyName(teacher)">{{specialtyCode(teacher)}}</span>
                                         </td>
                                         <td class="text-xs-left">
@@ -146,6 +149,7 @@
         headers.push({text: 'Codi', value: 'code'})
         headers.push({text: 'Foto', value: 'full_search', sortable: false})
         headers.push({text: 'Nom', value: 'user.person.fullname' })
+        headers.push({text: 'Departament', value: 'department.code' })
         headers.push({text: 'Especialitat', value: 'specialty.code'})
         headers.push({text: 'Familia', value: 'specialty.family.code'})
         if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'administrative_status.code'})
@@ -179,6 +183,16 @@
       }
     },
     methods: {
+      department (teacher) {
+        if (teacher.department) {
+          return teacher.department.code
+        }
+      },
+      departmentDescription (teacher) {
+        if (teacher.department) {
+          return teacher.department.name
+        }
+      },
       specialtyCode (teacher) {
         if (teacher.specialty) {
           return teacher.specialty.code

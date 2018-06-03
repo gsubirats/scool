@@ -90,4 +90,12 @@ class Teacher extends Model
 
         return $searchString;
     }
+
+    /**
+     * Get the department that owns the comment.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

@@ -29,7 +29,9 @@ class TenantDatabaseSeeder extends Seeder
         initialize_specialities();
         initialize_administrative_statuses();
         initialize_users();
+        initialize_departments();
         initialize_teachers();
+        initialize_head_departments();
         seed_identifier_types();
         inititialize_teachers_personal_data();
         initialize_teacher_photos();
@@ -38,6 +40,7 @@ class TenantDatabaseSeeder extends Seeder
         initialize_administrative_assistants();
         seed_identifier_types();
         initialize_positions();
+
 
     }
 }

@@ -469,4 +469,15 @@ class User extends Authenticatable implements HasMedia
             ) return true;
         return false;
     }
+
+    /**
+     * Find by name.
+     *
+     * @param $name
+     * @return mixed
+     */
+    public static function findByName($name)
+    {
+        return self::where('name','=',$name)->first();
+    }
 }

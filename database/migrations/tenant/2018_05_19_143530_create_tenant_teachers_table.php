@@ -20,6 +20,7 @@ class CreateTenantTeachersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('code')->unique();
+            $table->unsignedInteger('department_id')->nullable();
             $table->unsignedInteger('administrative_status_id')->nullable();
             $table->unsignedInteger('specialty_id')->nullable();
             $table->string('titulacio_acces')->nullable();

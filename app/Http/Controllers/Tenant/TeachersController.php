@@ -30,7 +30,7 @@ class TeachersController extends Controller
             'specialty','specialty.force','specialty.family','administrativeStatus','user', 'user.jobs',
             'user.jobs.specialty','user.jobs.family','user.person','user.person.birthplace',
             'user.person.identifier','user.person.address','user.person.address.province',
-            'user.person.address.location'])->orderByRaw('code + 0')->get();
+            'user.person.address.location','department'])->orderByRaw('code + 0')->get();
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrativeStatuses = AdministrativeStatus::all();

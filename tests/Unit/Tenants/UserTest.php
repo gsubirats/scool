@@ -624,4 +624,14 @@ class UserTest extends TestCase
         $teacher = $teacher->fresh();
         $this->assertTrue($teacher->isTeacher());
     }
+
+    /** @test */
+    public function can_find_by_name()
+    {
+        $this->assertEmpty(User::findByName('Pepe Pardo Jeans'));
+        $user = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans'
+        ]);
+        $this->assertTrue($user->is(User::findByName('Pepe Pardo Jeans')));
+    }
 }
