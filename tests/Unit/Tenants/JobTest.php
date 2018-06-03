@@ -79,6 +79,16 @@ class JobTest extends TestCase
         $job = $this->create_example_job();
 
         $this->assertEquals($job->fullcode,'SANITAT_518_1_002');
+
+        $job2 = Job::create([
+            'code' => '003',
+            'type_id' => JobType::findByName('Professor/a')->id,
+            'specialty_id' => Specialty::findByCode('518')->id,
+            'order' => 1
+        ]);
+
+        $this->assertEquals($job2->fullcode,'TOTS_518_1_003');
+
     }
 
     /** @test */
@@ -86,5 +96,14 @@ class JobTest extends TestCase
     {
         $job = $this->create_example_job();
         $this->assertEquals($job->description,'Plaça num 1 de la família Sanitat, especialitat Processos sanitaris');
+
+        $job2 = Job::create([
+            'code' => '003',
+            'type_id' => JobType::findByName('Professor/a')->id,
+            'specialty_id' => Specialty::findByCode('518')->id,
+            'order' => 1
+        ]);
+
+        $this->assertEquals($job2->description,'Plaça num 1, especialitat Processos sanitaris');
     }
 }

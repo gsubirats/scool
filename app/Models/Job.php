@@ -74,10 +74,10 @@ class Job extends Model
     public function getDescriptionAttribute($value)
     {
         $familyName = '';
-        if ($this->family) $familyName = $this->family->name;
+        if ($this->family) $familyName = ' de la família ' . $this->family->name;
         $specialtyName = '';
         if ($this->specialty) $specialtyName = $this->specialty->name;
-        return 'Plaça num ' . $this->order . ' de la família ' . $familyName . ', especialitat ' . $specialtyName;
+        return 'Plaça num ' . $this->order . $familyName . ', especialitat ' . $specialtyName;
     }
 
     /**
