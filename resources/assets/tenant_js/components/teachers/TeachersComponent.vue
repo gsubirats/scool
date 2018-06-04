@@ -77,7 +77,7 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <!--<show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>-->
+                                            <show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>
 
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>

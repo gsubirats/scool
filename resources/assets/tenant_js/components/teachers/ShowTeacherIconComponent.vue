@@ -22,7 +22,7 @@
                 <v-container grid-list-lg fluid>
                     <v-layout row wrap>
                          <v-flex xs9>
-                            <personal-data-card :user="internalTeacher.user"></personal-data-card>
+                            <personal-data-card :user="internalTeacher"></personal-data-card>
                         </v-flex>
                         <v-flex xs3>
                             <v-card>
@@ -52,25 +52,27 @@
                                                                         </v-list-tile>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="specialty()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.specialty_code + ' ' + internalTeacher.specialty">
+
+                                                                                </v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="family()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.family_code + ' ' + internalTeacher.family"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Familia</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="force()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.force"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Cos</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="status()"></v-list-tile-title>
+                                                                                <v-list-tile-title :title="internalTeacher.administrative_status_code" v-html="internalTeacher.administrative_status"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Estat administratiu</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
@@ -128,7 +130,7 @@
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
                                                                                 <v-list-tile-title>
-                                                                                    <span :title="jobDescription()">{{ job() }}</span>
+                                                                                    <span :title="internalTeacher.job_description" v-html="internalTeacher.job"></span>
                                                                                 </v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Codi plaça</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
@@ -136,21 +138,21 @@
                                                                         <v-divider></v-divider>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="jobFamily()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.job_family"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title >Família</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
                                                                         <v-divider></v-divider>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="jobSpecialty()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.job_specialty_code + ' ' + internalTeacher.job_specialty"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Especialitat</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
                                                                         <v-divider></v-divider>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="jobOrder()"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.job_order"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Ordre</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
@@ -227,7 +229,7 @@
                                                                         <v-divider></v-divider>
                                                                         <v-list-tile>
                                                                             <v-list-tile-content>
-                                                                                <v-list-tile-title v-html="internalTeacher && internalTeacher.user && internalTeacher.user.person && internalTeacher.user.person.notes"></v-list-tile-title>
+                                                                                <v-list-tile-title v-html="internalTeacher.person_notes"></v-list-tile-title>
                                                                                 <v-list-tile-sub-title>Notes</v-list-tile-sub-title>
                                                                             </v-list-tile-content>
                                                                         </v-list-tile>
@@ -292,7 +294,6 @@
     },
     watch: {
       teacher: function (newTeacher) {
-        console.log('Teacher changed to ' + newTeacher.code)
         this.internalTeacher = this.teacher
       }
     },
@@ -308,62 +309,6 @@
         }).catch(error => {
           console.log(error)
         })
-      },
-      specialty () {
-        if (this.internalTeacher && this.internalTeacher.specialty) {
-          return this.internalTeacher.specialty.code + ' ' + this.internalTeacher.specialty.name
-        }
-      },
-      family () {
-        if (this.internalTeacher && this.internalTeacher.specialty && this.internalTeacher.specialty.family) {
-          return this.internalTeacher.specialty.family.code + ' ' + this.internalTeacher.specialty.family.name
-        }
-      },
-      force () {
-        if (this.internalTeacher && this.internalTeacher.specialty && this.internalTeacher.specialty.force) {
-          return this.internalTeacher.specialty.force.name
-        }
-      },
-      status () {
-        if (this.internalTeacher && this.internalTeacher.administrative_status) {
-          return this.internalTeacher.administrative_status.name
-        }
-      },
-      job () {
-        const job = this.internalTeacher.user.jobs[0]
-        if (this.internalTeacher && this.internalTeacher.user && job) {
-          return job.fullcode
-        }
-      },
-      jobDescription () {
-        const job = this.internalTeacher.user.jobs[0]
-        if (this.internalTeacher && this.internalTeacher.user && job) {
-          return job.description + ', assignada al professor ' + this.teacherDescription(job.code)
-        }
-      },
-      jobFamily () {
-        const job = this.internalTeacher.user.jobs[0]
-        if (this.internalTeacher && this.internalTeacher.user && job) {
-          return job.family.name
-        }
-      },
-      jobSpecialty () {
-        const job = this.internalTeacher.user.jobs[0]
-        if (this.internalTeacher && this.internalTeacher.user && job) {
-          return job.specialty.name
-        }
-      },
-      jobOrder () {
-        const job = this.internalTeacher.user.jobs[0]
-        if (this.internalTeacher && this.internalTeacher.user && job) {
-          return job.order
-        }
-      },
-      teacherDescription (teacherCode) {
-        if (this.internalTeacher && this.internalTeacher.user) {
-          let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
-          return teacher && teacher.user.name + ' (' + teacher.code + ')'
-        }
       }
     }
   }
