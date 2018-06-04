@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Tenants;
 
+use App\Models\IdentifierType;
 use App\Models\User;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
@@ -61,6 +62,45 @@ class TeachersControllerTest extends BaseTenantTest
         $response->assertViewHas('specialties');
         $response->assertViewHas('forces');
         $response->assertViewHas('administrativeStatuses');
+    }
+
+
+    /** @test */
+    public function show_teachers_management_check_teachers_data()
+    {
+        $this->withoutExceptionHandling();
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_job_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_departments();
+        initialize_teachers();
+
+        $staffManager = create(User::class);
+        $this->actingAs($staffManager);
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+
+        $response = $this->get('/teachers');
+
+        $response->assertSuccessful();
+        $response->assertViewHas('teachers',function ($teachers) {
+            // Teacher:
+            // Camps necessàris:
+            // Id,
+            // user.hashid (foto) , user.name, user.email
+            // user.person.fullname (sn1,sn2,givenname)
+            // department.code, department.name
+            // speciality.name, speciality.code
+            // specialty.family, specialty.family.code, specialty.family.name
+//            dd($teachers->first());
+            dd($teachers->toArray()[38]);
+            dd($teachers->toArray());
+        });
     }
 
 }

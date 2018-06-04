@@ -22,9 +22,9 @@ class Job extends Model
         'formatted_updated_at',
         'formatted_created_at_diff',
         'formatted_updated_at_diff',
-        'description',
-        'fullcode',
-        'activeUser'
+//        'description', // TODO Performance problem
+//        'fullcode',
+//        'activeUser'
     ];
 
     /**
@@ -55,9 +55,10 @@ class Job extends Model
      * Get the current active user associated to the job.
      */
     public function getActiveUserAttribute($value) {
-        if (count($this->users) == 0) return null;
-        if (count($this->users) == 1) return $this->holders()->first();
-        if (count($this->users) > 1) {
+        $numUsers= count($this->users);
+        if ( $numUsers == 0) return null;
+        if ( $numUsers == 1) return $this->holders()->first();
+        if ( $numUsers > 1) {
             $actives = $this->users->filter(function ($user) {
                 if ($user->employee) {
                     if ($user->employee->start_at && $user->employee->end_at) {
@@ -72,6 +73,7 @@ class Job extends Model
             });
             return $actives->first();
         }
+        return null;
     }
 
     /**

@@ -39,35 +39,31 @@
                                         <td class="text-xs-left">{{ teacher.code }}</td>
                                         <td class="text-xs">
                                             <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + teacher.user.hashid + '/photo'" :alt="teacher.user.name" :title="teacher.user.name">
+                                                <img :src="'/user/' + teacher.hashid + '/photo'" :alt="teacher.name" :title="teacher.name">
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="teacher.user.email">{{ teacher.user.person.fullname }}</span>
+                                            <span :title="teacher.email" v-html="teacher.fullname "></span>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="departmentDescription(teacher)">{{department(teacher)}}</span>
+                                            <span :title="teacher.department" v-html="teacher.department_code"></span>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="specialtyName(teacher)">{{specialtyCode(teacher)}}</span>
+                                            <span :title="teacher.specialty" v-html="teacher.specialty_code"></span>
                                         </td>
                                         <td class="text-xs-left">
-                                            <span :title="familyName(teacher)">{{familyCode(teacher)}}</span>
+                                            <span :title="teacher.family" v-html="teacher.family_code"></span>
                                         </td>
                                         <td class="text-xs-left" v-if="showStatusHeader">
-                                            <span :title="administrativeStatusName(teacher)">{{ administrativeStatusCode(teacher) }}</span>
+                                            <span :title="teacher.administrative_status" v-html="teacher.administrative_status_code"></span>
                                         </td>
 
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            <span :title="jobDescription(teacher)">{{ job(teacher) }}</span>
+                                            <span :title="teacher.job_description" v-html="teacher.job"></span>
                                         </td>
 
-                                        <td class="text-xs-left" v-if="showSubstituteHeaders">
-                                            {{ jobStartAt(teacher) }}
-                                        </td>
-                                        <td class="text-xs-left" v-if="showSubstituteHeaders">
-                                            {{ jobEndAt(teacher) }}
-                                        </td>
+                                        <td class="text-xs-left" v-if="showSubstituteHeaders" v-html="teacher.job_start_at"></td>
+                                        <td class="text-xs-left" v-if="showSubstituteHeaders" v-html="teacher.job_end_at"></td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
                                                 <span slot="activator">{{ teacher.formatted_created_at_diff }}</span>
@@ -81,7 +77,7 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>
+                                            <!--<show-teacher-icon :teacher="teacher" :teachers="teachers"></show-teacher-icon>-->
 
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>
@@ -148,15 +144,15 @@
         headers.push({text: 'Id', align: 'left', value: 'id'})
         headers.push({text: 'Codi', value: 'code'})
         headers.push({text: 'Foto', value: 'full_search', sortable: false})
-        headers.push({text: 'Nom', value: 'user.person.fullname' })
-        headers.push({text: 'Departament', value: 'department.code' })
-        headers.push({text: 'Especialitat', value: 'specialty.code'})
-        headers.push({text: 'Familia', value: 'specialty.family.code'})
-        if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'administrative_status.code'})
-        headers.push({text: 'Plaça', value: 'user.jobs[0].fullcode'})
+        headers.push({text: 'Nom', value: 'fullname' })
+        headers.push({text: 'Departament', value: 'department_code' })
+        headers.push({text: 'Especialitat', value: 'specialty_code'})
+        headers.push({text: 'Familia', value: 'family_code'})
+        if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'administrative_status_code'})
+        headers.push({text: 'Plaça', value: 'job'})
         if (this.showSubstituteHeaders) {
-          headers.push({text: 'Data inici', value: 'todo'})
-          headers.push({text: 'Data fí', value: 'todo'})
+          headers.push({text: 'Data inici', value: 'job_start_at'})
+          headers.push({text: 'Data fí', value: 'job_end_at'})
         }
         headers.push({text: 'Data creació', value: 'formatted_created_at'})
         headers.push({text: 'Data actualització', value: 'formatted_updated_at'})
@@ -183,78 +179,7 @@
       }
     },
     methods: {
-      department (teacher) {
-        if (teacher.department) {
-          return teacher.department.code
-        }
-      },
-      departmentDescription (teacher) {
-        if (teacher.department) {
-          return teacher.department.name
-        }
-      },
-      specialtyCode (teacher) {
-        if (teacher.specialty) {
-          return teacher.specialty.code
-        }
-      },
-      specialtyName (teacher) {
-        if (teacher.specialty) {
-          return teacher.specialty.name
-        }
-      },
-      familyCode (teacher) {
-        if (teacher.specialty && teacher.specialty.family) {
-          return teacher.specialty.family.code
-        }
-      },
-      familyName (teacher) {
-        if (teacher.specialty && teacher.specialty.family) {
-          return teacher.specialty.family.name
-        }
-      },
-      administrativeStatusName (teacher) {
-        if (teacher.administrative_status) {
-          return teacher.administrative_status.name
-        }
-      },
-      administrativeStatusCode (teacher) {
-        if (teacher.administrative_status) {
-          return teacher.administrative_status.code
-        }
-      },
-      job (teacher) {
-        const job = teacher.user.jobs[0]
-        if (teacher.user && teacher.user.jobs && job) {
-          return job.fullcode
-        } else {
-          return ''
-        }
-      },
-      jobStartAt (teacher) {
-        const job = teacher.user.jobs[0]
-        if (teacher.user && teacher.user.jobs && job) {
-          return teacher.user.jobs[0].employee.start_at
-        } else {
-          return ''
-        }
-      },
-      jobEndAt (teacher) {
-        const job = teacher.user.jobs[0]
-        if (teacher.user && teacher.user.jobs && job) {
-          return teacher.user.jobs[0].employee.end_at
-        } else {
-          return ''
-        }
-      },
-      jobDescription (teacher) {
-        const job = teacher.user.jobs[0]
-        if (teacher.user && teacher.user.jobs && job) {
-          return job.description + ', assignada al professor ' + this.teacherDescription(job.code)
-        } else {
-          return ''
-        }
-      },
+      // TODO
       teacherDescription (teacherCode) {
         let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
         if (teacher) return teacher.user.name + ' (' + teacher.code + ')'
