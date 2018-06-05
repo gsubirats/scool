@@ -158,7 +158,7 @@
       }),
       filteredJobs: function () {
         if (this.showJobTypeHeader) return this.internaljobs
-        return this.internaljobs.filter(job => job.type.id === this.jobType.id)
+        return this.internaljobs.filter(job => job.type_id === this.jobType.id)
       },
       headers () {
         let headers = []
@@ -167,8 +167,8 @@
           headers.push({text: 'Tipus', value: 'type'})
         }
         headers.push({text: 'Code', value: 'code'})
-        headers.push({text: 'Titular', sortable: false})
-        headers.push({text: 'Professor actual', sortable: false})
+        headers.push({text: 'Titular', value: 'holder_description', sortable: false})
+        headers.push({text: 'Professor actual', value: 'active_user_description', sortable: false})
         headers.push({text: 'Substituts', sortable: false})
         headers.push({text: 'Codi complet', value: 'fullcode'})
         headers.push({text: 'Order', value: 'order'})

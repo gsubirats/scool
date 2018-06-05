@@ -68,6 +68,7 @@ class Job extends JsonResource
         return [
             'id' => $this->id,
             'type' => optional($this->type)->name,
+            'type_id' => optional($this->type)->id,
             'code' => $this->code,
             'holder_hashid' => optional($holder)->hash_id,
             'holder_code' => $holder_code,
