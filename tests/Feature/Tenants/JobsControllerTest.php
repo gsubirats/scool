@@ -57,6 +57,61 @@ class JobsControllerTest extends BaseTenantTest
     }
 
     /** @test */
+    public function show_jobs_management_jobs_data()
+    {
+        $this->withoutExceptionHandling();
+        $staffManager = create(User::class);
+        $this->actingAs($staffManager);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_job_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_departments();
+        initialize_teachers();
+        initialize_substitutes();
+
+        $response = $this->get('/jobs');
+
+        $response->assertSuccessful();
+        $response->assertViewIs('tenants.jobs.show');
+        $response->assertViewHas('jobs',function ($jobs) {
+            $job = $jobs->first();
+            return array_key_exists('id', $job) &&
+                array_key_exists('type', $job) &&
+                array_key_exists('code', $job) &&
+                array_key_exists('holder_hashid', $job) &&
+                array_key_exists('holder_code', $job) &&
+                array_key_exists('holder_name', $job) &&
+                array_key_exists('holder_description', $job) &&
+                array_key_exists('active_user_hash_id', $job) &&
+                array_key_exists('active_user_code', $job) &&
+                array_key_exists('active_user_name', $job) &&
+                array_key_exists('active_user_description', $job) &&
+                array_key_exists('substitutes', $job) &&
+                array_key_exists('fullcode', $job) &&
+                array_key_exists('order', $job) &&
+                array_key_exists('family', $job) &&
+                array_key_exists('family_code', $job) &&
+                array_key_exists('family_description', $job) &&
+                array_key_exists('specialty', $job) &&
+                array_key_exists('specialty_code', $job) &&
+                array_key_exists('specialty_description', $job) &&
+                array_key_exists('formatted_created_at_diff', $job) &&
+                array_key_exists('formatted_created_at', $job) &&
+                array_key_exists('formatted_updated_at', $job) &&
+                array_key_exists('formatted_updated_at_diff', $job) &&
+                array_key_exists('notes', $job);
+        });
+    }
+
+    /** @test */
     public function regular_user_not_authorized_to_show_jobs_management()
     {
         $user = create(User::class);

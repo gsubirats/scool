@@ -10,6 +10,7 @@ use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
 use App\Models\User;
+use App\Http\Resources\Tenant\Job as JobResource;
 
 /**
  * Class JobsController.
@@ -26,8 +27,19 @@ class JobsController extends Controller
      */
     public function show(ShowJobsManagement $request)
     {
-        $jobs = Job::with('type','family','specialty','users','holders','holders.teacher','substitutes',
-            'substitutes.teacher')->get();
+//        $jobs = Job::with('type','family','specialty','users','holders','holders.teacher','substitutes',
+//            'substitutes.teacher')->get();
+        $jobs =  collect(JobResource::collection(
+            Job::with(
+                'type',
+                'family',
+                'specialty',
+                'users',
+                'holders',
+                'holders.teacher',
+                'substitutes',
+                'substitutes.teacher')->get()));
+
         $jobTypes = JobType::all();
         $specialties = Specialty::with('jobs','jobs.family')->get();
         $families = Family::with('jobs','jobs.specialty')->get();

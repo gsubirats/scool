@@ -57,7 +57,7 @@ class Job extends Model
     public function getActiveUserAttribute($value) {
         $numUsers= count($this->users);
         if ( $numUsers == 0) return null;
-        if ( $numUsers == 1) return $this->holders()->first();
+        if ( $numUsers == 1) return $this->holders->first();
         if ( $numUsers > 1) {
             $actives = $this->users->filter(function ($user) {
                 if ($user->employee) {

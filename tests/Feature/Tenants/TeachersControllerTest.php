@@ -68,7 +68,6 @@ class TeachersControllerTest extends BaseTenantTest
     /** @test */
     public function show_teachers_management_check_teachers_data()
     {
-        $this->withoutExceptionHandling();
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
         initialize_job_types();
@@ -89,69 +88,70 @@ class TeachersControllerTest extends BaseTenantTest
 
         $response->assertSuccessful();
         $response->assertViewHas('teachers',function ($teachers) {
-            return array_key_exists('id',$teachers->first()) &&
-                array_key_exists('code',$teachers->first()) &&
-                array_key_exists('formatted_created_at_diff',$teachers->first()) &&
-                array_key_exists('formatted_created_at',$teachers->first()) &&
-                array_key_exists('formatted_updated_at',$teachers->first()) &&
-                array_key_exists('formatted_updated_at_diff',$teachers->first()) &&
-                array_key_exists('hashid',$teachers->first()) &&
-                array_key_exists('name',$teachers->first()) &&
-                array_key_exists('email',$teachers->first()) &&
-                array_key_exists('fullname',$teachers->first()) &&
-                array_key_exists('department_code',$teachers->first()) &&
-                array_key_exists('department',$teachers->first()) &&
-                array_key_exists('specialty',$teachers->first()) &&
-                array_key_exists('specialty_code',$teachers->first()) &&
-                array_key_exists('family',$teachers->first()) &&
-                array_key_exists('family_code',$teachers->first()) &&
-                array_key_exists('force',$teachers->first()) &&
-                array_key_exists('administrative_status',$teachers->first()) &&
-                array_key_exists('administrative_status_code',$teachers->first()) &&
-                array_key_exists('job',$teachers->first()) &&
-                array_key_exists('job_description',$teachers->first()) &&
-                array_key_exists('job_start_at',$teachers->first()) &&
-                array_key_exists('job_end_at',$teachers->first()) &&
-                array_key_exists('job_family',$teachers->first()) &&
-                array_key_exists('job_specialty',$teachers->first()) &&
-                array_key_exists('job_specialty_code',$teachers->first()) &&
-                array_key_exists('job_order',$teachers->first()) &&
-                array_key_exists('full_search',$teachers->first()) &&
-                array_key_exists('titulacio_acces',$teachers->first()) &&
-                array_key_exists('altres_titulacions',$teachers->first()) &&
-                array_key_exists('idiomes',$teachers->first()) &&
-                array_key_exists('perfil_professional',$teachers->first()) &&
-                array_key_exists('altres_formacions',$teachers->first()) &&
-                array_key_exists('data_superacio_oposicions',$teachers->first()) &&
-                array_key_exists('lloc_destinacio_definitiva',$teachers->first()) &&
-                array_key_exists('data_inici_treball',$teachers->first()) &&
-                array_key_exists('data_incorporacio_centre',$teachers->first()) &&
-                array_key_exists('person_notes',$teachers->first()) &&
-                array_key_exists('givenName',$teachers->first()) &&
-                array_key_exists('sn1',$teachers->first()) &&
-                array_key_exists('sn2',$teachers->first()) &&
-                array_key_exists('person_notes',$teachers->first()) &&
-                array_key_exists('givenName',$teachers->first()) &&
-                array_key_exists('sn1',$teachers->first()) &&
-                array_key_exists('sn2',$teachers->first()) &&
-                array_key_exists('birthdate',$teachers->first()) &&
-                array_key_exists('birthplace',$teachers->first()) &&
-                array_key_exists('gender',$teachers->first()) &&
-                array_key_exists('phone',$teachers->first()) &&
-                array_key_exists('other_phones',$teachers->first()) &&
-                array_key_exists('mobile',$teachers->first()) &&
-                array_key_exists('other_mobiles',$teachers->first()) &&
-                array_key_exists('personal_email',$teachers->first()) &&
-                array_key_exists('other_emails',$teachers->first()) &&
-                array_key_exists('identifier',$teachers->first()) &&
-                array_key_exists('identifier_type',$teachers->first()) &&
-                array_key_exists('address_name',$teachers->first()) &&
-                array_key_exists('address_number',$teachers->first()) &&
-                array_key_exists('address_floor',$teachers->first()) &&
-                array_key_exists('address_floor_number',$teachers->first()) &&
-                array_key_exists('address_location',$teachers->first()) &&
-                array_key_exists('address_postalcode',$teachers->first()) &&
-                array_key_exists('address_province',$teachers->first());
+            $teacher = $teachers->first();
+            return array_key_exists('id', $teacher) &&
+                array_key_exists('code', $teacher) &&
+                array_key_exists('formatted_created_at_diff', $teacher) &&
+                array_key_exists('formatted_created_at', $teacher) &&
+                array_key_exists('formatted_updated_at', $teacher) &&
+                array_key_exists('formatted_updated_at_diff', $teacher) &&
+                array_key_exists('hashid', $teacher) &&
+                array_key_exists('name', $teacher) &&
+                array_key_exists('email', $teacher) &&
+                array_key_exists('fullname', $teacher) &&
+                array_key_exists('department_code', $teacher) &&
+                array_key_exists('department', $teacher) &&
+                array_key_exists('specialty', $teacher) &&
+                array_key_exists('specialty_code', $teacher) &&
+                array_key_exists('family', $teacher) &&
+                array_key_exists('family_code', $teacher) &&
+                array_key_exists('force', $teacher) &&
+                array_key_exists('administrative_status', $teacher) &&
+                array_key_exists('administrative_status_code', $teacher) &&
+                array_key_exists('job', $teacher) &&
+                array_key_exists('job_description', $teacher) &&
+                array_key_exists('job_start_at', $teacher) &&
+                array_key_exists('job_end_at', $teacher) &&
+                array_key_exists('job_family', $teacher) &&
+                array_key_exists('job_specialty', $teacher) &&
+                array_key_exists('job_specialty_code', $teacher) &&
+                array_key_exists('job_order', $teacher) &&
+                array_key_exists('full_search', $teacher) &&
+                array_key_exists('titulacio_acces', $teacher) &&
+                array_key_exists('altres_titulacions', $teacher) &&
+                array_key_exists('idiomes', $teacher) &&
+                array_key_exists('perfil_professional', $teacher) &&
+                array_key_exists('altres_formacions', $teacher) &&
+                array_key_exists('data_superacio_oposicions', $teacher) &&
+                array_key_exists('lloc_destinacio_definitiva', $teacher) &&
+                array_key_exists('data_inici_treball', $teacher) &&
+                array_key_exists('data_incorporacio_centre', $teacher) &&
+                array_key_exists('person_notes', $teacher) &&
+                array_key_exists('givenName', $teacher) &&
+                array_key_exists('sn1', $teacher) &&
+                array_key_exists('sn2', $teacher) &&
+                array_key_exists('person_notes', $teacher) &&
+                array_key_exists('givenName', $teacher) &&
+                array_key_exists('sn1', $teacher) &&
+                array_key_exists('sn2', $teacher) &&
+                array_key_exists('birthdate', $teacher) &&
+                array_key_exists('birthplace', $teacher) &&
+                array_key_exists('gender', $teacher) &&
+                array_key_exists('phone', $teacher) &&
+                array_key_exists('other_phones', $teacher) &&
+                array_key_exists('mobile', $teacher) &&
+                array_key_exists('other_mobiles', $teacher) &&
+                array_key_exists('personal_email', $teacher) &&
+                array_key_exists('other_emails', $teacher) &&
+                array_key_exists('identifier', $teacher) &&
+                array_key_exists('identifier_type', $teacher) &&
+                array_key_exists('address_name', $teacher) &&
+                array_key_exists('address_number', $teacher) &&
+                array_key_exists('address_floor', $teacher) &&
+                array_key_exists('address_floor_number', $teacher) &&
+                array_key_exists('address_location', $teacher) &&
+                array_key_exists('address_postalcode', $teacher) &&
+                array_key_exists('address_province', $teacher);
 
         });
     }

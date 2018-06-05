@@ -29,48 +29,37 @@
                             >
                                 <template slot="items" slot-scope="{item: job}">
                                     <tr>
-                                        <td class="text-xs-left">
-                                            {{ job.id }}
-                                        </td>
-                                        <td class="text-xs-left" v-if="showJobTypeHeader">
-                                            {{ type(job) }}
-                                        </td>
-                                        <td class="text-xs-left">{{ job.code }}</td>
+                                        <td class="text-xs-left" v-html="job.id"></td>
+                                        <td class="text-xs-left" v-if="showJobTypeHeader" v-html="job.type"></td>
+                                        <td class="text-xs-left" v-html="job.code"></td>
                                         <td class="text-xs-left">
                                             <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + job.holders[0].hashid + '/photo'"
-                                                     :alt="teacherDescription(job.holders[0])"
-                                                     :title="teacherDescription(job.holders[0])">
+                                                <img :src="'/user/' + job.holder_hashid + '/photo'"
+                                                     :alt="job.holder_description"
+                                                     :title="job.holder_description">
                                             </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
-                                            <template v-if="job.activeUser">
+                                            <template v-if="job.active_user_hash_id">
                                                 <v-avatar color="grey lighten-4" :size="40">
-                                                    <img :src="'/user/' + job.activeUser.hashid + '/photo'"
-                                                         :alt="teacherDescription(job.activeUser)"
-                                                         :title="teacherDescription(job.activeUser)">
+                                                    <img :src="'/user/' + job.active_user_hash_id + '/photo'"
+                                                         :alt="job.active_user_description"
+                                                         :title="job.active_user_description">
                                                 </v-avatar>
                                             </template>
                                         </td>
                                         <td class="text-xs-left">
                                             <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id">
-                                                <img :src="'/user/' + substitute.hashid + '/photo'"
-                                                     :alt="substituteDescription(substitute)"
-                                                     :title="substituteDescription(substitute)">
+                                                <img :src="'/user/' + substitute.hash_id + '/photo'"
+                                                     :alt="substitute.description"
+                                                     :title="substitute.description">
                                             </v-avatar>
                                         </td>
-                                        <td class="text-xs-left">{{ job.fullcode }}</td>
-                                        <td class="text-xs-left">{{ job.order }}</td>
-                                        <td class="text-xs-left">{{ job.family && job.family.name}}</td>
-                                        <td class="text-xs-left">
-                                            <span :title="specialtyDescription(job)"> {{ specialty(job) }} </span>
-                                        </td>
-                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            <v-tooltip bottom>
-                                                <span slot="activator">{{ job.notes }}</span>
-                                                <span>{{ job.notes }}</span>
-                                            </v-tooltip>
-                                        </td>
+                                        <td class="text-xs-left" v-html="job.fullcode"></td>
+                                        <td class="text-xs-left" v-html="job.order">{{ job.order }}</td>
+                                        <td class="text-xs-left" :title="job.family_description" v-html="job.family"></td>
+                                        <td class="text-xs-left" :title="job.specialty_description" v-html="job.specialty"></td>
+                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" v-html="job.notes"></td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
                                                 <span slot="activator">{{ job.formatted_created_at_diff }}</span>
@@ -208,35 +197,8 @@
       }
     },
     methods: {
-      teacherDescription (teacher) {
-        if (teacher.teacher) {
-          return teacher.teacher.code + ' ' + teacher.name
-        } else {
-          return teacher.name
-        }
-      },
-      substituteDescription (substitute) {
-        if (substitute.teacher) {
-          return substitute.teacher.code + ' ' + substitute.name + ' ' + substitute.pivot.start_at + '-' + substitute.pivot.end_at
-        } else {
-          return substitute.name
-        }
-      },
       edit () {
         console.log('TODO EDIT')
-      },
-      type (job) {
-        return job.type && job.type.name
-      },
-      specialty (job) {
-        if (job.specialty) {
-          return job.specialty.code
-        }
-      },
-      specialtyDescription (job) {
-        if (job.specialty) {
-          return job.specialty.name
-        }
       },
       remove (job) {
         this.deleting = true

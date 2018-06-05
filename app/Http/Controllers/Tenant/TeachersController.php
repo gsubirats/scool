@@ -8,7 +8,7 @@ use App\Models\Force;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Teacher;
-use App\Http\Resources\Teacher as TeacherResource;
+use App\Http\Resources\Tenant\Teacher as TeacherResource;
 
 /**
  * Class TeachersController.
