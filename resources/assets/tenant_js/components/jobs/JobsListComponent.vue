@@ -76,6 +76,7 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
+                                            <add-substitute-icon></add-substitute-icon>
                                             <v-btn icon class="mx-0" @click="edit(job)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
@@ -139,11 +140,13 @@
   import * as actions from '../../store/action-types'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
   import JobTypeSelect from './JobTypeSelectComponent.vue'
+  import AddSubstituteIcon from './AddSubstituteIconComponent'
 
   export default {
     components: {
       ConfirmIcon,
-      'job-type-select': JobTypeSelect
+      'job-type-select': JobTypeSelect,
+      'add-substitute-icon': AddSubstituteIcon
     },
     data () {
       return {
@@ -200,6 +203,9 @@
       }
     },
     methods: {
+      addSubstitute () {
+
+      },
       edit () {
         console.log('TODO EDIT')
       },

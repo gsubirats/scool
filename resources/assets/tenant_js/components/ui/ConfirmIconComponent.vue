@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="290">
+    <v-dialog v-model="dialog" persistent max-width="290" @keydown.esc="dialog = false">
         <v-tooltip bottom slot="activator" v-if="tooltip">
             <v-btn icon slot="activator">
                 <v-icon :color="color" :dark="dark">{{icon}}</v-icon>
