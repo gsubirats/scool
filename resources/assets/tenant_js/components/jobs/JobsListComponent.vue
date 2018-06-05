@@ -26,6 +26,9 @@
                                     :items="filteredJobs"
                                     :search="search"
                                     item-key="id"
+                                    no-results-text="No s'ha trobat cap registre coincident"
+                                    no-data-text="No hi han dades disponibles"
+                                    rows-per-page-text="Places per pàgina"
                             >
                                 <template slot="items" slot-scope="{item: job}">
                                     <tr>
@@ -57,8 +60,8 @@
                                         </td>
                                         <td class="text-xs-left" v-html="job.fullcode"></td>
                                         <td class="text-xs-left" v-html="job.order">{{ job.order }}</td>
-                                        <td class="text-xs-left" :title="job.family_description" v-html="job.family"></td>
-                                        <td class="text-xs-left" :title="job.specialty_description" v-html="job.specialty"></td>
+                                        <td class="text-xs-left" :title="job.family_description" v-html="job.family_code"></td>
+                                        <td class="text-xs-left" :title="job.specialty_description" v-html="job.specialty_code"></td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" v-html="job.notes"></td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
@@ -161,7 +164,7 @@
         let headers = []
         headers.push({text: 'Id', align: 'left', value: 'id'})
         if (this.showJobTypeHeader) {
-          headers.push({text: 'Tipus', value: 'type.name'})
+          headers.push({text: 'Tipus', value: 'type'})
         }
         headers.push({text: 'Code', value: 'code'})
         headers.push({text: 'Titular', sortable: false})
@@ -169,8 +172,8 @@
         headers.push({text: 'Substituts', sortable: false})
         headers.push({text: 'Codi complet', value: 'fullcode'})
         headers.push({text: 'Order', value: 'order'})
-        headers.push({text: 'Família', value: 'family.name'})
-        headers.push({text: 'Especialitat', value: 'specialty.code'})
+        headers.push({text: 'Família', value: 'family'})
+        headers.push({text: 'Especialitat', value: 'specialty'})
         headers.push({text: 'Notes', value: 'notes'})
         if (this.showSubstituteHeaders) {
           headers.push({text: 'Data inici', value: 'todo'})
