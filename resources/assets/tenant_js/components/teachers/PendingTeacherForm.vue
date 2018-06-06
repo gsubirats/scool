@@ -223,7 +223,6 @@
                             v-model="other_emails"
                             label="Altres correus"
                             multiple
-                            chips
                             tags
                             clearable
                             :items="[]"
@@ -244,7 +243,6 @@
                             v-model="other_mobiles"
                             label="Altres Mòbils"
                             multiple
-                            chips
                             tags
                             clearable
                             :items="[]"
@@ -253,15 +251,14 @@
                 <v-flex md2>
                     <v-text-field
                             label="Telèfon"
-                            v-model="telephone"
+                            v-model="phone"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md2>
                     <v-select
-                            v-model="other_telephones"
+                            v-model="other_phones"
                             label="Altres Telèfons"
                             multiple
-                            chips
                             tags
                             clearable
                             :items="[]"
@@ -733,8 +730,10 @@
         this.province = pendingTeacher.province
         this.email = pendingTeacher.email
         this.other_emails = pendingTeacher.other_emails && pendingTeacher.other_emails.split(',')
-        this.telephone = pendingTeacher.telephone
-        this.other_telephones = pendingTeacher.other_telephones && pendingTeacher.other_telephones.split(',')
+        this.phone = pendingTeacher.phone
+        this.other_phones = pendingTeacher.other_phones && pendingTeacher.other_phones.split(',')
+        this.mobile = pendingTeacher.mobile
+        this.other_mobiles = pendingTeacher.other_mobiles && pendingTeacher.other_mobiles.split(',')
         this.degree = pendingTeacher.degree
         this.other_degrees = pendingTeacher.other_degrees
         this.languages = pendingTeacher.languages
