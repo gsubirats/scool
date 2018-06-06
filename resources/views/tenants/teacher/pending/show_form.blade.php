@@ -55,13 +55,22 @@
                     <pending-teacher-add-warnings logged-user=""></pending-teacher-add-warnings>
                 @endif
 
-
-                <pending-teacher-add
-                        :specialties="{{ $specialties }}"
-                        :forces="{{ $forces }}"
-                        :administrative-statuses="{{ $administrative_statuses }}"
-                        :teachers="{{ $teachers }}"
-                ></pending-teacher-add>
+                <v-container fluid grid-list-md text-xs-center>
+                    <v-layout row wrap>
+                        <v-flex xs12>
+                            <v-card>
+                                <v-card-title class="blue darken-3 white--text">Fitxa del professorat</v-card-title>
+                                <v-card-text class="px-0 mb-2">
+                                    <pending-teacher-form
+                                            :specialties="{{ $specialties }}"
+                                            :forces="{{ $forces }}"
+                                            :administrative-statuses="{{ $administrative_statuses }}"
+                                            :teachers="{{ $teachers }}"></pending-teacher-form>
+                                </v-card-text>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
             </section>
 
 

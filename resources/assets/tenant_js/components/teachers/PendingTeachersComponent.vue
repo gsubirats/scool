@@ -2,8 +2,18 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex xs12>
+                <v-toolbar color="blue darken-3">
+                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
+                    <v-toolbar-title class="white--text title">Professors pendents</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon class="white--text" @click="settings">
+                        <v-icon>settings</v-icon>
+                    </v-btn>
+                    <v-btn icon class="white--text" @click="refresh">
+                        <v-icon>refresh</v-icon>
+                    </v-btn>
+                </v-toolbar>
                 <v-card>
-                    <v-card-title class="blue darken-3 white--text"><h2>Professors pendents</h2></v-card-title>
                     <v-card-text class="px-0 mb-2">
                         <v-card>
                             <v-card-title>
@@ -55,27 +65,13 @@
                                                     :administrative-statuses="administrativeStatuses">
                                             ></show-pending-teacher-icon>
 
-                                            <v-btn icon class="mx-0" @click="editItem(teacher)">
-                                                <v-icon color="teal">edit</v-icon>
-                                            </v-btn>
-
-                                            <v-dialog v-model="deleteConfirmationDialog" persistent max-width="290">
-                                                <v-btn icon slot="activator">
-                                                    <v-icon color="pink">delete</v-icon>
-                                                </v-btn>
-                                                <v-card>
-                                                    <v-card-title class="headline">Si us plau confirmeu</v-card-title>
-                                                    <v-card-text>Esteu segurs que voleu eliminar aquesta proposta de nou professor?</v-card-text>
-                                                    <v-card-actions>
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn color="green darken-1" flat @click.native="deleteConfirmationDialog = false">Cancel·lar</v-btn>
-                                                        <v-btn color="red darken-1" flat
-                                                               :disabled="removing"
-                                                               :loading="removing"
-                                                               @click.native="remove(teacher)">Eliminar</v-btn>
-                                                    </v-card-actions>
-                                                </v-card>
-                                            </v-dialog>
+                                            <confirm-icon icon="delete"
+                                                          color="pink"
+                                                          :working="removing"
+                                                          @confirmed="remove(teacher)"
+                                                          tooltip="Eliminar"
+                                                          message="Esteu segurs que voleu eliminar aquesta proposta de nou professor?"
+                                            ></confirm-icon>
                                         </td>
                                     </tr>
                                 </template>
@@ -96,17 +92,20 @@
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
+  import * as actions from '../../store/action-types'
   import ShowPendingTeacherIcon from './ShowPendingTeacherIconComponent.vue'
-  import axios from 'axios'
+  import withSnackbar from '../mixins/withSnackbar'
+  import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
 
   export default {
     components: {
-      ShowPendingTeacherIcon // show-pending-teacher-icon
+      'show-pending-teacher-icon': ShowPendingTeacherIcon,
+      'confirm-icon': ConfirmIcon
     },
+    mixins: [withSnackbar],
     data () {
       return {
         removing: false,
-        deleteConfirmationDialog: false,
         search: '',
         deleting: false,
         headers: [
@@ -151,14 +150,24 @@
       }
     },
     methods: {
+      settings () {
+        // TODO: Settings like configure people will recieve notifications about pending teachers
+        // Links to add to welcome emails, etc.
+        console.log('TODO SETTINGS')
+      },
+      refresh () {
+        this.$store.dispatch(actions.GET_PENDING_TEACHERS).catch(error => {
+          this.showError(error)
+        })
+      },
       remove (teacher) {
         this.removing = true
-        axios.delete('/api/v1/pending_teacher').then(response => {
-          this.deleteConfirmationDialog = false
-          this.removing = true
-        }).then(error => {
+        this.$store.dispatch(actions.REMOVE_PENDING_TEACHER, teacher).then(response => {
+          this.removing = false
+          this.showMessage('El professor pendent ha estat esborrat correctament')
+        }).catch(error => {
           console.log(error)
-          this.removing = true
+          this.removing = false
           this.showError(error)
         })
       }

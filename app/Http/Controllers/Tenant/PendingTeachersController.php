@@ -20,7 +20,12 @@ use App\Models\User;
 class PendingTeachersController extends Controller
 {
     /**
+     * Show.
      *
+     * @param SeePendingTeachers $request
+     * @param $tenant
+     * @param PendingTeacher $teacher
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(SeePendingTeachers $request, $tenant, PendingTeacher $teacher)
     {
@@ -33,6 +38,8 @@ class PendingTeachersController extends Controller
     }
 
     /**
+     * Show form.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showForm()

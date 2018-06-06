@@ -144,7 +144,7 @@
 
   export default {
     components: {
-      ConfirmIcon,
+      'confirm-icon': ConfirmIcon,
       'job-type-select': JobTypeSelect,
       'add-substitute-icon': AddSubstituteIcon
     },

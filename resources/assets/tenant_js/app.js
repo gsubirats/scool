@@ -29,7 +29,7 @@ Vue.component('jobs-list', require('./components/jobs/JobsListComponent.vue'));
 Vue.component('job-add', require('./components/jobs/JobAddComponent.vue'));
 Vue.component('jobs-list-by-family', require('./components/jobs/JobsListByFamilyComponent.vue'));
 Vue.component('jobs-list-by-specialty', require('./components/jobs/JobsListBySpecialtyComponent.vue'));
-Vue.component('pending-teacher-add', require('./components/teachers/PendingTeacherAddComponent.vue'));
+Vue.component('pending-teacher-form', require('./components/teachers/PendingTeacherForm.vue'));
 Vue.component('pending-teacher-add-warnings', require('./components/teachers/PendingTeacherAddWarningsComponent.vue'));
 Vue.component('pending-teachers', require('./components/teachers/PendingTeachersComponent.vue'));
 

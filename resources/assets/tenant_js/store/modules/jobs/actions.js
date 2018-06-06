@@ -6,8 +6,6 @@ export default {
   [ actions.STORE_JOB ] (context, job) {
     return new Promise((resolve, reject) => {
       api.store(job).then(response => {
-        console.log('STHJI')
-        console.log(response.data)
         context.commit(mutations.ADD_JOB, response.data)
         resolve(response)
       }).catch(error => {

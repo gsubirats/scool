@@ -87,6 +87,8 @@ class TeachersControllerTest extends BaseTenantTest
         $response = $this->get('/teachers');
 
         $response->assertSuccessful();
+
+        // Check required Fields for teachers component
         $response->assertViewHas('teachers',function ($teachers) {
             $teacher = $teachers->first();
             return array_key_exists('id', $teacher) &&
