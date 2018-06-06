@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Requests\ShowTeachersManagment;
 use App\Models\AdministrativeStatus;
 use App\Models\Force;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Models\PendingTeacher;
 use App\Models\Specialty;
 use App\Models\Teacher;
 use App\Http\Resources\Tenant\Teacher as TeacherResource;
+use App\Http\Resources\Tenant\Job as JobResource;
 
 /**
  * Class TeachersController.
@@ -48,10 +51,21 @@ class TeachersController extends Controller
                 'department'
             ])->orderByRaw('code + 0')->get()));
 
+        $jobs =  collect(JobResource::collection(
+            Job::with(
+                'type',
+                'family',
+                'specialty',
+                'users',
+                'holders',
+                'holders.teacher',
+                'substitutes',
+                'substitutes.teacher')->where('type_id',JobType::findByName('Professor/a')->id)->get()));
+
         $specialties = Specialty::all();
         $forces = Force::all();
         $administrativeStatuses = AdministrativeStatus::all();
         return view('tenants.teachers.show', compact(
-            'pendingTeachers','teachers','specialties','forces','administrativeStatuses'));
+            'pendingTeachers','teachers','specialties','forces','administrativeStatuses','jobs'));
     }
 }

@@ -472,7 +472,7 @@
                     <v-layout row wrap>
                         <v-flex md6>
                             <h1>Plaça</h1>
-                            <jobs-select-for-pendingteacher :jobs="jobs"></jobs-select-for-pendingteacher>
+                            <jobs-select-for-pendingteacher :teacher="teacher" :jobs="jobs"></jobs-select-for-pendingteacher>
                         </v-flex>
                         <v-flex md6>
                             <h1>Usuari</h1>
@@ -480,19 +480,6 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-
-
-                Substitut? condicions:
-                - Situació administrativa és substitut
-                - S'ha de marcar professor que substitueix
-                Interí:
-                - Situació administrativa és Interí
-                Funcionari:
-                -
-                TODO: mostrar dades plaça assignar (segons professor substitueix, o segons si és nou professor interí )
-
-                MOSTRAR TAMBÉ DADES USUARI -> Quin usuari es proposa segons el seu nom +@iesebre.com -> Possibilitat de canviar
-                però sempre controlant que ningú ja tingui assignat
             </v-card-text>
         </v-card>
 
@@ -543,7 +530,7 @@
       },
       jobs: {
         type: Array,
-        default: []
+        default: () => { return [] }
       }
     },
     watch: {

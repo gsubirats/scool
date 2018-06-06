@@ -1,7 +1,6 @@
 <template>
     <v-text-field prepend-icon="person"
                   v-model="username"
-                  solo
                   label="Nom usuari"
                   :loading="loading"
     ></v-text-field>

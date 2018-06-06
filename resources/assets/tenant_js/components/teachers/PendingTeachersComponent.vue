@@ -133,6 +133,10 @@
         type: Array,
         required: true
       },
+      jobs: {
+        type: Array,
+        required: true
+      },
       pendingTeachers: {
         type: Array,
         required: true
