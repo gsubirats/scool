@@ -39,7 +39,7 @@ class StorePendingTeacher extends FormRequest
             'locality' => 'required',
             'province' => 'required',
             'email' => 'required',
-            'telephone' => 'required',
+            'mobile' => 'required',
             'degree' => 'required',
             'force_id' => 'required',
             'start_date' => 'required',

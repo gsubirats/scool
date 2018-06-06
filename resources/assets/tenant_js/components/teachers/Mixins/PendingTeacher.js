@@ -172,12 +172,6 @@ export default {
       !this.$v.mobile.required && errors.push('El mòbil és obligatori')
       return errors
     },
-    telephoneErrors () {
-      const errors = []
-      if (!this.$v.telephone.$dirty) return errors
-      !this.$v.telephone.required && errors.push('El telèfon és obligatori')
-      return errors
-    },
     degreeErrors () {
       const errors = []
       if (!this.$v.degree.$dirty) return errors

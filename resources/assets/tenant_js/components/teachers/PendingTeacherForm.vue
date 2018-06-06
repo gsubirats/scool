@@ -254,10 +254,6 @@
                     <v-text-field
                             label="Telèfon"
                             v-model="telephone"
-                            :error-messages="telephoneErrors"
-                            @input="$v.telephone.$touch()"
-                            @blur="$v.telephone.$touch()"
-                            required
                     ></v-text-field>
                 </v-flex>
                 <v-flex md2>
