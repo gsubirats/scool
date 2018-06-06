@@ -15,7 +15,7 @@ export default {
     province: { required },
     email: { required, email },
     mobile: { required },
-    telephone: { required },
+    phone: { required },
     degree: { required },
     specialty: { required },
     force: { required },
@@ -54,8 +54,8 @@ export default {
       other_emails: [],
       mobile: '',
       other_mobiles: [],
-      telephone: '',
-      other_telephones: [],
+      phone: '',
+      other_phones: [],
       degree: '',
       other_degrees: '',
       languages: '',
@@ -256,8 +256,8 @@ export default {
       this.province = ''
       this.email = ''
       this.other_emails = []
-      this.telephone = ''
-      this.other_telephones = []
+      this.phone = ''
+      this.other_phones = []
       this.degree = ''
       this.other_degrees = ''
       this.languages = ''

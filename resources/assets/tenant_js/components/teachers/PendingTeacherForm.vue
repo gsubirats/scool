@@ -465,7 +465,32 @@
             </v-layout>
         </v-container>
 
-        <v-btn @click="submit">Enviar</v-btn>
+        <v-card v-if="confirmMode">
+            <v-card-title class="blue darken-3 white--text">Plaça assignar i dades usuari</v-card-title>
+            <v-card-text class="px-0 mb-2">
+                Substitut? condicions:
+                - Situació administrativa és substitut
+                - S'ha de marcar professor que substitueix
+                Interí:
+                - Situació administrativa és Interí
+                Funcionari:
+                -
+                TODO: mostrar dades plaça assignar (segons professor substitueix, o segons si és nou professor interí )
+
+                MOSTRAR TAMBÉ DADES USUARI -> Quin usuari es proposa segons el seu nom +@iesebre.com -> Possibilitat de canviar
+                però sempre controlant que ningú ja tingui assignat
+            </v-card-text>
+        </v-card>
+
+        <template v-if="confirmMode">
+            <v-btn @click.native="cancel">
+                <v-icon>close</v-icon> Sortir
+            </v-btn>
+            <v-btn black color="green" @click="createTeacher" class="white--text">
+                <v-icon>add</v-icon> Crear nou professor
+            </v-btn>
+        </template>
+        <v-btn v-else @click="submit">Enviar</v-btn>
     </form>
 </template>
 
@@ -488,6 +513,10 @@
       pendingTeacher: {
         type: Object,
         default: null
+      },
+      confirmMode: {
+        type: Boolean,
+        default: false
       }
     },
     watch: {
@@ -512,6 +541,12 @@
       }
     },
     methods: {
+      cancel () {
+        this.$emit('cancel')
+      },
+      createTeacher (teacher) {
+        console.log('TODO create teacher')
+      },
       setForce (specialty) {
         if (specialty) {
           let foundForce = this.forces.find(force => {
@@ -741,7 +776,7 @@
         this.other_training = pendingTeacher.other_training
         this.force = this.getForce(pendingTeacher.force_id)
         this.specialty = this.getSpecialty(pendingTeacher.specialty_id)
-        this.teacher_start_date = pendingTeacher.pendingTeacher_start_date
+        this.teacher_start_date = pendingTeacher.teacher_start_date
         this.start_date = pendingTeacher.start_date
         this.opositions_date = pendingTeacher.opositions_date
         this.administrative_status = this.getAdministrativestatus(pendingTeacher.administrative_status_id)

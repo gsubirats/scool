@@ -48,7 +48,7 @@
                                             {{ teacher.sn1 }} {{ teacher.sn2 }}, {{ teacher.name }}
                                         </td>
                                         <td class="text-xs-left">{{ teacher.email }}</td>
-                                        <td class="text-xs-left">{{ teacher.telephone }}</td>
+                                        <td class="text-xs-left">{{ teacher.mobile }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             {{ teacher.teacher_id }}
                                         </td>
@@ -113,7 +113,7 @@
           {text: 'Especialitat', value: 'specialty.code'},
           {text: 'Name', value: 'name'},
           {text: 'Email', value: 'email'},
-          {text: 'Telèfon', value: 'telephone'},
+          {text: 'Mòbil', value: 'mobile'},
           {text: 'Substitueix', value: 'teacher_id'},
           {text: 'Data incorporació', value: 'start_date'},
           {text: 'Data creació', value: 'formatted_created_at'},

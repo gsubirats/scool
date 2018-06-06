@@ -62,6 +62,11 @@
         required: true
       }
     },
+    watch: {
+      teacher (newTeacher) {
+        this.internalTeacher = newTeacher
+      }
+    },
     methods: {
       input (value) {
         this.$emit('input', value)

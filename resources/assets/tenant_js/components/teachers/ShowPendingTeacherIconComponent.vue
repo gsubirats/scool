@@ -1,5 +1,11 @@
 <template>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" >
+    <v-dialog
+            v-model="dialog"
+            fullscreen
+            hide-overlay
+            transition="dialog-bottom-transition"
+            @keydown.esc="dialog = false"
+    >
         <v-btn slot="activator" icon class="mx-0">
             <v-icon color="primary">visibility</v-icon>
         </v-btn>
@@ -26,33 +32,11 @@
                                     :forces="forces"
                                     :administrative-statuses="administrativeStatuses"
                                     :teachers="teachers"
-                                    :pendingTeacher="pendingTeacher"></pending-teacher-form>
-
-                            <v-card>
-                                <v-card-title class="blue darken-3 white--text">Plaça assignar i dades usuari</v-card-title>
-                                <v-card-text class="px-0 mb-2">
-                                    Substitut? condicions:
-                                    - Situació administrativa és substitut
-                                    - S'ha de marcar professor que substitueix
-                                    Interí:
-                                    - Situació administrativa és Interí
-                                    Funcionari:
-                                    -
-                                    TODO: mostrar dades plaça assignar (segons professor substitueix, o segons si és nou professor interí )
-
-                                    MOSTRAR TAMBÉ DADES USUARI -> Quin usuari es proposa segons el seu nom +@iesebre.com -> Possibilitat de canviar
-                                    però sempre controlant que ningú ja tingui assignat
-                                </v-card-text>
-                            </v-card>
-
-
-                            <v-btn @click.native="dialog = false">
-                                <v-icon>close</v-icon> Sortir
-                            </v-btn>
-                            <v-btn black color="green" @click="createTeacher" class="white--text">
-                                <v-icon>add</v-icon> Crear nou professor
-                            </v-btn>
-
+                                    :pending-teacher="pendingTeacher"
+                                    :confirm-mode="true"
+                                    @cancel="dialog = false"
+                            >
+                            </pending-teacher-form>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -100,11 +84,6 @@
       administrativeStatuses: {
         type: Array,
         required: true
-      }
-    },
-    methods: {
-      createTeacher (teacher) {
-        console.log('TODO create teacher')
       }
     }
   }
