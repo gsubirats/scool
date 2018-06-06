@@ -4,6 +4,7 @@
 
     <pending-teachers
             :teachers="{{ $teachers }}"
+            :jobs="{{ $jobs }}"
             :pending-teachers="{{ $pendingTeachers }}"
             :specialties="{{ $specialties }}"
             :forces="{{ $forces }}"

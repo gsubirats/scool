@@ -27,7 +27,8 @@
                     <v-layout row wrap>
                         <v-flex xs12>
 
-                            <pending-teacher-form
+                            <pending-teacher-form v-if="dialog"
+                                    :jobs="jobs"
                                     :specialties="specialties"
                                     :forces="forces"
                                     :administrative-statuses="administrativeStatuses"
@@ -67,6 +68,10 @@
     props: {
       pendingTeacher: {
         type: Object,
+        required: true
+      },
+      jobs: {
+        type: Array,
         required: true
       },
       teachers: {

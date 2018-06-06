@@ -59,6 +59,7 @@
 
                                             <show-pending-teacher-icon
                                                     :pending-teacher="teacher"
+                                                    :jobs="jobs"
                                                     :teachers="teachers"
                                                     :specialties="specialties"
                                                     :forces="forces"

@@ -466,8 +466,22 @@
         </v-container>
 
         <v-card v-if="confirmMode">
-            <v-card-title class="blue darken-3 white--text">Plaça assignar i dades usuari</v-card-title>
+            <v-card-title class="blue darken-3 white--text">Plaça a assignar i dades del nou usuari</v-card-title>
             <v-card-text class="px-0 mb-2">
+                <v-container grid-list-md text-xs-center fluid>
+                    <v-layout row wrap>
+                        <v-flex md6>
+                            <h1>Plaça</h1>
+                            <jobs-select-for-pendingteacher :jobs="jobs"></jobs-select-for-pendingteacher>
+                        </v-flex>
+                        <v-flex md6>
+                            <h1>Usuari</h1>
+                            <proposed-user v-if="ready" :name="name" :sn1="sn1"></proposed-user>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+
+
                 Substitut? condicions:
                 - Situació administrativa és substitut
                 - S'ha de marcar professor que substitueix
@@ -501,14 +515,23 @@
   import PendingTeacher from './Mixins/PendingTeacher'
   import TeacherSelect from './TeacherSelectComponent.vue'
   import UploadCardComponent from '../ui/UploadCardComponent.vue'
+  import ProposedUser from '../users/ProposedUserComponent.vue'
+  import JobsSelectForPendingTeacher from '../jobs/JobsSelectForPendingTeacher.vue'
 
   export default {
     name: 'PendingTeacherForm',
     components: {
       'upload-card': UploadCardComponent,
-      'teacher-select': TeacherSelect
+      'teacher-select': TeacherSelect,
+      'proposed-user': ProposedUser,
+      'jobs-select-for-pendingteacher': JobsSelectForPendingTeacher
     },
     mixins: [validationMixin, withSnackbar, PendingTeacher],
+    data () {
+      return {
+        ready: false
+      }
+    },
     props: {
       pendingTeacher: {
         type: Object,
@@ -517,6 +540,10 @@
       confirmMode: {
         type: Boolean,
         default: false
+      },
+      jobs: {
+        type: Array,
+        default: []
       }
     },
     watch: {
@@ -782,6 +809,7 @@
         this.administrative_status = this.getAdministrativestatus(pendingTeacher.administrative_status_id)
         this.destination_place = pendingTeacher.destination_place
         this.teacher = this.getTeacher(pendingTeacher.teacher_id)
+        this.ready = true
       }
     },
     created () {
