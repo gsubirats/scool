@@ -11,6 +11,7 @@ use App\Http\Resources\Tenant\UserTypeCollection;
 use App\Http\Resources\Tenant\UserTypesCollection;
 use App\Models\User;
 use App\Models\UserType;
+use App\Repositories\UserRepository;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -20,6 +21,18 @@ use Spatie\Permission\Models\Role;
  */
 class UsersController extends Controller
 {
+
+    protected $repository;
+
+    /**
+     * UsersController constructor.
+     * @param $repository
+     */
+    public function __construct(UserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @param ShowUsersManagement $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -51,7 +64,7 @@ class UsersController extends Controller
      */
     public function store(AddUser $request)
     {
-        $user = $this->storeUser($request);
+        $user = $this->repository->store($request);
 
         if ($request->roles) {
             foreach ( $request->roles as $role) {
@@ -63,22 +76,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Store user.
-     *
-     * @param $request
-     * @return mixed
-     */
-    protected function storeUser($request)
-    {
-        return User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            // TODO
-            'password' => bcrypt('secret')
-        ]);
-    }
-
-    /**
      * Store user on database and invite.
      *
      * @param AddUser $request
@@ -87,15 +84,17 @@ class UsersController extends Controller
     public function store_and_invite(AddUser $request)
     {
         // TODO send invitation
-        return $this->storeUser($request);
+        return $this->repository->store($request);
     }
 
     /**
      * Delete user.
      *
      * @param DeleteUser $request
+     * @param $tenant
      * @param User $user
      * @return User
+     * @throws \Exception
      */
     public function destroy(DeleteUser $request, $tenant, User $user)
     {

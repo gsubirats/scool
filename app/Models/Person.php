@@ -58,12 +58,7 @@ class Person extends Model
      */
     public function getFullnameAttribute($value)
     {
-        $fullname = $this->sn1;
-        if ($this->sn2) {
-            $fullname = $fullname . ' ' . $this->sn2;
-        }
-        $fullname = $fullname . ', ' . $this->givenName;
-        return trim($fullname);
+        return fullname($this->givenName, $this->sn1,  $this->sn2);
     }
 
     /**
@@ -74,6 +69,6 @@ class Person extends Model
      */
     public function getNameAttribute($value)
     {
-        return trim($this->givenName . ' ' . $this->sn1 . ' ' . $this->sn2);
+        return name($this->givenName,$this->sn1, $this->sn2);
     }
 }

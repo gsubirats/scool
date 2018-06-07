@@ -16,8 +16,11 @@ use Illuminate\Http\Request;
 Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
-            //
+            //Propose free user names
             Route::get('/proposeFreeUserName/{name}/{sn1}', 'Tenant\ProposeFreeUsernameController@index');
+
+            // Approved teachers
+            Route::post('/approved_teacher', 'Tenant\ApprovedTeacherController@store');
 
             // Logged user teacher
             Route::get('/teacher', 'Tenant\LoggedUserTeacherController@show');

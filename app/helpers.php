@@ -601,6 +601,9 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole(['UsersManager','TeachersManager']);
         });
 
+        Gate::define('approve-teacher', function ($user) {
+            return $user->hasRole(['UsersManager','TeachersManager']);
+        });
 
         Gate::define('show-users', function ($user) {
             return $user->hasRole('UsersManager');
@@ -4600,3 +4603,31 @@ if (!function_exists('initialize_departments')) {
 
     }
 }
+
+if (!function_exists('name')) {
+    /**
+     * Name
+     *
+     * @param $givenName
+     * @param $sn1
+     * @param string $sn2
+     * @return string
+     */
+    function name($givenName,$sn1, $sn2= '') {
+        return trim(trim($givenName) . ' ' . trim($sn1) . ' ' . trim($sn2));
+    }
+}
+
+if (!function_exists('fullname')) {
+    function fullname($givenName, $sn1, $sn2 = '')
+    {
+        $fullname = trim($sn1);
+        if ($sn2) {
+            $fullname = $fullname . ' ' . trim($sn2);
+        }
+        $fullname = $fullname . ', ' . trim($givenName);
+        return trim($fullname);
+    }
+}
+
+

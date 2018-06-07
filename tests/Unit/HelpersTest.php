@@ -16,6 +16,22 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class HelpersTest extends TestCase
 {
     /** @test */
+    public function name()
+    {
+        $this->assertEquals('Pepe Pardo Jeans',name('Pepe','Pardo', 'Jeans'));
+        $this->assertEquals('Pepe Pardo',name('Pepe','Pardo'));
+        $this->assertEquals('Pepe Pardo',name(' Pepe ',' Pardo '));
+    }
+
+    /** @test */
+    public function fullname()
+    {
+        $this->assertEquals('Pardo Jeans, Pepe',fullname('Pepe','Pardo', 'Jeans'));
+        $this->assertEquals('Pardo, Pepe',fullname('Pepe','Pardo'));
+        $this->assertEquals('Pardo, Pepe',fullname(' Pepe ',' Pardo '));
+    }
+
+    /** @test */
     public function get_photo_slugs_from_path()
     {
         Storage::fake('local');

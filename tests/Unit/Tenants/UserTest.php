@@ -682,4 +682,14 @@ class UserTest extends TestCase
         ]);
         $this->assertTrue($user->is(User::findByName('Pepe Pardo Jeans')));
     }
+
+    /** @test */
+    public function can_find_by_email()
+    {
+        $this->assertEmpty(User::findByEmail('pepepardo@jeans.com'));
+        $user = factory(User::class)->create([
+            'email' => 'pepepardo@jeans.com'
+        ]);
+        $this->assertTrue($user->is(User::findByEmail('pepepardo@jeans.com')));
+    }
 }

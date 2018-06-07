@@ -35,7 +35,7 @@ class User extends Authenticatable implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password' ,
+        'name', 'email', 'password','photo','photo_hash'
     ];
 
     protected $appends = [
@@ -488,4 +488,16 @@ class User extends Authenticatable implements HasMedia
     {
         return self::where('name','=',$name)->first();
     }
+
+    /**
+     * Find by email.
+     *
+     * @param $email
+     * @return mixed
+     */
+    public static function findByEmail($email)
+    {
+        return self::where('email','=',$email)->first();
+    }
+
 }
