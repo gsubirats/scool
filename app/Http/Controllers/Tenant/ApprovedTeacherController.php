@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\ApprovedTeacher;
+use App\Models\Address;
+use App\Models\AdministrativeStatus;
+use App\Models\Employee;
+use App\Models\Identifier;
+use App\Models\Location;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class ApprovedTeacherController.
@@ -53,6 +60,20 @@ class ApprovedTeacherController extends Controller
         ];
         $user = $this->userRepository->store($user);
 
+        $user->addRole(Role::findByName('Teacher','web'));
+
+        // Assign job to user (create a new employee)
+        //TODO que passa si assignem una feina a un usuari que ja està assignada a aquell usuari?
+        $start_at = null;
+        if (AdministrativeStatus::findByName('Substitut/a')->id === $request->administrative_status_id) {
+            $start_at = Carbon::now();
+        }
+        Employee::create([
+            'user_id' => $user->id,
+            'job_id' => $request->job_id,
+            'start_at' => $start_at
+        ]);
+
         //Create Teacher
         $teacher = (object) [
             'user_id' => $user->id ?? null,
@@ -71,10 +92,18 @@ class ApprovedTeacherController extends Controller
         ];
         $this->teacherRepository->store($teacher);
 
+        // DEPARTMENT TODO: BE SURE TO ADD NEW USER TO CORRESPONDING DEPARTMENT
+
+        //Create identifier
+        $identifier = Identifier::firstOrCreate([
+            'value' => $request->identifier,
+            'type_id' => $request->identifier_type
+        ]);
+
         //Create person
         $person = (object) [
             'user_id' => $user->id ?? null,
-            'identifier_id' => $request->identifier_id,
+            'identifier_id' => $identifier->id,
             'givenName' => $request->givenName,
             'sn1' => $request->sn1,
             'sn2' => $request->sn2 ?? null,
@@ -90,7 +119,36 @@ class ApprovedTeacherController extends Controller
             'other_emails' => $request->other_emails ?? null,
             'notes' => $request->notes ?? null
         ];
-        $this->personRepository->store($person);
+        $person = $this->personRepository->store($person);
+
+        //Create address
+        if(! $location = Location::findByName( $request->address_location)) {
+            $location = Location::create([
+                'name' => strtoupper($request->address_location),
+                'postalcode' => $request->address_postalcode
+            ]);
+        }
+
+        if ($address = Address::where('person_id',$person->id)->first()) {
+            $address->name = $request->address;
+            $address->number = $request->address_number ?? null;
+            $address->floor = $request->address_floor ?? null;
+            $address->floor_number = $request->address_floor_number ?? null;
+            $address->location_id = $location->id;
+            $address->province_id = $request->address_province_id ?? null;
+            $address->save();
+        } else {
+            Address::create([
+                'person_id' => $person->id,
+                'name' => $request->address,
+                'number' => $request->address_number ?? null,
+                'floor' => $request->address_floor ?? null,
+                'floor_number' => $request->address_floor_number ?? null,
+                'location_id' => $location->id,
+                'province_id' => $request->address_province_id ?? null
+            ]);
+        }
+
     }
 
 

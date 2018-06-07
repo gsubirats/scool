@@ -2,6 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Address;
+use App\Models\AdministrativeStatus;
+use App\Models\Employee;
+use App\Models\Identifier;
+use App\Models\IdentifierType;
+use App\Models\Job;
+use App\Models\Location;
 use App\Models\Person;
 use App\Models\Teacher;
 use App\Models\User;
@@ -44,6 +51,25 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $manager->assignRole($role);
         $this->actingAs($manager,'api');
 
+        IdentifierType::create([
+            'name' => 'NIF'
+        ]);
+
+        AdministrativeStatus::create([
+            'name' => 'Substitut/a',
+            'code' => 'SUBSTITUT'
+        ]);
+
+        $job = Job::create([
+            'code' => '018',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+        ]);
+
+        $role = Role::firstOrCreate(['name' => 'Teacher','guard_name' => 'web']);
+
         $response = $this->json('POST','/api/v1/approved_teacher', [
             'username' => 'pepepardo',
             'givenName' => 'Pepe',
@@ -51,6 +77,10 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             'sn2' => 'Jeans',
             'photo' => 'tenant_test/user_photos/photo.png',
 
+            //Job
+            'job_id' => $job->id,
+
+            //Teacher
             'code' => '040',
             'administrative_status_id' => 1,
             'specialty_id' => 1,
@@ -64,7 +94,9 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             'data_superacio_oposicions' => '2009',
             'lloc_destinacio_definitiva' => 'Tarragona',
 
-            'identifier_id' => 1,
+            //Person
+            'identifier' => '24196166M',
+            'identifier_type' => IdentifierType::findByName('NIF')->id,
             'birthdate' => '2008-05-25',
             'birthplace_id' => 1,
             'gender' => 'Home',
@@ -75,7 +107,17 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             'other_mobiles' => '689585457,679582424',
             'email' => 'pepepardo@jeans.com',
             'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
-            'notes' => 'Bla bla bla'
+            'notes' => 'Bla bla bla',
+
+            //Address
+
+            'address' => 'C/ Beseit',
+            'address_number' => '24',
+            'address_floor' => '1r',
+            'address_floor_number' => '2a',
+            'address_location' => 'Roquetes',
+            'address_province_id' => 1,
+            'address_postalcode' => '43520'
 
         ]);
 
@@ -87,6 +129,14 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $this->assertEquals('pepepardo@iesebre.com',$user->email);
         $this->assertEquals('tenant_test/user_photos/photo.png',$user->photo);
         $this->assertEquals('7e98f5986f80d2cbd012df6bd8801558',$user->photo_hash);
+
+        // Check teacher rol
+        $this->assertTrue($user->hasRole('Teacher'));
+
+        // Check employee (a job is assigned to user)
+        $this->assertNotNull($employee = Employee::where('user_id',$user->id)->where('job_id', $job->id)->first());
+        $this->assertTrue($employee->start_at->diffInMinutes() === 0);
+        $this->assertEquals(null,$employee->end_at);
 
         //Check teacher
         $this->assertNotNull($teacher = Teacher::findByCode('040'));
@@ -121,6 +171,90 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $this->assertEquals('pepepardo@jeans.com',$person->email);
         $this->assertEquals('pepepardo@gmail.com,pepepardo@xtec.cat',$person->other_emails);
         $this->assertEquals('Bla bla bla',$person->notes);
+
+        //Check identifier
+        $this->assertNotNull($identifier = Identifier::where('value','24196166M')->first());
+        $this->assertEquals(1,$identifier->type_id);
+        $this->assertEquals('24196166M',$identifier->value);
+
+        //Check address
+        $this->assertNotNull($address = Address::where('person_id',$person->id)->first());
+        $this->assertEquals($person->id,$address->person_id);
+        $this->assertEquals('C/ Beseit',$address->name);
+        $this->assertEquals('24',$address->number);
+        $this->assertEquals('1r',$address->floor);
+        $this->assertEquals('2a',$address->floor_number);
+        $this->assertEquals('1',$address->location_id);
+        $this->assertEquals('1',$address->province_id);
+
+        //Check Location
+        $this->assertNotNull($location = Location::find($address->location_id)->first());
+        $this->assertEquals('ROQUETES',$location->name);
+        $this->assertEquals('43520',$location->postalcode);
+
+        // Cheac another teacher using an existing Location
+
+        Location::create([
+            'name' => 'TORTOSA',
+            'postalcode' => '43500'
+        ]);
+
+        $response = $this->json('POST','/api/v1/approved_teacher', [
+            'username' => 'pepaparda',
+            'givenName' => 'Pepa',
+            'sn1' => 'Parda',
+            'sn2' => 'Jeans',
+            'photo' => 'tenant_test/user_photos/photo.png',
+
+            'code' => '041',
+            'administrative_status_id' => 1,
+            'specialty_id' => 1,
+            'titulacio_acces' => 'Enginyer en Enginyeria',
+            'altres_titulacions' => 'Doctorat en Filologia Hispànica',
+            'idiomes' => 'Anglès',
+            'altres_formacions' => 'Nivell D Català',
+            'perfil_professional' => 'Digital, Clil, Projectes FP',
+            'data_inici_treball' => '2004',
+            'data_incorporacio_centre' => '1993-09-01',
+            'data_superacio_oposicions' => '2009',
+            'lloc_destinacio_definitiva' => 'Tarragona',
+
+            'identifier' => '72024157W',
+            'identifier_type' => IdentifierType::findByName('NIF')->id,
+            'birthdate' => '2008-05-25',
+            'birthplace_id' => 1,
+            'gender' => 'Home',
+            'civil_status' => 'Casat/da',
+            'phone' => '977405689',
+            'other_phones' => '977405675,977405678',
+            'mobile' => '679585427',
+            'other_mobiles' => '689585457,679582424',
+            'email' => 'pepaparda@jeans.com',
+            'other_emails' => 'pepaparda@gmail.com,pepaparda@xtec.cat',
+            'notes' => 'Bla bla bla',
+
+            //Address
+
+            'address' => 'C/ Beseit',
+            'address_number' => '24',
+            'address_floor' => '1r',
+            'address_floor_number' => '2a',
+            'address_location' => 'TORTOSA',
+            'address_province_id' => 1,
+            'address_postalcode' => '43500'
+
+        ]);
+
+        $response->assertSuccessful();
+
+        //Check Location
+        $user2 = User::findByEmail('pepaparda@iesebre.com');
+        $person2 = Person::where('user_id',$user2->id)->first();
+        $address2 = Address::where('person_id',$person2->id)->first();
+        $this->assertNotNull($location2 = Location::find($address2->location_id));
+        $this->assertEquals('TORTOSA',$location2->name);
+        $this->assertEquals('43500',$location2->postalcode);
+
     }
 
     /** @test */
