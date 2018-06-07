@@ -15,12 +15,6 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>Fitxa del professor</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-toolbar-items>
-                    <v-btn dark flat @click.native="dialog = false">
-                        <v-icon>add</v-icon> Crear nou professor
-                    </v-btn>
-                </v-toolbar-items>
             </v-toolbar>
             <v-card-text class="px-0 mb-2">
                 <v-container fluid grid-list-md text-xs-center>

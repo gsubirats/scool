@@ -559,7 +559,17 @@
         this.$emit('cancel')
       },
       createTeacher (teacher) {
-        console.log('TODO create teacher')
+        if (!this.$v.$invalid) {
+          if (this.identifierType === 'DNI/NIF' && !this.validateDNI(this.identifier)) {
+            this.showError('El DNI no és vàlid')
+            return
+          }
+          console.log('Ready to submit!')
+        } else {
+          console.log('Not valid!')
+          this.$v.$touch()
+          console.log(this.$v.form.$errors)
+        }
       },
       setForce (specialty) {
         if (specialty) {
