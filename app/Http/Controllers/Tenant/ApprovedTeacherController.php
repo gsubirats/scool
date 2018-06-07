@@ -55,7 +55,7 @@ class ApprovedTeacherController extends Controller
 
         //Create Teacher
         $teacher = (object) [
-            'user_id' => $request->user_id ?? null,
+            'user_id' => $user->id ?? null,
             'code' => $request->code,
             'administrative_status_id' => $request->administrative_status_id ?? null,
             'specialty_id' => $request->specialty_id ?? null,
@@ -70,6 +70,27 @@ class ApprovedTeacherController extends Controller
             'lloc_destinacio_definitiva' => $request->lloc_destinacio_definitiva ?? null
         ];
         $this->teacherRepository->store($teacher);
+
+        //Create person
+        $person = (object) [
+            'user_id' => $user->id ?? null,
+            'identifier_id' => $request->identifier_id,
+            'givenName' => $request->givenName,
+            'sn1' => $request->sn1,
+            'sn2' => $request->sn2 ?? null,
+            'birthdate' => $request->birthdate ?? null,
+            'birthplace_id' => $request->birthplace_id ?? null,
+            'gender' => $request->gender ?? null,
+            'civil_status' => $request->civil_status ?? null,
+            'phone' => $request->phone ?? null,
+            'other_phones' => $request->other_phones ?? null,
+            'mobile' => $request->mobile ?? null,
+            'other_mobiles' => $request->other_mobiles ?? null,
+            'email' => $request->email ?? null,
+            'other_emails' => $request->other_emails ?? null,
+            'notes' => $request->notes ?? null
+        ];
+        $this->personRepository->store($person);
     }
 
 
