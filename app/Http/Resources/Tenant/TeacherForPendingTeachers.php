@@ -20,12 +20,12 @@ class TeacherForPendingTeachers extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_id' => optional($this->user)->id,
-            'teacher_id' => $this->id,
-            'code' => $this->code,
-            'hashid' => optional($this->user)->hashid,
-            'name' => optional($this->user)->name,
-            'email' => optional($this->user)->email,
+            'user_id' => $this->id,
+            'teacher_id' => optional($this->teacher)->id,
+            'code' => optional($this->teacher)->code,
+            'hashid' => $this->hashid,
+            'name' => $this->name,
+            'email' => $this->email
         ];
     }
 }

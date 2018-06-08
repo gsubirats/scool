@@ -81,6 +81,7 @@ class PendingTeacherTest extends DuskTestCase
                 ->type('teacher', 'Dolors Sanjuan Aubà')
                 ->keys('input[name="teacher"]', '{tab}');
             $browser->driver->executeScript('window.scrollTo(0, document.body.scrollHeight);');
+//            $browser->pause(5000000);
             $browser->click('#sendButton')->pause(500)->assertSee('Dades enviades correctament');
         });
         apply_tenant('iesebre');
@@ -119,7 +120,7 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals('Juny 2007',$pendingTeacher->opositions_date);
         $this->assertEquals(1,$pendingTeacher->administrative_status_id);
         $this->assertEquals('Quinto Pino',$pendingTeacher->destination_place);
-        $this->assertEquals(4,$pendingTeacher->teacher_id);
+        $this->assertEquals(1,$pendingTeacher->teacher_id);
 
     }
 }

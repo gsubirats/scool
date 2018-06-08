@@ -28,7 +28,7 @@
                 <img :src="'/user/' + teacher.hashid + '/photo'">
             </v-list-tile-avatar>
             <v-list-tile-content>
-                <v-list-tile-title v-html="teacher.name"></v-list-tile-title>
+                <v-list-tile-title v-html="teacher.name + ' (' + teacher.code + ')'"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="teacher.email"></v-list-tile-sub-title>
             </v-list-tile-content>
         </template>
