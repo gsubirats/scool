@@ -4,7 +4,6 @@ namespace Tests\Browser;
 
 use App\Models\PendingTeacher;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 
@@ -57,10 +56,13 @@ class PendingTeacherTest extends DuskTestCase
                 ->keys('input[name="province"]', '{tab}')
                 ->type('emailfield', 'pepepardo@jeans.com')
                 ->type('other_emails', 'pepepardo@gmail.com,pepepardo@xtec.cat')
+                ->keys('input[name="other_emails"]', '{tab}')
                 ->type('mobile', '679845759')
                 ->type('other_mobiles', '645845759,689758841')
+                ->keys('input[name="other_mobiles"]', '{tab}')
                 ->type('phone', '977405859')
                 ->type('other_phones', '977405889,977456889')
+                ->keys('input[name="other_phones"]', '{tab}')
                 ->type('degree', 'Enginyeria en Telecomunicacions')
                 ->type('other_degrees', 'Master en bla bla bla')
                 ->type('languages', 'Anglès')
@@ -77,7 +79,7 @@ class PendingTeacherTest extends DuskTestCase
                 ->keys('input[name="administrative_status"]', '{tab}')
                 ->type('destination_place', 'Quinto Pino')
                 ->type('teacher', 'Dolors Sanjuan Aubà')
-                ->keys('input[name="teacher"]', '{tab}')->pause(80000);
+                ->keys('input[name="teacher"]', '{tab}');
             $browser->driver->executeScript('window.scrollTo(0, document.body.scrollHeight);');
             $browser->click('#sendButton')->pause(500)->assertSee('Dades enviades correctament');
         });
@@ -107,8 +109,8 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals('Anglès',$pendingTeacher->languages);
         $this->assertEquals('Perfil TIC, CLIC, LIL, lOl',$pendingTeacher->profiles);
         $this->assertEquals('Fuster',$pendingTeacher->other_training);
-        $this->assertEquals('Perfil TIC, CLIC, LIL, lOl',$pendingTeacher->photo);
-        $this->assertEquals('Perfil TIC, CLIC, LIL, lOl',$pendingTeacher->identifier_photocopy);
+        $this->assertEquals(null,$pendingTeacher->photo);
+        $this->assertEquals(null,$pendingTeacher->identifier_photocopy);
         $this->assertEquals(1,$pendingTeacher->force_id);
         $this->assertEquals(11,$pendingTeacher->specialty_id);
         $this->assertEquals(2009,$pendingTeacher->teacher_start_date);

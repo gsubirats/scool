@@ -721,11 +721,11 @@
           province_id: this.province.id,
           province: this.province.name,
           email: this.email,
-          other_emails: this.other_emails && this.other_emails.join(),
+          other_emails: this.other_emails.join(),
           mobile: this.mobile,
-          other_mobiles: this.other_mobiles && this.other_mobiles.join(),
+          other_mobiles: this.other_mobiles.join(),
           phone: this.phone,
-          other_phones: this.other_telephones && this.other_phones.join(),
+          other_phones: this.other_phones.join(),
           degree: this.degree,
           other_degrees: this.other_degrees,
           languages: this.languages,
@@ -765,8 +765,8 @@
         this.other_emails = []
         this.mobile = ''
         this.other_mobiles = []
-        this.telephone = ''
-        this.other_telephones = []
+        this.phone = ''
+        this.other_phones = []
         this.degree = ''
         this.other_degrees = ''
         this.languages = ''
