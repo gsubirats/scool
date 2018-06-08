@@ -601,7 +601,7 @@
             this.showError('El DNI no és vàlid')
             return
           }
-          console.log('Ready to submit!')
+          console.log('TODO Ready to submit!')
         } else {
           console.log('Not valid!')
           this.$v.$touch()
@@ -648,7 +648,7 @@
         return this.administrativeStatuses.find(status => status.id === statusId)
       },
       getTeacher (teacherId) {
-        return this.teachers.find(teacher => teacher.id === teacherId)
+        return this.teachers.find(teacher => teacher.teacher_id === teacherId)
       },
       queryPostalCodes (v) {
         this.postalCodes = this.allPostalCodes.filter(postalCode => {
@@ -741,7 +741,7 @@
           administrative_status_id: this.administrative_status.id,
           administrative_status: this.administrative_status.name,
           destination_place: this.destination_place,
-          teacher_id: this.teacher.id,
+          teacher_id: this.teacher.teacher_id,
           teacher: this.teacher.name
         }
         if (this.photo) teacher.photo = this.photo
@@ -853,7 +853,15 @@
         this.opositions_date = pendingTeacher.opositions_date
         this.administrative_status = this.getAdministrativestatus(pendingTeacher.administrative_status_id)
         this.destination_place = pendingTeacher.destination_place
+        console.log('Seraching teacher: ')
+        console.log(pendingTeacher.teacher_id)
+        console.log(pendingTeacher.user_id)
+        console.log(pendingTeacher.name)
         this.teacher = this.getTeacher(pendingTeacher.teacher_id)
+        console.log('Found teacher:')
+        console.log(this.teacher.teacher_id)
+        console.log(this.teacher.user_id)
+        console.log(this.teacher.name)
         this.ready = true
       }
     },

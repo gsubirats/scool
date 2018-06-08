@@ -92,7 +92,8 @@ class TeachersControllerTest extends BaseTenantTest
         // Check required Fields for teachers component
         $response->assertViewHas('teachers',function ($teachers) {
             $teacher = $teachers->first();
-            return array_key_exists('id', $teacher) &&
+            return array_key_exists('user_id', $teacher) &&
+                array_key_exists('teacher_id', $teacher) &&
                 array_key_exists('code', $teacher) &&
                 array_key_exists('formatted_created_at_diff', $teacher) &&
                 array_key_exists('formatted_created_at', $teacher) &&
@@ -155,7 +156,6 @@ class TeachersControllerTest extends BaseTenantTest
                 array_key_exists('address_location', $teacher) &&
                 array_key_exists('address_postalcode', $teacher) &&
                 array_key_exists('address_province', $teacher);
-
         });
     }
 

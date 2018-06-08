@@ -80,52 +80,23 @@ class PendingTeachersControllerTest extends BaseTenantTest
         Config::set('auth.providers.users.model', User::class);
         $teachersManager->assignRole($role);
 
-        PendingTeacher::create([
-            'name' => 'Pepe',
-            'sn1' => 'Pardo',
-            'sn2' => 'Jeans',
-            'identifier' => '38111210A',
-            'birthdate' => '1978-02-03',
-            'street' => 'Plaza Catalunya',
-            'number' => '1714',
-            'floor' => '4',
-            'floor_number' => '2',
-            'postal_code' => '43500',
-            'locality' => 'TORTOSA',
-            'province' => 'TARRAGONA',
-            'email' => 'pepepardo@jeans.com',
-            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
-            'phone' => '689568945',
-            'other_phones' => '689568945',
-            'mobile' => '689568945',
-            'other_mobiles' => '679582427,650197824',
-            'degree' => 'Enginyer en telecomunicacions',
-            'other_degrees' => 'Master Cifuentes, Master professors',
-            'languages' => 'Anglès B1, Alemany B2',
-            'profiles' => 'Puto crack, Director de directors',
-            'other_training' => 'Puto crack, Director de directors',
-            'force_id' => 1,
-            'specialty_id' => 1,
-            'teacher_start_date' => '2018-04-03',
-            'start_date' =>  '2015-09-01',
-            'opositions_date' => '2014-06-03',
-            'administrative_status_id' => 1,
-            'destination_place' => 'Quinta forca',
-            'teacher_id' => 1
-        ]);
+        PendingTeacher::create($this->teacherArray());
 
         PendingTeacher::create([
             'name' => 'Pepa',
             'sn1' => 'Parda',
             'sn2' => 'Jeans',
             'identifier' => '10235832G',
+            'identifier_type' => 'NIF',
             'birthdate' => '1978-06-03',
             'street' => 'Plaza 1 Octubre',
             'number' => '1714',
             'floor' => '3',
             'floor_number' => '2',
             'postal_code' => '43500',
+            'locality_id' => 13456,
             'locality' => 'TORTOSA',
+            'province_id' => 36,
             'province' => 'TARRAGONA',
             'email' => 'pepaparda@jeans.com',
             'other_emails' => 'pepaparda@gmail.com,pepaparda@xtec.cat',
@@ -139,13 +110,17 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'profiles' => 'Puta crack, Directora de directores',
             'other_training' => 'Puta crack, Directora de directores',
             'force_id' => 1,
+            'force' => 'Mestre',
             'specialty_id' => 1,
+            'specialty' => 'ESpecialitat de la ostia',
             'teacher_start_date' => '2018-04-03',
             'start_date' =>  '2015-09-01',
             'opositions_date' => '2014-06-03',
             'administrative_status_id' => 1,
+            'administrative_status' => 'Interí/na',
             'destination_place' => 'Quinta forca i una mica més',
-            'teacher_id' => 1
+            'teacher_id' => 1,
+            'teacher' => 'Sergi Tur Badenas'
         ]);
 
         $response = $this->json('GET','/api/v1/pending_teachers');
@@ -188,43 +163,10 @@ class PendingTeachersControllerTest extends BaseTenantTest
     /** @test */
     public function users_can_create_pending_teacher()
     {
-
+        $this->withoutExceptionHandling();
         $this->assertCount(0,PendingTeacher::all());
 
-        $response = $this->json('POST','api/v1/add_teacher', [
-            'name' => 'Pepe',
-            'sn1' => 'Pardo',
-            'sn2' => 'Jeans',
-            'identifier' => '38111210A',
-            'birthdate' => '1978-02-03',
-            'street' => 'Plaza Catalunya',
-            'number' => '1714',
-            'floor' => '4',
-            'floor_number' => '2',
-            'postal_code' => '43500',
-            'locality' => 'TORTOSA',
-            'province' => 'TARRAGONA',
-            'email' => 'pepepardo@jeans.com',
-            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
-            'phone' => '689568945',
-            'other_phones' => '689568945',
-            'mobile' => '689568945',
-            'other_mobiles' => '679582427,650197824',
-            'degree' => 'Enginyer en telecomunicacions',
-            'other_degrees' => 'Master Cifuentes, Master professors',
-            'languages' => 'Anglès B1, Alemany B2',
-            'profiles' => 'Puto crack, Director de directors',
-            'other_training' => 'Puto crack, Director de directors',
-            'force_id' => 1,
-            'specialty_id' => 1,
-            'teacher_start_date' => '2018-04-03',
-            'start_date' =>  '2015-09-01',
-            'opositions_date' => '2014-06-03',
-            'administrative_status_id' => 1,
-            'destination_place' => 'Quinta forca',
-            'teacher_id' => 1,
-
-        ]);
+        $response = $this->json('POST','api/v1/add_teacher', $this->teacherArray());
 
         $response->assertSuccessful();
 
@@ -233,6 +175,7 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'sn1',
             'sn2',
             'identifier',
+            'identifier_type',
             'birthdate',
             'street',
             'number',
@@ -240,7 +183,9 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'floor_number',
             'postal_code',
             'locality',
+            'locality_id',
             'province',
+            'province_id',
             'email',
             'other_emails',
             'phone',
@@ -251,11 +196,14 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'profiles',
             'other_training',
             'force_id',
+            'force',
             'specialty_id',
+            'specialty',
             'teacher_start_date',
             'start_date',
             'opositions_date',
             'administrative_status_id',
+            'administrative_status',
             'destination_place',
             'teacher_id'
         ]);
@@ -293,6 +241,54 @@ class PendingTeachersControllerTest extends BaseTenantTest
         ]);
 
         $this->assertCount(1, PendingTeacher::all());
+    }
+
+    /**
+     * Teacher array.
+     *
+     * @return array
+     */
+    protected function teacherArray() {
+        return [
+            'name' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'identifier' => '38111210A',
+            'identifier_type' => 'NIF',
+            'birthdate' => '1978-02-03',
+            'street' => 'Plaza Catalunya',
+            'number' => '1714',
+            'floor' => '4',
+            'floor_number' => '2',
+            'postal_code' => '43500',
+            'locality_id' => '35130',
+            'locality' => 'TORTOSA',
+            'province_id' => 36,
+            'province' => 'TARRAGONA',
+            'email' => 'pepepardo@jeans.com',
+            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
+            'phone' => '689568945',
+            'other_phones' => '689568945',
+            'mobile' => '689568945',
+            'other_mobiles' => '679582427,650197824',
+            'degree' => 'Enginyer en telecomunicacions',
+            'other_degrees' => 'Master Cifuentes, Master professors',
+            'languages' => 'Anglès B1, Alemany B2',
+            'profiles' => 'Puto crack, Director de directors',
+            'other_training' => 'Puto crack, Director de directors',
+            'force_id' => 1,
+            'force' => 'Mestres',
+            'specialty_id' => 1,
+            'specialty' => 'Processos sanitaris',
+            'teacher_start_date' => '2018-04-03',
+            'start_date' =>  '2015-09-01',
+            'opositions_date' => '2014-06-03',
+            'administrative_status_id' => 1,
+            'administrative_status' => 'Funcionari/a amb plaça definitiva',
+            'destination_place' => 'Quinta forca',
+            'teacher_id' => 1,
+
+        ];
     }
 
     /** @test */
@@ -349,41 +345,10 @@ class PendingTeachersControllerTest extends BaseTenantTest
         $PhotoPath = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('photo.jpg'));
         $IdentifierPhotocopyPath = Storage::putFile('tenant_test/uploads', UploadedFile::fake()->image('dni.jpg'));
 
-        $response = $this->json('POST','api/v1/add_teacher', [
-            'name' => 'Pepe',
-            'sn1' => 'Pardo',
-            'sn2' => 'Jeans',
-            'identifier' => '38111210A',
-            'birthdate' => '1978-02-03',
-            'street' => 'Plaza Catalunya',
-            'number' => '1714',
-            'floor' => '4',
-            'floor_number' => '2',
-            'postal_code' => '43500',
-            'locality' => 'TORTOSA',
-            'province' => 'TARRAGONA',
-            'email' => 'pepepardo@jeans.com',
-            'other_emails' => 'pepepardo@gmail.com,pepepardo@xtec.cat',
-            'phone' => '689568945',
-            'other_phones' => '689568945',
-            'mobile' => '689568945',
-            'other_mobiles' => '679582427,650197824',
-            'degree' => 'Enginyer en telecomunicacions',
-            'other_degrees' => 'Master Cifuentes, Master professors',
-            'languages' => 'Anglès B1, Alemany B2',
-            'profiles' => 'Puto crack, Director de directors',
-            'other_training' => 'Puto crack, Director de directors',
-            'force_id' => 1,
-            'specialty_id' => 1,
-            'teacher_start_date' => '2018-04-03',
-            'start_date' =>  '2015-09-01',
-            'opositions_date' => '2014-06-03',
-            'administrative_status_id' => 1,
-            'destination_place' => 'Quinta forca',
-            'teacher_id' => 1,
+        $response = $this->json('POST','api/v1/add_teacher', array_merge($this->teacherArray(),[
             'photo' => $PhotoPath,
             'identifier_photocopy' => $IdentifierPhotocopyPath
-        ]);
+        ]) );
         $response->assertSuccessful();
 
         $response->assertJsonStructure([

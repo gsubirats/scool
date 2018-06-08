@@ -38,7 +38,8 @@ class Teacher extends JsonResource
             $job_order = $jobObject->order;
         }
         return [
-            'id' => $this->id,
+            'user_id' => optional($this->user)->id,
+            'teacher_id' => $this->id,
             'code' => $this->code,
             'formatted_created_at_diff' => $this->formatted_created_at_diff,
             'formatted_created_at' => $this->formatted_created_at,
