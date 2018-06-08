@@ -1,5 +1,6 @@
 <template>
     <v-select
+            :name="name"
             :label="label"
             :items="teachers"
             v-model="internalTeacher"
@@ -50,6 +51,10 @@
       event: 'input'
     },
     props: {
+      name: {
+        type: String,
+        default: 'teacher'
+      },
       teacher: {
         type: Object
       },

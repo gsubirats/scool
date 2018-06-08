@@ -21,10 +21,10 @@ Route::bind('hashuser', function($value, $route)
     return User::findOrFail($id);
 });
 
+//dump(config('app.domain'));
+
 Route::domain('{tenant}.' . config('app.domain'))->group(function () {
-
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
-
         // Authentication Routes...
         Route::get('login', 'Auth\Tenant\LoginController@showLoginForm')->name('login');
         Route::post('login', 'Auth\Tenant\LoginController@login');

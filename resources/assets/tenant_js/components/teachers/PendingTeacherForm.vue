@@ -10,6 +10,7 @@
             <v-layout row wrap>
                 <v-flex md3>
                     <v-text-field
+                            name="name"
                             label="Nom"
                             v-model="name"
                             :error-messages="nameErrors"
@@ -21,6 +22,7 @@
                 </v-flex>
                 <v-flex md3>
                     <v-text-field
+                            name="sn1"
                             label="1r Cognom"
                             v-model="sn1"
                             :error-messages="sn1Errors"
@@ -32,6 +34,7 @@
                 </v-flex>
                 <v-flex md2>
                     <v-text-field
+                            name="sn2"
                             label="2n Cognom"
                             v-model="sn2"
                             :error-messages="sn2Errors"
@@ -42,6 +45,7 @@
                 </v-flex>
                 <v-flex md1>
                     <v-select
+                            name="identifierType"
                             label="Tipus id"
                             autocomplete
                             required
@@ -56,6 +60,7 @@
                 </v-flex>
                 <v-flex md1>
                     <v-text-field
+                            name="identifier"
                             label="DNI/NIE/Passaport"
                             v-model="identifier"
                             :error-messages="identifierErrors"
@@ -77,19 +82,21 @@
                             min-width="290px"
                     >
                         <v-text-field
+                                name="formattedBirthdate"
+                                hint="format DD/MM/AAAA"
+                                persistent-hint
                                 slot="activator"
                                 label="Data de naixement"
-                                v-model="formattedBirthdate"
+                                :value="formattedBirthdate" @change.native="formattedBirthdate = $event.target.value"
                                 :error-messages="birthdateErrors"
                                 @input="$v.birthdate.$touch()"
                                 @blur="$v.birthdate.$touch()"
                                 prepend-icon="event"
-                                readonly
                         ></v-text-field>
                         <v-date-picker
                                 ref="picker"
                                 locale="ca"
-                                v-model="birthdate"
+                                :value="birthdate" @change.native="birthdate = $event.target.value"
                                 @change="saveBirthdate"
                                 min="1900-01-01"
                                 :max="new Date().toISOString().substr(0, 10)"
@@ -109,6 +116,7 @@
             <v-layout row wrap>
                 <v-flex md3>
                     <v-text-field
+                            name="street"
                             label="Adreça"
                             hint="P.ex. C/ Alcanyiz o Avg/ Generalitat"
                             v-model="street"
@@ -121,6 +129,7 @@
                 </v-flex>
                 <v-flex md1>
                     <v-text-field
+                            name="number"
                             label="Número"
                             v-model="number"
                             :error-messages="numberErrors"
@@ -131,18 +140,21 @@
                 </v-flex>
                 <v-flex md1>
                     <v-text-field
+                            name="floor"
                             label="Pis"
                             v-model="floor"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md1>
                     <v-text-field
+                            name="floor_number"
                             label="# pis"
                             v-model="floor_number"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md1>
                     <v-select
+                            name="postal_code"
                             label="Codi postal"
                             autocomplete
                             :loading="loadingPostalCode"
@@ -160,6 +172,7 @@
                 </v-flex>
                 <v-flex md3>
                     <v-select
+                            name="locality"
                             label="Localitat"
                             tabindex = "-1"
                             item-text="name"
@@ -179,6 +192,7 @@
                 </v-flex>
                 <v-flex md2>
                     <v-select
+                            name="province"
                             label="Província"
                             tabindex = "-1"
                             item-text="name"
@@ -210,6 +224,7 @@
             <v-layout row wrap>
                 <v-flex md2>
                     <v-text-field
+                            name="emailfield"
                             label="Correu electrònic"
                             v-model="email"
                             :error-messages="emailErrors"
@@ -220,6 +235,7 @@
                 </v-flex>
                 <v-flex md3>
                     <v-select
+                            name="other_emails"
                             v-model="other_emails"
                             label="Altres correus"
                             multiple
@@ -230,6 +246,7 @@
                 </v-flex>
                 <v-flex md1>
                     <v-text-field
+                            name="mobile"
                             label="Mòbil"
                             v-model="mobile"
                             :error-messages="mobileErrors"
@@ -240,6 +257,7 @@
                 </v-flex>
                 <v-flex md2>
                     <v-select
+                            name="other_mobiles"
                             v-model="other_mobiles"
                             label="Altres Mòbils"
                             multiple
@@ -250,12 +268,14 @@
                 </v-flex>
                 <v-flex md2>
                     <v-text-field
+                            name="phone"
                             label="Telèfon"
                             v-model="phone"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md2>
                     <v-select
+                            name="other_phones"
                             v-model="other_phones"
                             label="Altres Telèfons"
                             multiple
@@ -277,6 +297,7 @@
             <v-layout row wrap>
                 <v-flex md6>
                     <v-text-field
+                            name="degree"
                             label="Titulació d'accés"
                             v-model="degree"
                             :error-messages="degreeErrors"
@@ -288,6 +309,7 @@
                 </v-flex>
                 <v-flex md6>
                     <v-text-field
+                            name="other_degrees"
                             label="Altres titulacions"
                             v-model="other_degrees"
                             :counter="255"
@@ -295,6 +317,7 @@
                 </v-flex>
                 <v-flex md6>
                     <v-text-field
+                            name="languages"
                             label="Idiomes segons marc Europeu"
                             v-model="languages"
                             :counter="255"
@@ -302,6 +325,7 @@
                 </v-flex>
                 <v-flex md6>
                     <v-text-field
+                            name="profiles"
                             label="Perfils professionals"
                             v-model="profiles"
                             :counter="255"
@@ -309,6 +333,7 @@
                 </v-flex>
                 <v-flex md12>
                     <v-text-field
+                            name="other_training"
                             label="Altres formacions"
                             v-model="other_training"
                             :counter="255"
@@ -327,6 +352,7 @@
             <v-layout row wrap>
                 <v-flex md3>
                     <v-select
+                            name="specialty"
                             label="Especialitat"
                             autocomplete
                             required
@@ -343,6 +369,7 @@
                 </v-flex>
                 <v-flex md5>
                     <v-select
+                            name="force"
                             label="Cos"
                             autocomplete
                             tabindex="-1"
@@ -359,13 +386,16 @@
                 </v-flex>
                 <v-flex md4>
                     <v-text-field
+                            name="teacher_start_date"
                             label="Any inici serveis ensenyament"
                             v-model="teacher_start_date"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md4>
+
                     <v-menu
                             lazy
+                            name="startDateMenu"
                             v-model="startDateMenu"
                             transition="scale-transition"
                             offset-y
@@ -374,18 +404,20 @@
                             min-width="290px"
                     >
                         <v-text-field
+                                name="formatted_start_date"
                                 slot="activator"
                                 label="Data incorporació centre"
-                                hint="DD/MM/YYYY format"
+                                hint="format DD/MM/AAAA"
                                 persistent-hint
                                 prepend-icon="event"
-                                v-model="formatted_start_date"
+                                :value="formatted_start_date" @change.native="formatted_start_date = $event.target.value"
                                 :error-messages="startDateErrors"
                                 @input="$v.start_date.$touch()"
                                 @blur="$v.start_date.$touch()"
                                 required
                         ></v-text-field>
                         <v-date-picker
+                                name="start_date"
                                 locale="ca"
                                 v-model="start_date"
                         ></v-date-picker>
@@ -393,12 +425,14 @@
                 </v-flex>
                 <v-flex md3>
                     <v-text-field
+                            name="opositions_date"
                             label="Data superació oposicions"
                             v-model="opositions_date"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md5>
                     <v-select
+                            name="administrative_status"
                             label="Situació administrativa"
                             autocomplete
                             required
@@ -414,12 +448,14 @@
                 </v-flex>
                 <v-flex md6>
                     <v-text-field
+                            name="destination_place"
                             label="Lloc destinació definitiva (només comissió serveis)"
                             v-model="destination_place"
                     ></v-text-field>
                 </v-flex>
                 <v-flex md6>
                     <teacher-select
+                            name="teacher"
                             label="Professor al que substitueix"
                             :teachers="teachers"
                             v-model="teacher"
@@ -428,6 +464,7 @@
                 <!-- TODO: Terms of Service | Compliance with LOPD i GDPR -->
                 <!--<v-flex md6>-->
                 <!--<v-checkbox-->
+                <!--name="checkbox"-->
                 <!--label="Accepteu les condicions d'ús?"-->
                 <!--v-model="checkbox"-->
                 <!--:error-messages="checkboxErrors"-->
@@ -449,15 +486,15 @@
             <v-layout row wrap>
                 <v-flex md3>
                     <upload-card
-                            v-model="identifier_photocopy"
                             name="file"
+                            v-model="identifier_photocopy"
                             label="Fotocopia del DNI, NIE o Passaport"
                     ></upload-card>
                 </v-flex>
                 <v-flex md3>
                     <upload-card
+                            name="photo"
                             v-model="photo"
-                            name="file"
                             label="Foto carnet"
                     ></upload-card>
                 </v-flex>
@@ -491,7 +528,7 @@
                 <v-icon>add</v-icon> Crear nou professor
             </v-btn>
         </template>
-        <v-btn v-else @click="submit">Enviar</v-btn>
+        <v-btn v-else @click="submit" id="sendButton">Enviar</v-btn>
     </form>
 </template>
 
@@ -648,47 +685,13 @@
         } else return false
       },
       submit () {
+        this.$v.$touch()
         if (!this.$v.$invalid) {
           if (this.identifierType === 'DNI/NIF' && !this.validateDNI(this.identifier)) {
             this.showError('El DNI no és vàlid')
             return
           }
-          axios.post('api/v1/add_teacher', {
-            name: this.name,
-            sn1: this.sn1,
-            sn2: this.sn2,
-            identifier_type: this.identifierType,
-            identifier: this.identifier,
-            birthdate: this.birthdate,
-            street: this.street,
-            number: this.number,
-            floor: this.floor,
-            floor_number: this.floor_number,
-            postal_code: this.postal_code,
-            locality: this.locality,
-            province: this.province.name,
-            email: this.email,
-            other_emails: this.other_emails.join(),
-            mobile: this.mobile,
-            other_mobiles: this.other_mobiles,
-            telephone: this.telephone,
-            other_telephones: this.other_telephones.join(),
-            degree: this.degree,
-            other_degrees: this.other_degrees,
-            languages: this.languages,
-            profiles: this.profiles,
-            other_training: this.other_training,
-            force_id: this.force.id,
-            specialty_id: this.specialty.id,
-            teacher_start_date: this.teacher_start_date,
-            start_date: this.start_date,
-            opositions_date: this.opositions_date,
-            administrative_status_id: this.administrative_status.id,
-            destination_place: this.destination_place,
-            teacher_id: this.teacher.id,
-            photo: this.photo,
-            identifier_photocopy: this.identifier_photocopy
-          }).then(response => {
+          axios.post('api/v1/add_teacher', this.getPostTeacher()).then(response => {
             this.showMessage('Dades enviades correctament')
             this.clear()
             this.$v.$reset()
@@ -699,6 +702,45 @@
         } else {
           this.$v.$touch()
         }
+      },
+      getPostTeacher () {
+        let teacher = {
+          name: this.name,
+          sn1: this.sn1,
+          sn2: this.sn2,
+          identifier_type: this.identifierType,
+          identifier: this.identifier,
+          birthdate: this.birthdate,
+          street: this.street,
+          number: this.number,
+          floor: this.floor,
+          floor_number: this.floor_number,
+          postal_code: this.postal_code,
+          locality: this.locality.id,
+          province: this.province.name,
+          email: this.email,
+          other_emails: this.other_emails && this.other_emails.join(),
+          mobile: this.mobile,
+          other_mobiles: this.other_mobiles && this.other_mobiles.join(),
+          telephone: this.telephone,
+          other_telephones: this.other_telephones && this.other_telephones.join(),
+          degree: this.degree,
+          other_degrees: this.other_degrees,
+          languages: this.languages,
+          profiles: this.profiles,
+          other_training: this.other_training,
+          force_id: this.force.id,
+          specialty_id: this.specialty.id,
+          teacher_start_date: this.teacher_start_date,
+          start_date: this.start_date,
+          opositions_date: this.opositions_date,
+          administrative_status_id: this.administrative_status.id,
+          destination_place: this.destination_place,
+          teacher_id: this.teacher.id
+        }
+        if (this.photo) teacher.photo = this.photo
+        if (this.identifier_photocopy) teacher.identifier_photocopy = this.identifier_photocopy
+        return teacher
       },
       clear () {
         this.name = ''
@@ -732,7 +774,7 @@
         this.administrative_status = ''
         this.destination_place = ''
         this.teacher = {}
-        this.checkbox = false
+        // this.checkbox = false
       },
       saveBirthdate (date) {
         this.$refs.menu.save(date)

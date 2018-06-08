@@ -32,7 +32,7 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->string('province');
             $table->string('email');
             $table->string('other_emails')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('other_phones')->nullable();
             $table->string('mobile');
             $table->string('other_mobiles')->nullable();

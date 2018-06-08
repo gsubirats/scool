@@ -21,8 +21,8 @@ export default {
     force: { required },
     start_date: { required },
     administrative_status: { required },
-    teacher: { required },
-    checkbox: { required }
+    teacher: { required }
+    // checkbox: { required }
   },
   data () {
     return {
@@ -41,8 +41,6 @@ export default {
       identifierType: 'DNI/NIF',
       identifierTypes: ['DNI/NIF', 'NIE', 'Passaport'],
       identifier: '',
-      birthdate: '',
-      formattedBirthdate: '',
       street: '',
       number: '',
       floor: '',
@@ -65,12 +63,12 @@ export default {
       specialty: '',
       teacher_start_date: '',
       start_date: '',
-      formatted_start_date: '',
       opositions_date: '',
       administrative_status: {},
       destination_place: '',
       teacher: {},
-      checkbox: false,
+      // checkbox: false,
+      birthdate: '',
       birthdateMenu: false,
       startDateMenu: false,
       identifier_photocopy: '',
@@ -78,12 +76,12 @@ export default {
     }
   },
   computed: {
-    checkboxErrors () {
-      const errors = []
-      if (!this.$v.checkbox.$dirty) return errors
-      !this.$v.checkbox.required && errors.push("Heu d'acceptar les condicions per poder continuar!")
-      return errors
-    },
+    // checkboxErrors () {
+    //   const errors = []
+    //   if (!this.$v.checkbox.$dirty) return errors
+    //   !this.$v.checkbox.required && errors.push("Heu d'acceptar les condicions per poder continuar!")
+    //   return errors
+    // },
     selectErrors () {
       const errors = []
       if (!this.$v.select.$dirty) return errors
@@ -201,20 +199,28 @@ export default {
       if (!this.$v.administrative_status.$dirty) return errors
       !this.$v.administrative_status.required && errors.push('La situació administrativa és obligatòria')
       return errors
-    }
+    },
     // teacherErrors () {
     //   const errors = []
     //   if (!this.$v.teacher.$dirty) return errors
     //   !this.$v.teacher.required && errors.push('Camp obligatori pels substituts')
     //   return errors
     // }
-  },
-  watch: {
-    birthdate (val) {
-      this.formattedBirthdate = this.formatDate(this.birthdate)
+    formattedBirthdate: {
+      get: function () {
+        return this.formatDate(this.birthdate)
+      },
+      set: function (value) {
+        this.birthdate = this.unformatDate(value)
+      }
     },
-    start_date () {
-      this.formatted_start_date = this.formatDate(this.start_date)
+    formatted_start_date: {
+      get: function () {
+        return this.formatDate(this.start_date)
+      },
+      set: function (value) {
+        this.start_date = this.unformatDate(value)
+      }
     }
   },
   props: {
@@ -238,8 +244,21 @@ export default {
   methods: {
     formatDate (date) {
       if (!date) return null
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
+      try {
+        const [year, month, day] = date.split('-')
+        return `${day}/${month}/${year}`
+      } catch (error) {
+        return null
+      }
+    },
+    unformatDate (date) {
+      if (!date) return null
+      try {
+        const [day, month, year] = date.split('/')
+        return `${year}-${month}-${day}`
+      } catch (error) {
+        return null
+      }
     },
     clear () {
       this.name = ''
@@ -271,7 +290,7 @@ export default {
       this.administrative_status = ''
       this.destination_place = ''
       this.teacher = {}
-      this.checkbox = false
+      // this.checkbox = false
     },
     saveBirthdate (date) {
       this.$refs.menu.save(date)
