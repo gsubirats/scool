@@ -3,7 +3,10 @@
 namespace Tests\Browser;
 
 use App\Models\PendingTeacher;
+use App\Models\User;
+use Config;
 use Illuminate\Contracts\Console\Kernel;
+use Spatie\Permission\Models\Role;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 
@@ -29,13 +32,21 @@ class PendingTeacherTest extends DuskTestCase
         $this->app[Kernel::class]->setArtisan(null);
     }
 
-    /**
-     * A Dusk test example.
-     *
-     * @throws \Throwable
-     */
-    public function testExample()
+    /** @test */
+    public function pending_teachers_test()
     {
+//        apply_tenant('iesebre');
+        $this->browse(function (Browser $browser) {
+            $browser->visit('https://iesebre.scool.test/login')
+//                ->pause(50000)
+                ->type('email', 'sergiturbadenas@gmail.com')
+                ->type('#login_password', '123456')
+                ->click('#login_button')
+                ->pause(2000)
+                ->visit('https://iesebre.scool.test/teachers')
+                ->pause(12000);
+        });
+
         $this->browse(function (Browser $browser) {
             $browser->visit('https://iesebre.scool.test/nou_professor')
                 ->type('name', 'Pepe')
@@ -86,7 +97,7 @@ class PendingTeacherTest extends DuskTestCase
         });
         apply_tenant('iesebre');
         $pendingTeacher = PendingTeacher::orderBy('created_at', 'desc')->first();
-        dump($pendingTeacher->toArray());
+
         $this->assertEquals('Pepe',$pendingTeacher->name);
         $this->assertEquals('Pardo',$pendingTeacher->sn1);
         $this->assertEquals('Jeans',$pendingTeacher->sn2);
@@ -121,6 +132,7 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals(1,$pendingTeacher->administrative_status_id);
         $this->assertEquals('Quinto Pino',$pendingTeacher->destination_place);
         $this->assertEquals(1,$pendingTeacher->teacher_id);
+
 
     }
 }

@@ -13,6 +13,7 @@
             <v-card-text>
                 <v-form ref="loginForm" v-model="valid">
                     <v-text-field
+                            id="login_email"
                             name="email"
                             label="E-mail"
                             v-model="email"
@@ -22,6 +23,7 @@
                             required
                     ></v-text-field>
                     <v-text-field
+                            id="login_password"
                             name="password"
                             label="Password"
                             v-model="password"
@@ -64,7 +66,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-2" flat @click.native="showLogin = false">Tancar</v-btn>
-                <v-btn color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Login</v-btn>
+                <v-btn id="login_button" color="blue darken-2" class="white--text" @click.native="login" :loading="loginLoading">Login</v-btn>
                 <v-spacer></v-spacer>
             </v-card-actions>
         </v-card>
