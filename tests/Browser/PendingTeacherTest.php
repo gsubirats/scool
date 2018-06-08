@@ -90,6 +90,7 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals('Pardo',$pendingTeacher->sn1);
         $this->assertEquals('Jeans',$pendingTeacher->sn2);
         $this->assertEquals('39388406D',$pendingTeacher->identifier);
+        $this->assertEquals('DNI/NIF',$pendingTeacher->identifier_type);
         $this->assertEquals('1988-03-02',$pendingTeacher->birthdate);
         $this->assertEquals('C/ Beseit',$pendingTeacher->street);
         $this->assertEquals('24',$pendingTeacher->number);

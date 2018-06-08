@@ -74,6 +74,7 @@ class PendingTeachersController extends Controller
             'name',
             'sn1',
             'sn2',
+            'identifier_type',
             'identifier',
             'birthdate',
             'street',

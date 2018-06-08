@@ -21,6 +21,7 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->string('name');
             $table->string('sn1');
             $table->string('sn2')->nullable();
+            $table->string('identifier_type'); // DNI/NIE/Passport
             $table->string('identifier'); //DNI
             $table->date('birthdate');
             $table->string('street');
