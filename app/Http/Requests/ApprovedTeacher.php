@@ -45,7 +45,8 @@ class ApprovedTeacher extends FormRequest
             'username' => 'required',
             'job_id' => 'required',
             'locality_id' => 'required_without:locality',
-            'province_id' => 'required'
+            'province_id' => 'required',
+            'pending_teacher_id' => 'required'
         ];
     }
 }
