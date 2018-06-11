@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
+use App\Models\PendingTeacher;
 use App\Models\Teacher;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
@@ -166,6 +167,9 @@ class ApprovedTeacherController extends Controller
                 'province_id' => $request->province_id ?? null
             ]);
         }
+
+        // TODO -> Remove pending teacher!!!
+        PendingTeacher::destroy($request->pending_teacher_id);
 
     }
 

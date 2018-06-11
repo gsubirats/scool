@@ -44,7 +44,6 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
     /** @test */
     public function store_approved_teacher()
     {
-        $this->withoutExceptionHandling();
         $manager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'TeachersManager']);
         Config::set('auth.providers.users.model', User::class);
