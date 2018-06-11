@@ -44,6 +44,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
     /** @test */
     public function store_approved_teacher()
     {
+        $this->withoutExceptionHandling();
         $manager = factory(User::class)->create();
         $role = Role::firstOrCreate(['name' => 'TeachersManager']);
         Config::set('auth.providers.users.model', User::class);
@@ -68,10 +69,10 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         ]);
 
         $role = Role::firstOrCreate(['name' => 'Teacher','guard_name' => 'web']);
-
+        $teacher_code = Teacher::firstAvailableCode();
         $response = $this->json('POST','/api/v1/approved_teacher', [
             'username' => 'pepepardo',
-            'givenName' => 'Pepe',
+            'name' => 'Pepe',
             'sn1' => 'Pardo',
             'sn2' => 'Jeans',
             'photo' => 'tenant_test/user_photos/photo.png',
@@ -95,7 +96,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
 
             //Person
             'identifier' => '24196166M',
-            'identifier_type' => IdentifierType::findByName('NIF')->id,
+            'identifier_type' => 'NIF',
             'birthdate' => '2008-05-25',
             'birthplace_id' => 1,
             'gender' => 'Home',
@@ -110,16 +111,15 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
 
             //Address
 
-            'address' => 'C/ Beseit',
-            'address_number' => '24',
-            'address_floor' => '1r',
-            'address_floor_number' => '2a',
-            'address_location' => 'Roquetes',
-            'address_province_id' => 1,
-            'address_postalcode' => '43520'
+            'street' => 'C/ Beseit',
+            'number' => '24',
+            'floor' => '1r',
+            'floor_number' => '2a',
+            'locality' => 'Roquetes',
+            'province_id' => 1,
+            'postal_code' => '43520'
 
         ]);
-
         $response->assertSuccessful();
 
         //Check user
@@ -138,7 +138,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $this->assertEquals(null,$employee->end_at);
 
         //Check teacher
-        $this->assertNotNull($teacher = Teacher::findByCode('040'));
+        $this->assertNotNull($teacher = Teacher::findByCode($teacher_code));
         $this->assertEquals($user->id,$teacher->user_id);
         $this->assertEquals(1,$teacher->administrative_status_id);
         $this->assertEquals(1,$teacher->specialty_id);
@@ -164,11 +164,11 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $this->assertEquals('Home',$person->gender);
         $this->assertEquals('Casat/da',$person->civil_status);
         $this->assertEquals('977405689',$person->phone);
-        $this->assertEquals('977405675,977405678',$person->other_phones);
+        $this->assertEquals('["977405675","977405678"]',$person->other_phones);
         $this->assertEquals('679585427',$person->mobile);
-        $this->assertEquals('689585457,679582424',$person->other_mobiles);
+        $this->assertEquals('["689585457","679582424"]',$person->other_mobiles);
         $this->assertEquals('pepepardo@jeans.com',$person->email);
-        $this->assertEquals('pepepardo@gmail.com,pepepardo@xtec.cat',$person->other_emails);
+        $this->assertEquals('["pepepardo@gmail.com","pepepardo@xtec.cat"]',$person->other_emails);
         $this->assertEquals('Bla bla bla',$person->notes);
 
         //Check identifier
@@ -200,7 +200,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
 
         $response = $this->json('POST','/api/v1/approved_teacher', [
             'username' => 'pepaparda',
-            'givenName' => 'Pepa',
+            'name' => 'Pepa',
             'sn1' => 'Parda',
             'sn2' => 'Jeans',
             'photo' => 'tenant_test/user_photos/photo.png',
@@ -219,7 +219,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             'lloc_destinacio_definitiva' => 'Tarragona',
 
             'identifier' => '72024157W',
-            'identifier_type' => IdentifierType::findByName('NIF')->id,
+            'identifier_type' => 'NIF',
             'birthdate' => '2008-05-25',
             'birthplace_id' => 1,
             'gender' => 'Home',
@@ -234,13 +234,15 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
 
             //Address
 
-            'address' => 'C/ Beseit',
-            'address_number' => '24',
-            'address_floor' => '1r',
-            'address_floor_number' => '2a',
-            'address_location' => 'TORTOSA',
-            'address_province_id' => 1,
-            'address_postalcode' => '43500'
+            'street' => 'C/ Beseit',
+            'number' => '24',
+            'floor' => '1r',
+            'floor_number' => '2a',
+            'locality' => 'TORTOSA',
+            'province_id' => 1,
+            'postal_code' => '43500',
+
+            'job_id' => 1
 
         ]);
 
@@ -253,6 +255,23 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
         $this->assertNotNull($location2 = Location::find($address2->location_id));
         $this->assertEquals('TORTOSA',$location2->name);
         $this->assertEquals('43500',$location2->postalcode);
+
+    }
+
+    /** @test */
+    public function store_approved_teacher_validation()
+    {
+        $manager = factory(User::class)->create();
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+        $this->actingAs($manager,'api');
+
+        $response = $this->json('POST','/api/v1/approved_teacher', []);
+
+        $response->assertStatus(422);
+        $response = json_decode($response->getContent());
+        $this->assertEquals('The given data was invalid.', $response->message);
 
     }
 

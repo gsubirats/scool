@@ -509,11 +509,20 @@
                     <v-layout row wrap>
                         <v-flex md6>
                             <h1>Plaça</h1>
-                            <jobs-select-for-pendingteacher :teacher="teacher" :jobs="jobs"></jobs-select-for-pendingteacher>
+                            <jobs-select-for-pendingteacher
+                                    :teacher="teacher"
+                                    :jobs="jobs"
+                                    :job="job"
+                                    @input="job = $event"
+                            ></jobs-select-for-pendingteacher>
                         </v-flex>
                         <v-flex md6>
                             <h1>Usuari</h1>
-                            <proposed-user v-if="ready" :name="name" :sn1="sn1"></proposed-user>
+                            <proposed-user v-if="ready"
+                                           :name="name"
+                                           :sn1="sn1"
+                                           :value="username"
+                                           @input="username = $event"></proposed-user>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -595,19 +604,6 @@
       cancel () {
         this.$emit('cancel')
       },
-      createTeacher (teacher) {
-        if (!this.$v.$invalid) {
-          if (this.identifierType === 'DNI/NIF' && !this.validateDNI(this.identifier)) {
-            this.showError('El DNI no és vàlid')
-            return
-          }
-          console.log('TODO Ready to submit!')
-        } else {
-          console.log('Not valid!')
-          this.$v.$touch()
-          console.log(this.$v.form.$errors)
-        }
-      },
       setForce (specialty) {
         if (specialty) {
           let foundForce = this.forces.find(force => {
@@ -684,10 +680,27 @@
           else return true
         } else return false
       },
+      createTeacher (teacher) {
+        if (!this.$v.$invalid) {
+          if (this.identifierType === 'NIF' && !this.validateDNI(this.identifier)) {
+            this.showError('El DNI no és vàlid')
+            return
+          }
+
+          axios.post('/api/v1/approved_teacher', { ...this.getPostTeacher(), username: this.username, job_id: this.job.id }).then(response => {
+            console.log(response)
+          }).catch(error => {
+            console.log(error)
+          })
+        } else {
+          this.$v.$touch()
+          console.log(this.$v.form.$errors)
+        }
+      },
       submit () {
         this.$v.$touch()
         if (!this.$v.$invalid) {
-          if (this.identifierType === 'DNI/NIF' && !this.validateDNI(this.identifier)) {
+          if (this.identifierType === 'NIF' && !this.validateDNI(this.identifier)) {
             this.showError('El DNI no és vàlid')
             return
           }

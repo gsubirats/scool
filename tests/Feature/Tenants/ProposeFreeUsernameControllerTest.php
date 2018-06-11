@@ -33,6 +33,8 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
     /** @test */
     public function propose_free_username()
     {
+        // EMAIL DOMAIN
+        $domain = '@iesebre.com';
         $user = factory(User::class)->create();
         $this->actingAs($user,'api');
 
@@ -43,7 +45,7 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
         $this->assertEquals('pepepardo', $result);
 
         factory(User::class)->create([
-            'name' => 'pepepardo'
+            'email' => 'pepepardo' . $domain
         ]);
         $response = $this->json('GET','/api/v1/proposeFreeUserName/pepe/pardo');
 
@@ -52,7 +54,7 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
         $this->assertEquals('pepepardo1', $result);
 
         factory(User::class)->create([
-            'name' => 'pepepardo1'
+            'email' => 'pepepardo1' . $domain
         ]);
         $response = $this->json('GET','/api/v1/proposeFreeUserName/pepe/pardo');
 
@@ -61,7 +63,7 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
         $this->assertEquals('pepepardo2', $result);
 
         factory(User::class)->create([
-            'name' => 'pepepardo2'
+            'email' => 'pepepardo2' . $domain
         ]);
         $response = $this->json('GET','/api/v1/proposeFreeUserName/pepe/pardo');
 
@@ -112,7 +114,7 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
         $this->assertEquals('marialuisapardo', $result);
 
         factory(User::class)->create([
-            'name' => 'marialuisapardo'
+            'email' => 'marialuisapardo' . $domain
         ]);
 
         $response = $this->json('GET','/api/v1/proposeFreeUserName/Maria Luisa/PàrDÓ');

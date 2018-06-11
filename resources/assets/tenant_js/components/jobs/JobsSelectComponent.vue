@@ -47,6 +47,10 @@
         this.internalJob = newjob
       }
     },
+    model: {
+      prop: 'job',
+      event: 'input'
+    },
     props: {
       job: {
         type: Object

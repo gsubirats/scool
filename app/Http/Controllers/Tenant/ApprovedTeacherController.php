@@ -7,7 +7,9 @@ use App\Models\Address;
 use App\Models\AdministrativeStatus;
 use App\Models\Employee;
 use App\Models\Identifier;
+use App\Models\IdentifierType;
 use App\Models\Location;
+use App\Models\Teacher;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
@@ -54,7 +56,7 @@ class ApprovedTeacherController extends Controller
     {
         // TODO -> obtain users domain from tenant -> Example @iesebre.com
         $user = (object) [
-            'name' => name($request->givenName, $request->sn1, $request->sn2),
+            'name' => name($request->name, $request->sn1, $request->sn2),
             'email' => $request->username . '@iesebre.com',
             'photo' => $request->photo
         ];
@@ -63,7 +65,6 @@ class ApprovedTeacherController extends Controller
         $user->addRole(Role::findByName('Teacher','web'));
 
         // Assign job to user (create a new employee)
-        //TODO que passa si assignem una feina a un usuari que ja està assignada a aquell usuari?
         $start_at = null;
         if (AdministrativeStatus::findByName('Substitut/a')->id === $request->administrative_status_id) {
             $start_at = Carbon::now();
@@ -77,7 +78,7 @@ class ApprovedTeacherController extends Controller
         //Create Teacher
         $teacher = (object) [
             'user_id' => $user->id ?? null,
-            'code' => $request->code,
+            'code' => Teacher::firstAvailableCode(),
             'administrative_status_id' => $request->administrative_status_id ?? null,
             'specialty_id' => $request->specialty_id ?? null,
             'titulacio_acces' => $request->titulacio_acces ?? null,
@@ -93,18 +94,32 @@ class ApprovedTeacherController extends Controller
         $this->teacherRepository->store($teacher);
 
         // DEPARTMENT TODO: BE SURE TO ADD NEW USER TO CORRESPONDING DEPARTMENT
-
         //Create identifier
         $identifier = Identifier::firstOrCreate([
             'value' => $request->identifier,
-            'type_id' => $request->identifier_type
+            'type_id' => IdentifierType::findByName($request->identifier_type)->id
         ]);
+
+        $other_phones = null;
+        if ($request->other_phones) {
+            $other_phones = json_encode(explode(',', $request->other_phones));
+        }
+
+        $other_mobiles = null;
+        if ($request->other_mobiles) {
+            $other_mobiles = json_encode(explode(',', $request->other_mobiles));
+        }
+
+        $other_emails = null;
+        if ($request->other_emails) {
+            $other_emails = json_encode(explode(',', $request->other_emails));
+        }
 
         //Create person
         $person = (object) [
             'user_id' => $user->id ?? null,
             'identifier_id' => $identifier->id,
-            'givenName' => $request->givenName,
+            'givenName' => $request->name,
             'sn1' => $request->sn1,
             'sn2' => $request->sn2 ?? null,
             'birthdate' => $request->birthdate ?? null,
@@ -112,40 +127,43 @@ class ApprovedTeacherController extends Controller
             'gender' => $request->gender ?? null,
             'civil_status' => $request->civil_status ?? null,
             'phone' => $request->phone ?? null,
-            'other_phones' => $request->other_phones ?? null,
+            'other_phones' => $other_phones,
             'mobile' => $request->mobile ?? null,
-            'other_mobiles' => $request->other_mobiles ?? null,
+            'other_mobiles' => $other_mobiles,
             'email' => $request->email ?? null,
-            'other_emails' => $request->other_emails ?? null,
+            'other_emails' => $other_emails ?? null,
             'notes' => $request->notes ?? null
         ];
         $person = $this->personRepository->store($person);
 
         //Create address
-        if(! $location = Location::findByName( $request->address_location)) {
+
+        $location = Location::find($request->locality_id);
+        if(!$location) $location = Location::findByName( $request->locality);
+        if(!$location) {
             $location = Location::create([
-                'name' => strtoupper($request->address_location),
-                'postalcode' => $request->address_postalcode
+                'name' => strtoupper($request->locality),
+                'postalcode' => $request->postal_code
             ]);
         }
 
         if ($address = Address::where('person_id',$person->id)->first()) {
-            $address->name = $request->address;
-            $address->number = $request->address_number ?? null;
-            $address->floor = $request->address_floor ?? null;
-            $address->floor_number = $request->address_floor_number ?? null;
+            $address->name = $request->street;
+            $address->number = $request->number ?? null;
+            $address->floor = $request->floor ?? null;
+            $address->floor_number = $request->floor_number ?? null;
             $address->location_id = $location->id;
-            $address->province_id = $request->address_province_id ?? null;
+            $address->province_id = $request->province_id ?? null;
             $address->save();
         } else {
             Address::create([
                 'person_id' => $person->id,
-                'name' => $request->address,
-                'number' => $request->address_number ?? null,
-                'floor' => $request->address_floor ?? null,
-                'floor_number' => $request->address_floor_number ?? null,
+                'name' => $request->street,
+                'number' => $request->number ?? null,
+                'floor' => $request->floor ?? null,
+                'floor_number' => $request->floor_number ?? null,
                 'location_id' => $location->id,
-                'province_id' => $request->address_province_id ?? null
+                'province_id' => $request->province_id ?? null
             ]);
         }
 

@@ -1,8 +1,9 @@
 <template>
     <v-text-field prepend-icon="person"
-                  v-model="username"
+                  v-model="internalUsername"
                   label="Nom usuari"
                   :loading="loading"
+                  @input="input()"
     ></v-text-field>
 </template>
 
@@ -16,10 +17,15 @@
     data () {
       return {
         loading: true,
-        username: "Calculant el nom d'usuari"
+        internalUsername: this.username
       }
     },
+    model: {
+      prop: 'username',
+      event: 'toggle'
+    },
     props: {
+      username: {},
       name: {
         type: String,
         required: true
@@ -42,13 +48,17 @@
         if (name && sn1) {
           axios.get('/api/v1/proposeFreeUserName/' + name + '/' + sn1).then(response => {
             this.loading = false
-            this.username = response.data
+            this.internalUsername = response.data
+            this.$emit('input', this.internalUsername)
           }).catch(error => {
             this.loading = false
             console.log(error)
             this.showError(error)
           })
         }
+      },
+      input () {
+        this.$emit('input', this.internalUsername)
       }
     },
     created () {

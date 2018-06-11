@@ -38,8 +38,8 @@ export default {
       name: '',
       sn1: '',
       sn2: '',
-      identifierType: 'DNI/NIF',
-      identifierTypes: ['DNI/NIF', 'NIE', 'Passaport'],
+      identifierType: 'NIF',
+      identifierTypes: ['NIF', 'NIE', 'Passaport'],
       identifier: '',
       street: '',
       number: '',
@@ -72,7 +72,9 @@ export default {
       birthdateMenu: false,
       startDateMenu: false,
       identifier_photocopy: '',
-      photo: ''
+      photo: '',
+      username: '',
+      job: {}
     }
   },
   computed: {

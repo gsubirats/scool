@@ -1,5 +1,9 @@
 <template>
-    <jobs-select :job="job()" :jobs="jobs" label="Escolliu la plaça a assignar"></jobs-select>
+    <jobs-select
+                 :job="internalJob"
+                 @input="input($event)"
+                 :jobs="jobs"
+                 label="Escolliu la plaça a assignar"></jobs-select>
 </template>
 
 <script>
@@ -10,7 +14,17 @@
     components: {
       'jobs-select': JobsSelect
     },
+    data () {
+      return {
+        internalJob: this.job
+      }
+    },
+    model: {
+      prop: 'job',
+      event: 'input'
+    },
     props: {
+      job: {},
       jobs: {
         type: Array,
         required: true
@@ -20,13 +34,21 @@
         required: true
       }
     },
-    methods: {
-      job () {
+    watch: {
+      teacher (newValue) {
         let foundJob = this.jobs.find((job) => {
-          return job.active_user_code === this.teacher.code
+          return job.active_user_code === newValue.code
         })
-        if (foundJob) return foundJob
-        return undefined
+        if (foundJob) {
+          this.internalJob = foundJob
+          this.$emit('input', this.internalJob)
+        }
+      }
+    },
+    methods: {
+      input (e) {
+        this.internalJob = e
+        this.$emit('input', e)
       }
     }
   }

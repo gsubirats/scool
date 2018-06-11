@@ -30,7 +30,22 @@ class ApprovedTeacher extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'sn1' => 'required',
+            'identifier' => 'required',
+            'street' => 'required',
+            'postal_code' => 'required',
+            'locality' => 'required',
+            'email' => 'required',
+            'mobile' => 'required',
+            'titulacio_acces' => 'required',
+            'administrative_status_id' => 'required',
+            'photo' => 'sometimes|required',
+            'identifier_photocopy' => 'sometimes|required',
+            'username' => 'required',
+            'job_id' => 'required',
+            'locality_id' => 'required_without:locality',
+            'province_id' => 'required'
         ];
     }
 }

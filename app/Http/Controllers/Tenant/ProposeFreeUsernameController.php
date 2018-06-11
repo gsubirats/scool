@@ -12,6 +12,14 @@ use Illuminate\Http\Request;
  */
 class ProposeFreeUsernameController extends Controller
 {
+    /**
+     * Index.
+     *
+     * @param $tenant
+     * @param $name
+     * @param $sn1
+     * @return string
+     */
     public function index($tenant, $name, $sn1)
     {
         return $this->proposeUsername($name,$sn1);
@@ -36,7 +44,8 @@ class ProposeFreeUsernameController extends Controller
         $notFree = true;
         $i = 1;
         while ($notFree) {
-            if (!User::findByName($username)) {
+            // TODO email domain
+            if (!User::findByEmail($username . '@iesebre.com')) {
                 $notFree = false;
             } else {
                 $username = $originalUsername . strval($i);
