@@ -6,7 +6,7 @@
             transition="dialog-bottom-transition"
             @keydown.esc="dialog = false"
     >
-        <v-btn slot="activator" icon class="mx-0">
+        <v-btn slot="activator" icon class="mx-0" :id="'pending_teacher_see_' + pendingTeacher.email.replace('@', '_').replace('.', '_')">
             <v-icon color="primary">visibility</v-icon>
         </v-btn>
         <v-card>

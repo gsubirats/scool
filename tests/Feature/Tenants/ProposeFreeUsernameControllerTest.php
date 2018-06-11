@@ -33,7 +33,6 @@ class ProposeFreeUsernameControllerTest  extends BaseTenantTest
     /** @test */
     public function propose_free_username()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $this->actingAs($user,'api');
 

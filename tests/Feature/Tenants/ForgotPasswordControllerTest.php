@@ -36,7 +36,6 @@ class ForgotPasswordControllerTest extends BaseTenantTest
     /** @test */
     public function users_can_use_personal_email_to_reset_password()
     {
-        $this->withoutExceptionHandling();
         Notification::fake();
         Config::set('auth.providers.users.model', User::class);
         Config::set('auth.providers.users.driver', 'scool');

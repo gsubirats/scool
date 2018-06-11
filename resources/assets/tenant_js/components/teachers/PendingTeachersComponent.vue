@@ -50,7 +50,9 @@
                                         <td class="text-xs-left">{{ teacher.email }}</td>
                                         <td class="text-xs-left">{{ teacher.mobile }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ teacher.teacher_id }}
+                                            <v-avatar color="grey lighten-4" :size="40">
+                                                <img :src="'/user/' + teacher.teacher_hashid + '/photo'" :alt="teacher.teacher" :title="teacher.teacher">
+                                            </v-avatar>
                                         </td>
                                         <td class="text-xs-left">{{ teacher.start_date }}</td>
                                         <td class="text-xs-left">{{ teacher.created_at }}</td>
@@ -66,12 +68,14 @@
                                                     :administrative-statuses="administrativeStatuses">
                                             ></show-pending-teacher-icon>
 
-                                            <confirm-icon icon="delete"
-                                                          color="pink"
-                                                          :working="removing"
-                                                          @confirmed="remove(teacher)"
-                                                          tooltip="Eliminar"
-                                                          message="Esteu segurs que voleu eliminar aquesta proposta de nou professor?"
+                                            <confirm-icon
+                                                  :id="'pending_teacher_remove_' + teacher.email.replace('@', '_').replace('.', '_')"
+                                                  icon="delete"
+                                                  color="pink"
+                                                  :working="removing"
+                                                  @confirmed="remove(teacher)"
+                                                  tooltip="Eliminar"
+                                                  message="Esteu segurs que voleu eliminar aquesta proposta de nou professor?"
                                             ></confirm-icon>
                                         </td>
                                     </tr>

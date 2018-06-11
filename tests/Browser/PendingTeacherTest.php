@@ -35,24 +35,14 @@ class PendingTeacherTest extends DuskTestCase
     /** @test */
     public function pending_teachers_test()
     {
-//        apply_tenant('iesebre');
+        apply_tenant('iesebre');
+//
         $this->browse(function (Browser $browser) {
-            $browser->visit('https://iesebre.scool.test/login')
-//                ->pause(50000)
-                ->type('email', 'sergiturbadenas@gmail.com')
-                ->type('#login_password', '123456')
-                ->click('#login_button')
-                ->pause(2000)
-                ->visit('https://iesebre.scool.test/teachers')
-                ->pause(12000);
-        });
-
-        $this->browse(function (Browser $browser) {
+            $browser->maximize();
             $browser->visit('https://iesebre.scool.test/nou_professor')
                 ->type('name', 'Pepe')
                 ->type('sn1', 'Pardo')
                 ->type('sn2', 'Jeans')
-//                    ->type('identifierType', 'NIE')
                 ->type('identifier', '39388406D')
                 ->type('formattedBirthdate', '02/03/1988')
                 ->type('street', 'C/ Beseit')
@@ -65,8 +55,8 @@ class PendingTeacherTest extends DuskTestCase
                 ->keys('input[name="locality"]', '{tab}')
                 ->type('province', 'Tarragona')
                 ->keys('input[name="province"]', '{tab}')
-                ->type('emailfield', 'pepepardo@jeans.com')
-                ->type('other_emails', 'pepepardo@gmail.com,pepepardo@xtec.cat')
+                ->type('emailfield', 'myemail@jeans.com')
+                ->type('other_emails', 'myemail@gmail.com,myemail@xtec.cat')
                 ->keys('input[name="other_emails"]', '{tab}')
                 ->type('mobile', '679845759')
                 ->type('other_mobiles', '645845759,689758841')
@@ -92,10 +82,8 @@ class PendingTeacherTest extends DuskTestCase
                 ->type('teacher', 'Dolors Sanjuan Aubà')
                 ->keys('input[name="teacher"]', '{tab}');
             $browser->driver->executeScript('window.scrollTo(0, document.body.scrollHeight);');
-//            $browser->pause(5000000);
             $browser->click('#sendButton')->pause(500)->assertSee('Dades enviades correctament');
         });
-        apply_tenant('iesebre');
         $pendingTeacher = PendingTeacher::orderBy('created_at', 'desc')->first();
 
         $this->assertEquals('Pepe',$pendingTeacher->name);
@@ -112,8 +100,8 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals('35130',$pendingTeacher->locality_id);
         $this->assertEquals('Tarragona',$pendingTeacher->province);
         $this->assertEquals('36',$pendingTeacher->province_id);
-        $this->assertEquals('pepepardo@jeans.com',$pendingTeacher->email);
-        $this->assertEquals('pepepardo@gmail.com,pepepardo@xtec.cat',$pendingTeacher->other_emails);
+        $this->assertEquals('myemail@jeans.com',$pendingTeacher->email);
+        $this->assertEquals('myemail@gmail.com,myemail@xtec.cat',$pendingTeacher->other_emails);
         $this->assertEquals('977405859',$pendingTeacher->phone);
         $this->assertEquals('679845759',$pendingTeacher->mobile);
         $this->assertEquals('645845759,689758841',$pendingTeacher->other_mobiles);
@@ -133,6 +121,68 @@ class PendingTeacherTest extends DuskTestCase
         $this->assertEquals('Quinto Pino',$pendingTeacher->destination_place);
         $this->assertEquals(1,$pendingTeacher->teacher_id);
 
+//
+        $this->browse(function (Browser $browser) {
+            $browser->maximize();
+            $browser->visit('https://iesebre.scool.test/login')
+                ->type('email', 'sergiturbadenas@gmail.com')
+                ->type('#login_password', '123456')
+                ->click('#login_button')
+                ->pause(1000);
+        });
 
+        $this->browse(function (Browser $browser) {
+            $browser->maximize();
+            $browser->visit('https://iesebre.scool.test/teachers')
+                ->click('#pending_teacher_remove_myemail_jeans_com')
+                ->pause(500000)
+                ->click('#confirm_button')
+            ->pause(50000);
+        });
+
+        $this->browse(function (Browser $browser) {
+            $browser->maximize();
+            $browser->visit('https://iesebre.scool.test/teachers')
+                ->pause(20000)
+                ->assertSee('507')
+                ->assertSee('myemail@jeans.com')
+                ->assertSee('Pardo Jeans, Pepe')
+                ->assertSee('679845759')
+                ->click('#pending_teacher_see_myemail_jeans_com')
+                ->pause(2000)
+                ->assertSee('Pepe')
+                ->assertSee('Pardo')
+                ->assertSee('Jeans')
+                ->assertSee('DNI/NIF')
+                ->assertSee('39388406D')
+                ->assertSee('02/03/1988')
+                ->assertSee('C/ Beseit')
+                ->assertSee('24')
+                ->assertSee('1r')
+                ->assertSee('2a')
+                ->assertSee('TORTOSA')
+                ->assertSee('Tarragona')
+                ->assertSee('myemail@jeans.com')
+                ->assertSee('myemail@gmail.com,myemail@xtec.cat')
+                ->assertSee('679845759')
+                ->assertSee('645845759,689758841')
+                ->assertSee('977405859')
+                ->assertSee('977405889,977456889')
+                ->assertSee('Enginyeria en Telecomunicacions')
+                ->assertSee('Master en bla bla bla')
+                ->assertSee('Anglès')
+                ->assertSee('Perfil TIC, CLIC, LIL, lOl')
+                ->assertSee('Fuster')
+                ->assertSee('Informàtica')
+                ->assertSee("Professors d'ensenyament secundari")
+                ->assertSee('2009')
+                ->assertSee('01/09/2010')
+                ->assertSee('Juny 2007')
+                ->assertSee('Funcionari/a amb plaça definitiva')
+                ->assertSee('Quinto Pino')
+                ->assertSee('Dolors Sanjuan Aubà')
+                ->assertSee('myemail')
+                ->assertSee('pepepardo');
+        });
     }
 }

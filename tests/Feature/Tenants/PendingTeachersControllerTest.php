@@ -120,7 +120,8 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'administrative_status' => 'Interí/na',
             'destination_place' => 'Quinta forca i una mica més',
             'teacher_id' => 1,
-            'teacher' => 'Sergi Tur Badenas'
+            'teacher' => 'Sergi Tur Badenas',
+            'teacher_hashid' => 'yO',
         ]);
 
         $response = $this->json('GET','/api/v1/pending_teachers');
@@ -163,7 +164,6 @@ class PendingTeachersControllerTest extends BaseTenantTest
     /** @test */
     public function users_can_create_pending_teacher()
     {
-        $this->withoutExceptionHandling();
         $this->assertCount(0,PendingTeacher::all());
 
         $response = $this->json('POST','api/v1/add_teacher', $this->teacherArray());
@@ -205,7 +205,9 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'administrative_status_id',
             'administrative_status',
             'destination_place',
-            'teacher_id'
+            'teacher_id',
+            'teacher',
+            'teacher_hashid'
         ]);
 
         $response->assertJson([
@@ -237,7 +239,9 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'opositions_date' => '2014-06-03',
             'administrative_status_id' => 1,
             'destination_place' => 'Quinta forca',
-            'teacher_id' => 1
+            'teacher_id' => 1,
+            'teacher' => 'Pepe Pardo Jeans',
+            'teacher_hashid' => 'yO',
         ]);
 
         $this->assertCount(1, PendingTeacher::all());
@@ -287,7 +291,8 @@ class PendingTeachersControllerTest extends BaseTenantTest
             'administrative_status' => 'Funcionari/a amb plaça definitiva',
             'destination_place' => 'Quinta forca',
             'teacher_id' => 1,
-
+            'teacher' => 'Pepe Pardo Jeans',
+            'teacher_hashid' => 'yO'
         ];
     }
 

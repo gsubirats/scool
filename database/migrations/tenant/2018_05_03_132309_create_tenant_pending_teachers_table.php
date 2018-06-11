@@ -58,6 +58,7 @@ class CreateTenantPendingTeachersTable extends Migration
             $table->string('destination_place')->nullable();
             $table->unsignedInteger('teacher_id')->nullable(); // Subtitut de:
             $table->string('teacher')->nullable(); // Subtitut de:
+            $table->string('teacher_hashid')->nullable(); // Subtitut de:
             $table->timestamps();
         });
     }

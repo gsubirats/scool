@@ -742,7 +742,8 @@
           administrative_status: this.administrative_status.name,
           destination_place: this.destination_place,
           teacher_id: this.teacher.teacher_id,
-          teacher: this.teacher.name
+          teacher: this.teacher.name,
+          teacher_hashid: this.teacher.hashid
         }
         if (this.photo) teacher.photo = this.photo
         if (this.identifier_photocopy) teacher.identifier_photocopy = this.identifier_photocopy
@@ -853,15 +854,7 @@
         this.opositions_date = pendingTeacher.opositions_date
         this.administrative_status = this.getAdministrativestatus(pendingTeacher.administrative_status_id)
         this.destination_place = pendingTeacher.destination_place
-        console.log('Seraching teacher: ')
-        console.log(pendingTeacher.teacher_id)
-        console.log(pendingTeacher.user_id)
-        console.log(pendingTeacher.name)
         this.teacher = this.getTeacher(pendingTeacher.teacher_id)
-        console.log('Found teacher:')
-        console.log(this.teacher.teacher_id)
-        console.log(this.teacher.user_id)
-        console.log(this.teacher.name)
         this.ready = true
       }
     },

@@ -15,7 +15,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="green darken-1" flat @click.native="dialog = false" v-html="cancel"></v-btn>
-                <v-btn color="red darken-1" flat @click.native="action" :disabled="working" :loading="working" v-html="confirm"></v-btn>
+                <v-btn color="red darken-1" flat @click.native="action" :disabled="working" :loading="working" v-html="confirm" id="confirm_button"></v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>

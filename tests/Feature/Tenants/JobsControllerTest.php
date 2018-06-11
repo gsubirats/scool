@@ -59,7 +59,6 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function show_jobs_management_jobs_data()
     {
-        $this->withoutExceptionHandling();
         $staffManager = create(User::class);
         $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
@@ -124,7 +123,6 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function add_job()
     {
-        $this->withoutExceptionHandling();
         initialize_job_types();
         initialize_forces();
         initialize_families();

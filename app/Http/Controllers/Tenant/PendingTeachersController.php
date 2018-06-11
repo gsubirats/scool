@@ -110,6 +110,7 @@ class PendingTeachersController extends Controller
             'destination_place',
             'teacher_id',
             'teacher',
+            'teacher_hashid',
             'photo',
             'identifier_photocopy'
         ]));
