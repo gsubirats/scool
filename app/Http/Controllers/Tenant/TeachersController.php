@@ -21,6 +21,12 @@ use App\Http\Resources\Tenant\Job as JobResource;
  */
 class TeachersController extends Controller
 {
+    /**
+     * Index.
+     *
+     * @param ListTeachers $request
+     * @return \Illuminate\Support\Collection
+     */
     public function index(ListTeachers $request)
     {
         return $this->teachers();
