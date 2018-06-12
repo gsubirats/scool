@@ -87,8 +87,7 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <!--TODO-->
-                                            <add-substitute-icon></add-substitute-icon>
+                                            <add-substitute-icon :job="job"></add-substitute-icon>
                                             <stop-substitution-icon :job="job"></stop-substitution-icon>
                                             <v-btn icon class="mx-0" @click="edit(job)">
                                                 <v-icon color="teal">edit</v-icon>
@@ -188,7 +187,7 @@
         }
         headers.push({text: 'Code', value: 'code'})
         headers.push({text: 'Titular', value: 'holder_description', sortable: false})
-        headers.push({text: 'Professor actual', value: 'active_user_description', sortable: false})
+        headers.push({text: 'Treballador actual', value: 'active_user_description', sortable: false})
         headers.push({text: 'Substituts', sortable: false})
         headers.push({text: 'Codi complet', value: 'fullcode'})
         headers.push({text: 'Order', value: 'order'})

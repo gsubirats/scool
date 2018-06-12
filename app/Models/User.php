@@ -189,8 +189,6 @@ class User extends Authenticatable implements HasMedia
         if (!is_object($job)) $job = Job::findOrFail($job);
         $start_at = null;
         $holder = true;
-//        dd(AdministrativeStatus::findByName('Interí/na')->id);
-//        dd($administrativeStatus);
         if (AdministrativeStatus::findByName('Substitut/a')->id === $administrativeStatus) {
             $start_at = Carbon::now();
             $holder = false;

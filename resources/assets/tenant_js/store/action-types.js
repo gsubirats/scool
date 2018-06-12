@@ -13,6 +13,7 @@ export const STORE_USER = 'STORE_USER'
 export const DELETE_USER = 'DELETE_USER'
 
 // JOBS MODULE
+export const GET_JOBS = 'GET_JOBS'
 export const STORE_JOB = 'STORE_JOB'
 export const DELETE_JOB = 'DELETE_JOB'
 

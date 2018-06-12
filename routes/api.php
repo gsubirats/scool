@@ -17,6 +17,10 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
+            //Available users
+            Route::get('/available-users/{jobType}', 'Tenant\AvailableUsersController@index');
+
+            // Job substitutions
             Route::delete('/job/{job}/substitutions', 'Tenant\JobSubstitutionsController@destroy');
 
             //Propose free user names
