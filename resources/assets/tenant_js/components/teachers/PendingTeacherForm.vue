@@ -686,8 +686,8 @@
             this.showError('El DNI no és vàlid')
             return
           }
-
-          axios.post('/api/v1/approved_teacher', { ...this.getPostTeacher(), username: this.username, job_id: this.job.id }).then(response => {
+          let postData = { ...this.getPostTeacher(), username: this.username, job_id: this.job.id, pending_teacher_id: this.pendingTeacher.id }
+          axios.post('/api/v1/approved_teacher', postData).then(response => {
             console.log(response)
           }).catch(error => {
             console.log(error)

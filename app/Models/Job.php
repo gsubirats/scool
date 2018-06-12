@@ -22,9 +22,6 @@ class Job extends Model
         'formatted_updated_at',
         'formatted_created_at_diff',
         'formatted_updated_at_diff',
-//        'description', // TODO Performance problem
-//        'fullcode',
-//        'activeUser'
     ];
 
     /**
@@ -71,9 +68,9 @@ class Job extends Model
                     }
                 }
             });
-            return $actives->first();
+            if($actives->first()) return $actives->first();
         }
-        return null;
+        return $this->holders->first();
     }
 
     /**
@@ -98,6 +95,23 @@ class Job extends Model
     public function substitutes()
     {
         return $this->belongsToMany(User::class,'employees')->wherePivot('holder', 0)->withPivot('start_at', 'end_at');
+    }
+
+    /**
+     * Add substitute.
+     *
+     * @param $user
+     * @return $this
+     */
+    public function addSubtitute($user)
+    {
+        Employee::create([
+            'user_id' => $user->id,
+            'job_id' => $this->id,
+            'holder' => 0,
+            'start_at' => Carbon::now()
+        ]);
+        return $this;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Tenants;
 
+use App\Models\Employee;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Job;
@@ -298,4 +299,23 @@ class JobTest extends TestCase
         $this->assertEquals('012',Job::firstAvailableCode());
     }
 
+    /** @test */
+    public function add_substitute()
+    {
+        $job = Job::firstOrCreate([
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'code' => '041',
+            'order' => 1
+        ]);
+
+        $this->assertNull($job->subtitutes);
+        $job->addSubtitute($user = factory(User::class)->create(['name' => 'Pepe Pardo Jeans']));
+        $job = $job->fresh();
+        $this->assertNotNull($job->substitutes);
+        $substitute = $job->substitutes()->first();
+        $this->assertEquals('Pepe Pardo Jeans',$substitute->name);
+
+    }
 }

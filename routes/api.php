@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
+
+            Route::delete('/job/{job}/substitutions', 'Tenant\JobSubstitutionsController@destroy');
+
             //Propose free user names
             Route::get('/proposeFreeUserName/{name}/{sn1}', 'Tenant\ProposeFreeUsernameController@index');
 

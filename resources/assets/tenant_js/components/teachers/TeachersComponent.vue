@@ -113,10 +113,6 @@
     </v-container>
 </template>
 
-<style>
-
-</style>
-
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
@@ -125,8 +121,10 @@
   import AdministrativeStatusSelect from './AdministrativeStatusSelectComponent.vue'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
   import axios from 'axios'
+  import withSnackbar from '../mixins/withSnackbar'
 
   export default {
+    mixins: [withSnackbar],
     components: {
       ShowTeacherIcon, // show-teacher-icon
       AdministrativeStatusSelect, // administrative-status-select

@@ -27,8 +27,6 @@ class JobsController extends Controller
      */
     public function show(ShowJobsManagement $request)
     {
-//        $jobs = Job::with('type','family','specialty','users','holders','holders.teacher','substitutes',
-//            'substitutes.teacher')->get();
         $jobs =  collect(JobResource::collection(
             Job::with(
                 'type',

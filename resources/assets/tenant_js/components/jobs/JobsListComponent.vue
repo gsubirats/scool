@@ -57,6 +57,7 @@
                                                      :alt="substitute.description"
                                                      :title="substitute.description">
                                             </v-avatar>
+                                            <remove-substitutes-icon v-if="job.substitutes.length > 0" :job="job"></remove-substitutes-icon>
                                         </td>
                                         <td class="text-xs-left" v-html="job.fullcode"></td>
                                         <td class="text-xs-left" v-html="job.order">{{ job.order }}</td>
@@ -76,7 +77,9 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
+                                            <!--TODO-->
                                             <add-substitute-icon></add-substitute-icon>
+                                            <stop-substitution-icon :job="job"></stop-substitution-icon>
                                             <v-btn icon class="mx-0" @click="edit(job)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
@@ -141,12 +144,16 @@
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
   import JobTypeSelect from './JobTypeSelectComponent.vue'
   import AddSubstituteIcon from './AddSubstituteIconComponent'
+  import StopSubstitutionIcon from './StopSubstitutionIconComponent'
+  import RemoveSubstitutesIcon from './RemoveSubstitutesIconComponent'
 
   export default {
     components: {
       'confirm-icon': ConfirmIcon,
       'job-type-select': JobTypeSelect,
-      'add-substitute-icon': AddSubstituteIcon
+      'add-substitute-icon': AddSubstituteIcon,
+      'stop-substitution-icon': StopSubstitutionIcon,
+      'remove-substitutes-icon': RemoveSubstitutesIcon
     },
     data () {
       return {

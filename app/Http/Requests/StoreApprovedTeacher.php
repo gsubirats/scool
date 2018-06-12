@@ -38,7 +38,7 @@ class StoreApprovedTeacher extends FormRequest
             'locality' => 'required',
             'email' => 'required',
             'mobile' => 'required',
-            'titulacio_acces' => 'required',
+            'degree' => 'required',
             'administrative_status_id' => 'required',
             'photo' => 'sometimes|required',
             'identifier_photocopy' => 'sometimes|required',

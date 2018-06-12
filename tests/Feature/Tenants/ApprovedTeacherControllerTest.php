@@ -79,7 +79,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             //Teacher
             'administrative_status_id' => $pendingTeacher->administrative_status_id,
             'specialty_id' => $pendingTeacher->specialty_id,
-            'titulacio_acces' => $pendingTeacher->degree,
+            'degree' => $pendingTeacher->degree,
             'altres_titulacions' => $pendingTeacher->other_degrees,
             'idiomes' => $pendingTeacher->languages,
             'altres_formacions' => $pendingTeacher->other_training,
@@ -136,6 +136,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
 
         //Check teacher
         $this->assertNotNull($teacher = $user->teacher);
+
         $this->assertEquals(5,$teacher->administrative_status_id);
         $this->assertEquals(1,$teacher->specialty_id);
         $this->assertEquals('Enginyer en chapuzas varias',$teacher->titulacio_acces);
@@ -201,7 +202,7 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
             'code' => '041',
             'administrative_status_id' => 1,
             'specialty_id' => 1,
-            'titulacio_acces' => 'Enginyer en Enginyeria',
+            'degree' => 'Enginyer en Enginyeria',
             'altres_titulacions' => 'Doctorat en Filologia Hispànica',
             'idiomes' => 'Anglès',
             'altres_formacions' => 'Nivell D Català',

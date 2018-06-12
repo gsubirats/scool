@@ -1,5 +1,6 @@
 <template>
     <modal-dialog v-model="dialog">
+        <!--TODO-->
         <v-card>
             <v-card-title>
                 Dialog 2

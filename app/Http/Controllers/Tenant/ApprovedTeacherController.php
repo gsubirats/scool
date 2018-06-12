@@ -71,7 +71,7 @@ class ApprovedTeacherController extends Controller
             'code' => Teacher::firstAvailableCode(),
             'administrative_status_id' => $request->administrative_status_id ?? null,
             'specialty_id' => $request->specialty_id ?? null,
-            'titulacio_acces' => $request->titulacio_acces ?? null,
+            'titulacio_acces' => $request->degree ?? null,
             'altres_titulacions' => $request->altres_titulacions ?? null,
             'idiomes' => $request->idiomes ?? null,
             'altres_formacions' => $request->altres_formacions ?? null,
