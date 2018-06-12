@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Tenant;
 
-use App\Http\Requests\ApprovedTeacher;
+use App\Http\Requests\DeleteApprovedTeacher;
+use App\Http\Requests\StoreApprovedTeacher;
 use App\Models\Address;
-use App\Models\AdministrativeStatus;
-use App\Models\Employee;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Location;
 use App\Models\PendingTeacher;
 use App\Models\Teacher;
+use App\Models\User;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
-use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 
 /**
@@ -43,17 +42,15 @@ class ApprovedTeacherController extends Controller
         $this->userRepository = $userRepository;
         $this->teacherRepository = $teacherRepository;
         $this->personRepository = $personRepository;
-
     }
-
 
     /**
      * Store
      *
-     * @param ApprovedTeacher $request
+     * @param StoreApprovedTeacher $request
      * @param $tenant
      */
-    public function store(ApprovedTeacher $request, $tenant)
+    public function store(StoreApprovedTeacher $request)
     {
         // TODO -> obtain users domain from tenant -> Example @iesebre.com
         $user = (object) [
@@ -66,15 +63,7 @@ class ApprovedTeacherController extends Controller
         $user->addRole(Role::findByName('Teacher','web'));
 
         // Assign job to user (create a new employee)
-        $start_at = null;
-        if (AdministrativeStatus::findByName('Substitut/a')->id === $request->administrative_status_id) {
-            $start_at = Carbon::now();
-        }
-        Employee::create([
-            'user_id' => $user->id,
-            'job_id' => $request->job_id,
-            'start_at' => $start_at
-        ]);
+        $user->assignTeacherJob($request->job_id,$request->administrative_status_id);
 
         //Create Teacher
         $teacher = (object) [
@@ -95,6 +84,7 @@ class ApprovedTeacherController extends Controller
         $this->teacherRepository->store($teacher);
 
         // DEPARTMENT TODO: BE SURE TO ADD NEW USER TO CORRESPONDING DEPARTMENT
+
         //Create identifier
         $identifier = Identifier::firstOrCreate([
             'value' => $request->identifier,
@@ -168,10 +158,28 @@ class ApprovedTeacherController extends Controller
             ]);
         }
 
-        // TODO -> Remove pending teacher!!!
         PendingTeacher::destroy($request->pending_teacher_id);
-
     }
 
+    /**
+     * Destroy.
+     *
+     * @param DeleteApprovedTeacher $request
+     * @param $tenant
+     * @param $user_id
+     */
+    public function destroy(DeleteApprovedTeacher $request, $tenant,  User $user)
+    {
+        $person = $user->person;
+        $person->user->teacher()->delete();
+        $person->user->rmRole(Role::findByName('Teacher','web'));
+        // Unassign jobs to user (remove employee)
+        $person->user->unassignJobs();
+        $person->user()->delete();
+        $person->identifier()->delete();
+        $person->birthplace()->delete();
+        $person->address()->delete();
+        $person->delete();
+    }
 
 }

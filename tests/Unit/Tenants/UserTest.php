@@ -117,38 +117,62 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function can_remove_role()
+    {
+        $user = factory(User::class)->create();
+        $role = Role::create([
+            'name' => 'Rol1',
+        ]);
+        $user->addRole($role);
+        $user = $user->fresh();
+
+        $user->rmRole($role);
+        $user = $user->fresh();
+        $this->assertFalse($user->hasRole($role));
+
+        $user->rmRole($role);
+        $user = $user->fresh();
+        $this->assertFalse($user->hasRole($role));
+    }
+
+    /** @test */
+    function can_unassign_job()
+    {
+        $user = factory(User::class)->create();
+        $job = create_fake_job();
+        $user->assignJob($job, false);
+        $this->assertnotNull(Employee::where('user_id',$user->id)->where('job_id',$job->id)->first());
+
+        $user->unassignJob($job);
+        $user = $user->fresh();
+
+        $this->assertNull(Employee::where('user_id',$user->id)->where('job_id',$job->id)->first());
+    }
+
+    /** @test */
+    function can_unassign_jobs()
+    {
+        $user = factory(User::class)->create();
+        $job = create_fake_job();
+        $user->assignJob($job, false);
+        $this->assertnotNull(Employee::where('user_id',$user->id)->where('job_id',$job->id)->first());
+
+        $user->unassignJobs();
+        $user = $user->fresh();
+
+        $this->assertNull(Employee::where('user_id',$user->id)->where('job_id',$job->id)->first());
+    }
+
+    /** @test */
     function can_assign_job()
     {
         $user = factory(User::class)->create();
 
-        JobType::create(['name' => 'Professor/a']);
-        Force::create([
-            'name' => 'Secundària',
-            'code' => 'SECUNDARIA'
-        ]);
-
-        $family = Family::create([
-            'name' => 'Sanitat',
-            'code' => 'SANITAT'
-        ]);
-        Specialty::create([
-            'name' => 'Informàtica',
-            'code' => '507',
-            'force_id' => Force::findByCode('SECUNDARIA'),
-            'family_id' => $family->id
-        ]);
-
+        $job = create_fake_job();
 
         $this->assertCount(0,$user->jobs);
 
-        $result = $user->assignJob(
-            Job::firstOrCreate([
-                'code' => '01',
-                'type_id' => JobType::findByName('Professor/a')->id,
-                'specialty_id' => Specialty::findByCode('507')->id,
-                'family_id' => Family::findByCode('SANITAT')->id,
-                'order' => 1
-            ]), false);
+        $result = $user->assignJob($job, false);
         $user = $user->fresh();
         $this->assertCount(1,$user->jobs);
         $job = $user->jobs()->first();

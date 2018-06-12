@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Traits\FormattedDates;
 use App\Notifications\ResetPasswordNotification;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Lab404\Impersonate\Models\Impersonate;
@@ -139,6 +141,18 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * Remove role but not fail if role is already removed.
+     *
+     * @param $role
+     * @return $this
+     */
+    public function rmRole($role)
+    {
+        if ($this->hasRole($role)) $this->removeRole($role);
+        return $this;
+    }
+
+    /**
      * Get the jobs for the user.
      */
     public function jobs()
@@ -158,12 +172,56 @@ class User extends Authenticatable implements HasMedia
      */
     public function assignJob($job, $holder = true, $start = null, $end = null)
     {
-        if ($holder) {
-            $this->jobs()->save($job,['holder' => true]);
-        } else {
-            $this->jobs()->save($job,['start_at' => $start, 'end_at' => $end, ]);
+        $this->jobs()->save($job,['holder' => $holder, 'start_at' => $start, 'end_at' => $end]);
+        return $this;
+    }
+
+    /**
+     * Assign job of type teacher to user
+     *
+     * @param $job
+     * @param $administrativeStatus
+     * @return User
+     */
+    public function assignTeacherJob($job, $administrativeStatus)
+    {
+        if (is_object($administrativeStatus)) $administrativeStatus = $administrativeStatus->id;
+        if (!is_object($job)) $job = Job::findOrFail($job);
+        $start_at = null;
+        $holder = true;
+//        dd(AdministrativeStatus::findByName('Interí/na')->id);
+//        dd($administrativeStatus);
+        if (AdministrativeStatus::findByName('Substitut/a')->id === $administrativeStatus) {
+            $start_at = Carbon::now();
+            $holder = false;
+        }
+        if (AdministrativeStatus::findByName('Interí/na')->id === $administrativeStatus) {
+            $start_at = Carbon::now();
         }
 
+        return $this->assignJob($job, $holder, $start_at);
+    }
+
+    /**
+     * Unassign job.
+     *
+     * @param $job
+     * @return $this
+     */
+    public function unassignJob($job)
+    {
+        $this->jobs()->detach($job->id);
+        return $this;
+    }
+
+    /**
+     * Unassign jobs.
+     *
+     * @return $this
+     */
+    public function unassignJobs()
+    {
+        DB::table('employees')->where('user_id', $this->id)->delete();
         return $this;
     }
 

@@ -19,6 +19,9 @@ use App\Models\JobType;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
+use App\Repositories\PersonRepository;
+use App\Repositories\TeacherRepository;
+use App\Repositories\UserRepository;
 use App\Tenant;
 use Carbon\Carbon;
 use PulkitJalan\Google\Client;
@@ -4142,6 +4145,9 @@ if (!function_exists('apply_tenant')) {
 if (!function_exists('add_fake_pending_teacher')) {
     function add_fake_pending_teacher()
     {
+        initialize_administrative_statuses();
+        seed_identifier_types();
+
         return PendingTeacher::create([
             'name' => 'Pepe',
             'sn1' => 'Pardo',
@@ -4161,7 +4167,7 @@ if (!function_exists('add_fake_pending_teacher')) {
             'email' => 'pepe@pardo.com',
             'other_emails' => 'pepepardojeans@gmail.com,ppardo@xtec.cat',
             'phone' => '977405689',
-            'other_phones' => '977854265,689578458',
+            'other_phones' => '977854265,9778542456',
             'mobile' => '679852467',
             'other_mobiles' => '651750489,689534729',
             'degree' => 'Enginyer en chapuzas varias',
@@ -4176,11 +4182,11 @@ if (!function_exists('add_fake_pending_teacher')) {
             'teacher_start_date' => '2015',
             'start_date' => '2017-03-06',
             'opositions_date' => '2009-06-10',
-            'administrative_status_id' => 1,
-            'administrative_status' => 'Funcionari/a amb plaça definitiva',
+            'administrative_status_id' => AdministrativeStatus::findByName('Interí/na')->id,
+            'administrative_status' => 'Interí/na',
             'destination_place' => 'La Seu Urgell',
             'teacher_id' => 8,
-            'teacher' => 'Sergi Tur Badenas'
+            'teacher' => 'Sergi Tur Badenas',
         ]);
     }
 }
@@ -4636,6 +4642,130 @@ if (!function_exists('fullname')) {
         }
         $fullname = $fullname . ', ' . trim($givenName);
         return trim($fullname);
+    }
+}
+
+if (!function_exists('create_fake_job')) {
+    function create_fake_job()
+    {
+        JobType::create(['name' => 'Professor/a']);
+        Force::create([
+            'name' => 'Secundària',
+            'code' => 'SECUNDARIA'
+        ]);
+
+        $family = Family::create([
+            'name' => 'Sanitat',
+            'code' => 'SANITAT'
+        ]);
+        Specialty::create([
+            'name' => 'Informàtica',
+            'code' => '507',
+            'force_id' => Force::findByCode('SECUNDARIA'),
+            'family_id' => $family->id
+        ]);
+
+        return Job::firstOrCreate([
+            'code' => '01',
+            'type_id' => JobType::findByName('Professor/a')->id,
+            'specialty_id' => Specialty::findByCode('507')->id,
+            'family_id' => Family::findByCode('SANITAT')->id,
+            'order' => 1
+        ]);
+    }
+}
+
+if (!function_exists('create_fake_teacher')) {
+    /**
+     * Create fake teacher.
+     *
+     * @return mixed
+     */
+    function create_fake_teacher()
+    {
+        $user = (new UserRepository())->store(
+            (object) [
+                'name' => name('Pepe', 'Pardo', 'Jeans'),
+                'email' => 'pepepardo@iesebre.com',
+                'photo' => 'user_photos/photo.png'
+            ]
+        );
+
+        $role = Role::firstOrCreate([
+            'name' => 'Teacher',
+            'guard_name' => 'web'
+        ]);
+
+        $user->addRole($role);
+
+        (new TeacherRepository())->store((object) [
+            'user_id' => $user->id,
+            'code' => Teacher::firstAvailableCode(),
+            'administrative_status_id' => 1,
+            'specialty_id' => 1,
+            'titulacio_acces' => 'Enginyer',
+            'altres_titulacions' => 'Master',
+            'idiomes' => 'Anglès',
+            'altres_formacions' => 'Nivell D Català',
+            'perfil_professional' => 'CLIC',
+            'data_inici_treball' => '2009',
+            'data_incorporacio_centre' => '2008-02-03',
+            'data_superacio_oposicions' => 'juny 2006',
+            'lloc_destinacio_definitiva' => 'Quinto Pino'
+        ]);
+
+        //Create identifier
+        $type = IdentifierType::firstOrCreate([
+            'name' => 'NIF'
+        ]);
+        $identifier = Identifier::firstOrCreate([
+            'value' => '54895745N',
+            'type_id' => $type->id
+        ]);
+
+        $location = Location::firstOrCreate([
+            'name' => 'TORTOSA',
+            'postalcode' => 43500
+        ]);
+
+        $province = Province::firstOrCreate([
+            'state_id' => 9,
+            'name' => 'Tarragona',
+            'postal_code_prefix' => '43'
+        ]);
+
+        //Create person
+        $person = (new PersonRepository())->store((object) [
+            'user_id' => $user->id,
+            'identifier_id' => $identifier->id,
+            'givenName' => 'Pepe',
+            'sn1' => 'Pardo',
+            'sn2' => 'Jeans',
+            'birthdate' => '2008-02-48',
+            'birthplace_id' => $location->id,
+            'gender' => 'Home',
+            'civil_status' => 'Solter/a',
+            'phone' => '977858689',
+            'other_phones' => '["977485868","977485969"]',
+            'mobile' => '678598458',
+            'other_mobiles' => '["645698458","678548558"]',
+            'email' => 'myemailpepepardo@gmail.com',
+            'other_emails' => '["myemailpepepardo@hotmail.com","myemailpepepardo@yahoo.com"]',
+            'notes' => 'Bla bla bla'
+        ]);
+
+        //Create address
+        Address::create([
+            'person_id' => $person->id,
+            'name' => 'C/Beseit',
+            'number' => '24',
+            'floor' => '4t',
+            'floor_number' => '2a',
+            'location_id' => $location->id,
+            'province_id' => $province->id
+        ]);
+
+        return $user;
     }
 }
 

@@ -6,11 +6,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class ApprovedTeacher.
+ * Class StoreApprovedTeacher.
  *
  * @package App\Http\Requests
  */
-class ApprovedTeacher extends FormRequest
+class StoreApprovedTeacher extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
