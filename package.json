@@ -32,6 +32,7 @@
     "jquery": "^3.2",
     "laravel-mix": "^2.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "popper.js": "^1.12",
     "vue": "^2.5.7"
   },
