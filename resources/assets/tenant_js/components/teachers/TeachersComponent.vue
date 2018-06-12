@@ -82,20 +82,15 @@
                                             <v-btn icon class="mx-0" @click="editItem(teacher)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
-                                            <v-btn icon class="mx-0" @click="showConfirmationDialog(teacher)">
-                                                <v-icon color="pink">delete</v-icon>
-                                                <v-dialog v-model="showDeletePendingTeacherDialog" max-width="500px">
-                                                    <v-card>
-                                                        <v-card-text>
-                                                            Esteu segurs que voleu eliminar aquest usuari?
-                                                        </v-card-text>
-                                                        <v-card-actions>
-                                                            <v-btn flat @click.stop="showDeletePendingTeacherDialog=false">Cancel·lar</v-btn>
-                                                            <v-btn color="primary" @click.stop="deleteUser" :loading="deleting">Esborrar</v-btn>
-                                                        </v-card-actions>
-                                                    </v-card>
-                                                </v-dialog>
-                                            </v-btn>
+                                            <confirm-icon
+                                                    :id="'teacher_remove_' + teacher.code"
+                                                    icon="delete"
+                                                    color="pink"
+                                                    :working="removing"
+                                                    @confirmed="remove(teacher)"
+                                                    tooltip="Eliminar"
+                                                    message="Esteu segurs que voleu eliminar totes les dades associades al professor?"
+                                            ></confirm-icon>
                                         </td>
                                     </tr>
                                 </template>
@@ -117,18 +112,22 @@
   import * as mutations from '../../store/mutation-types'
   import ShowTeacherIcon from './ShowTeacherIconComponent.vue'
   import AdministrativeStatusSelect from './AdministrativeStatusSelectComponent.vue'
+  import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
+  import axios from 'axios'
 
   export default {
     components: {
       ShowTeacherIcon, // show-teacher-icon
-      AdministrativeStatusSelect // administrative-status-select
+      AdministrativeStatusSelect, // administrative-status-select
+      'confirm-icon': ConfirmIcon
     },
     data () {
       return {
         administrativeStatus: {},
         showDeletePendingTeacherDialog: false,
         search: '',
-        deleting: false
+        deleting: false,
+        removing: false
       }
     },
     computed: {
@@ -144,8 +143,8 @@
         headers.push({text: 'Id', align: 'left', value: 'id'})
         headers.push({text: 'Codi', value: 'code'})
         headers.push({text: 'Foto', value: 'full_search', sortable: false})
-        headers.push({text: 'Nom', value: 'fullname' })
-        headers.push({text: 'Departament', value: 'department_code' })
+        headers.push({text: 'Nom', value: 'fullname'})
+        headers.push({text: 'Departament', value: 'department_code'})
         headers.push({text: 'Especialitat', value: 'specialty_code'})
         headers.push({text: 'Familia', value: 'family_code'})
         if (this.showStatusHeader) headers.push({text: 'Estatus', value: 'administrative_status_code'})
@@ -179,7 +178,16 @@
       }
     },
     methods: {
-      // TODO
+      remove (teacher) {
+        this.removing = true
+        axios.delete('/api/v1/approved_teacher/' + teacher.user_id).then(response => {
+          this.removing = false
+          this.$store.commit(mutations.DELETE_TEACHER, teacher)
+        }).catch(error => {
+          this.removing = false
+          console.log(error)
+        })
+      },
       teacherDescription (teacherCode) {
         let teacher = this.teachers.find(teacher => { return teacher.code === teacherCode })
         if (teacher) return teacher.user.name + ' (' + teacher.code + ')'

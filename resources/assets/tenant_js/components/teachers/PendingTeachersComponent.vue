@@ -58,7 +58,6 @@
                                         <td class="text-xs-left">{{ teacher.created_at }}</td>
                                         <td class="text-xs-left">{{ teacher.updated_at }}</td>
                                         <td class="text-xs-left">
-
                                             <show-pending-teacher-icon
                                                     :pending-teacher="teacher"
                                                     :jobs="jobs"

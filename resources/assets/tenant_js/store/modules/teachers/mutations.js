@@ -9,5 +9,8 @@ export default {
   },
   [ types.SET_TEACHERS ] (state, teachers) {
     state.teachers = teachers
+  },
+  [ types.DELETE_TEACHER ] (state, teacher) {
+    state.teachers.splice(state.teachers.indexOf(teacher), 1)
   }
 }
