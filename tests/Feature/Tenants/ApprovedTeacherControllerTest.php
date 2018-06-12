@@ -281,7 +281,6 @@ class ApprovedTeacherControllerTest extends BaseTenantTest
     /** @test */
     public function remove_approved_teacher()
     {
-        $this->withoutExceptionHandling();
         $admin = factory(User::class)->create();
         $admin->admin = true;
         $admin->save();

@@ -2,8 +2,18 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex xs12>
+                <v-toolbar color="blue darken-3">
+                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
+                    <v-toolbar-title class="white--text title">Professors</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon class="white--text" @click="settings">
+                        <v-icon>settings</v-icon>
+                    </v-btn>
+                    <v-btn icon class="white--text" @click="refresh">
+                        <v-icon>refresh</v-icon>
+                    </v-btn>
+                </v-toolbar>
                 <v-card>
-                    <v-card-title class="blue darken-3 white--text"><h2>Professors</h2></v-card-title>
                     <v-card-text class="px-0 mb-2">
                         <v-card>
                             <v-card-title>
@@ -110,6 +120,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import * as mutations from '../../store/mutation-types'
+  import * as actions from '../../store/action-types'
   import ShowTeacherIcon from './ShowTeacherIconComponent.vue'
   import AdministrativeStatusSelect from './AdministrativeStatusSelectComponent.vue'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
@@ -178,6 +189,14 @@
       }
     },
     methods: {
+      refresh () {
+        this.$store.dispatch(actions.GET_TEACHERS).catch(error => {
+          this.showError(error)
+        })
+      },
+      settings () {
+        console.log('settigns TODO')
+      },
       remove (teacher) {
         this.removing = true
         axios.delete('/api/v1/approved_teacher/' + teacher.user_id).then(response => {

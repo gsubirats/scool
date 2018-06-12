@@ -19,6 +19,9 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             //Propose free user names
             Route::get('/proposeFreeUserName/{name}/{sn1}', 'Tenant\ProposeFreeUsernameController@index');
 
+            // Teachers
+            Route::get('/teachers', 'Tenant\TeachersController@index');
+
             // Approved teachers
             Route::post('/approved_teacher', 'Tenant\ApprovedTeacherController@store');
             Route::delete('/approved_teacher/{user}', 'Tenant\ApprovedTeacherController@destroy');

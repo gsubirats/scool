@@ -171,15 +171,21 @@ class ApprovedTeacherController extends Controller
     public function destroy(DeleteApprovedTeacher $request, $tenant,  User $user)
     {
         $person = $user->person;
-        $person->user->teacher()->delete();
-        $person->user->rmRole(Role::findByName('Teacher','web'));
-        // Unassign jobs to user (remove employee)
-        $person->user->unassignJobs();
-        $person->user()->delete();
-        $person->identifier()->delete();
-        $person->birthplace()->delete();
-        $person->address()->delete();
-        $person->delete();
+        if ($person && $person->user) {
+            if ($person->user) {
+                $person->user->teacher()->delete();
+                $person->user->rmRole(Role::findByName('Teacher','web'));
+                $person->user->unassignJobs();
+                $person->user()->delete();
+            }
+            // Unassign jobs to user (remove employee)
+            $person->identifier()->delete();
+            $person->birthplace()->delete();
+            $person->address()->delete();
+            $person->delete();
+        }
+
+
     }
 
 }

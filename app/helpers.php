@@ -655,6 +655,10 @@ if (!function_exists('initialize_gates')) {
         });
 
         //Teachers
+        Gate::define('list_teachers', function ($user) {
+            return $user->hasRole('TeachersManager');
+        });
+
         Gate::define('show-teachers', function ($user) {
             return $user->hasRole('TeachersManager');
         });

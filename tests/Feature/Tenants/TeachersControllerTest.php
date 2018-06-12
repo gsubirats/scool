@@ -159,4 +159,33 @@ class TeachersControllerTest extends BaseTenantTest
         });
     }
 
+
+    /** @test */
+    public function list_teachers()
+    {
+        $this->withoutExceptionHandling();
+        $teachersManager = create(User::class);
+        $this->actingAs($teachersManager);
+        $role = Role::firstOrCreate(['name' => 'TeachersManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $teachersManager->assignRole($role);
+
+        $this->actingAs($teachersManager,'api');
+
+        $response = $this->json('GET','/api/v1/teachers');
+
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function regular_users_cannot_list_teachers()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        $response = $this->json('GET','/api/v1/teachers');
+
+        $response->assertStatus(403);
+    }
+
 }

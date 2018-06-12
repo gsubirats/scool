@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Requests\ListTeachers;
 use App\Http\Requests\ShowTeachersManagment;
 use App\Models\AdministrativeStatus;
 use App\Models\Force;
@@ -20,16 +21,14 @@ use App\Http\Resources\Tenant\Job as JobResource;
  */
 class TeachersController extends Controller
 {
-    /**
-     * Show teachers.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show(ShowTeachersManagment $request)
+    public function index(ListTeachers $request)
     {
-        $pendingTeachers = PendingTeacher::with('specialty')->get();
+        return $this->teachers();
+    }
 
-        $teachers =  collect(TeacherResource::collection(
+    protected function teachers()
+    {
+        return collect(TeacherResource::collection(
             Teacher::with([
                 'specialty',
                 'specialty.jobs',
@@ -50,6 +49,18 @@ class TeachersController extends Controller
                 'user.person.address.location',
                 'department'
             ])->orderByRaw('code + 0')->get()));
+    }
+
+    /**
+     * Show teachers.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(ShowTeachersManagment $request)
+    {
+        $pendingTeachers = PendingTeacher::with('specialty')->get();
+
+        $teachers =  $this->teachers();
 
         $jobs =  collect(JobResource::collection(
             Job::with(
