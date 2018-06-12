@@ -2,8 +2,18 @@
     <v-container fluid grid-list-md text-xs-center>
         <v-layout row wrap>
             <v-flex xs12>
+                <v-toolbar color="blue darken-3">
+                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
+                    <v-toolbar-title class="white--text title">Places</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon class="white--text" @click="settings">
+                        <v-icon>settings</v-icon>
+                    </v-btn>
+                    <v-btn icon class="white--text" @click="refresh">
+                        <v-icon>refresh</v-icon>
+                    </v-btn>
+                </v-toolbar>
                 <v-card>
-                    <v-card-title class="blue darken-3 white--text"><h2>Places</h2></v-card-title>
                     <v-card-text class="px-0 mb-2">
                         <v-card>
                             <v-card-title>
@@ -210,6 +220,14 @@
       }
     },
     methods: {
+      refresh () {
+        this.$store.dispatch(actions.GET_JOBS).catch(error => {
+          this.showError(error)
+        })
+      },
+      settings () {
+        console.log('settings TODO')
+      },
       addSubstitute () {
 
       },

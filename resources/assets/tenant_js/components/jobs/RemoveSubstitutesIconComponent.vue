@@ -35,9 +35,9 @@
     methods: {
       removeSubstitutes () {
         this.removing = true
-        axios.delete('api/v1/job/substitutes').then(response => {
-          console.log(response)
+        axios.delete('api/v1/job/' + this.job.id + '/substitutions').then(response => {
           this.removing = false
+          this.showMessage('Tots els substitucions associades a la plaça han estat esborrades')
         }).catch(error => {
           console.log(error)
           this.showError(error)

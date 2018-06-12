@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\DeleteJob;
+use App\Http\Requests\ListJobs;
 use App\Http\Requests\ShowJobsManagement;
 use App\Http\Requests\StoreJob;
 use App\Models\Family;
@@ -19,15 +20,20 @@ use App\Http\Resources\Tenant\Job as JobResource;
  */
 class JobsController extends Controller
 {
+
     /**
-     * Show staff management.
+     * Index.
      *
-     * @param ShowJobsManagement $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param ListJobs $request
+     * @return \Illuminate\Support\Collection
      */
-    public function show(ShowJobsManagement $request)
+    public function index(ListJobs $request)
     {
-        $jobs =  collect(JobResource::collection(
+        return $this->jobs();
+    }
+
+    protected function jobs() {
+        return collect(JobResource::collection(
             Job::with(
                 'type',
                 'family',
@@ -37,6 +43,18 @@ class JobsController extends Controller
                 'holders.teacher',
                 'substitutes',
                 'substitutes.teacher')->get()));
+    }
+
+
+    /**
+     * Show staff management.
+     *
+     * @param ShowJobsManagement $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(ShowJobsManagement $request)
+    {
+        $jobs =  $this->jobs();
 
         $jobTypes = JobType::all();
         $specialties = Specialty::with('jobs','jobs.family')->get();

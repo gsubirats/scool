@@ -642,6 +642,10 @@ if (!function_exists('initialize_gates')) {
         });
 
         // STAFF/JOBS
+        Gate::define('list-jobs', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
         Gate::define('show-jobs', function ($user) {
             return $user->hasRole('StaffManager');
         });
@@ -4774,6 +4778,39 @@ if (!function_exists('create_fake_teacher')) {
         ]);
 
         return $user;
+    }
+}
+
+if (!function_exists('check_job')) {
+    function check_job($job)
+    {
+        return array_key_exists('id', $job) &&
+            array_key_exists('type', $job) &&
+            array_key_exists('type_id', $job) &&
+            array_key_exists('code', $job) &&
+            array_key_exists('holder_hashid', $job) &&
+            array_key_exists('holder_code', $job) &&
+            array_key_exists('holder_name', $job) &&
+            array_key_exists('holder_description', $job) &&
+            array_key_exists('active_user_hash_id', $job) &&
+            array_key_exists('active_user_code', $job) &&
+            array_key_exists('active_user_name', $job) &&
+            array_key_exists('active_user_description', $job) &&
+            array_key_exists('substitutes', $job) &&
+            array_key_exists('fullcode', $job) &&
+            array_key_exists('order', $job) &&
+            array_key_exists('family', $job) &&
+            array_key_exists('family_code', $job) &&
+            array_key_exists('family_description', $job) &&
+            array_key_exists('specialty', $job) &&
+            array_key_exists('specialty_code', $job) &&
+            array_key_exists('specialty_description', $job) &&
+            array_key_exists('formatted_created_at_diff', $job) &&
+            array_key_exists('formatted_created_at', $job) &&
+            array_key_exists('formatted_updated_at', $job) &&
+            array_key_exists('formatted_updated_at_diff', $job) &&
+            array_key_exists('notes', $job);
+
     }
 }
 
