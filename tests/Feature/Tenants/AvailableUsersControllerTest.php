@@ -49,7 +49,6 @@ class AvailableUsersControllerTest extends BaseTenantTest
         $type = 1;
         $response = $this->json('GET','/api/v1/available-users/' . $type);
         $response->assertSuccessful();
-        $response->dump();
     }
 
     /** @test */

@@ -38,6 +38,7 @@
         axios.delete('api/v1/job/' + this.job.id + '/substitutions').then(response => {
           this.removing = false
           this.showMessage('Tots els substitucions associades a la plaça han estat esborrades')
+          this.$emit('change')
         }).catch(error => {
           console.log(error)
           this.showError(error)

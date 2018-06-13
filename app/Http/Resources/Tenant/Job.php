@@ -63,6 +63,8 @@ class Job extends JsonResource
                 'name' => $substitute->name,
                 'code' => $code = optional($substitute->teacher)->code,
                 'description' => $code . ' ' . $substitute->name,
+                'start_at' => $substitute->pivot->start_at,
+                'end_at' => $substitute->pivot->end_at
             ];
         }
         return [

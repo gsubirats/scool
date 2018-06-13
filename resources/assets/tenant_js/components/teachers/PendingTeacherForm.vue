@@ -404,8 +404,8 @@
                             min-width="290px"
                     >
                         <v-text-field
-                                name="formatted_start_date"
                                 slot="activator"
+                                name="formatted_start_date"
                                 label="Data incorporació centre"
                                 hint="format DD/MM/AAAA"
                                 persistent-hint

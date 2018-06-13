@@ -1,14 +1,15 @@
 <template>
     <v-select
             :items="users"
-            v-model="user"
+            v-model="internalUser"
             label="Seleccioneu un usuari"
             item-text="name"
-            item-value="name"
             chips
             max-height="auto"
             autocomplete
             clearable
+            prepend-icon="person"
+            @input="input"
     >
         <template slot="selection" slot-scope="data">
             <v-chip
@@ -54,13 +55,30 @@
     data () {
       return {
         users: [],
-        user: {}
+        internalUser: this.user
       }
+    },
+    model: {
+      prop: 'user',
+      event: 'input'
     },
     props: {
       jobType: {
         type: Number,
         default: 1
+      },
+      user: {
+        required: true
+      }
+    },
+    watch: {
+      user (newUser) {
+        this.internalUser = newUser
+      }
+    },
+    methods: {
+      input () {
+        this.$emit('input', this.internalUser)
       }
     },
     mounted () {

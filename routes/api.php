@@ -21,7 +21,8 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/available-users/{jobType}', 'Tenant\AvailableUsersController@index');
 
             // Job substitutions
-            Route::delete('/job/{job}/substitutions', 'Tenant\JobSubstitutionsController@destroy');
+            Route::post('/job/{job}/substitution', 'Tenant\JobSubstitutionsController@store');
+            Route::delete('/job/{job}/substitutions', 'Tenant\JobSubstitutionsController@destroyAll');
 
             //Propose free user names
             Route::get('/proposeFreeUserName/{name}/{sn1}', 'Tenant\ProposeFreeUsernameController@index');

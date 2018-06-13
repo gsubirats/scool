@@ -22,8 +22,17 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
+                <v-alert :value="true" type="error">
+                    Hi ha un o més substituts actius (sense data de finalització substitució o amb data de finalització futura). Si us plau feu doble click sobre la foto del substitut i actualitzeu la data de finalització!
+                </v-alert>
                 <v-list three-line subheader>
                     <v-subheader>Plaça</v-subheader>
+                    <v-list-tile>
+                        <v-list-tile-content>
+                            <v-list-tile-title>Especialitat, família, codi i notes</v-list-tile-title>
+                            <v-list-tile-sub-title> {{ job.specialty_description }} | {{ job.family_description }} | {{ job.fullcode }} | {{ job.notes }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
                     <v-list-tile>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ job.type }}</v-list-tile-title>
@@ -41,10 +50,24 @@
                             <v-list-tile-sub-title>Titular</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
-                    <v-list-tile>
+                    <v-list-tile avatar>
                         <v-list-tile-content>
-                            <v-list-tile-title>Especialitat, família, codi i notes</v-list-tile-title>
-                            <v-list-tile-sub-title> {{ job.specialty_description }} | {{ job.family_description }} | {{ job.fullcode }} | {{ job.notes }}</v-list-tile-sub-title>
+                            <template v-if="job.active_user_hash_id">
+                                <v-avatar color="grey lighten-4" :size="40">
+                                    <img :src="'/user/' + job.active_user_hash_id + '/photo'"
+                                         :alt="job.active_user_description"
+                                         :title="job.active_user_description">
+                                </v-avatar>
+                            </template>
+                            <v-list-tile-title>{{ job.active_user_description }}</v-list-tile-title>
+                            <v-list-tile-sub-title>Usuari actiu</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile avatar>
+                        <v-list-tile-content style="display:inline;">
+                            <substitute-avatars :job="job"></substitute-avatars>
+                            <v-list-tile-title>{{ substitutesNames() }}</v-list-tile-title>
+                            <v-list-tile-sub-title>Substituts</v-list-tile-sub-title>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
@@ -53,44 +76,20 @@
                     <v-subheader>Substitut</v-subheader>
                     <v-list-tile avatar>
                         <v-list-tile-content>
-                            <available-users v-if="dialog" :job-type="job.type_id"></available-users>
+                            <available-users v-if="dialog" :job-type="job.type_id" v-model="user"></available-users>
                         </v-list-tile-content>
                     </v-list-tile>
 
                     <v-list-tile avatar>
                         <v-list-tile-content>
-                            <v-menu
-                                    ref="menu"
-                                    :close-on-content-click="false"
-                                    :value="true"
-                                    :nudge-right="40"
-                                    :return-value.sync="date"
-                                    lazy
-                                    transition="scale-transition"
-                                    offset-y
-                                    full-width
-                                    min-width="290px"
-                            >
-                                <v-text-field
-                                        slot="activator"
-                                        v-model="start_date"
-                                        label="Data d'inici"
-                                        prepend-icon="event"
-                                        readonly
-                                ></v-text-field>
-                                <v-date-picker v-model="start_date" no-title scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                                    <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                </v-date-picker>
-                            </v-menu>
+                            <date-picker v-model="start_date" label="Data d'inici" name="start_date"></date-picker>
                         </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
                 <v-divider></v-divider>
             </v-card-text>
             <v-card-actions>
-                <v-btn color="success" @click="addSubstitute()">Afegir</v-btn>
+                <v-btn color="success" @click="addSubstitute()" :disabled="disabled">Afegir</v-btn>
                 <v-btn flat @click="dialog=false">Sortir</v-btn>
             </v-card-actions>
         </v-card>
@@ -102,15 +101,26 @@
   import withSnackbar from '../mixins/withSnackbar'
   import axios from 'axios'
   import moment from 'moment'
+  import DatePicker from '../ui/DatePicker'
+  import { validationMixin } from 'vuelidate'
+  import { required } from 'vuelidate/lib/validators'
+  import SubstituteAvatars from './SubstituteAvatarsComponent'
 
   export default {
     name: 'AddSubstituteIconComponent',
-    mixins: [withSnackbar],
+    mixins: [withSnackbar, validationMixin],
     components: {
-      'available-users': AvailableUsers
+      'available-users': AvailableUsers,
+      'date-picker': DatePicker,
+      'substitute-avatars': SubstituteAvatars
+    },
+    validations: {
+      start_date: { required },
+      user: { required }
     },
     data () {
       return {
+        user: {},
         dialog: false,
         start_date: moment(new Date()).format('YYYY-MM-DD')
       }
@@ -121,20 +131,38 @@
         required: true
       }
     },
+    computed: {
+      disabled () {
+        return true
+      }
+    },
     methods: {
+      substitutesNames () {
+        return this.job.substitutes.map(substitute => substitute.name).join(', ')
+      },
       addSubstitute () {
-        console.log('TODO add substitute')
-        axios.post('/api/v1/substitute', {
-          job: this.job.id,
-          user: this.user.id,
-          start_at: this.start_date
-        }).then(response => {
-          console.log(response)
-          this.dialog = false
-        }).catch(error => {
-          console.log(error)
-          this.showError(error)
-        })
+        this.$v.$touch()
+        if (!this.$v.$invalid) {
+          axios.post('/api/v1/job/' + this.job.id + '/substitution', {
+            user: this.user.id,
+            start_at: this.start_date
+          }).then(response => {
+            this.showMessage('Substitut afegit correctament')
+            this.dialog = false
+            this.$emit('change')
+          }).catch(error => {
+            console.log(error)
+            this.showError(error)
+          })
+        } else {
+          if (this.$v.user.$dirty) {
+            !this.$v.user.required && this.showError('Cal escollir un usuari com a substitut')
+          }
+          if (this.$v.start_date.$dirty) {
+            !this.$v.start_date.required && this.showError("Cal indicar una data d'inici de la substitució")
+          }
+          this.$v.$touch()
+        }
       }
     }
   }

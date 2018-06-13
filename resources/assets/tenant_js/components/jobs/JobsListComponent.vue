@@ -62,12 +62,8 @@
                                             </template>
                                         </td>
                                         <td class="text-xs-left">
-                                            <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id">
-                                                <img :src="'/user/' + substitute.hash_id + '/photo'"
-                                                     :alt="substitute.description"
-                                                     :title="substitute.description">
-                                            </v-avatar>
-                                            <remove-substitutes-icon v-if="job.substitutes.length > 0" :job="job"></remove-substitutes-icon>
+                                            <substitute-avatars :job="job"></substitute-avatars>
+                                            <remove-substitutes-icon v-if="job.substitutes.length > 0" :job="job" @change="refresh"></remove-substitutes-icon>
                                         </td>
                                         <td class="text-xs-left" v-html="job.fullcode"></td>
                                         <td class="text-xs-left" v-html="job.order">{{ job.order }}</td>
@@ -87,8 +83,8 @@
                                             </v-tooltip>
                                         </td>
                                         <td class="text-xs-left">
-                                            <add-substitute-icon :job="job"></add-substitute-icon>
-                                            <stop-substitution-icon :job="job"></stop-substitution-icon>
+                                            <add-substitute-icon :job="job" @change="refresh"></add-substitute-icon>
+                                            <stop-substitution-icon :job="job" @change="refresh"></stop-substitution-icon>
                                             <v-btn icon class="mx-0" @click="edit(job)">
                                                 <v-icon color="teal">edit</v-icon>
                                             </v-btn>
@@ -155,6 +151,7 @@
   import AddSubstituteIcon from './AddSubstituteIconComponent'
   import StopSubstitutionIcon from './StopSubstitutionIconComponent'
   import RemoveSubstitutesIcon from './RemoveSubstitutesIconComponent'
+  import SubstituteAvatars from './SubstituteAvatarsComponent'
 
   export default {
     components: {
@@ -162,7 +159,8 @@
       'job-type-select': JobTypeSelect,
       'add-substitute-icon': AddSubstituteIcon,
       'stop-substitution-icon': StopSubstitutionIcon,
-      'remove-substitutes-icon': RemoveSubstitutesIcon
+      'remove-substitutes-icon': RemoveSubstitutesIcon,
+      'substitute-avatars': SubstituteAvatars
     },
     data () {
       return {
