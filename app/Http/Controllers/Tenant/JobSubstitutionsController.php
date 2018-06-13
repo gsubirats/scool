@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\DeleteJobSubstitutions;
 use App\Http\Requests\StoreJobSubstitution;
+use App\Http\Requests\UpdateJobSubstitution;
 use App\Models\Employee;
 use App\Models\Job;
 
@@ -31,6 +32,12 @@ class JobSubstitutionsController extends Controller
             'start_at' => $request->start_at,
         ]);
     }
+
+    public function update(UpdateJobSubstitution $request,$tenant, Job $job)
+    {
+        dd('TODO update');
+    }
+
     /**
      * Destroy
      */
