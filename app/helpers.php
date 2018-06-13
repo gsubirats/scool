@@ -4804,7 +4804,6 @@ if (!function_exists('check_job')) {
             array_key_exists('active_user_name', $job) &&
             array_key_exists('active_user_description', $job) &&
             array_key_exists('substitutes', $job) &&
-            array_key_exists('hash_id', $job['substitutes']) &&
             array_key_exists('fullcode', $job) &&
             array_key_exists('order', $job) &&
             array_key_exists('family', $job) &&

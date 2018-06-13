@@ -242,6 +242,7 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function list_jobs()
     {
+        $this->withoutExceptionHandling();
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
         initialize_job_types();
