@@ -104,7 +104,7 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $substitute = factory(User::class)->create();
         $response = $this->json('POST','/api/v1/job/' . $job->id . '/substitution', [
             'user' => $substitute->id,
-            'start_at' => $date = Carbon::now()->toDateString()
+            'start_at' => $date = Carbon::now()->toDateTimeString()
         ]);
         $response->assertSuccessful();
         $result = json_decode($response->getContent());
@@ -114,7 +114,7 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
 
         $employee = Employee::where('user_id', $result->user_id)->where('job_id', $job->id)->first();
         $this->assertNotNull($employee);
-        $this->assertEquals($date,$employee->start_at->toDateString());
+        $this->assertEquals($date,$employee->start_at->toDateTimeString());
     }
 
     /** @test */
