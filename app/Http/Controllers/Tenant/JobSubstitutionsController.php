@@ -33,9 +33,31 @@ class JobSubstitutionsController extends Controller
         ]);
     }
 
+    /**
+     * Update.
+     *
+     * @param UpdateJobSubstitution $request
+     * @param $tenant
+     * @param Job $job
+     * @return mixed
+     */
     public function update(UpdateJobSubstitution $request,$tenant, Job $job)
     {
-        dd('TODO update');
+        $employee = Employee::where('user_id', $request->user_id)->where('job_id', $job->id)->first();
+//        dump($employee->start_at);
+//        dump($employee->end_at);
+//        dump($request->start_at);
+        $employee->start_at = $request->start_at;
+//        dump($request->end_at);
+        $employee->end_at = $request->end_at;
+        $employee->save();
+//        dump($employee->start_at);
+//        dump($employee->start_at->toDatetimeString());
+//        dump($employee->end_at);
+//        dump($employee->end_at->toDatetimeString());
+//        dump('HEY:');
+//        dump(json_encode($employee));
+        return $employee;
     }
 
     /**

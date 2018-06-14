@@ -30,6 +30,7 @@ class UpdateJobSubstitution extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required|integer',
             'start_at' => 'required|date',
             'end_at' => 'required|date',
         ];

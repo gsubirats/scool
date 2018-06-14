@@ -181,7 +181,16 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
     /** @test */
     public function can_modify_substitution_validation()
     {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
 
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+        $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', []);
+        $response->assertStatus(422);
     }
 
     /** @test */
@@ -199,9 +208,16 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $substitute = factory(User::class)->create([
             'name' => 'Pepe Pardo Jeans'
         ]);
+
+        Employee::create([
+            'user_id' => $substitute->id,
+            'job_id' => $job->id
+        ]);
+
         $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', [
-            'start_at' => $date = Carbon::now()->subDays(10)->toDateString(),
-            'end_at' => $date = Carbon::now()->toDateString()
+            'user_id' => $substitute->id,
+            'start_at' => $start = Carbon::now()->subDays(10)->toDateTimeString(),
+            'end_at' => $end = Carbon::now()->toDateTimeString()
         ]);
         $response->assertSuccessful();
         $result = json_decode($response->getContent());
@@ -209,10 +225,12 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $job = $job->fresh();
         $this->assertCount(1,$job->substitutes);
 
-        $employee = Employee::where('user_id', $result->user_id)->where('job_id', $job->id)->first();
+        $employee = Employee::where('user_id', $substitute->id )->where('job_id', $job->id)->first();
+//        dump(json_encode($employee));
+//        dump($result);
         $this->assertNotNull($employee);
-        $this->assertEquals($date,$employee->start_at->toDateString());
+        $this->assertEquals($start, $result->start_at);
+        $this->assertEquals($end, $result->end_at);
     }
-
 
 }
