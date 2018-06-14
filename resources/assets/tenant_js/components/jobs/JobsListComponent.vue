@@ -9,7 +9,7 @@
                     <v-btn icon class="white--text" @click="settings">
                         <v-icon>settings</v-icon>
                     </v-btn>
-                    <v-btn icon class="white--text" @click="refresh">
+                    <v-btn icon class="white--text" @click="refresh" :loading="refreshing" :disabled="refreshing">
                         <v-icon>refresh</v-icon>
                     </v-btn>
                 </v-toolbar>
@@ -62,7 +62,7 @@
                                             </template>
                                         </td>
                                         <td class="text-xs-left">
-                                            <substitute-avatars :job="job"></substitute-avatars>
+                                            <substitute-avatars :job="job" @change="refresh"></substitute-avatars>
                                             <remove-substitutes-icon v-if="job.substitutes.length > 0" :job="job" @change="refresh"></remove-substitutes-icon>
                                         </td>
                                         <td class="text-xs-left" v-html="job.fullcode"></td>
@@ -166,7 +166,8 @@
       return {
         search: '',
         deleting: false,
-        jobType: {}
+        jobType: {},
+        refreshing: false
       }
     },
     computed: {
@@ -218,7 +219,10 @@
     },
     methods: {
       refresh () {
-        this.$store.dispatch(actions.GET_JOBS).catch(error => {
+        this.refreshing = true
+        this.$store.dispatch(actions.GET_JOBS).then(response => {
+          this.refreshing = false
+        }).catch(error => {
           this.showError(error)
         })
       },

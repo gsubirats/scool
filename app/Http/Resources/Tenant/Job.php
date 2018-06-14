@@ -59,6 +59,7 @@ class Job extends JsonResource
         $substitutes = [];
         foreach ($this->substitutes as $substitute) {
             $substitutes[] = [
+                'id' => $substitute->id,
                 'hash_id' => $substitute->hash_id,
                 'name' => $substitute->name,
                 'code' => $code = optional($substitute->teacher)->code,

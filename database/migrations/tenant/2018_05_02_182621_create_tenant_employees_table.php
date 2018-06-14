@@ -18,6 +18,7 @@ class CreateTenantEmployeesTable extends Migration
     {
         //job_user -> staff
         Schema::create('employees', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('job_id')->nullable();
             $table->boolean('holder')->default(false);

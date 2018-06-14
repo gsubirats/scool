@@ -16,8 +16,9 @@
             <v-toolbar-title>Dades substitució</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat @click.native="finishSubstitution()">Finalitzar Subtitució</v-btn>
-              <v-btn dark flat @click.native="modify()">Modificar</v-btn>
+              <v-btn dark flat @click.native="finishSubstitution()" :disabled="disableFinishSubstitutionButton()" :loading="finishingSubstitution">Finalitzar Subtitució</v-btn>
+              <v-btn dark flat @click.native="modify()" :disabled="modifying" :loading="modifying">Modificar</v-btn>
+              <v-btn dark color="red" @click.native="remove()" :disabled="deleting" :loading="deleting">Eliminar</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
@@ -99,8 +100,9 @@
           </v-card-text>
           <div style="flex: 1 1 auto;"></div>
             <v-card-actions>
-                <v-btn color="success" @click.native="finishSubstitution()" :disabled="disableFinishSubstitutionButton()">Finalitzar Subtitució</v-btn>
-                <v-btn color="primary" @click.native="modify()">Modificar</v-btn>
+                <v-btn color="success" @click.native="finishSubstitution()" :loading="finishingSubstitution" :disabled="disableFinishSubstitutionButton()">Finalitzar Subtitució</v-btn>
+                <v-btn color="primary" @click.native="modify()" :disabled="modifying" :loading="modifying">Modificar</v-btn>
+                <v-btn color="red" class="white--text" @click.native="remove()" :disabled="deleting" :loading="deleting">Eliminar</v-btn>
                 <v-btn flat @click="dialog=false">Sortir</v-btn>
             </v-card-actions>
         </v-card>
@@ -115,10 +117,13 @@
 
 <script>
   import DatePicker from '../ui/DatePicker'
+  import withSnackbar from '../mixins/withSnackbar'
+  import axios from 'axios'
   import moment from 'moment'
 
   export default {
     name: 'SubstituteAvatarsComponent',
+    mixins: [withSnackbar],
     components: {
       'date-picker': DatePicker
     },
@@ -127,7 +132,10 @@
         dialog: false,
         currentSubstitute: null,
         start_date: null,
-        end_date: null
+        end_date: null,
+        finishingSubstitution: false,
+        modifying: false,
+        deleting: false
       }
     },
     props: {
@@ -138,21 +146,52 @@
     watch: {
       currentSubstitute (newValue) {
         if (newValue) {
-          this.start_date = moment(newValue.start_at).format('YYYY-MM-DD')
-          this.end_date = newValue.end_at
+          if (newValue.start_at) this.start_date = moment(newValue.start_at).format('YYYY-MM-DD')
+          if (newValue.end_at) this.end_date = moment(newValue.end_at).format('YYYY-MM-DD')
         }
       }
     },
     methods: {
       disableFinishSubstitutionButton () {
         if (this.currentSubstitute && this.currentSubstitute.end_at !== null) return true
+        if (this.finishingSubstitution) return true
         return false
       },
       finishSubstitution () {
-        console.log('TODO finishSubstitution')
+        this.finishingSubstitution = true
+        axios.put('/api/v1/job/' + this.job.id + '/substitution', {
+          user_id: this.currentSubstitute.id,
+          end_at: moment().format('YYYY-MM-DD hh:mm:ss')
+        }).then(response => {
+          this.finishingSubstitution = false
+          this.dialog = false
+          this.showMessage('Substitució finalitzada correctament')
+          this.$emit('change')
+        }).catch(error => {
+          this.finishingSubstitution = false
+          console.log(error)
+          this.showError(error)
+        })
       },
       modify () {
-        console.log('TODO modify')
+        this.modifying = true
+        axios.put('/api/v1/job/' + this.job.id + '/substitution', {
+          user_id: this.currentSubstitute.id,
+          start_at: this.start_date,
+          end_at: this.end_date
+        }).then(response => {
+          this.modifying = false
+          this.dialog = false
+          this.showMessage('Modificació realitzada correctament')
+          this.$emit('change')
+        }).catch(error => {
+          this.modifying = false
+          console.log(error)
+          this.showError(error)
+        })
+      },
+      remove () {
+        console.log('TODO remove')
       },
       showSubstituteDialog (substitute) {
         this.currentSubstitute = substitute

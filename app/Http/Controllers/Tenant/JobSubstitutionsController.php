@@ -42,6 +42,7 @@ class JobSubstitutionsController extends Controller
         }
         return $date;
     }
+
     /**
      * Update.
      *
@@ -54,7 +55,11 @@ class JobSubstitutionsController extends Controller
     {
         $employee = Employee::where('user_id', $request->user_id)->where('job_id', $job->id)->first();
         $request->start_at && $employee->start_at = $this->normalizeDate($request->start_at);
-        $request->end_at && $employee->end_at = $this->normalizeDate($request->end_at);
+        if ($request->end_at) {
+            $employee->end_at = $this->normalizeDate($request->end_at);
+        } elseif ($employee->end_at) {
+            $employee->end_at = null;
+        }
         $employee->save();
         return $employee;
     }

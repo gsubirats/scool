@@ -13,6 +13,7 @@
             @keydown.esc.stop.prevent="menu = false"
     >
         <v-text-field
+                ref="text"
                 :name="name"
                 slot="activator"
                 :value="formatted_date" @change.native="formatted_date = $event.target.value"
@@ -57,6 +58,9 @@
       },
       internalDate (newValue) {
         this.input()
+      },
+      formatted_date (newValue) {
+        console.log('Changed to ' + newValue)
       }
     },
     computed: {
@@ -65,6 +69,7 @@
           return this.formatDate(this.internalDate)
         },
         set: function (value) {
+          console.log('HEY!')
           this.internalDate = this.unformatDate(value)
         }
       }
