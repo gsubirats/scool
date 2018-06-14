@@ -23,6 +23,7 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             // Job substitutions
             Route::put('/job/{job}/substitution', 'Tenant\JobSubstitutionsController@update');
             Route::post('/job/{job}/substitution', 'Tenant\JobSubstitutionsController@store');
+            Route::delete('/job/{job}/substitution/{user}', 'Tenant\JobSubstitutionsController@destroy');
             Route::delete('/job/{job}/substitutions', 'Tenant\JobSubstitutionsController@destroyAll');
 
             //Propose free user names

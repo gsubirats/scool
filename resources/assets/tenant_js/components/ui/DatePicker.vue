@@ -1,29 +1,33 @@
 <template>
-    <v-menu
-            ref="menu"
-            :close-on-content-click="false"
-            v-model="menu"
-            :nudge-right="40"
-            :return-value.sync="date"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
-            @keydown.esc.stop.prevent="menu = false"
-    >
-        <v-text-field
-                ref="text"
-                :name="name"
-                slot="activator"
-                :value="formatted_date" @change.native="formatted_date = $event.target.value"
-                :label="label"
-                hint="format DD/MM/AAAA"
-                persistent-hint
-                prepend-icon="event"
-        ></v-text-field>
-        <v-date-picker v-model="internalDate" @input="input" locale="ca"></v-date-picker>
-    </v-menu>
+    <span>
+        <v-menu
+                ref="menu"
+                :close-on-content-click="false"
+                v-model="menu"
+                :nudge-right="40"
+                :return-value.sync="date"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+                @keydown.esc.stop.prevent="menu = false"
+                style="display: inline-block"
+        >
+            <v-text-field
+                    ref="text"
+                    :name="name"
+                    slot="activator"
+                    :value="formatted_date" @change.native="formatted_date = $event.target.value"
+                    :label="label"
+                    hint="format DD/MM/AAAA"
+                    persistent-hint
+                    prepend-icon="event"
+            ></v-text-field>
+            <v-date-picker v-model="internalDate" @input="input" locale="ca"></v-date-picker>
+        </v-menu>
+        <v-icon @click="clear()">cancel</v-icon>
+    </span>
 </template>
 
 <script>
@@ -58,9 +62,6 @@
       },
       internalDate (newValue) {
         this.input()
-      },
-      formatted_date (newValue) {
-        console.log('Changed to ' + newValue)
       }
     },
     computed: {
@@ -75,6 +76,9 @@
       }
     },
     methods: {
+      clear () {
+        this.internalDate = null
+      },
       input () {
         this.$refs.menu.save(this.internalDate)
         this.$emit('input', this.internalDate)
@@ -96,7 +100,7 @@
         } catch (error) {
           return null
         }
-      },
+      }
     }
   }
 </script>

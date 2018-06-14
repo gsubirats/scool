@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Http\Requests\DeleteJobSubstitution;
 use App\Http\Requests\DeleteJobSubstitutions;
 use App\Http\Requests\StoreJobSubstitution;
 use App\Http\Requests\UpdateJobSubstitution;
 use App\Models\Employee;
 use App\Models\Job;
+use App\Models\User;
 use Carbon\Carbon;
 
 /**
@@ -16,7 +18,6 @@ use Carbon\Carbon;
  */
 class JobSubstitutionsController extends Controller
 {
-
     /**
      * Store.
      *
@@ -62,6 +63,20 @@ class JobSubstitutionsController extends Controller
         }
         $employee->save();
         return $employee;
+    }
+
+    /**
+     * Destroy.
+     *
+     * @param DeleteJobSubstitution $request
+     * @param $tenant
+     * @param Job $job
+     * @param User $user
+     */
+    public function destroy(DeleteJobSubstitution $request,$tenant , Job $job, User $user)
+    {
+        $employee = Employee::where('user_id', $user->id)->where('job_id', $job->id)->first();
+        $employee->delete();
     }
 
     /**

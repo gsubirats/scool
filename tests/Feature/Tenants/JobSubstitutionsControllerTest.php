@@ -139,6 +139,31 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $this->assertEquals('El camp start at és obligatori.',$result->errors->start_at[0]);
     }
 
+    /** @test */
+    public function can_add_substitute_to_job_date_validation()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+
+        $substitute = factory(User::class)->create();
+
+        $response = $this->json('POST','/api/v1/job/' . $job->id . '/substitution', [
+            'start_at' => Carbon::now()->addDays(10)->toDateString(),
+            'end_at' => Carbon::now()->toDateString()
+        ]);
+        $response->assertStatus(422);
+        $result = json_decode($response->getContent());
+        $this->assertEquals('The given data was invalid.',$result->message);
+        $this->assertEquals('El camp user és obligatori.',$result->errors->user[0]);
+        $this->assertEquals('end at ha de ser una data posterior a start at.',$result->errors->end_at[0]);
+    }
+
     public function regular_user_cannot_add_substitute_to_job()
     {
         $this->withoutExceptionHandling();
@@ -186,6 +211,24 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $job= $this->create_job();
         $this->assertCount(0,$job->substitutes);
         $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', []);
+        $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function can_modify_substitution_date_validation()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+        $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', [
+            'start_at' => Carbon::now()->addDays(10)->toDateString(),
+            'end_at' => Carbon::now()->toDateString()
+        ]);
         $response->assertStatus(422);
     }
 
@@ -351,5 +394,69 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $this->assertNotNull($employee);
         $this->assertEquals($start, $result->start_at);
         $this->assertEquals($end, $result->end_at);
+    }
+
+    /** @test */
+    public function can_remove_substitution()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+
+        $substitute = factory(User::class)->create();
+
+        $employee = Employee::create([
+            'user_id' => $substitute->id,
+            'job_id' => $job->id,
+            'start_at' => $start = Carbon::now()->subDays(10)->toDateTimeString(),
+            'end_at' => $start = Carbon::now()->addDays(5)->toDateTimeString()
+        ]);
+
+        $job = $job->fresh();
+        $this->assertCount(1,$job->substitutes);
+
+        $response = $this->json('DELETE','/api/v1/job/' . $job->id . '/substitution/' . $substitute->id );
+        $response->assertSuccessful();
+        $result = json_decode($response->getContent());
+
+        $employee = $employee->fresh();
+        $this->assertNull($employee);
+
+        $job = $job->fresh();
+        $this->assertCount(0,$job->substitutes);
+
+        $employee = Employee::where('user_id', $substitute->id )->where('job_id', $job->id)->first();
+
+        $this->assertNull($employee);
+    }
+
+    /** @test */
+    public function regular_user_cannot_remove_substitution()
+    {
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+
+        $substitute = factory(User::class)->create();
+
+        $employee = Employee::create([
+            'user_id' => $substitute->id,
+            'job_id' => $job->id,
+            'start_at' => $start = Carbon::now()->subDays(10)->toDateTimeString(),
+            'end_at' => $start = Carbon::now()->addDays(5)->toDateTimeString()
+        ]);
+
+        $job = $job->fresh();
+        $this->assertCount(1,$job->substitutes);
+
+        $response = $this->json('DELETE','/api/v1/job/' . $job->id . '/substitution/' . $substitute->id );
+        $response->assertStatus(403);
     }
 }

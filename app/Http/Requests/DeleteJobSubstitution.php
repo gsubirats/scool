@@ -6,11 +6,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class StoreJobSubstitution.
+ * Class DeleteJobSubstitution.
  *
  * @package App\Http\Requests
  */
-class StoreJobSubstitution extends FormRequest
+class DeleteJobSubstitution extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +19,7 @@ class StoreJobSubstitution extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->can('store-job-substitutions');
+        return Auth::user()->can('delete-job-substitution');
     }
 
     /**
@@ -30,9 +30,7 @@ class StoreJobSubstitution extends FormRequest
     public function rules()
     {
         return [
-            'user' => 'required|integer',
-            'start_at' => 'required|date',
-            'end_at' => 'sometimes|date|after:start_at'
+            //
         ];
     }
 }

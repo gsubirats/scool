@@ -669,6 +669,10 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('StaffManager');
         });
 
+        Gate::define('delete-job-substitution', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
         Gate::define('delete-job-substitutions', function ($user) {
             return $user->hasRole('StaffManager');
         });

@@ -120,12 +120,17 @@
   import withSnackbar from '../mixins/withSnackbar'
   import axios from 'axios'
   import moment from 'moment'
+  import { validationMixin } from 'vuelidate'
+  import { required } from 'vuelidate/lib/validators'
 
   export default {
     name: 'SubstituteAvatarsComponent',
-    mixins: [withSnackbar],
+    mixins: [withSnackbar, validationMixin],
     components: {
       'date-picker': DatePicker
+    },
+    validations: {
+      start_date: { required }
     },
     data () {
       return {
@@ -174,21 +179,30 @@
         })
       },
       modify () {
-        this.modifying = true
-        axios.put('/api/v1/job/' + this.job.id + '/substitution', {
-          user_id: this.currentSubstitute.id,
-          start_at: this.start_date,
-          end_at: this.end_date
-        }).then(response => {
-          this.modifying = false
-          this.dialog = false
-          this.showMessage('Modificació realitzada correctament')
-          this.$emit('change')
-        }).catch(error => {
-          this.modifying = false
-          console.log(error)
-          this.showError(error)
-        })
+        this.$v.$touch()
+        if (!this.$v.$invalid) {
+          this.modifying = true
+          let postdata = {
+            user_id: this.currentSubstitute.id,
+            start_at: this.start_date
+          }
+          if (this.end_date) postdata.end_at = this.end_date
+          axios.put('/api/v1/job/' + this.job.id + '/substitution', postdata).then(response => {
+            this.modifying = false
+            this.dialog = false
+            this.showMessage('Modificació realitzada correctament')
+            this.$emit('change')
+          }).catch(error => {
+            this.modifying = false
+            console.log(error)
+            this.showError(error)
+          })
+        } else {
+          if (this.$v.start_date.$dirty) {
+            !this.$v.start_date.required && this.showError("Cal especificar una data d'inici")
+          }
+          this.$v.$touch()
+        }
       },
       remove () {
         console.log('TODO remove')
