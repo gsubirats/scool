@@ -22,7 +22,7 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-alert :value="true" type="error">
+                <v-alert :value="showAlert()" type="error">
                     Hi ha un o més substituts actius (sense data de finalització substitució o amb data de finalització futura). Si us plau feu doble click sobre la foto del substitut i actualitzeu la data de finalització!
                 </v-alert>
                 <v-list three-line subheader>
@@ -137,6 +137,13 @@
       }
     },
     methods: {
+      showAlert () {
+        if (this.job.substitutes.filter(substitute => substitute.end_at == null).length > 0) return true
+        if (this.job.substitutes.filter(substitute => {
+          return moment(substitute.end_at).isAfter(moment())
+        }).length > 0) return true
+        return false
+      },
       substitutesNames () {
         return this.job.substitutes.map(substitute => substitute.name).join(', ')
       },

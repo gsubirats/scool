@@ -63,6 +63,7 @@
                                         </td>
                                         <td class="text-xs-left">
                                             <substitute-avatars :job="job" @change="refresh"></substitute-avatars>
+                                            <add-substitute-icon :job="job" @change="refresh"></add-substitute-icon>
                                             <remove-substitutes-icon v-if="job.substitutes.length > 0" :job="job" @change="refresh"></remove-substitutes-icon>
                                         </td>
                                         <td class="text-xs-left" v-html="job.fullcode"></td>

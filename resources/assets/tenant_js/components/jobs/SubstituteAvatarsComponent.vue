@@ -18,7 +18,7 @@
             <v-toolbar-items>
               <v-btn dark flat @click.native="finishSubstitution()" :disabled="disableFinishSubstitutionButton()" :loading="finishingSubstitution">Finalitzar Subtitució</v-btn>
               <v-btn dark flat @click.native="modify()" :disabled="modifying" :loading="modifying">Modificar</v-btn>
-              <v-btn dark color="red" @click.native="remove()" :disabled="deleting" :loading="deleting">Eliminar</v-btn>
+              <v-btn dark color="red" @click.native="confirmRemove()" :disabled="removing" :loading="removing">Eliminar</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
@@ -102,7 +102,7 @@
             <v-card-actions>
                 <v-btn color="success" @click.native="finishSubstitution()" :loading="finishingSubstitution" :disabled="disableFinishSubstitutionButton()">Finalitzar Subtitució</v-btn>
                 <v-btn color="primary" @click.native="modify()" :disabled="modifying" :loading="modifying">Modificar</v-btn>
-                <v-btn color="red" class="white--text" @click.native="remove()" :disabled="deleting" :loading="deleting">Eliminar</v-btn>
+                <v-btn color="red" class="white--text" @click.native="confirmRemove()" :disabled="removing" :loading="removing">Eliminar</v-btn>
                 <v-btn flat @click="dialog=false">Sortir</v-btn>
             </v-card-actions>
         </v-card>
@@ -112,6 +112,17 @@
                  :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
                  :title="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at ">
         </v-avatar>
+        <v-dialog v-model="confirmDialog" persistent max-width="290" @keydown.esc="confirmDialog = false">
+            <v-card>
+                <v-card-title class="headline">Si us plau confirmeu</v-card-title>
+                <v-card-text>Esteu segurs que voleu esborrar aquesta substitució?</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" flat @click.native="confirmDialog = false">Cancel·lar</v-btn>
+                    <v-btn color="red darken-1" flat @click.native="remove()" :disabled="removing" :loading="removing" id="confirm_button">Esborrar</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </span>
 </template>
 
@@ -140,7 +151,8 @@
         end_date: null,
         finishingSubstitution: false,
         modifying: false,
-        deleting: false
+        removing: false,
+        confirmDialog: false
       }
     },
     props: {
@@ -204,8 +216,22 @@
           this.$v.$touch()
         }
       },
+      confirmRemove () {
+        this.confirmDialog = true
+      },
       remove () {
-        console.log('TODO remove')
+        this.removing = true
+        axios.delete('/api/v1/job/' + this.job.id + '/substitution/' + this.currentSubstitute.id).then(response => {
+          this.removing = false
+          this.confirmDialog = false
+          this.dialog = false
+          this.showMessage("S'ha esborrat la substitució correctament")
+          this.$emit('change')
+        }).catch(error => {
+          this.removing = false
+          console.log(error)
+          this.showError(error)
+        })
       },
       showSubstituteDialog (substitute) {
         this.currentSubstitute = substitute
