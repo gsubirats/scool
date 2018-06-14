@@ -446,7 +446,7 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
 
         $substitute = factory(User::class)->create();
 
-        $employee = Employee::create([
+        Employee::create([
             'user_id' => $substitute->id,
             'job_id' => $job->id,
             'start_at' => $start = Carbon::now()->subDays(10)->toDateTimeString(),
