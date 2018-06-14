@@ -233,4 +233,90 @@ class JobSubstitutionsControllerTest extends BaseTenantTest
         $this->assertEquals($end, $result->end_at);
     }
 
+    /** @test */
+    public function can_modify_substitution_with_dates_without_time()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+
+        $substitute = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans'
+        ]);
+
+        Employee::create([
+            'user_id' => $substitute->id,
+            'job_id' => $job->id
+        ]);
+
+        $now = Carbon::now();
+        $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', [
+            'user_id' => $substitute->id,
+            'start_at' => $start = Carbon::now()->subDays(10)->toDateString(),
+            'end_at' => $end = $now->toDateString()
+        ]);
+        $response->assertSuccessful();
+        $result = json_decode($response->getContent());
+
+        $job = $job->fresh();
+        $this->assertCount(1,$job->substitutes);
+
+        $employee = Employee::where('user_id', $substitute->id )->where('job_id', $job->id)->first();
+
+        $this->assertNotNull($employee);
+
+        $this->assertFalse(ends_with('00:00:00',$result->start_at));
+        $this->assertTrue(starts_with($result->start_at, $start));
+        $this->assertTrue(starts_with($result->end_at, $end));
+
+        $this->assertTrue( (new Carbon($start . ' ' . $now->toTimeString()))->diffInSeconds(new Carbon($result->start_at)) < 2);
+        $this->assertTrue( (new Carbon($end . ' ' . $now->toTimeString()))->diffInSeconds(new Carbon($result->end_at)) < 2);
+//        $this->assertEquals($start . ' ' . $now->toTimeString(), $result->start_at );
+//        $this->assertEquals($end . ' ' . $now->toTimeString(), $result->end_at);
+    }
+
+    /** @test */
+    public function can_finish_substitution()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+        $this->actingAs($staffManager,'api');
+
+        $job= $this->create_job();
+        $this->assertCount(0,$job->substitutes);
+
+        $substitute = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans'
+        ]);
+
+        Employee::create([
+            'user_id' => $substitute->id,
+            'job_id' => $job->id,
+            'start_at' => $start = Carbon::now()->subDays(10)->toDateTimeString()
+        ]);
+
+        $response = $this->json('PUT','/api/v1/job/' . $job->id . '/substitution', [
+            'user_id' => $substitute->id,
+            'end_at' => $end = Carbon::now()->toDateTimeString()
+        ]);
+        $response->assertSuccessful();
+        $result = json_decode($response->getContent());
+
+        $job = $job->fresh();
+        $this->assertCount(1,$job->substitutes);
+
+        $employee = Employee::where('user_id', $substitute->id )->where('job_id', $job->id)->first();
+//        dump(json_encode($employee));
+//        dump($result);
+        $this->assertNotNull($employee);
+        $this->assertEquals($start, $result->start_at);
+        $this->assertEquals($end, $result->end_at);
+    }
 }

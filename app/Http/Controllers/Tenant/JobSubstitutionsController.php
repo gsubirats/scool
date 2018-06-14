@@ -7,6 +7,7 @@ use App\Http\Requests\StoreJobSubstitution;
 use App\Http\Requests\UpdateJobSubstitution;
 use App\Models\Employee;
 use App\Models\Job;
+use Carbon\Carbon;
 
 /**
  * Class JobSubstitutionsController.
@@ -29,10 +30,18 @@ class JobSubstitutionsController extends Controller
         return Employee::create([
             'user_id' => $request->user,
             'job_id' => $job->id,
-            'start_at' => $request->start_at,
+            'start_at' => $this->normalizeDate($request->start_at),
         ]);
     }
 
+    protected function normalizeDate($date)
+    {
+        $datetime = (new Carbon($date))->toDateTimeString();
+        if (ends_with($datetime,'00:00:00')) {
+            return $date . ' ' . Carbon::now()->toTimeString();
+        }
+        return $date;
+    }
     /**
      * Update.
      *
@@ -44,19 +53,9 @@ class JobSubstitutionsController extends Controller
     public function update(UpdateJobSubstitution $request,$tenant, Job $job)
     {
         $employee = Employee::where('user_id', $request->user_id)->where('job_id', $job->id)->first();
-//        dump($employee->start_at);
-//        dump($employee->end_at);
-//        dump($request->start_at);
-        $employee->start_at = $request->start_at;
-//        dump($request->end_at);
-        $employee->end_at = $request->end_at;
+        $request->start_at && $employee->start_at = $this->normalizeDate($request->start_at);
+        $request->end_at && $employee->end_at = $this->normalizeDate($request->end_at);
         $employee->save();
-//        dump($employee->start_at);
-//        dump($employee->start_at->toDatetimeString());
-//        dump($employee->end_at);
-//        dump($employee->end_at->toDatetimeString());
-//        dump('HEY:');
-//        dump(json_encode($employee));
         return $employee;
     }
 

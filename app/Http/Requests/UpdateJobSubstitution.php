@@ -31,8 +31,8 @@ class UpdateJobSubstitution extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-            'start_at' => 'required|date',
-            'end_at' => 'required|date',
+            'start_at' => 'sometimes|required|date',
+            'end_at' => 'sometimes|required|date',
         ];
     }
 }
