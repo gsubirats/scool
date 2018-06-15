@@ -8,7 +8,7 @@
             :specialties="{{ $specialties }}"
             :families="{{ $families }}"
             :users="{{ $users }}"
-            :proposed-code="{{ $nextAvailableCode }}"
+            proposed-code="{{ $firstAvailableCode }}"
     ></job-add>
 
     <jobs-list :jobs="{{ $jobs }}" :job-types="{{ $jobTypes }}"></jobs-list>

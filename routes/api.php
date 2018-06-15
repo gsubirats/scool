@@ -77,6 +77,7 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             Route::get('/jobs', 'Tenant\JobsController@index');
             Route::post('/jobs', 'Tenant\JobsController@store');
             Route::delete('/jobs/{job}', 'Tenant\JobsController@destroy');
+            Route::get('/jobs/nextAvailableCode', 'Tenant\JobsController@nextAvailableCode');
 
             //Google GSuite users
             Route::get('/gsuite/users', 'Tenant\GoogleSuiteUsersController@index');

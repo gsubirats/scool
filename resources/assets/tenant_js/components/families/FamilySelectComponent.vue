@@ -11,7 +11,7 @@
             :items="families"
             v-model="internalFamily"
             item-text="name"
-            item-value="name"
+            :item-value="itemValue"
     >
         <template slot="item" slot-scope="{item: family}">
             <v-list-tile-content v-text="family.name"></v-list-tile-content>
@@ -49,11 +49,15 @@
       },
       errorMessages: {
         type: Array,
-        required: true
+        required: false
       },
       required: {
         type: Boolean,
         default: true
+      },
+      itemValue: {
+        type: String,
+        default: 'id'
       }
     },
     watch: {

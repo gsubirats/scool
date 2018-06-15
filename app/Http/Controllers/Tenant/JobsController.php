@@ -10,7 +10,6 @@ use App\Models\Family;
 use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
-use App\Models\Teacher;
 use App\Models\User;
 use App\Http\Resources\Tenant\Job as JobResource;
 
@@ -61,7 +60,7 @@ class JobsController extends Controller
         $specialties = Specialty::with('jobs','jobs.family')->get();
         $families = Family::with('jobs','jobs.specialty')->get();
         $users = User::available();
-        $nextAvailableCode = Teacher::firstAvailableCode();
+        $firstAvailableCode = Job::firstAvailableCode();
 
         return view('tenants.jobs.show',compact(
             'jobs',
@@ -69,7 +68,7 @@ class JobsController extends Controller
             'specialties',
             'families',
             'users',
-            'nextAvailableCode'
+            'firstAvailableCode'
         ));
     }
 
@@ -82,28 +81,40 @@ class JobsController extends Controller
     {
         $job = Job::create([
             'code' => $request->code,
-            'type_id' => JobType::findByName($request->type)->id,
+            'type_id' => $request->type,
             'specialty_id' => $request->specialty,
             'family_id' => $request->family,
             'order' => $request->order,
             'notes' => $request->notes
         ])->load('type','specialty','family','users');
 
-        $job->users()->save(User::findOrFail($request->holder));
+        if ($request->holder) $job->users()->save(User::findOrFail($request->holder), ['holder' => 1]);
         return $job;
     }
 
     /**
-     * Destroy.
+     * Destroy
      *
      * @param DeleteJob $request
      * @param $tenant
      * @param Job $job
      * @return Job
+     * @throws \Exception
      */
     public function destroy(DeleteJob $request, $tenant, Job $job)
     {
         $job->delete();
         return $job;
+    }
+
+    /**
+     * Next available code.
+     *
+     * @param ShowJobsManagement $request
+     * @return string
+     */
+    public function nextAvailableCode(ShowJobsManagement $request)
+    {
+        return Job::firstAvailableCode();
     }
 }

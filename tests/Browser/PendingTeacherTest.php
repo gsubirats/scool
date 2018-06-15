@@ -82,7 +82,7 @@ class PendingTeacherTest extends DuskTestCase
                 ->type('teacher', 'Dolors Sanjuan Aubà')
                 ->keys('input[name="teacher"]', '{tab}');
             $browser->driver->executeScript('window.scrollTo(0, document.body.scrollHeight);');
-//            $browser->pause(1000000);
+            $browser->pause(1000000);
             $browser->click('#sendButton')->pause(500)->assertSee('Dades enviades correctament');
         });
         $pendingTeacher = PendingTeacher::orderBy('created_at', 'desc')->first();

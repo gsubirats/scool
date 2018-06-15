@@ -5,10 +5,13 @@
             :items="users"
             v-model="internalUser"
             item-text="name"
+            :item-value="itemValue"
             chips
             autocomplete
             clearable
             @input="input"
+            @blur="blur"
+            :error-messages="errorMessages"
     >
         <template slot="selection" slot-scope="data">
             <v-chip
@@ -55,9 +58,7 @@
         type: String,
         default: 'user'
       },
-      user: {
-        type: Object
-      },
+      user: {},
       label: {
         type: String,
         default: 'Escolliu un usuari'
@@ -65,6 +66,14 @@
       users: {
         type: Array,
         required: true
+      },
+      itemValue: {
+        type: String,
+        default: 'id'
+      },
+      errorMessages: {
+        type: Array,
+        required: false
       }
     },
     watch: {
@@ -73,8 +82,11 @@
       }
     },
     methods: {
-      input (value) {
-        this.$emit('input', value)
+      input () {
+        this.$emit('input', this.internalUser)
+      },
+      blur () {
+        this.$emit('blur', this.internalUser)
       }
     }
   }

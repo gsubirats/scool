@@ -11,6 +11,7 @@ export default {
       'family': job.family,
       'specialty': job.specialty,
       'holder': job.holder,
+      'order': job.order,
       'notes': job.notes
     })
   },

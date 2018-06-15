@@ -8,6 +8,8 @@
             autocomplete
             clearable
             @input="input"
+            @blur="blur"
+            :error-messages="errorMessages"
     >
     </v-select>
 </template>
@@ -37,7 +39,7 @@
         required: true
       },
       errorMessages: {
-        type: Function,
+        type: Array,
         required: false
       }
     },
@@ -47,8 +49,11 @@
       }
     },
     methods: {
-      input (value) {
-        this.$emit('input', value)
+      input () {
+        this.$emit('input', this.internalJobType)
+      },
+      blur () {
+        this.$emit('input', this.internalJobType)
       }
     }
   }

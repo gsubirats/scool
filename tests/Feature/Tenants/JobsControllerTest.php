@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Tenants;
 
+use App\Models\Employee;
 use App\Models\Family;
 use App\Models\Specialty;
 use App\Models\Job;
@@ -54,7 +55,7 @@ class JobsControllerTest extends BaseTenantTest
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
         $response->assertViewHas('users');
-        $response->assertViewHas('nextAvailableCode');
+        $response->assertViewHas('firstAvailableCode');
     }
 
     /** @test */
@@ -113,7 +114,7 @@ class JobsControllerTest extends BaseTenantTest
         $this->assertCount(0, Job::all());
         $response = $this->json('POST','/api/v1/jobs', [
             'code' => '040',
-            'type' => 'Professor/a',
+            'type' => 1,
             'family' => 1,
             'specialty' => 1,
             'holder' => 1,
@@ -133,6 +134,13 @@ class JobsControllerTest extends BaseTenantTest
         $this->assertEquals('Sanitat', Family::find($job->family_id)->name);
         $this->assertEquals('Processos diagnòstics clínics i productes ortoprotètics', Specialty::find($job->specialty_id)->name);
 
+        $employee = Employee::find(1);
+
+        $this->assertEquals('1',$employee->user_id);
+        $this->assertEquals('1',$employee->job_id);
+        $this->assertEquals('1',$employee->holder);
+        $this->assertNull($employee->start_at);
+        $this->assertNull($employee->end_at);
     }
 
     /** @test */
@@ -243,7 +251,6 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function list_jobs()
     {
-        $this->withoutExceptionHandling();
         initialize_tenant_roles_and_permissions();
         initialize_user_types();
         initialize_job_types();
@@ -255,7 +262,6 @@ class JobsControllerTest extends BaseTenantTest
         initialize_teachers();
 
         $staffManager = create(User::class);
-        $this->actingAs($staffManager);
         $role = Role::firstOrCreate(['name' => 'StaffManager']);
         Config::set('auth.providers.users.model', User::class);
         $staffManager->assignRole($role);
@@ -274,10 +280,61 @@ class JobsControllerTest extends BaseTenantTest
     /** @test */
     public function regular_users_cannot_list_jobs()
     {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+
+        $this->actingAs($staffManager,'api');
+
+        $response = $this->json('GET','/api/v1/jobs/nextAvailableCode');
+
+        $response->assertSuccessful();
+
+        $result = $response->getContent();
+
+        $this->assertEquals('001',$result);
+
+        $job = Job::create([
+            'code' => '040',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'bla bla bla'
+        ]);
+        $response = $this->json('GET','/api/v1/jobs/nextAvailableCode');
+
+        $response->assertSuccessful();
+
+        $result = $response->getContent();
+        $this->assertEquals('001',$result);
+
+        $job = Job::create([
+            'code' => '001',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'bla bla bla 2'
+        ]);
+        $response = $this->json('GET','/api/v1/jobs/nextAvailableCode');
+
+        $response->assertSuccessful();
+
+        $result = $response->getContent();
+        $this->assertEquals('002',$result);
+    }
+
+
+
+    /** @test */
+    public function regular_user_cannot_get_next_available_code()
+    {
         $user = factory(User::class)->create();
         $this->actingAs($user,'api');
 
-        $response = $this->json('GET','/api/v1/jobs');
+        $response = $this->json('GET','/api/v1/jobs/nextAvailableCode');
 
         $response->assertStatus(403);
     }

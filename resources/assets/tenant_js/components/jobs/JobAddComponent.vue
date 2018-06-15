@@ -5,8 +5,12 @@
                 <v-alert v-model="error" type="error" dismissible>
                     <template v-for="error in errors">{{ error[0] }}</template>
                 </v-alert>
+                <v-toolbar color="blue darken-3">
+                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
+                    <v-toolbar-title class="white--text title">Afegeix una nova plaça</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                </v-toolbar>
                 <v-card>
-                    <v-card-title class="blue darken-3 white--text"><h2>Afegeix una nova plaça</h2></v-card-title>
                     <v-card-text class="px-0 mb-2">
                         <v-container fluid grid-list-md text-xs-center>
                             <v-layout row wrap>
@@ -31,7 +35,23 @@
                                                             :job-types="jobTypes"
                                                             v-model="jobType"
                                                             label="Tipus de plaça"
+                                                            :error-messages="jobTypeErrors"
+                                                            @input="$v.jobType.$touch()"
+                                                            @blur="$v.jobType.$touch()"
                                                     ></job-type-select>
+                                                </v-flex>
+                                                <v-flex md5>
+                                                    <specialty-select
+                                                            v-if="isTeacher"
+                                                            :specialties="specialties"
+                                                            name="specialty"
+                                                            label="Especialitat"
+                                                            :error-messages="specialtyErrors"
+                                                            @input="$v.specialty.$touch()"
+                                                            @blur="$v.specialty.$touch()"
+                                                            v-model="specialty"
+                                                            :required="false"
+                                                    ></specialty-select>
                                                 </v-flex>
                                                 <v-flex md3>
                                                     <family-select
@@ -47,25 +67,22 @@
                                                     ></family-select>
                                                 </v-flex>
                                                 <v-flex md5>
-                                                    <specialty-select
-                                                            v-if="isTeacher"
-                                                            :specialties="specialties"
-                                                            name="specialty"
-                                                            label="Especialitat"
-                                                            :error-messages="specialtyErrors"
-                                                            @input="$v.specialty.$touch()"
-                                                            @blur="$v.specialty.$touch()"
-                                                            v-model="specialty"
-                                                            :required="false"
-                                                    ></specialty-select>
-                                                </v-flex>
-                                                <v-flex md6>
                                                     <user-select
                                                             name="holder"
                                                             label="Escolliu un titular"
                                                             :users="users"
                                                             v-model="holder"
                                                     ></user-select>
+                                                </v-flex>
+                                                <v-flex md1>
+                                                    <v-text-field
+                                                            v-model="order"
+                                                            name="order"
+                                                            label="Ordre"
+                                                            :error-messages="orderErrors"
+                                                            @input="$v.order.$touch()"
+                                                            @blur="$v.order.$touch()"
+                                                            ></v-text-field>
                                                 </v-flex>
                                                 <v-flex md6>
                                                     <v-text-field
@@ -96,12 +113,13 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import withSnackbar from '../mixins/withSnackbar'
-  import { required, maxLength, requiredIf } from 'vuelidate/lib/validators'
+  import { required, maxLength, requiredIf, numeric } from 'vuelidate/lib/validators'
   import * as actions from '../../store/action-types'
   import JobTypeSelect from './JobTypeSelectComponent.vue'
   import SpecialtySelect from '../specialties/SpecialtySelectComponent'
   import FamilySelect from '../families/FamilySelectComponent'
   import UserSelect from '../users/UsersSelectComponent.vue'
+  import axios from 'axios'
 
   export default {
     mixins: [validationMixin, withSnackbar],
@@ -114,12 +132,13 @@
     validations: {
       code: {required, maxLength: maxLength(4)},
       jobType: {required},
-      family: {required: requiredIf((component) => {
-        return component.jobType.name === 'Professor/a'
+      family: {requiredIf: requiredIf((component) => {
+        return component.jobType === component.teacherId
       })},
-      specialty: {required: requiredIf((component) => {
-        return component.jobType.name === 'Professor/a'
-      })}
+      specialty: {requiredIf: requiredIf((component) => {
+        return component.jobType === component.teacherId
+      })},
+      order: {required, numeric}
     },
     data () {
       return {
@@ -131,11 +150,13 @@
         code: this.proposedCode,
         family: null,
         holder: null,
-        notes: ''
+        notes: '',
+        order: 1
       }
     },
     props: {
       proposedCode: {
+        type: String,
         required: false
       },
       teacherType: {
@@ -159,6 +180,12 @@
         required: true
       }
     },
+    watch: {
+      specialty: function (newSpecialty) {
+        if (newSpecialty) this.family = this.getSpecialty(newSpecialty).family_id
+        else this.family = null
+      }
+    },
     computed: {
       isTeacher () {
         return this.jobType && (this.jobType === this.teacherId)
@@ -173,36 +200,47 @@
       jobTypeErrors () {
         const errors = []
         if (!this.$v.jobType.$dirty) return errors
-        !this.$v.jobType.required && errors.push('El tipus és obligatori.')
+        this.$v.jobType.$error && errors.push('El tipus és obligatori.')
         return errors
       },
       familyErrors () {
         const errors = []
         if (!this.$v.family.$dirty) return errors
-        !this.$v.family.required && errors.push('La família és obligatoria si el tipus és professor/a.')
+        this.$v.specialty.$error && errors.push('La família és obligatoria si el tipus és professor/a.')
         return errors
       },
       specialtyErrors () {
         const errors = []
         if (!this.$v.specialty.$dirty) return errors
-        !this.$v.specialty.required && errors.push('La especialitat és obligatoria si el tipus és professor/a.')
+        this.$v.specialty.$error && errors.push('La especialitat és obligatoria si el tipus és professor/a.')
+        return errors
+      },
+      orderErrors () {
+        const errors = []
+        if (!this.$v.order.$dirty) return errors
+        this.$v.order.$error && errors.push('Cal indicar un ordre (enter positiu)')
         return errors
       }
     },
     methods: {
+      getSpecialty (specialtyId) {
+        return this.specialties.find(specialty => specialty.id === specialtyId)
+      },
       add () {
         if (!this.$v.$invalid) {
           this.adding = true
           this.$store.dispatch(actions.STORE_JOB, {
-            type: this.jobType.name,
+            type: this.jobType,
             code: this.code,
-            family: this.family && this.family.id,
-            specialty: this.specialty && this.specialty.id,
-            holder: this.holder && this.holder.id,
+            family: this.family,
+            specialty: this.specialty,
+            holder: this.holder,
+            order: this.order,
             notes: this.notes
           }).then(response => {
             this.adding = false
             this.showMessage('Plaça afegida correctament')
+            this.clear()
           }).catch(error => {
             this.adding = false
             console.log(error)
@@ -220,11 +258,18 @@
         })
       },
       clear () {
-        this.code = null
-        this.jobType = null
+        axios.get('/api/v1/jobs/nextAvailableCode').then(response => {
+          this.code = response.data
+        }).catch(error => {
+          console.log(error)
+          this.showError(error)
+        })
+        this.jobType = this.teacherId
         this.specialty = null
         this.family = null
         this.holder = null
+        this.order = 1
+        this.notes = ''
       }
     },
     created () {

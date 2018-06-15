@@ -46,20 +46,19 @@
                                         <td class="text-xs-left" v-if="showJobTypeHeader" v-html="job.type"></td>
                                         <td class="text-xs-left" v-html="job.code"></td>
                                         <td class="text-xs-left">
-                                            <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + job.holder_hashid + '/photo'"
+                                            <v-avatar color="grey lighten-4" :size="40" v-if="job.holder_hashid">
+                                                <img v-if="job.holder_hashid" :src="'/user/' + job.holder_hashid + '/photo'"
                                                      :alt="job.holder_description"
                                                      :title="job.holder_description">
                                             </v-avatar>
+                                            <add-holder-to-job-icon :job="job" v-else></add-holder-to-job-icon>
                                         </td>
                                         <td class="text-xs-left">
-                                            <template v-if="job.active_user_hash_id">
-                                                <v-avatar color="grey lighten-4" :size="40">
-                                                    <img :src="'/user/' + job.active_user_hash_id + '/photo'"
-                                                         :alt="job.active_user_description"
-                                                         :title="job.active_user_description">
-                                                </v-avatar>
-                                            </template>
+                                            <v-avatar color="grey lighten-4" :size="40" v-if="job.active_user_hash_id">
+                                                <img :src="'/user/' + job.active_user_hash_id + '/photo'"
+                                                     :alt="job.active_user_description"
+                                                     :title="job.active_user_description">
+                                            </v-avatar>
                                         </td>
                                         <td class="text-xs-left">
                                             <substitute-avatars :job="job" @change="refresh"></substitute-avatars>
@@ -168,6 +167,7 @@
   import RemoveSubstitutesIcon from './RemoveSubstitutesIconComponent'
   import SubstituteAvatars from './SubstituteAvatarsComponent'
   import EditJobIcon from './EditJobIconComponent'
+  import AddHolderToJobIcon from './AddHolderToJobIconComponent'
 
   export default {
     components: {
@@ -177,7 +177,8 @@
       'stop-substitution-icon': StopSubstitutionIcon,
       'remove-substitutes-icon': RemoveSubstitutesIcon,
       'substitute-avatars': SubstituteAvatars,
-      'edit-job-icon': EditJobIcon
+      'edit-job-icon': EditJobIcon,
+      'add-holder-to-job-icon': AddHolderToJobIcon
     },
     data () {
       return {

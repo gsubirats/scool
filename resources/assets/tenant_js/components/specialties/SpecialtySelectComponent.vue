@@ -11,7 +11,7 @@
             :items="specialties"
             v-model="internalSpecialty"
             item-text="name"
-            item-value="name"
+            :item-value="itemValue"
     >
         <template slot="item" slot-scope="{item: specialty}">
             <v-list-tile-content v-text="specialty.code + ' ' + specialty.name"></v-list-tile-content>
@@ -49,11 +49,15 @@
       },
       errorMessages: {
         type: Array,
-        required: true
+        required: false
       },
       required: {
         type: Boolean,
         default: true
+      },
+      itemValue: {
+        type: String,
+        default: 'id'
       }
     },
     watch: {

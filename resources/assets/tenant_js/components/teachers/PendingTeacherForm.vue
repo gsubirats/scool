@@ -633,9 +633,6 @@
       getSpecialty (specialtyId) {
         return this.specialties.find(specialty => specialty.id === specialtyId)
       },
-      getSpecialtyByName (specialtyName) {
-        return this.specialties.find(specialty => specialty.name === specialtyName)
-      },
       getForce (forceId) {
         return this.forces.find(force => force.id === forceId)
       },
@@ -745,8 +742,8 @@
           other_training: this.other_training,
           force_id: this.force.id,
           force: this.force.name,
-          specialty_id: this.getSpecialtyByName(this.specialty).id,
-          specialty: this.specialty,
+          specialty_id: this.specialty,
+          specialty: this.getSpecialty(this.specialty).name,
           teacher_start_date: this.teacher_start_date,
           start_date: this.start_date,
           opositions_date: this.opositions_date,

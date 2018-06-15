@@ -16,7 +16,7 @@ export default {
   [ actions.STORE_JOB ] (context, job) {
     return new Promise((resolve, reject) => {
       api.store(job).then(response => {
-        context.commit(mutations.ADD_JOB, response.data)
+        context.dispatch(actions.GET_JOBS)
         resolve(response)
       }).catch(error => {
         reject(error)
