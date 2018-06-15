@@ -20,9 +20,10 @@ class AvailableUsersController extends Controller
      * @param ListAvailableUsers $request
      * @param $tenant
      * @param JobType $jobType
+     * @return mixed
      */
     public function index(ListAvailableUsers $request, $tenant, JobType $jobType)
     {
-        return User::doesntHave('jobs')->get();
+        return User::available();
     }
 }

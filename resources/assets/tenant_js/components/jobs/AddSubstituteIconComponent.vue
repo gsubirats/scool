@@ -7,7 +7,7 @@
             scrollable
             @keydown.esc="dialog = false"
     >
-        <v-btn icon slot="activator" title="Afegir substitut">
+        <v-btn icon slot="activator" title="Afegir substitut" style="margin: 0px" :disabled="activeSubstitute">
             <v-icon color="teal">add</v-icon>
         </v-btn>
         <v-card tile>
@@ -18,13 +18,10 @@
                 <v-toolbar-title>Afegir substitut</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <v-btn dark flat @click.native="addSubstitute()">Afegir</v-btn>
+                    <v-btn dark flat @click.native="addSubstitute()" :disabled="adding" :loading="adding">Afegir</v-btn>
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-alert :value="showAlert()" type="error">
-                    Hi ha un o més substituts actius (sense data de finalització substitució o amb data de finalització futura). Si us plau feu doble click sobre la foto del substitut i actualitzeu la data de finalització!
-                </v-alert>
                 <v-list three-line subheader>
                     <v-subheader>Plaça</v-subheader>
                     <v-list-tile>
@@ -89,7 +86,7 @@
                 <v-divider></v-divider>
             </v-card-text>
             <v-card-actions>
-                <v-btn color="success" @click="addSubstitute()" :disabled="disabled">Afegir</v-btn>
+                <v-btn color="success" @click="addSubstitute()" :disabled="adding" :loading="adding">Afegir</v-btn>
                 <v-btn flat @click="dialog=false">Sortir</v-btn>
             </v-card-actions>
         </v-card>
@@ -122,7 +119,8 @@
       return {
         user: {},
         dialog: false,
-        start_date: moment(new Date()).format('YYYY-MM-DD')
+        start_date: moment(new Date()).format('YYYY-MM-DD'),
+        adding: false
       }
     },
     props: {
@@ -132,32 +130,32 @@
       }
     },
     computed: {
-      disabled () {
-        return false
-      }
-    },
-    methods: {
-      showAlert () {
+      activeSubstitute () {
         if (this.job.substitutes.filter(substitute => substitute.end_at == null).length > 0) return true
         if (this.job.substitutes.filter(substitute => {
           return moment(substitute.end_at).isAfter(moment())
         }).length > 0) return true
         return false
-      },
+      }
+    },
+    methods: {
       substitutesNames () {
         return this.job.substitutes.map(substitute => substitute.name).join(', ')
       },
       addSubstitute () {
         this.$v.$touch()
         if (!this.$v.$invalid) {
+          this.adding = true
           axios.post('/api/v1/job/' + this.job.id + '/substitution', {
             user: this.user.id,
             start_at: this.start_date
           }).then(response => {
             this.showMessage('Substitut afegit correctament')
             this.dialog = false
+            this.adding = false
             this.$emit('change')
           }).catch(error => {
+            this.adding = false
             console.log(error)
             this.showError(error)
           })

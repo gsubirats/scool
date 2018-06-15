@@ -255,6 +255,17 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
+     * Scope a query to only include users without job.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvailable($query)
+    {
+        return User::doesntHave('jobs')->get();
+    }
+
+    /**
      * Scope a query to only include teacher users.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

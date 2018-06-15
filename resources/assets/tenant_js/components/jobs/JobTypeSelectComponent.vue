@@ -4,6 +4,7 @@
             :items="jobTypes"
             v-model="internalJobType"
             item-text="name"
+            item-value="id"
             autocomplete
             clearable
             @input="input"
@@ -25,7 +26,7 @@
     },
     props: {
       jobType: {
-        type: Object
+        type: Number
       },
       label: {
         type: String,
@@ -40,6 +41,11 @@
         required: false
       }
     },
+    watch: {
+      jobType (newJobType) {
+        this.internalJobType = this.jobType
+      }
+    },
     methods: {
       input (value) {
         this.$emit('input', value)
@@ -48,7 +54,3 @@
   }
 
 </script>
-
-<style scoped>
-
-</style>

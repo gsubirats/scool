@@ -106,9 +106,10 @@ class Teacher extends Model
      */
     public static function firstAvailableCode()
     {
+        $codes = self::all()->pluck('code')->toArray();
         foreach (range(1, 999) as $value) {
             $code = sprintf('%03d', $value);
-            if (!self::where('code',$code)->first()) return $code;
+            if (! in_array($code,$codes)) return $code;
         }
     }
 }

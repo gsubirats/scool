@@ -12,7 +12,7 @@
                             <v-layout row wrap>
                                 <v-flex xs12>
                                     <form>
-                                        <v-container grid-list-md text-xs-center>
+                                        <v-container fluid grid-list-md text-xs-center>
                                             <v-layout row wrap>
                                                 <v-flex md2>
                                                     <v-text-field
@@ -27,88 +27,45 @@
                                                     ></v-text-field>
                                                 </v-flex>
                                                 <v-flex md2>
-                                                    <v-select
-                                                            :items="jobTypes"
+                                                    <job-type-select
+                                                            :job-types="jobTypes"
                                                             v-model="jobType"
-                                                            item-text="name"
-                                                            label="Tipus"
-                                                            :clearable="true"
-                                                            single-line
-                                                            :error-messages="jobTypeErrors"
-                                                            @input="$v.jobType.$touch()"
-                                                            @blur="$v.jobType.$touch()"
-                                                            autocomplete
-                                                    ></v-select>
+                                                            label="Tipus de plaça"
+                                                    ></job-type-select>
                                                 </v-flex>
                                                 <v-flex md3>
-                                                    <v-select
+                                                    <family-select
                                                             v-if="isTeacher"
-                                                            :items="families"
-                                                            v-model="family"
-                                                            item-text="name"
+                                                            :families="families"
+                                                            name="family"
                                                             label="Família"
-                                                            :clearable="true"
-                                                            single-line
                                                             :error-messages="familyErrors"
                                                             @input="$v.family.$touch()"
                                                             @blur="$v.family.$touch()"
-                                                            autocomplete
-                                                    ></v-select>
+                                                            v-model="family"
+                                                            :required="false"
+                                                    ></family-select>
                                                 </v-flex>
                                                 <v-flex md5>
-                                                    <v-select
+                                                    <specialty-select
                                                             v-if="isTeacher"
-                                                            :items="specialties"
-                                                            v-model="specialty"
-                                                            item-text="code"
+                                                            :specialties="specialties"
+                                                            name="specialty"
                                                             label="Especialitat"
-                                                            :clearable="true"
-                                                            single-line
                                                             :error-messages="specialtyErrors"
                                                             @input="$v.specialty.$touch()"
                                                             @blur="$v.specialty.$touch()"
-                                                            autocomplete
-                                                    ></v-select>
+                                                            v-model="specialty"
+                                                            :required="false"
+                                                    ></specialty-select>
                                                 </v-flex>
                                                 <v-flex md6>
-                                                    <v-select
+                                                    <user-select
+                                                            name="holder"
                                                             label="Escolliu un titular"
-                                                            :items="users"
+                                                            :users="users"
                                                             v-model="holder"
-                                                            item-text="name"
-                                                            chips
-                                                            max-height="auto"
-                                                            autocomplete
-                                                    >
-                                                        <template slot="selection" slot-scope="data">
-                                                            <v-chip
-                                                                    close
-                                                                    @input="data.parent.selectItem(data.item)"
-                                                                    :selected="data.selected"
-                                                                    class="chip--select-multi"
-                                                                    :key="JSON.stringify(data.item)"
-                                                            >
-                                                                <v-avatar>
-                                                                    <img :src="data.item.avatar">
-                                                                </v-avatar>
-                                                                {{ data.item.name }}
-                                                            </v-chip>
-                                                        </template>
-                                                        <template slot="item" slot-scope="data">
-                                                            <template v-if="typeof data.item !== 'object'">
-                                                                <v-list-tile-content v-text="data.item"></v-list-tile-content>
-                                                            </template>
-                                                            <template v-else>
-                                                                <v-list-tile-avatar>
-                                                                    <img :src="data.item.avatar">
-                                                                </v-list-tile-avatar>
-                                                                <v-list-tile-content>
-                                                                    <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                                                                    <v-list-tile-sub-title v-html="data.item.group"></v-list-tile-sub-title>
-                                                                </v-list-tile-content>
-                                                            </template>
-                                                        </template>
-                                                    </v-select>
+                                                    ></user-select>
                                                 </v-flex>
                                                 <v-flex md6>
                                                     <v-text-field
@@ -136,18 +93,24 @@
 
 </template>
 
-<style>
-
-</style>
-
 <script>
   import { validationMixin } from 'vuelidate'
   import withSnackbar from '../mixins/withSnackbar'
   import { required, maxLength, requiredIf } from 'vuelidate/lib/validators'
   import * as actions from '../../store/action-types'
+  import JobTypeSelect from './JobTypeSelectComponent.vue'
+  import SpecialtySelect from '../specialties/SpecialtySelectComponent'
+  import FamilySelect from '../families/FamilySelectComponent'
+  import UserSelect from '../users/UsersSelectComponent.vue'
 
   export default {
     mixins: [validationMixin, withSnackbar],
+    components: {
+      'job-type-select': JobTypeSelect,
+      'specialty-select': SpecialtySelect,
+      'family-select': FamilySelect,
+      'user-select': UserSelect
+    },
     validations: {
       code: {required, maxLength: maxLength(4)},
       jobType: {required},
@@ -165,13 +128,16 @@
         adding: false,
         jobType: null,
         specialty: null,
-        code: '',
+        code: this.proposedCode,
         family: null,
         holder: null,
         notes: ''
       }
     },
     props: {
+      proposedCode: {
+        required: false
+      },
       teacherType: {
         type: String,
         required: true
@@ -195,7 +161,7 @@
     },
     computed: {
       isTeacher () {
-        return this.jobType && this.jobType.name === this.teacherType
+        return this.jobType && (this.jobType === this.teacherId)
       },
       codeErrors () {
         const errors = []
@@ -260,6 +226,10 @@
         this.family = null
         this.holder = null
       }
+    },
+    created () {
+      this.teacherId = this.jobTypes.find(jobType => jobType.name === 'Professor/a').id
+      this.jobType = this.teacherId
     }
   }
 </script>

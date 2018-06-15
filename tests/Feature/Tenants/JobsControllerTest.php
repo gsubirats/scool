@@ -54,6 +54,7 @@ class JobsControllerTest extends BaseTenantTest
         $response->assertViewHas('specialties');
         $response->assertViewHas('families');
         $response->assertViewHas('users');
+        $response->assertViewHas('nextAvailableCode');
     }
 
     /** @test */

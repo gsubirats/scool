@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span style="display: inline-block;">
         <v-dialog
                 v-model="dialog"
                 fullscreen
@@ -107,11 +107,6 @@
             </v-card-actions>
         </v-card>
       </v-dialog>
-        <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id" @dblclick="showSubstituteDialog(substitute)">
-            <img :src="'/user/' + substitute.hash_id + '/photo'"
-                 :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
-                 :title="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at ">
-        </v-avatar>
         <v-dialog v-model="confirmDialog" persistent max-width="290" @keydown.esc="confirmDialog = false">
             <v-card>
                 <v-card-title class="headline">Si us plau confirmeu</v-card-title>
@@ -123,6 +118,11 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id" @dblclick="showSubstituteDialog(substitute)">
+            <img :src="'/user/' + substitute.hash_id + '/photo'"
+                 :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
+                 :title="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at ">
+        </v-avatar>
     </span>
 </template>
 

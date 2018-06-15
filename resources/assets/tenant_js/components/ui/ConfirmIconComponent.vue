@@ -1,12 +1,12 @@
 <template>
     <v-dialog v-model="dialog" persistent max-width="290" @keydown.esc="dialog = false">
         <v-tooltip bottom slot="activator" v-if="tooltip">
-            <v-btn icon slot="activator">
+            <v-btn icon slot="activator" style="margin: 0px">
                 <v-icon :color="color" :dark="dark">{{icon}}</v-icon>
             </v-btn>
             <span v-html="tooltip"></span>
         </v-tooltip>
-        <v-btn icon slot="activator" v-else>
+        <v-btn icon slot="activator" v-else style="margin: 0px">
             <v-icon :color="color" :dark="dark">{{icon}}</v-icon>
         </v-btn>
         <v-card>

@@ -351,21 +351,15 @@
         <v-container fluid grid-list-md text-xs-center>
             <v-layout row wrap>
                 <v-flex md3>
-                    <v-select
+                    <specialty-select
                             name="specialty"
                             label="Especialitat"
-                            autocomplete
-                            required
-                            clearable
                             :error-messages="specialtyErrors"
                             @input="$v.specialty.$touch()"
                             @blur="$v.specialty.$touch()"
-                            :items="specialties"
+                            :specialties="specialties"
                             v-model="specialty"
-                            item-text="name"
-                    >
-                    </v-select>
-
+                    ></specialty-select>
                 </v-flex>
                 <v-flex md5>
                     <v-select
@@ -550,6 +544,7 @@
   import UploadCardComponent from '../ui/UploadCardComponent.vue'
   import ProposedUser from '../users/ProposedUserComponent.vue'
   import JobsSelectForPendingTeacher from '../jobs/JobsSelectForPendingTeacher.vue'
+  import SpecialtySelect from '../specialties/SpecialtySelectComponent'
 
   export default {
     name: 'PendingTeacherForm',
@@ -557,7 +552,8 @@
       'upload-card': UploadCardComponent,
       'teacher-select': TeacherSelect,
       'proposed-user': ProposedUser,
-      'jobs-select-for-pendingteacher': JobsSelectForPendingTeacher
+      'jobs-select-for-pendingteacher': JobsSelectForPendingTeacher,
+      'specialty-select': SpecialtySelect
     },
     mixins: [validationMixin, withSnackbar, PendingTeacher],
     data () {
@@ -636,6 +632,9 @@
       },
       getSpecialty (specialtyId) {
         return this.specialties.find(specialty => specialty.id === specialtyId)
+      },
+      getSpecialtyByName (specialtyName) {
+        return this.specialties.find(specialty => specialty.name === specialtyName)
       },
       getForce (forceId) {
         return this.forces.find(force => force.id === forceId)
@@ -746,8 +745,8 @@
           other_training: this.other_training,
           force_id: this.force.id,
           force: this.force.name,
-          specialty_id: this.specialty.id,
-          specialty: this.specialty.name,
+          specialty_id: this.getSpecialtyByName(this.specialty).id,
+          specialty: this.specialty,
           teacher_start_date: this.teacher_start_date,
           start_date: this.start_date,
           opositions_date: this.opositions_date,

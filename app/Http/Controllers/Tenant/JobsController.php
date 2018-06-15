@@ -10,6 +10,7 @@ use App\Models\Family;
 use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Http\Resources\Tenant\Job as JobResource;
 
@@ -59,14 +60,16 @@ class JobsController extends Controller
         $jobTypes = JobType::all();
         $specialties = Specialty::with('jobs','jobs.family')->get();
         $families = Family::with('jobs','jobs.specialty')->get();
-        $users = User::all();
+        $users = User::available();
+        $nextAvailableCode = Teacher::firstAvailableCode();
 
         return view('tenants.jobs.show',compact(
             'jobs',
             'jobTypes',
             'specialties',
             'families',
-            'users'
+            'users',
+            'nextAvailableCode'
         ));
     }
 

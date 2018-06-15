@@ -70,7 +70,23 @@
                                         <td class="text-xs-left" v-html="job.order">{{ job.order }}</td>
                                         <td class="text-xs-left" :title="job.family_description" v-html="job.family_code"></td>
                                         <td class="text-xs-left" :title="job.specialty_description" v-html="job.specialty_code"></td>
-                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" v-html="job.notes"></td>
+
+
+
+                                        <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <v-edit-dialog
+                                                    :return-value.sync="job.notes"
+                                                    lazy
+                                            > {{ job.notes }}
+                                                <v-text-field
+                                                        slot="input"
+                                                        v-model="job.notes"
+                                                        label="Edit"
+                                                        single-line
+                                                        counter
+                                                ></v-text-field>
+                                            </v-edit-dialog>
+                                        </td>
                                         <td class="text-xs-left">
                                             <v-tooltip bottom>
                                                 <span slot="activator">{{ job.formatted_created_at_diff }}</span>
@@ -86,9 +102,7 @@
                                         <td class="text-xs-left">
                                             <add-substitute-icon :job="job" @change="refresh"></add-substitute-icon>
                                             <stop-substitution-icon :job="job" @change="refresh"></stop-substitution-icon>
-                                            <v-btn icon class="mx-0" @click="edit(job)">
-                                                <v-icon color="teal">edit</v-icon>
-                                            </v-btn>
+                                            <edit-job-icon :job="job" :job-types="jobTypes"></edit-job-icon>
                                             <confirm-icon icon="delete"
                                                           color="pink"
                                                           :working="deleting"
@@ -153,6 +167,7 @@
   import StopSubstitutionIcon from './StopSubstitutionIconComponent'
   import RemoveSubstitutesIcon from './RemoveSubstitutesIconComponent'
   import SubstituteAvatars from './SubstituteAvatarsComponent'
+  import EditJobIcon from './EditJobIconComponent'
 
   export default {
     components: {
@@ -161,13 +176,14 @@
       'add-substitute-icon': AddSubstituteIcon,
       'stop-substitution-icon': StopSubstitutionIcon,
       'remove-substitutes-icon': RemoveSubstitutesIcon,
-      'substitute-avatars': SubstituteAvatars
+      'substitute-avatars': SubstituteAvatars,
+      'edit-job-icon': EditJobIcon
     },
     data () {
       return {
         search: '',
         deleting: false,
-        jobType: {},
+        jobType: null,
         refreshing: false
       }
     },
@@ -177,7 +193,7 @@
       }),
       filteredJobs: function () {
         if (this.showJobTypeHeader) return this.internaljobs
-        return this.internaljobs.filter(job => job.type_id === this.jobType.id)
+        return this.internaljobs.filter(job => job.type_id === this.jobType)
       },
       headers () {
         let headers = []
@@ -185,7 +201,7 @@
         if (this.showJobTypeHeader) {
           headers.push({text: 'Tipus', value: 'type'})
         }
-        headers.push({text: 'Code', value: 'code'})
+        headers.push({text: 'Codi', value: 'code'})
         headers.push({text: 'Titular', value: 'holder_description', sortable: false})
         headers.push({text: 'Treballador actual', value: 'active_user_description', sortable: false})
         headers.push({text: 'Substituts', sortable: false})
@@ -204,7 +220,7 @@
         return headers
       },
       showJobTypeHeader () {
-        if (this.jobType != null && Object.keys(this.jobType).length !== 0) return false
+        if (this.jobType) return false
         return true
       }
     },
@@ -249,6 +265,7 @@
     },
     created () {
       this.$store.commit(mutations.SET_JOBS, this.jobs)
+      this.jobType = this.jobTypes.find(jobType => jobType.name === 'Professor/a').id
     }
   }
 </script>
