@@ -4803,6 +4803,7 @@ if (!function_exists('check_job')) {
             array_key_exists('type', $job) &&
             array_key_exists('type_id', $job) &&
             array_key_exists('code', $job) &&
+            array_key_exists('holder_id', $job) &&
             array_key_exists('holder_hashid', $job) &&
             array_key_exists('holder_code', $job) &&
             array_key_exists('holder_name', $job) &&
@@ -4815,9 +4816,11 @@ if (!function_exists('check_job')) {
             array_key_exists('fullcode', $job) &&
             array_key_exists('order', $job) &&
             array_key_exists('family', $job) &&
+            array_key_exists('family_id', $job) &&
             array_key_exists('family_code', $job) &&
             array_key_exists('family_description', $job) &&
             array_key_exists('specialty', $job) &&
+            array_key_exists('specialty_id', $job) &&
             array_key_exists('specialty_code', $job) &&
             array_key_exists('specialty_description', $job) &&
             array_key_exists('formatted_created_at_diff', $job) &&

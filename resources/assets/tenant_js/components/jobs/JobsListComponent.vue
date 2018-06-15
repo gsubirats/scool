@@ -101,7 +101,11 @@
                                         <td class="text-xs-left">
                                             <add-substitute-icon :job="job" @change="refresh"></add-substitute-icon>
                                             <stop-substitution-icon :job="job" @change="refresh"></stop-substitution-icon>
-                                            <edit-job-icon :job="job" :job-types="jobTypes"></edit-job-icon>
+                                            <job-edit-icon :job="job" :job-types="jobTypes"
+                                                           teacher-type="Professor/a"
+                                                           :specialties="specialties"
+                                                           :families="families"
+                                                           :users="users"></job-edit-icon>
                                             <confirm-icon icon="delete"
                                                           color="pink"
                                                           :working="deleting"
@@ -166,7 +170,7 @@
   import StopSubstitutionIcon from './StopSubstitutionIconComponent'
   import RemoveSubstitutesIcon from './RemoveSubstitutesIconComponent'
   import SubstituteAvatars from './SubstituteAvatarsComponent'
-  import EditJobIcon from './EditJobIconComponent'
+  import EditJobIcon from './JobEditIconComponent'
   import AddHolderToJobIcon from './AddHolderToJobIconComponent'
 
   export default {
@@ -177,7 +181,7 @@
       'stop-substitution-icon': StopSubstitutionIcon,
       'remove-substitutes-icon': RemoveSubstitutesIcon,
       'substitute-avatars': SubstituteAvatars,
-      'edit-job-icon': EditJobIcon,
+      'job-edit-icon': EditJobIcon,
       'add-holder-to-job-icon': AddHolderToJobIcon
     },
     data () {
@@ -231,6 +235,18 @@
         required: true
       },
       jobTypes: {
+        type: Array,
+        required: true
+      },
+      specialties: {
+        type: Array,
+        required: true
+      },
+      families: {
+        type: Array,
+        required: true
+      },
+      users: {
         type: Array,
         required: true
       }

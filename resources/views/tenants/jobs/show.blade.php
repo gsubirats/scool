@@ -11,7 +11,11 @@
             proposed-code="{{ $firstAvailableCode }}"
     ></job-add>
 
-    <jobs-list :jobs="{{ $jobs }}" :job-types="{{ $jobTypes }}"></jobs-list>
+    <jobs-list :jobs="{{ $jobs }}"
+               :job-types="{{ $jobTypes }}"
+               :specialties="{{ $specialties }}"
+               :families="{{ $families }}"
+               :users="{{ $users }}"></jobs-list>
 
     <jobs-list-by-family :families="{{ $families }}"></jobs-list-by-family>
 

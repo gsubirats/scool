@@ -42,6 +42,7 @@ class Job extends JsonResource
 
         $family = optional($this->family)->name;
         $family_code = optional($this->family)->code;
+        $family_id = optional($this->family)->id;
         if ($family_code) {
             $family_description = $family_code . ' ' . $family;
         } else {
@@ -50,6 +51,7 @@ class Job extends JsonResource
 
         $specialty = optional($this->specialty)->name;
         $specialty_code = optional($this->specialty)->code;
+        $specialty_id = optional($this->specialty)->id;
         if ($specialty_code) {
             $specialty_description = $specialty_code . ' ' . $specialty;
         } else {
@@ -73,6 +75,7 @@ class Job extends JsonResource
             'type' => optional($this->type)->name,
             'type_id' => optional($this->type)->id,
             'code' => $this->code,
+            'holder_id' => optional($holder)->id,
             'holder_hashid' => optional($holder)->hash_id,
             'holder_code' => $holder_code,
             'holder_name' => $holder_name,
@@ -85,9 +88,11 @@ class Job extends JsonResource
             'fullcode' => $this->fullcode,
             'order' => $this->order,
             'family' => $family,
+            'family_id' => $family_id,
             'family_code' => $family_code,
             'family_description' => $family_description,
             'specialty' => $specialty,
+            'specialty_id' => $specialty_id,
             'specialty_code' => $specialty_code,
             'specialty_description' => $specialty_description,
             'formatted_created_at_diff' => $this->formatted_created_at_diff,
