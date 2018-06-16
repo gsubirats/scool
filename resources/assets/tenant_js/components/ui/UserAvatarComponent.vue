@@ -18,7 +18,6 @@
         default: '40'
       },
       alt: {
-        type: String,
         required: true
       }
     }

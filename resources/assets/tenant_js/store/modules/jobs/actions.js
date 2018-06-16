@@ -23,6 +23,16 @@ export default {
       })
     })
   },
+  [ actions.EDIT_JOB ] (context, job) {
+    return new Promise((resolve, reject) => {
+      api.update(job).then(response => {
+        context.dispatch(actions.GET_JOBS)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   [ actions.DELETE_JOB ] (context, job) {
     return new Promise((resolve, reject) => {
       api.delete(job).then(response => {

@@ -85,8 +85,6 @@
       create () {
         this.form.subdomain = this.form.subdomain.toLowerCase()
         this.form.post('/api/v1/tenant').then((response) => {
-          console.log(response)
-          console.log(response.data)
           this.$store.commit(types.ADD_TENANT, response.data)
         }).catch((error) => {
           console.log(error)

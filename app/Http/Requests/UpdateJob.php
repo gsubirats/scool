@@ -30,7 +30,7 @@ class UpdateJob extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|unique:jobs,code|max:4',
+            'code' => 'required|max:4',
             'type' => 'required',
             'family' => 'required_if:type,Professor/a',
             'specialty' => 'required_if:type,Professor/a',

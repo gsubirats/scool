@@ -33,7 +33,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tancar</button>
-                        <button type="button" class="btn btn-warning" @click="changePassword">Canviar</button>
+                        <button type="button" class="btn btn-warning" @click="changePassword"
+                                :disabled="changingPassword" :loading="changingPassword">Canviar</button>
                     </div>
                 </div>
             </div>
@@ -52,7 +53,8 @@
         cssClass: 'btn-warning',
         text: 'Change Password',
         form: new Form({ password: '', password_confirmation: '' }),
-        loading: false
+        loading: false,
+        changingPassword: false
       }
     },
     computed: {
@@ -72,15 +74,15 @@
         this.form.errors.clear(name)
       },
       changePassword () {
+        this.changingPassword = true
         this.form.put('/api/v1/tenant/' + this.tenant.id + '/password', {
           password: this.form.password,
           password_confirmation: this.form.password_confirmation
         }).then((response) => {
-          console.log(response)
-          console.log(response.data)
+          this.changingPassword = false
         }).catch((error) => {
+          this.changingPassword = false
           console.log(error)
-          console.dir(error)
           if (error.response) {
             if (parseInt(error.response.status) !== 422) swal('Error', error.message, 'error')
           } else {

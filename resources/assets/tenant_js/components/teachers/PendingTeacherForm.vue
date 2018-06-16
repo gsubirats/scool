@@ -527,7 +527,7 @@
             <v-btn @click.native="cancel">
                 <v-icon>close</v-icon> Sortir
             </v-btn>
-            <v-btn black color="green" @click="createTeacher" class="white--text">
+            <v-btn black color="green" @click="createTeacher" class="white--text" :disabled="creating" :loading="creating">
                 <v-icon>add</v-icon> Crear nou professor
             </v-btn>
         </template>
@@ -558,7 +558,8 @@
     mixins: [validationMixin, withSnackbar, PendingTeacher],
     data () {
       return {
-        ready: false
+        ready: false,
+        creating: false
       }
     },
     props: {
@@ -683,10 +684,13 @@
             return
           }
           let postData = { ...this.getPostTeacher(), username: this.username, job_id: this.job.id, pending_teacher_id: this.pendingTeacher.id }
+          this.creating = true
           axios.post('/api/v1/approved_teacher', postData).then(response => {
-            console.log(response)
+            this.creating = false
           }).catch(error => {
+            this.creating = false
             console.log(error)
+            this.showError(error)
           })
         } else {
           this.$v.$touch()

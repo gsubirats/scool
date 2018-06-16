@@ -97,7 +97,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" flat @click.native="dialog = false">Cancel·lar</v-btn>
-                <v-btn color="blue darken-1" flat @click.native="edit">Modificar</v-btn>
+                <v-btn color="blue darken-1" flat @click.native="edit" :disabled="editing" :loading="editing">Modificar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -225,10 +225,10 @@
         return this.specialties.find(specialty => specialty.id === specialtyId)
       },
       edit () {
-        console.log('Edit')
         if (!this.$v.$invalid) {
           this.editing = true
           this.$store.dispatch(actions.EDIT_JOB, {
+            id: this.job.id,
             type: this.jobType,
             code: this.code,
             family: this.family,
@@ -238,8 +238,8 @@
             notes: this.notes
           }).then(response => {
             this.editing = false
+            this.dialog = false
             this.showMessage('Plaça modificada correctament')
-            this.clear()
           }).catch(error => {
             this.editing = false
             console.log(error)

@@ -136,8 +136,6 @@
           }
           this.loading = true
           this.$store.dispatch(actions.RESET_PASSWORD, user).then(response => {
-            console.log('OK!')
-            console.log(response)
             this.loading = false
             this.done = true
             sleep(4000).then(() => {

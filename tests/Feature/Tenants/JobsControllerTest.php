@@ -372,6 +372,24 @@ class JobsControllerTest extends BaseTenantTest
         $this->assertEquals(2,$job->order);
         $this->assertEquals('Hola que tal!',$job->notes);
 
+        $response = $this->json('PUT','/api/v1/jobs/' . $job->id, [
+            'code' => '002',
+            'type' => 1,
+            'specialty' => 1,
+            'family' => 1,
+            'order' => 1,
+            'notes' => 'puff un altre canvi mateix codi',
+        ]);
+        $response->assertSuccessful();
+        $job = $job->fresh();
+
+        $this->assertEquals('002',$job->code);
+        $this->assertEquals(1,$job->type_id);
+        $this->assertEquals(1,$job->specialty_id);
+        $this->assertEquals(1,$job->family_id);
+        $this->assertEquals(1,$job->order);
+        $this->assertEquals('puff un altre canvi mateix codi',$job->notes);
+
         $user = factory(User::class)->create();
         $job->users()->save($user, ['holder' => 1]);
 
