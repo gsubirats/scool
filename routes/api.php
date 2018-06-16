@@ -18,7 +18,7 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
             //Available users
-            Route::get('/available-users/{jobType}', 'Tenant\AvailableUsersController@index');
+            Route::get('/available-users/{jobType?}', 'Tenant\AvailableUsersController@index');
 
             // Job substitutions
             Route::put('/job/{job}/substitution', 'Tenant\JobSubstitutionsController@update');

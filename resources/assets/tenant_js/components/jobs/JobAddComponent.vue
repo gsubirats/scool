@@ -59,9 +59,6 @@
                                                             :families="families"
                                                             name="family"
                                                             label="Família"
-                                                            :error-messages="familyErrors"
-                                                            @input="$v.family.$touch()"
-                                                            @blur="$v.family.$touch()"
                                                             v-model="family"
                                                             :required="false"
                                                     ></family-select>
@@ -95,6 +92,8 @@
                                         </v-container>
                                         <v-btn flat color="red" @click="clear">Netejar</v-btn>
                                         <v-btn @click="add"
+                                               color="teal"
+                                               class="white--text"
                                                :loading="adding"
                                                :disabled="adding"
                                         >Afegir</v-btn>
@@ -132,9 +131,6 @@
     validations: {
       code: {required, maxLength: maxLength(4)},
       jobType: {required},
-      family: {requiredIf: requiredIf((component) => {
-        return component.jobType === component.teacherId
-      })},
       specialty: {requiredIf: requiredIf((component) => {
         return component.jobType === component.teacherId
       })},
@@ -201,12 +197,6 @@
         const errors = []
         if (!this.$v.jobType.$dirty) return errors
         this.$v.jobType.$error && errors.push('El tipus és obligatori.')
-        return errors
-      },
-      familyErrors () {
-        const errors = []
-        if (!this.$v.family.$dirty) return errors
-        this.$v.specialty.$error && errors.push('La família és obligatoria si el tipus és professor/a.')
         return errors
       },
       specialtyErrors () {
