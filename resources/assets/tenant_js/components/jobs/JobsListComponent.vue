@@ -50,7 +50,7 @@
                                                          :alt="job.holder_description"
                                                          v-if="job.holder_hashid"
                                             ></user-avatar>
-                                            <add-holder-to-job-icon :job="job" v-else></add-holder-to-job-icon>
+                                            <add-holder-to-job-icon :job="job" :users="users" v-else></add-holder-to-job-icon>
                                         </td>
                                         <td class="text-xs-left">
                                             <user-avatar :hash-id="job.active_user_hash_id"
