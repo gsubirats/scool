@@ -112,8 +112,17 @@ class JobsController extends Controller
 
         if ($request->holder) {
             $employee = Employee::where('holder',1)->where('job_id',$job->id)->first();
-            $employee->user_id = $request->holder;
-            $employee->save();
+            if($employee) {
+                $employee->user_id = $request->holder;
+                $employee->save();
+            } else {
+                Employee::create([
+                    'user_id' => $request->holder,
+                    'job_id' => $job->id,
+                    'holder' => 1
+                ]);
+            }
+
         }
         return $job;
     }

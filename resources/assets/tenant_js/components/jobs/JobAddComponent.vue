@@ -67,7 +67,7 @@
                                                     <user-select
                                                             name="holder"
                                                             label="Escolliu un titular"
-                                                            :users="users"
+                                                            :users="internalUsers"
                                                             v-model="holder"
                                                     ></user-select>
                                                 </v-flex>
@@ -147,7 +147,8 @@
         family: null,
         holder: null,
         notes: '',
-        order: 1
+        order: 1,
+        internalUsers: this.users
       }
     },
     props: {
@@ -180,6 +181,9 @@
       specialty: function (newSpecialty) {
         if (newSpecialty) this.family = this.getSpecialty(newSpecialty).family_id
         else this.family = null
+      },
+      users () {
+        this.internalUsers = this.users
       }
     },
     computed: {
@@ -255,7 +259,7 @@
           this.showError(error)
         })
         axios.get('/api/v1/available-users').then(response => {
-          this.users = response.data
+          this.internalUsers = response.data
         }).catch(error => {
           console.log(error)
           this.showError(error)

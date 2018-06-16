@@ -4118,7 +4118,7 @@ if (!function_exists('initialize_specialities')) {
         // Cos -> Secundària
         Specialty::firstOrCreate([
             'code' => 'AN',
-            'name' => 'Àngles',
+            'name' => 'Anglès',
             'force_id' => Force::findByCode('SECUNDARIA')->id
         ]);
 
