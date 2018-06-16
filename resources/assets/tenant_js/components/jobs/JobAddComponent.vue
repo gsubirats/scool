@@ -264,7 +264,7 @@
           console.log(error)
           this.showError(error)
         })
-        axios.get('/api/v1/users/available').then(response => {
+        axios.get('/api/v1/available-users').then(response => {
           this.users = response.data
         }).catch(error => {
           console.log(error)
