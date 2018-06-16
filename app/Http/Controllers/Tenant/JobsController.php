@@ -6,6 +6,8 @@ use App\Http\Requests\DeleteJob;
 use App\Http\Requests\ListJobs;
 use App\Http\Requests\ShowJobsManagement;
 use App\Http\Requests\StoreJob;
+use App\Http\Requests\UpdateJob;
+use App\Models\Employee;
 use App\Models\Family;
 use App\Models\Specialty;
 use App\Models\Job;
@@ -89,6 +91,30 @@ class JobsController extends Controller
         ])->load('type','specialty','family','users');
 
         if ($request->holder) $job->users()->save(User::findOrFail($request->holder), ['holder' => 1]);
+        return $job;
+    }
+
+    /**
+     * Update.
+     *
+     * @return string
+     */
+    public function update(UpdateJob $request, $tenant, Job $job)
+    {
+        $job->code = $request->code;
+        $job->type_id = $request->type;
+        $request->specialty && $job->specialty_id = $request->specialty;
+        $request->family && $job->family_id = $request->family;
+        $job->order = $request->order;
+        $request->notes && $job->notes = $request->notes;
+
+        $job->save();
+
+        if ($request->holder) {
+            $employee = Employee::where('holder',1)->where('job_id',$job->id)->first();
+            $employee->user_id = $request->holder;
+            $employee->save();
+        }
         return $job;
     }
 

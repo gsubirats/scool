@@ -76,6 +76,7 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
             //Jobs
             Route::get('/jobs', 'Tenant\JobsController@index');
             Route::post('/jobs', 'Tenant\JobsController@store');
+            Route::put('/jobs/{job}', 'Tenant\JobsController@update');
             Route::delete('/jobs/{job}', 'Tenant\JobsController@destroy');
             Route::get('/jobs/nextAvailableCode', 'Tenant\JobsController@nextAvailableCode');
 

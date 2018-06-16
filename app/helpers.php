@@ -657,6 +657,10 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('StaffManager');
         });
 
+        Gate::define('update-job', function ($user) {
+            return $user->hasRole('StaffManager');
+        });
+
         Gate::define('delete-job', function ($user) {
             return $user->hasRole('StaffManager');
         });

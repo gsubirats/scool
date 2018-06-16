@@ -6,11 +6,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class StoreJob.
+ * Class UpdateJob.
  *
  * @package App\Http\Requests
  */
-class StoreJob extends FormRequest
+class UpdateJob extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

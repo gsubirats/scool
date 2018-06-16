@@ -325,9 +325,6 @@ class JobsControllerTest extends BaseTenantTest
         $result = $response->getContent();
         $this->assertEquals('002',$result);
     }
-
-
-
     /** @test */
     public function regular_user_cannot_get_next_available_code()
     {
@@ -337,5 +334,122 @@ class JobsControllerTest extends BaseTenantTest
         $response = $this->json('GET','/api/v1/jobs/nextAvailableCode');
 
         $response->assertStatus(403);
+    }
+
+    /** @test */
+    public function update_job()
+    {
+        $this->withoutExceptionHandling();
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+
+        $this->actingAs($staffManager,'api');
+        $job = Job::create([
+            'code' => '001',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'bla bla bla 2'
+        ]);
+        $response = $this->json('PUT','/api/v1/jobs/' . $job->id, [
+            'code' => '002',
+            'type' => 2,
+            'specialty' => 2,
+            'family' => 2,
+            'order' => 2,
+            'notes' => 'Hola que tal!',
+        ]);
+        $response->assertSuccessful();
+        $job = $job->fresh();
+
+        $this->assertEquals('002',$job->code);
+        $this->assertEquals(2,$job->type_id);
+        $this->assertEquals(2,$job->specialty_id);
+        $this->assertEquals(2,$job->family_id);
+        $this->assertEquals(2,$job->order);
+        $this->assertEquals('Hola que tal!',$job->notes);
+
+        $user = factory(User::class)->create();
+        $job->users()->save($user, ['holder' => 1]);
+
+        $user2 = factory(User::class)->create([
+            'name' => 'Pepe Pardo Jeans'
+        ]);
+
+        $response = $this->json('PUT','/api/v1/jobs/' . $job->id, [
+            'code' => '003',
+            'type' => 3,
+            'specialty' => 3,
+            'family' => 3,
+            'order' => 3,
+            'notes' => 'blu blu blu',
+            'holder' => $user2->id
+        ]);
+        $response->assertSuccessful();
+        $job = $job->fresh();
+
+        $this->assertEquals('003',$job->code);
+        $this->assertEquals(3,$job->type_id);
+        $this->assertEquals(3,$job->specialty_id);
+        $this->assertEquals(3,$job->family_id);
+        $this->assertEquals(3,$job->order);
+        $this->assertEquals('blu blu blu',$job->notes);
+
+        $holder = $job->holders()->first();
+        $this->assertEquals('Pepe Pardo Jeans',$holder->name);
+        $this->assertEquals($user2->id,$holder->id);
+
+    }
+
+    /** @test */
+    public function update_job_validation()
+    {
+        $staffManager = create(User::class);
+        $role = Role::firstOrCreate(['name' => 'StaffManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $staffManager->assignRole($role);
+
+        $this->actingAs($staffManager,'api');
+        $job = Job::create([
+            'code' => '001',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'bla bla bla 2'
+        ]);
+        $response = $this->json('PUT', '/api/v1/jobs/' . $job->id, []);
+
+        $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function regular_user_cannot_update_job()
+    {
+        $user = create(User::class);
+        $this->actingAs($user,'api');
+        $job = Job::create([
+            'code' => '001',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'bla bla bla 2'
+        ]);
+        $response = $this->json('PUT','/api/v1/jobs/' . $job->id, [
+            'code' => '002',
+            'type' => 2,
+            'specialty' => 2,
+            'family' => 2,
+            'order' => 2,
+            'notes' => 'Hola que tal!',
+        ]);
+
+        $response->assertStatus(403);
+
+
     }
 }
