@@ -643,8 +643,9 @@ if (!function_exists('initialize_gates')) {
 
         // STAFF/JOBS
         Gate::define('list-available-users', function ($user) {
-            return $user->hasRole('StaffManager');
+            return $user->hasRole('StaffManager') || $user->hasRole('TeachersManager');
         });
+
         Gate::define('list-jobs', function ($user) {
             return $user->hasRole('StaffManager');
         });

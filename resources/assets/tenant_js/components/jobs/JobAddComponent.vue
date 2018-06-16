@@ -264,6 +264,12 @@
           console.log(error)
           this.showError(error)
         })
+        axios.get('/api/v1/users/available').then(response => {
+          this.users = response.data
+        }).catch(error => {
+          console.log(error)
+          this.showError(error)
+        })
         this.jobType = this.teacherId
         this.specialty = null
         this.family = null

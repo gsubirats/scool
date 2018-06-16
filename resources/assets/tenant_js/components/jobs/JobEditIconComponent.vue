@@ -97,7 +97,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" flat @click.native="dialog = false">Cancel·lar</v-btn>
-                <v-btn color="blue darken-1" flat @click.native="edit" :disabled="editing" :loading="editing">Modificar</v-btn>
+                <v-btn color="green darken-1" class="white--text" @click.native="edit" :disabled="editing" :loading="editing">Modificar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
