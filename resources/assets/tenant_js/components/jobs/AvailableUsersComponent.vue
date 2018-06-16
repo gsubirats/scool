@@ -18,11 +18,9 @@
                     class="chip--select-multi"
                     @input="data.parent.selectItem(data.item)"
             >
-                <v-avatar>
-                    <img :src="'/user/' + data.item.hashid + '/photo'"
-                         :alt="data.item.name"
-                         :title="data.item.name">
-                </v-avatar>
+                <user-avatar :hash-id="data.item.hashid"
+                             :alt="data.item.name"
+                ></user-avatar>
                 {{ data.item.name }}
             </v-chip>
         </template>
@@ -46,11 +44,15 @@
 </template>
 
 <script>
+  import UserAvatar from '../ui/UserAvatarComponent'
   import axios from 'axios'
   import withSnackbar from '../mixins/withSnackbar'
 
   export default {
     name: 'AvailableUsersComponent',
+    components: {
+      'user-avatar': UserAvatar
+    },
     mixins: [withSnackbar],
     data () {
       return {

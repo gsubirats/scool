@@ -17,9 +17,9 @@
                     class="chip--select-multi"
                     :key="JSON.stringify(data.item)"
             >
-                <v-avatar>
-                    <img :src="'/user/' + data.item.hashid + '/photo'">
-                </v-avatar>
+                <user-avatar :hash-id="data.item.hashid"
+                             :alt="data.item.name"
+                ></user-avatar>
                 {{ data.item.name }}
             </v-chip>
         </template>
@@ -45,7 +45,11 @@
 </style>
 
 <script>
+  import UserAvatar from '../ui/UserAvatarComponent'
   export default {
+    components: {
+      'user-avatar': UserAvatar
+    },
     data () {
       return {
         user: {}

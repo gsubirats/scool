@@ -38,11 +38,9 @@
                     </v-list-tile>
                     <v-list-tile avatar>
                         <v-list-tile-content>
-                            <v-avatar color="grey lighten-4" :size="40">
-                                <img :src="'/user/' + job.holder_hashid + '/photo'"
-                                     :alt="job.holder_description"
-                                     :title="job.holder_description">
-                            </v-avatar>
+                            <user-avatar :hash-id="job.holder_hashid"
+                                         :alt="job.holder_description"
+                            ></user-avatar>
                             <v-list-tile-title>{{ job.holder_name }}</v-list-tile-title>
                             <v-list-tile-sub-title>Titular</v-list-tile-sub-title>
                         </v-list-tile-content>
@@ -50,11 +48,9 @@
                     <v-list-tile avatar>
                         <v-list-tile-content>
                             <template v-if="job.active_user_hash_id">
-                                <v-avatar color="grey lighten-4" :size="40">
-                                    <img :src="'/user/' + job.active_user_hash_id + '/photo'"
-                                         :alt="job.active_user_description"
-                                         :title="job.active_user_description">
-                                </v-avatar>
+                                <user-avatar :hash-id="job.active_user_hash_id"
+                                             :alt="job.active_user_description"
+                                ></user-avatar>
                             </template>
                             <v-list-tile-title>{{ job.active_user_description }}</v-list-tile-title>
                             <v-list-tile-sub-title>Usuari actiu</v-list-tile-sub-title>
@@ -102,6 +98,7 @@
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
   import SubstituteAvatars from './SubstituteAvatarsComponent'
+  import UserAvatar from '../ui/UserAvatarComponent'
 
   export default {
     name: 'AddSubstituteIconComponent',
@@ -109,7 +106,8 @@
     components: {
       'available-users': AvailableUsers,
       'date-picker': DatePicker,
-      'substitute-avatars': SubstituteAvatars
+      'substitute-avatars': SubstituteAvatars,
+      'user-avatar': UserAvatar
     },
     validations: {
       start_date: { required },

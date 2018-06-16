@@ -6,12 +6,9 @@
                     <v-container grid-list-xs text-xs-center>
                         <v-layout row wrap>
                             <v-flex xs12>
-                                <v-avatar
-                                        size="120"
-                                        color="grey lighten-4"
-                                >
-                                    <img :src="photoSrc()" alt="avatar">
-                                </v-avatar>
+                                <user-avatar :hash-id="internalUser.hashid"
+                                             :alt="internalUser.name"
+                                ></user-avatar>
                             </v-flex>
                             <v-flex xs12>
                                 <span class="title" v-html="internalUser.name"></span>
@@ -195,7 +192,12 @@
 </template>
 
 <script>
+  import UserAvatar from '../ui/UserAvatarComponent'
+
   export default {
+    components: {
+      'user-avatar': UserAvatar
+    },
     name: 'PersonalDataCardComponent',
     data () {
       return {
@@ -218,12 +220,6 @@
         if (!date) return null
         const [year, month, day] = date.split('-')
         return `${day}/${month}/${year}`
-      },
-      photoSrc () {
-        if (this.internalUser.hashid) {
-          return '/user/' + this.internalUser.hashid + '/photo'
-        }
-        return '/img/GravatarPlaceholder.svg'
       },
       address () {
         return this.internalUser.address_name + ' ' + this.internalUser.address_number + ' ' + this.internalUser.address_floor + ' ' + this.internalUser.address_floor_number

@@ -26,11 +26,9 @@
               <v-subheader>Susbtitut</v-subheader>
               <v-list-tile avatar>
                 <v-list-tile-content style="display:inline;" v-if="currentSubstitute">
-                    <v-avatar color="grey lighten-4" :size="40">
-                        <img :src="'/user/' + currentSubstitute.hash_id + '/photo'"
-                             :alt="currentSubstitute.description + ' | Inici:' + currentSubstitute.start_at + ' - Fí:' +  currentSubstitute.end_at"
-                             :title="currentSubstitute.description + ' | Inici:' + currentSubstitute.start_at + ' - Fí:' + currentSubstitute.end_at ">
-                    </v-avatar>
+                    <user-avatar :hash-id="currentSubstitute.hash_id"
+                                 :alt="currentSubstitute.description + ' | Inici:' + currentSubstitute.start_at + ' - Fí:' +  currentSubstitute.end_at"
+                    ></user-avatar>
                     <v-list-tile-title>{{currentSubstitute.description}}</v-list-tile-title>
                     <v-list-tile-sub-title>Substitut</v-list-tile-sub-title>
                 </v-list-tile-content>
@@ -63,11 +61,9 @@
                 </v-list-tile>
               <v-list-tile avatar>
                     <v-list-tile-content>
-                        <v-avatar color="grey lighten-4" :size="40">
-                            <img :src="'/user/' + job.holder_hashid + '/photo'"
-                                 :alt="job.holder_description"
-                                 :title="job.holder_description">
-                        </v-avatar>
+                        <user-avatar :hash-id="job.holder_hashid"
+                                     :alt="job.holder_description"
+                        ></user-avatar>
                         <v-list-tile-title>{{ job.holder_name }}</v-list-tile-title>
                         <v-list-tile-sub-title>Titular</v-list-tile-sub-title>
                     </v-list-tile-content>
@@ -75,11 +71,9 @@
               <v-list-tile avatar>
                     <v-list-tile-content>
                         <template v-if="job.active_user_hash_id">
-                            <v-avatar color="grey lighten-4" :size="40">
-                                <img :src="'/user/' + job.active_user_hash_id + '/photo'"
-                                     :alt="job.active_user_description"
-                                     :title="job.active_user_description">
-                            </v-avatar>
+                            <user-avatar :hash-id="job.active_user_hash_id"
+                                         :alt="job.active_user_description"
+                            ></user-avatar>
                         </template>
                         <v-list-tile-title>{{ job.active_user_description }}</v-list-tile-title>
                         <v-list-tile-sub-title>Usuari actiu</v-list-tile-sub-title>
@@ -87,11 +81,10 @@
                 </v-list-tile>
                 <v-list-tile avatar>
                         <v-list-tile-content style="display:inline;">
-                            <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id" @dblclick="showSubstituteDialog(substitute)">
-                                <img :src="'/user/' + substitute.hash_id + '/photo'"
-                                     :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
-                                     :title="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at ">
-                            </v-avatar>
+                            <user-avatar    v-for="substitute in job.substitutes" :key="substitute.id" @dblclick="showSubstituteDialog(substitute)"
+                                            :hash-id="substitute.hash_id"
+                                            :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at"
+                            ></user-avatar>
                             <v-list-tile-title>{{ substitutesNames() }}</v-list-tile-title>
                             <v-list-tile-sub-title>Substituts</v-list-tile-sub-title>
                         </v-list-tile-content>
@@ -118,11 +111,13 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <v-avatar color="grey lighten-4" :size="40" v-for="substitute in job.substitutes" :key="substitute.id" @dblclick="showSubstituteDialog(substitute)">
-            <img :src="'/user/' + substitute.hash_id + '/photo'"
-                 :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
-                 :title="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' + substitute.end_at ">
-        </v-avatar>
+        <user-avatar
+                v-for="substitute in job.substitutes"
+                :key="substitute.id"
+                @dblclick="showSubstituteDialog(substitute)"
+                :hash-id="substitute.hash_id"
+                :alt="substitute.description + ' | Inici:' + substitute.start_at + ' - Fí:' +  substitute.end_at"
+        ></user-avatar>
     </span>
 </template>
 
@@ -133,12 +128,14 @@
   import moment from 'moment'
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
+  import UserAvatar from '../ui/UserAvatarComponent'
 
   export default {
     name: 'SubstituteAvatarsComponent',
     mixins: [withSnackbar, validationMixin],
     components: {
-      'date-picker': DatePicker
+      'date-picker': DatePicker,
+      'user-avatar': UserAvatar
     },
     validations: {
       start_date: { required }

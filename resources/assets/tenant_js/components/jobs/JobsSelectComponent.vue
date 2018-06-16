@@ -16,9 +16,9 @@
                 class="chip--select-multi"
                 :key="JSON.stringify(data.item)"
         >
-            <v-avatar>
-                <img :src="'/user/' + data.item.active_user_hash_id + '/photo'">
-            </v-avatar>
+            <user-avatar :hash-id="data.item.active_user_hash_id"
+                         :alt="data.item.active_user_name"
+            ></user-avatar>
             {{ data.item.fullcode }}
         </v-chip>
     </template>
@@ -35,8 +35,13 @@
 </template>
 
 <script>
+  import UserAvatar from '../ui/UserAvatarComponent'
+
   export default {
     name: 'JobsSelectComponent',
+    components: {
+      'user-avatar': UserAvatar
+    },
     data () {
       return {
         internalJob: this.job

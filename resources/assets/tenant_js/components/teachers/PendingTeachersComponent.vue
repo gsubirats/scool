@@ -50,9 +50,9 @@
                                         <td class="text-xs-left">{{ teacher.email }}</td>
                                         <td class="text-xs-left">{{ teacher.mobile }}</td>
                                         <td class="text-xs-left" style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + teacher.teacher_hashid + '/photo'" :alt="teacher.teacher" :title="teacher.teacher">
-                                            </v-avatar>
+                                            <user-avatar :hash-id="teacher.teacher_hashid"
+                                                         :alt="teacher.sn1 + ' ' + teacher.sn2 + ', ' + teacher.name"
+                                            ></user-avatar>
                                         </td>
                                         <td class="text-xs-left">{{ teacher.start_date }}</td>
                                         <td class="text-xs-left">{{ teacher.created_at }}</td>
@@ -100,11 +100,13 @@
   import ShowPendingTeacherIcon from './ShowPendingTeacherIconComponent.vue'
   import withSnackbar from '../mixins/withSnackbar'
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
+  import UserAvatar from '../ui/UserAvatarComponent'
 
   export default {
     components: {
       'show-pending-teacher-icon': ShowPendingTeacherIcon,
-      'confirm-icon': ConfirmIcon
+      'confirm-icon': ConfirmIcon,
+      'user-avatar': UserAvatar
     },
     mixins: [withSnackbar],
     data () {

@@ -174,7 +174,6 @@
         else this.family = null
       },
       job: function (newJob) {
-        console.log('NEW JOB: ' + newJob)
         this.internalJob = newJob
         this.code = newJob.code
         this.jobType = newJob.type_id

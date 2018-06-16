@@ -48,9 +48,9 @@
                                         </td>
                                         <td class="text-xs-left">{{ teacher.code }}</td>
                                         <td class="text-xs">
-                                            <v-avatar color="grey lighten-4" :size="40">
-                                                <img :src="'/user/' + teacher.hashid + '/photo'" :alt="teacher.name" :title="teacher.name">
-                                            </v-avatar>
+                                            <user-avatar :hash-id="teacher.hashid"
+                                                         :alt="teacher.fullname"
+                                            ></user-avatar>
                                         </td>
                                         <td class="text-xs-left">
                                             <span :title="teacher.email" v-html="teacher.fullname "></span>
@@ -122,13 +122,15 @@
   import ConfirmIcon from '../ui/ConfirmIconComponent.vue'
   import axios from 'axios'
   import withSnackbar from '../mixins/withSnackbar'
+  import UserAvatar from '../ui/UserAvatarComponent'
 
   export default {
     mixins: [withSnackbar],
     components: {
       ShowTeacherIcon, // show-teacher-icon
       AdministrativeStatusSelect, // administrative-status-select
-      'confirm-icon': ConfirmIcon
+      'confirm-icon': ConfirmIcon,
+      'user-avatar': UserAvatar
     },
     data () {
       return {

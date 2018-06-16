@@ -25,9 +25,9 @@
                             class="chip--select"
                             @input="data.parent.selectItem(data.item)"
                     >
-                        <v-avatar v-if="data.item.slug">
-                            <img :src="'/teacher_photo/' + data.item.slug">
-                        </v-avatar>
+                        <user-avatar :hash-id="data.item.slug"
+                                     :alt="data.item.filename"
+                        ></user-avatar>
                         {{ data.item.filename }}
                     </v-chip>
                 </template>
@@ -422,8 +422,13 @@
 <script>
   import axios from 'axios'
   import withSnackbar from '../mixins/withSnackbar'
+  import UserAvatar from '../ui/UserAvatarComponent'
 
   export default {
+    name: 'TeachersPhotosComponent',
+    components: {
+      'user-avatar': UserAvatar
+    },
     mixins: [withSnackbar],
     data () {
       return {
