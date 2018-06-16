@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\FormattedDates;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Revisionable\RevisionableTrait;
 
 /**
  * Class Job.
@@ -13,8 +14,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Job extends Model
 {
+    use RevisionableTrait;
     use FormattedDates;
-    
+
+    public static function boot()
+    {
+        parent::boot();
+    }
+
+    protected $revisionCreationsEnabled = true;
+
     protected $guarded = [];
 
     protected $appends = [

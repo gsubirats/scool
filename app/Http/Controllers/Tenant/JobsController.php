@@ -103,8 +103,8 @@ class JobsController extends Controller
     {
         $job->code = $request->code;
         $job->type_id = $request->type;
-        $request->specialty && $job->specialty_id = $request->specialty;
-        $request->family && $job->family_id = $request->family;
+        $job->specialty_id = $request->specialty;
+        $job->family_id = $request->family;
         $job->order = $request->order;
         $request->notes && $job->notes = $request->notes;
 

@@ -163,11 +163,11 @@
       }
     },
     watch: {
-      specialty: function (newSpecialty) {
+      specialty (newSpecialty) {
         if (newSpecialty) this.family = this.getSpecialty(newSpecialty).family_id
         else this.family = null
       },
-      job: function (newJob) {
+      job (newJob) {
         this.internalJob = newJob
         this.code = newJob.code
         this.jobType = newJob.type_id
@@ -176,6 +176,16 @@
         this.holder = newJob.holder_id
         this.order = newJob.order
         this.notes = newJob.notes
+      },
+      jobType (newJobType) {
+        console.log('new jobType:')
+        console.log(newJobType)
+        console.log(this.teacherId)
+        if (newJobType !== this.teacherId) {
+          console.log('Is NOTE TEACHER!')
+          this.specialty = null
+          this.family = null
+        }
       }
     },
     computed: {
@@ -246,6 +256,7 @@
       }
     },
     created () {
+      console.log('HEY!!!!!')
       this.teacherId = this.jobTypes.find(jobType => jobType.name === 'Professor/a').id
     }
   }

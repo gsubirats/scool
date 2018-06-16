@@ -420,6 +420,29 @@ class JobsControllerTest extends BaseTenantTest
         $this->assertEquals('Pepe Pardo Jeans',$holder->name);
         $this->assertEquals($user2->id,$holder->id);
 
+        $response = $this->json('PUT','/api/v1/jobs/' . $job->id, [
+            'code' => '003',
+            'type' =>2,
+            'specialty' => null,
+            'family' => null,
+            'order' => 3,
+            'notes' => 'blu blu blu',
+            'holder' => $user2->id
+        ]);
+        $response->assertSuccessful();
+        $job = $job->fresh();
+
+        $this->assertEquals('003',$job->code);
+        $this->assertEquals(2,$job->type_id);
+        $this->assertEquals(null,$job->specialty_id);
+        $this->assertEquals(null,$job->family_id);
+        $this->assertEquals(3,$job->order);
+        $this->assertEquals('blu blu blu',$job->notes);
+
+        $holder = $job->holders()->first();
+        $this->assertEquals('Pepe Pardo Jeans',$holder->name);
+        $this->assertEquals($user2->id,$holder->id);
+
     }
 
     /** @test */
