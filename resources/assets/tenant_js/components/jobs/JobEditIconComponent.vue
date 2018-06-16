@@ -55,9 +55,6 @@
                                                     :families="families"
                                                     name="family"
                                                     label="Família"
-                                                    :error-messages="familyErrors"
-                                                    @input="$v.family.$touch()"
-                                                    @blur="$v.family.$touch()"
                                                     v-model="family"
                                                     :required="false"
                                             ></family-select>
@@ -125,9 +122,6 @@
     validations: {
       code: {required, maxLength: maxLength(4)},
       jobType: {required},
-      family: {requiredIf: requiredIf((component) => {
-        return component.jobType === component.teacherId
-      })},
       specialty: {requiredIf: requiredIf((component) => {
         return component.jobType === component.teacherId
       })},
