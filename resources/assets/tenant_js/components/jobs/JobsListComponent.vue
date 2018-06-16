@@ -102,7 +102,7 @@
                                                            teacher-type="Professor/a"
                                                            :specialties="specialties"
                                                            :families="families"
-                                                           :users="users"></job-edit-icon>
+                                                           :users="availableUsers(job)"></job-edit-icon>
                                             <confirm-icon icon="delete"
                                                           color="pink"
                                                           :working="deleting"
@@ -251,6 +251,15 @@
       }
     },
     methods: {
+      availableUsers (job) {
+        let availableUsers = JSON.parse(JSON.stringify(this.users))
+        availableUsers.push({
+          id: job.holder_id,
+          hashid: job.holder_hashid,
+          name: job.holder_name
+        })
+        return availableUsers
+      },
       refresh () {
         this.refreshing = true
         this.$store.dispatch(actions.GET_JOBS).then(response => {
