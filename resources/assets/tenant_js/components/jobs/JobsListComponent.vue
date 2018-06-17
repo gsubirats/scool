@@ -271,12 +271,6 @@
       settings () {
         console.log('settings TODO')
       },
-      addSubstitute () {
-
-      },
-      edit () {
-        console.log('TODO EDIT')
-      },
       remove (job) {
         this.deleting = true
         this.$store.dispatch(actions.DELETE_JOB, job).then(response => {

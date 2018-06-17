@@ -2,17 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Revisionable\Revisionable;
 
 /**
  * Class Family.
  *
  * @package App\Models
  */
-class Family extends Model
+class Family extends Revisionable
 {
     protected $guarded = [];
+
+    /**
+     * Identifiable name.
+     *
+     * @return string
+     */
+    public function identifiableName()
+    {
+        return $this->code;
+    }
 
     /**
      * Find by code.

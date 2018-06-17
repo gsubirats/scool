@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Traits\FormattedDates;
+use App\Revisionable\Revisionable;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use App\Revisionable\RevisionableTrait;
 
 /**
@@ -12,14 +12,43 @@ use App\Revisionable\RevisionableTrait;
  *
  * @package App\Tenant
  */
-class Job extends Model
+class Job extends Revisionable
 {
-    use RevisionableTrait;
-    use FormattedDates;
+    use RevisionableTrait, FormattedDates;
 
     public static function boot()
     {
         parent::boot();
+    }
+
+    /**
+     * Identifiable name.
+     *
+     * @return string
+     */
+    public function identifiableName()
+    {
+        return 'Plaça: ' . $this->fullcode;
+    }
+
+    /**
+     * Locale name.
+     *
+     * @return string
+     */
+    public function localeName()
+    {
+        return 'la plaça';
+    }
+
+    /**
+     * Locale identifier.
+     *
+     * @return mixed
+     */
+    public function localeIdentifier()
+    {
+        return $this->fullcode;
     }
 
     protected $revisionCreationsEnabled = true;

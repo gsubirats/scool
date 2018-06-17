@@ -2,6 +2,8 @@
 
 namespace App\Revisionable;
 
+use App\Models\Traits\FormattedDates;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\Log;
 
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Log;
  */
 class Revision extends Eloquent
 {
+    use FormattedDates;
+
+    public $guarded = [];
+
     /**
      * @var string
      */
@@ -220,6 +226,15 @@ class Revision extends Eloquent
 
         return substr($this->key, 0, strlen($this->key) - strlen($idSuffix));
     }
+
+    /**
+     * Get the user that owns the revision.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     /**
      * User Responsible.

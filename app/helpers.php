@@ -22,6 +22,7 @@ use App\Models\UserType;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
+use App\Revisionable\Revision;
 use App\Tenant;
 use Carbon\Carbon;
 use PulkitJalan\Google\Client;
@@ -4798,6 +4799,51 @@ if (!function_exists('create_fake_teacher')) {
         ]);
 
         return $user;
+    }
+}
+
+if (!function_exists('create_fake_audit_log_entries')) {
+    function create_fake_audit_log_entries()
+    {
+        $job = Job::create([
+            'code' => '001',
+            'type_id' => 1,
+            'specialty_id' => 1,
+            'family_id' => 1,
+            'order' => 1,
+            'notes' => 'Bla bla',
+        ]);
+
+        Revision::create([
+            'revisionable_type' => Job::class,
+            'revisionable_id' => $job->id,
+            'user_id' => 1,
+            'key' => 'order',
+            'old_value' => 1,
+            'new_value' => 2
+        ]);
+    }
+}
+
+if (!function_exists('check_audit_log_entry')) {
+    function check_audit_log_entry($entry)
+    {
+        return array_key_exists('id', $entry) &&
+            array_key_exists('element', $entry) &&
+            array_key_exists('revisionable_type', $entry) &&
+            array_key_exists('revisionable_id', $entry) &&
+            array_key_exists('type', $entry) &&
+            array_key_exists('user', $entry) &&
+            array_key_exists('user_id', $entry) &&
+            array_key_exists('user_hashid', $entry) &&
+            array_key_exists('user_description', $entry) &&
+            array_key_exists('key', $entry) &&
+            array_key_exists('field_name', $entry) &&
+            array_key_exists('old_value', $entry) &&
+            array_key_exists('new_value', $entry) &&
+            array_key_exists('created_at', $entry) &&
+            array_key_exists('formatted_created_at_diff', $entry);
+
     }
 }
 

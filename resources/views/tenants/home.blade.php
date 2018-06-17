@@ -28,6 +28,13 @@
                 </v-toolbar>
                 <v-card>
                     <v-card-text class="px-0 mb-2 hidden-sm-and-down">
+                        <h4>Removes</h4>
+                        <ul>
+                            <li>S'ha de vigilar amb l'opció esborrar! Per exemple les places es poden esborrar si són errors clars i no etnen dades relacionades.
+                                Per exemple una plaça amb un horari assignat no té sentit que es pugui esborrar (si no s'esborra també l'horari)
+                            </li>
+                            <li></li>
+                        </ul>
                         <h4>TODO</h4>
                         <ul>
                             <li>Fitxers adjunts: fotocopies del DNI</li>
@@ -68,32 +75,11 @@
                             <li>DADES FORMACIó: Titulació accés, Altres titulacions, Idiomes, Perfils?</li>
                             <li>Altres dades: Data superació opos, anys inici serveis ensenyament (calcul antiguitat), any inici centre? destinació?</li>
                         </ul>
-
-
                     </v-card-text>
                 </v-card>
             </v-flex>
             <v-flex xs12>
-                <v-toolbar color="blue darken-3">
-                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
-                    <v-toolbar-title class="white--text title">Registre de canvis</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-btn icon class="white--text">
-                        <v-icon>settings</v-icon>
-                    </v-btn>
-                    <v-btn icon class="white--text">
-                        <v-icon>refresh</v-icon>
-                    </v-btn>
-                </v-toolbar>
-                <v-card>
-                    <v-card-text class="px-0 mb-2 hidden-sm-and-down">
-                        <h4>Operacions CRUD per diferents tipologies</h4>
-                        <ul>
-                            <li>Per cada registre comprovar si es té permisos interesen... (Staffmanager rol per exemple veu operacions crud a places i TeachersManager operacions CRUD a professors)</li>
-                            <li>NO mostrar el que no es té permisos/no interesa</li>
-                        </ul>
-                    </v-card-text>
-                </v-card>
+                <audit-log :entries="{{ $auditLogItems }}"></audit-log>
             </v-flex>
         </v-layout>
     </v-container>

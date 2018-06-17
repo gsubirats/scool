@@ -69,9 +69,7 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
             Route::get('/impersonate/leave',
                 '\Lab404\Impersonate\Controllers\ImpersonateController@leave')->name('impersonate.leave');
 
-            Route::get('/home', function ($tenant) {
-                return view('tenants.home');
-            });
+            Route::get('/home', 'Tenant\HomeController@show');
 
             Route::get('/users', 'Tenant\UsersController@show');
 
