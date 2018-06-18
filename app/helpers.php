@@ -4997,12 +4997,12 @@ if (!function_exists('initialize_subjects')) {
         // http://portaldogc.gencat.cat/utilsEADOP/PDF/6958/1444503.pdf
         // O matrícula TIC
 
-        $loe = Law::create([
+        $loe = Law::firstOrCreate([
             'code' => 'LOE',
             'name' => 'Ley Orgánica de Educación'
         ]);
 
-        $study = Study::create([
+        $study = Study::firstOrCreate([
             'name' => 'Desenvolupament Aplicacions Multiplataforma',
             'code' => 'DAM',
             'law_id' => $loe->id
@@ -5013,14 +5013,14 @@ if (!function_exists('initialize_subjects')) {
 //            'name' => 'Desenvolupament Aplicacions Multiplataforma',
 //            'code' => '1DAM'
 //        ]);
-        $course2 = Course::create([
+        $course2 = Course::firstOrCreate([
             'code' => '2DAM',
             'name' => 'Desenvolupament Aplicacions Multiplataforma',
             'order' => 2
         ]);
 
 //        Mòdul professional (Subject Group) 7: desenvolupament d’interfícies
-        $group = SubjectGroup::create([
+        $group = SubjectGroup::firstOrCreate([
             'shortname' => 'Desenvolupament d’interfícies',
             'name' => 'Desenvolupament d’interfícies',
             'code' =>  'DAM_MP7',
@@ -5034,7 +5034,7 @@ if (!function_exists('initialize_subjects')) {
             'type' => 'Normal'
         ]);
 //        $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
-        $table->unsignedTinyInteger('order')->nullable();
+//        $table->unsignedTinyInteger('order')->nullable();
 
         Subject::create([
             'name' => 'Disseny i implementació d’interfícies',

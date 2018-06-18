@@ -26,7 +26,8 @@ class CreateTenantSubjectsTable extends Migration
             $table->unsignedTinyInteger('number')->nullable();
             $table->integer('group_id')->unsigned()->nullable();
             $table->integer('study_id')->unsigned()->nullable();
-            $table->integer('type')->unsigned()->default(1);
+            $table->integer('course_id')->unsigned()->nullable();
+            $table->integer('type_id')->unsigned()->default(1);
             $table->date('total_hours')->nullable();
             $table->date('week_hours')->nullable();
             $table->date('start_date')->nullable();

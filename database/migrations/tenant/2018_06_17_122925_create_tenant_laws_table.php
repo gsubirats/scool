@@ -5,9 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateLawsTable.
+ * Class CreateTenantLawsTable.
  */
-class CreateLawsTable extends Migration
+class CreateTenantLawsTable extends Migration
 {
     /**
      * Run the migrations.

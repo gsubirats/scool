@@ -22,8 +22,14 @@ class CreateTenantSubjectGroupsTable extends Migration
             $table->string('shortname');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->integer('study_id')->unsigned()->nullable();
+            $table->unsignedInteger('hours')->nullable();
+            $table->unsignedInteger('free_hours')->nullable();
+            $table->unsignedInteger('week_hours')->nullable();
             $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
             $table->unsignedTinyInteger('number')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }
