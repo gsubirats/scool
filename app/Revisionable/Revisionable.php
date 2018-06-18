@@ -166,7 +166,6 @@ class Revisionable extends Eloquent
     */
     public function postCreate()
     {
-
         // Check if we should store creations in our revision history
         // Set this value to true in your model if you want to
         if(empty($this->revisionCreationsEnabled))

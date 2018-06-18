@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Revisionable\Revisionable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,9 +10,19 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class JobType extends Model
+class JobType extends Revisionable
 {
     protected $guarded = [];
+
+    /**
+     * Identifiable name.
+     *
+     * @return string
+     */
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 
     /**
      * Find by name.

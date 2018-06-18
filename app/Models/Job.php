@@ -14,12 +14,7 @@ use App\Revisionable\RevisionableTrait;
  */
 class Job extends Revisionable
 {
-    use RevisionableTrait, FormattedDates;
-
-    public static function boot()
-    {
-        parent::boot();
-    }
+    use FormattedDates;
 
     /**
      * Identifiable name.

@@ -1,5 +1,5 @@
 <template>
-    <v-avatar color="grey lighten-4" :size="size" v-if="hashId">
+    <v-avatar color="grey lighten-4" :size="size" v-if="hashId" :tile="tile">
         <img :src="'/user/' + hashId + '/photo'"
              :alt="alt"
              :title="alt">
@@ -19,6 +19,10 @@
       },
       alt: {
         required: true
+      },
+      tile: {
+        type: Boolean,
+        default: false
       }
     }
   }

@@ -2,16 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Revisionable\Revisionable;
 
 /**
  * Class Specialty.
  *
  * @package App\Models
  */
-class Specialty extends Model
+class Specialty extends Revisionable
 {
     protected $guarded = [];
+
+    /**
+     * Identifiable name.
+     *
+     * @return string
+     */
+    public function identifiableName()
+    {
+        return $this->code;
+    }
 
     /**
      * Find by code.

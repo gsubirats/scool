@@ -25,6 +25,7 @@ class CreateTenantEmployeesTable extends Migration
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->timestamps();
+            $table->index(['user_id', 'job_id'])->unique();
         });
     }
 

@@ -60,6 +60,9 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
         Route::post('file/upload/to/{storage}', 'Tenant\UploadFileToStorageController@store');
         Route::post('file/remove/from/{storage}', 'Tenant\UploadFileToStorageController@destroy');
 
+        // Jobs Sheet
+        Route::get('/jobs/sheet','Tenant\JobsSheetController@show');
+
         Route::group(['middleware' => 'auth'], function () {
 
             //        Route::impersonate() but be careful about tenant!

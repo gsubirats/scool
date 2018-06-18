@@ -3,11 +3,13 @@
 use App\Http\Resources\UserResource;
 use App\Models\Address;
 use App\Models\AdministrativeStatus;
+use App\Models\Course;
 use App\Models\Department;
 use App\Models\Family;
 use App\Models\Force;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
+use App\Models\Law;
 use App\Models\Location;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
@@ -16,6 +18,7 @@ use App\Models\Province;
 use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
@@ -23,6 +26,8 @@ use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
 use App\Revisionable\Revision;
+use App\Study;
+use App\SubjectGroup;
 use App\Tenant;
 use Carbon\Carbon;
 use PulkitJalan\Google\Client;
@@ -4847,6 +4852,25 @@ if (!function_exists('check_audit_log_entry')) {
     }
 }
 
+
+if (!function_exists('check_sheet_job')) {
+    /**
+     * Check sheet job.
+     *
+     * @param $job
+     * @return bool
+     */
+    function check_sheet_job($job)
+    {
+        return array_key_exists('id', $job) &&
+            array_key_exists('active_user_hash_id', $job) &&
+            array_key_exists('active_user_name', $job) &&
+            array_key_exists('active_user_email', $job) &&
+            array_key_exists('active_user_description', $job);
+    }
+}
+
+
 if (!function_exists('check_job')) {
     function check_job($job)
     {
@@ -4953,3 +4977,88 @@ if (!function_exists('check_teacher')) {
 }
 
 
+/**
+ * CURRÍCULUM
+ */
+
+
+// SUBJECTS -> Unitat formatives
+if (!function_exists('initialize_subjects')) {
+    function initialize_subjects()
+    {
+        $mp_start_date = '2017-09-15';
+        $mp_end_date = '2018-06-01';
+
+        // Per estudis i mòduls:
+
+        // Informàtica
+//        Mòdul professional 1: sistemes informàtics
+
+        // http://portaldogc.gencat.cat/utilsEADOP/PDF/6958/1444503.pdf
+        // O matrícula TIC
+
+        $loe = Law::create([
+            'code' => 'LOE',
+            'name' => 'Ley Orgánica de Educación'
+        ]);
+
+        $study = Study::create([
+            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+            'code' => 'DAM',
+            'law_id' => $loe->id
+        ]);
+
+        // No existeix 1DAM -> és comú amb 1rASIX
+//        $course1 = Course::create([
+//            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+//            'code' => '1DAM'
+//        ]);
+        $course2 = Course::create([
+            'code' => '2DAM',
+            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+            'order' => 2
+        ]);
+
+//        Mòdul professional (Subject Group) 7: desenvolupament d’interfícies
+        $group = SubjectGroup::create([
+            'shortname' => 'Desenvolupament d’interfícies',
+            'name' => 'Desenvolupament d’interfícies',
+            'code' =>  'DAM_MP7',
+            'number' => 7,
+            'study_id' => $study->id,
+            'hours' => 99,
+            'free_hours' => 0, // Lliure disposició
+            'week_hours' => 3,
+            'start_date' => $mp_start_date,
+            'end_date' => $mp_end_date,
+            'type' => 'Normal'
+        ]);
+//        $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
+        $table->unsignedTinyInteger('order')->nullable();
+
+        Subject::create([
+            'name' => 'Disseny i implementació d’interfícies',
+            'shortname'=> 'Disseny i implementació d’interfícies',
+            'code' =>  'DAM_MP7_UF1',
+            'number' => 1,
+            'group_id' => $group->id,
+            'study_id' => $study->id,
+            'course_id' => $course2->id,
+            'type_id' => 1,
+            'hours' => 79,
+        ]);
+
+        Subject::create([
+            'name' => 'Preparació i distribució d’aplicacions',
+            'shortname'=> 'Preparació i distribució d’aplicacions',
+            'code' =>  'DAM_MP7_UF2',
+            'number' => 2,
+            'group_id' => $group->id,
+            'study_id' => $study->id,
+            'course_id' => $course2->id,
+            'type_id' => 1,
+            'hours' => 20
+        ]);
+
+    }
+}

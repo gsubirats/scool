@@ -48,6 +48,8 @@ Vue.component('show-teacher-icon', require('./components/teachers/ShowTeacherIco
 
 Vue.component('audit-log', require('./components/auditlog/AuditLogComponent.vue'));
 
+Vue.component('jobs-sheet', require('./components/jobs/JobsSheetComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 
