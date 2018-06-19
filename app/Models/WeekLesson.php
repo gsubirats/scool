@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Law.
+ * Class WeekLesson.
  *
  * @package App\Models
  */
-class Law extends Model
+class WeekLesson extends Model
 {
     protected $guarded = [];
+
 }

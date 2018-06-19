@@ -50,6 +50,9 @@ Vue.component('audit-log', require('./components/auditlog/AuditLogComponent.vue'
 
 Vue.component('jobs-sheet', require('./components/jobs/JobsSheetComponent.vue'));
 
+//Lessons
+Vue.component('lessons-manager', require('./components/lessons/LessonsManagerComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 

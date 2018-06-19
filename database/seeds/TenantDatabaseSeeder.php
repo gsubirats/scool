@@ -43,6 +43,6 @@ class TenantDatabaseSeeder extends Seeder
         seed_identifier_types();
         initialize_positions();
 
-
+        initialize_subjects();
     }
 }

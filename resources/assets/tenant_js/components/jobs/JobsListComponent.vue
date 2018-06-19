@@ -3,7 +3,16 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <v-toolbar color="blue darken-3">
-                    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
+                    <v-menu bottom>
+                        <v-btn slot="activator" icon dark>
+                            <v-icon>more_vert</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-tile href="/jobs/sheet" target="_blank">
+                                <v-list-tile-title>Llençol de places</v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
                     <v-toolbar-title class="white--text title">Places</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-btn icon class="white--text" @click="settings">

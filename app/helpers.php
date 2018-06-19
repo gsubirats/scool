@@ -19,15 +19,16 @@ use App\Models\Specialty;
 use App\Models\Job;
 use App\Models\JobType;
 use App\Models\Subject;
+use App\Models\SubjectGroup;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserType;
+use App\Models\WeekLesson;
 use App\Repositories\PersonRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
 use App\Revisionable\Revision;
 use App\Study;
-use App\SubjectGroup;
 use App\Tenant;
 use Carbon\Carbon;
 use PulkitJalan\Google\Client;
@@ -573,7 +574,8 @@ if (!function_exists('initialize_tenant_roles_and_permissions')) {
             'UsersManager',
             'StaffManager',
             'TeachersManager',
-            'PhotoTeachersManager'
+            'PhotoTeachersManager',
+            'LessonsManager'
         ];
 
         // Manager
@@ -751,11 +753,17 @@ if (!function_exists('initialize_gates')) {
             return $user->hasRole('TeachersManager');
         });
 
+        Gate::define('show-lessons', function ($user) {
+            return $user->hasRole('LessonsManager');
+        });
+
         Gate::before(function ($user, $ability) {
             if ($user->isSuperAdmin()) {
                 return true;
             }
         });
+
+
     }
 }
 
@@ -776,6 +784,12 @@ if (!function_exists('initialize_menus')) {
             'text' => 'Mòduls',
             'href' => '/modules',
             'role' => 'Manager'
+        ]);
+
+        Menu::firstOrCreate([
+            'text' => 'Potencial',
+            'href' => '/lessons',
+            'role' => 'LessonsManager'
         ]);
 
         Menu::firstOrCreate([
@@ -4983,8 +4997,16 @@ if (!function_exists('check_teacher')) {
 
 
 // SUBJECTS -> Unitat formatives
+
 if (!function_exists('initialize_subjects')) {
     function initialize_subjects()
+    {
+        // TODO totes les unitats formatives del centre
+    }
+}
+
+if (!function_exists('initialize_fake_subjects')) {
+    function initialize_fake_subjects()
     {
         $mp_start_date = '2017-09-15';
         $mp_end_date = '2018-06-01';
@@ -5046,6 +5068,8 @@ if (!function_exists('initialize_subjects')) {
             'course_id' => $course2->id,
             'type_id' => 1,
             'hours' => 79,
+            'start_date' => $mp_start_date,
+            'end_date' => $mp_end_date
         ]);
 
         Subject::create([
@@ -5060,5 +5084,32 @@ if (!function_exists('initialize_subjects')) {
             'hours' => 20
         ]);
 
+    }
+}
+
+if (!function_exists('initialize_fake_week_lessons')) {
+    /**
+     * Week lesson sempre s'omple amb la info de GPuntis però per fer proves va bé aquest helper
+     */
+    function initialize_fake_week_lessons()
+    {
+        WeekLesson::create([
+            'code' => 'DAM_MP7_3_2100_2200',
+            'day' => 3, // Dimecres
+            'start_at' => '21:00:00',
+            'end_at' => '22:00:00',
+//            'job_id' => 1 és potencial no assignem encara a cap plaça/profe
+            'subject_group_id' =>  SubjectGroup::findByCode('DAM_MP7')->id,
+//            'classroom_id' => TODO
+//            'location_id' => // No necessari, encara no tinc locations
+        ]);
+
+        WeekLesson::create([
+            'code' => 'DAM_MP7_3_1530_1730',
+            'day' => 5, // divendres
+            'start_at' => '15:30:00',
+            'end_at' => '17:30:00',
+            'subject_group_id' =>  SubjectGroup::findByCode('DAM_MP7')->id,
+        ]);
     }
 }

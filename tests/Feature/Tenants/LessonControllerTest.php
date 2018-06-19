@@ -1,0 +1,65 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\User;
+use Config;
+use Illuminate\Contracts\Console\Kernel;
+use Spatie\Permission\Models\Role;
+use Tests\BaseTenantTest;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+/**
+ * Class LessonControllerTest.
+ *
+ * @package Tests\Feature
+ */
+class LessonControllerTest extends BaseTenantTest
+{
+    use RefreshDatabase;
+
+    /**
+     * Refresh the in-memory database.
+     *
+     * @return void
+     */
+    protected function refreshInMemoryDatabase()
+    {
+        $this->artisan('migrate',[
+            '--path' => 'database/migrations/tenant'
+        ]);
+
+        $this->app[Kernel::class]->setArtisan(null);
+    }
+
+    /** @test */
+    public function can_see_subject_lessons_management()
+    {
+        $this->withoutExceptionHandling();
+        initialize_subjects();
+        $manager = create(User::class);
+        $this->actingAs($manager);
+        $role = Role::firstOrCreate(['name' => 'LessonsManager']);
+        Config::set('auth.providers.users.model', User::class);
+        $manager->assignRole($role);
+
+        $response = $this->get('/lessons');
+
+        $response->assertSuccessful();
+        $response->assertViewIs('tenants.lessons.show');
+        $response->assertViewHas('subjects');
+        $response->assertViewHas('lessons');
+
+    }
+
+    /** @test */
+    public function regular_user_cannot_see_subject_lessons_management()
+    {
+        $user = create(User::class);
+        $this->actingAs($user);
+
+        $response = $this->get('/lessons');
+
+        $response->assertStatus(403);
+    }
+}

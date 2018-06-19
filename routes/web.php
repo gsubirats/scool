@@ -92,6 +92,8 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
 
             Route::get('/teacher/profile','Tenant\TeacherProfileController@index');
 
+            Route::get('/lessons','Tenant\LessonsController@show');
+
         });
     });
 
