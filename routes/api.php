@@ -17,6 +17,9 @@ Route::domain('{tenant}.' . env('APP_DOMAIN'))->group(function () {
     Route::group(['middleware' => ['tenant','tenancy.enforce']], function () {
         Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
+            //Subject lesson calculator
+            Route::post('lessons/subject/{subject}/calculate', 'Tenant\SubjectLessonsCalculateController@store');
+
             //Available users
             Route::get('/available-users/{jobType?}', 'Tenant\AvailableUsersController@index');
 

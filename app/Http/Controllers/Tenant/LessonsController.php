@@ -13,7 +13,6 @@ use App\Models\Subject;
  */
 class LessonsController extends Controller
 {
-
     /**
      * Show.
      *
