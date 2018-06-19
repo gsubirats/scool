@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Requests\ShowLessonsManager;
 use App\Models\Lesson;
 use App\Models\Subject;
-use Illuminate\Http\Request;
 
 /**
  * Class LessonsController.
