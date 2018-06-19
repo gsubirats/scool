@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Requests\ShowLessonsManager;
+use App\Http\Requests\StoreSubjectLessonsCalculateController;
 use App\Models\Lesson;
 use App\Models\Subject;
 

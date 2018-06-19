@@ -57,4 +57,20 @@ class CalculateSubjectLessonControllerTest extends BaseTenantTest
         $this->assertCount(50,Lesson::all());
 
     }
+
+    /** @test */
+    public function regular_user_cannot_calculate_subject_lessons()
+    {
+//        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+        $this->actingAs($user,'api');
+
+        initialize_fake_subjects();
+//        initialize_fake_week_lessons();
+
+        $subject = Subject::findByCode('DAM_MP7_UF1');
+        $response = $this->json('POST','/api/v1/lessons/subject/' . $subject->id .'/calculate');
+        $response->assertStatus(403);
+
+    }
 }
