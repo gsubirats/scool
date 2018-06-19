@@ -13,7 +13,7 @@
                         <div class="red--text title" v-html="job.code"></div>
                         <div class="text-xs-left" style="font-size: 90%;">{{job.holder_name}}</div>
                     </span>
-                    <user-avatar :hash-id="job.holder_hash_id"
+                    <user-avatar :hash-id="job.holder_hashid"
                                  :alt="job.holder_description"
                                  size="70"
                                  :tile="true"

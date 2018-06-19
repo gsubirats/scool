@@ -31,11 +31,11 @@ class JobForSheetHolders extends JsonResource
         } else {
             $holder_description = $holder_name;
         }
-        
+
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'holder_hash_id' => optional($this->activeUser)->hashid,
+            'holder_hashid' => optional($holder)->hash_id,
             'holder_code' => $holder_code,
             'holder_name' => $holder_name,
             'holder_email' => $holder_email,

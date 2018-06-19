@@ -14,6 +14,12 @@
                             <v-list-tile href="/jobs/sheet_active_users" target="_blank">
                                 <v-list-tile-title>Llençol de places amb usuaris actius</v-list-tile-title>
                             </v-list-tile>
+                            <v-list-tile href="/jobs/sheet_substitutes" target="_blank">
+                                <v-list-tile-title>Llençol de substituts TODO</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile href="/jobs/sheet_leaves" target="_blank">
+                                <v-list-tile-title>Llençol de personal de baixa o permís TODO</v-list-tile-title>
+                            </v-list-tile>
                         </v-list>
                     </v-menu>
                     <v-toolbar-title class="white--text title">Places</v-toolbar-title>
