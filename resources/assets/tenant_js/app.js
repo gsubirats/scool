@@ -51,6 +51,8 @@ Vue.component('audit-log', require('./components/auditlog/AuditLogComponent.vue'
 Vue.component('jobs-sheet', require('./components/jobs/JobsSheetComponent.vue'));
 Vue.component('jobs-sheet-holder', require('./components/jobs/JobsSheetHoldersComponent.vue'));
 
+Vue.component('jobs-donut', require('./components/jobs/JobsDonutComponent.vue'));
+
 //Lessons
 Vue.component('lessons-manager', require('./components/lessons/LessonsManagerComponent.vue'));
 
