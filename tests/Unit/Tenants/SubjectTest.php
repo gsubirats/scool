@@ -51,13 +51,13 @@ class SubjectTest extends TestCase
             'shortname'=> 'Disseny i implementació d’interfícies',
             'code' =>  'DAM_MP7_UF1',
             'number' => 1,
-            'group_id' => 1,
+            'subject_group_id' => 1,
             'study_id' => 1,
             'course_id' => 1,
             'type_id' => 1,
             'hours' => 79,
-            'start_date' => $mp_start_date,
-            'end_date' => $mp_end_date
+            'start' => $mp_start_date,
+            'end' => $mp_end_date
         ]);
 
         $this->assertTrue($subject->is(Subject::findByCode('DAM_MP7_UF1')));

@@ -55,8 +55,8 @@ class SubjectGroupTest extends TestCase
             'hours' => 99,
             'free_hours' => 0, // Lliure disposició
             'week_hours' => 3,
-            'start_date' => $mp_start_date,
-            'end_date' => $mp_end_date,
+            'start' => $mp_start_date,
+            'end' => $mp_end_date,
             'type' => 'Normal'
         ]);
 

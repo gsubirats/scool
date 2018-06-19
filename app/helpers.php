@@ -5006,6 +5006,7 @@ if (!function_exists('initialize_subjects')) {
     function initialize_subjects()
     {
         // TODO totes les unitats formatives del centre
+        initialize_fake_subjects();
     }
 }
 
