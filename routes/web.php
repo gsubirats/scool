@@ -61,7 +61,8 @@ Route::domain('{tenant}.' . config('app.domain'))->group(function () {
         Route::post('file/remove/from/{storage}', 'Tenant\UploadFileToStorageController@destroy');
 
         // Jobs Sheet
-        Route::get('/jobs/sheet','Tenant\JobsSheetController@show');
+        Route::get('/jobs/sheet_active_users','Tenant\JobsSheetController@show');
+        Route::get('/jobs/sheet_holders','Tenant\JobsSheetController@showHolders');
 
         Route::group(['middleware' => 'auth'], function () {
 

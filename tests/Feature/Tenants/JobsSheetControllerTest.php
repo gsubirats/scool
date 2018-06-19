@@ -30,7 +30,32 @@ class JobsSheetControllerTest extends BaseTenantTest
     }
 
     /** @test */
-    public function can_see_jobs_sheet()
+    public function can_see_jobs_sheet_for_active_users()
+    {
+        initialize_tenant_roles_and_permissions();
+        initialize_user_types();
+        initialize_job_types();
+        initialize_forces();
+        initialize_families();
+        initialize_specialities();
+        initialize_users();
+        initialize_departments();
+        initialize_teachers();
+        initialize_substitutes();
+
+        $response = $this->get('/jobs/sheet_active_users');
+
+        $response->assertSuccessful();
+        $response->assertViewIs('tenants.jobs.sheet');
+        $response->assertViewHas('jobs');
+        $response->assertViewHas('jobs',function ($jobs) {
+            $job = $jobs->first();
+            return check_sheet_job($job);
+        });
+    }
+
+    /** @test */
+    public function can_see_jobs_sheet_for_holders()
     {
         $this->withoutExceptionHandling();
         initialize_tenant_roles_and_permissions();
@@ -44,10 +69,10 @@ class JobsSheetControllerTest extends BaseTenantTest
         initialize_teachers();
         initialize_substitutes();
 
-        $response = $this->get('/jobs/sheet');
+        $response = $this->get('/jobs/sheet_holders');
 
         $response->assertSuccessful();
-        $response->assertViewIs('tenants.jobs.sheet');
+        $response->assertViewIs('tenants.jobs.sheet_holders');
         $response->assertViewHas('jobs');
         $response->assertViewHas('jobs',function ($jobs) {
             $job = $jobs->first();

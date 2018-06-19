@@ -49,12 +49,16 @@ Vue.component('show-teacher-icon', require('./components/teachers/ShowTeacherIco
 Vue.component('audit-log', require('./components/auditlog/AuditLogComponent.vue'));
 
 Vue.component('jobs-sheet', require('./components/jobs/JobsSheetComponent.vue'));
+Vue.component('jobs-sheet-holder', require('./components/jobs/JobsSheetHoldersComponent.vue'));
 
 //Lessons
 Vue.component('lessons-manager', require('./components/lessons/LessonsManagerComponent.vue'));
 
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
+
+import FullCalendar from 'vue-full-calendar'
+Vue.use(FullCalendar)
 
 import store from './store'
 import * as actions from './store/action-types'

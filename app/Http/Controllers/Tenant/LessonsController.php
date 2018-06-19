@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Requests\ShowLessonsManager;
 use App\Models\Lesson;
 use App\Models\Subject;
+use App\Http\Resources\Tenant\Lesson as LessonResource;
+
 
 /**
  * Class LessonsController.
@@ -22,7 +24,8 @@ class LessonsController extends Controller
     public function show(ShowLessonsManager $request)
     {
         $subjects = Subject::all();
-        $lessons = Lesson::all();
+        $lessons = collect(LessonResource::collection(
+                Lesson::with('subject')->get()));
         return view('tenants.lessons.show',compact(['subjects','lessons']));
     }
 }

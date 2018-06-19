@@ -37,6 +37,7 @@ class LessonControllerTest extends BaseTenantTest
     {
         $this->withoutExceptionHandling();
         initialize_subjects();
+        initialize_fake_lessons();
         $manager = create(User::class);
         $this->actingAs($manager);
         $role = Role::firstOrCreate(['name' => 'LessonsManager']);
@@ -45,11 +46,16 @@ class LessonControllerTest extends BaseTenantTest
 
         $response = $this->get('/lessons');
 
+        initialize_fake_lessons();
+
         $response->assertSuccessful();
         $response->assertViewIs('tenants.lessons.show');
         $response->assertViewHas('subjects');
         $response->assertViewHas('lessons');
-
+        $response->assertViewHas('lessons',function ($lessons) {
+            $lesson = $lessons->first();
+            return check_lesson($lesson);
+        });
     }
 
     /** @test */

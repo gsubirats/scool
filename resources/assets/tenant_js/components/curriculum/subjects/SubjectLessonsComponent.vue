@@ -14,8 +14,8 @@
                 <td class="text-xs-left" v-html="lesson.id"></td>
                 <td class="text-xs-left" v-html="lesson.subject_id"></td>
                 <td class="text-xs-left" v-html="lesson.job_id"></td>
-                <td class="text-xs-left" v-html="lesson.start_date"></td>
-                <td class="text-xs-left" v-html="lesson.end_date"></td>
+                <td class="text-xs-left" v-html="lesson.start"></td>
+                <td class="text-xs-left" v-html="lesson.end"></td>
             </tr>
         </template>
     </v-data-table>
@@ -42,8 +42,8 @@
         // }
         headers.push({text: 'subject_id', value: 'subject_id'})
         headers.push({text: 'job_id', value: 'job_id'})
-        headers.push({text: 'start_date', value: 'start_date'})
-        headers.push({text: 'end_date', value: 'end_date'})
+        headers.push({text: 'start_date', value: 'start'})
+        headers.push({text: 'end_date', value: 'end'})
         return headers
       }
     },

@@ -36,6 +36,7 @@ class JobForSheet extends JsonResource
         }
         return [
             'id' => $this->id,
+            'code' => $this->code,
             'active_user_hash_id' => optional($this->activeUser)->hashid,
             'active_user_code' => $active_user_code,
             'active_user_name' => $active_user_name,

@@ -8,8 +8,11 @@
                             <v-icon>more_vert</v-icon>
                         </v-btn>
                         <v-list>
-                            <v-list-tile href="/jobs/sheet" target="_blank">
-                                <v-list-tile-title>Llençol de places</v-list-tile-title>
+                            <v-list-tile href="/jobs/sheet_holders" target="_blank">
+                                <v-list-tile-title>Llençol de places amb titulars</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile href="/jobs/sheet_active_users" target="_blank">
+                                <v-list-tile-title>Llençol de places amb usuaris actius</v-list-tile-title>
                             </v-list-tile>
                         </v-list>
                     </v-menu>

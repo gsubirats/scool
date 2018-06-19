@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex xs12>
                 <img src="/img/logo_iesebre.jpg" alt="Logo Institut de l'Ebre">
-                <span class="display-1">Places i usuari que ocupa la plaça actualment. {{ academicPeriod()}}</span>
+                <span class="display-1">Places i titulars. {{ academicPeriod()}}</span>
             </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -11,10 +11,10 @@
                 <div style="display: flex;justify-content: space-between;">
                     <span style="display: flex;flex-direction: column;justify-content: space-between;max-width: 105px;overflow: hidden;text-overflow: ellipsis;">
                         <div class="red--text title" v-html="job.code"></div>
-                        <div class="text-xs-left" style="font-size: 90%;">{{job.active_user_name}}</div>
+                        <div class="text-xs-left" style="font-size: 90%;">{{job.holder_name}}</div>
                     </span>
-                    <user-avatar :hash-id="job.active_user_hash_id"
-                                 :alt="job.active_user_description"
+                    <user-avatar :hash-id="job.holder_hash_id"
+                                 :alt="job.holder_description"
                                  size="70"
                                  :tile="true"
                     ></user-avatar>

@@ -10,6 +10,7 @@ use App\Models\Force;
 use App\Models\Identifier;
 use App\Models\IdentifierType;
 use App\Models\Law;
+use App\Models\Lesson;
 use App\Models\Location;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
@@ -5088,7 +5089,6 @@ if (!function_exists('initialize_fake_subjects')) {
             'type_id' => 1,
             'hours' => 20
         ]);
-
     }
 }
 
@@ -5110,7 +5110,7 @@ if (!function_exists('initialize_fake_week_lessons')) {
         ]);
 
         WeekLesson::create([
-            'code' => 'DAM_MP7_3_1530_1730',
+            'code' => 'DAM_MP7_5_1530_1730',
             'day' => 5, // divendres
             'start' => '15:30:00',
             'end' => '17:30:00',
@@ -5139,3 +5139,48 @@ if (!function_exists('dayOfWeek')) {
         }
     }
 }
+
+if (!function_exists('check_lesson')) {
+    function check_lesson($lesson)
+    {
+//        dd(json_encode($lesson));
+        return array_key_exists('id', $lesson) &&
+            array_key_exists('subject_id', $lesson) &&
+            array_key_exists('job_id', $lesson) &&
+            array_key_exists('classroom_id', $lesson) &&
+            array_key_exists('start', $lesson) &&
+            array_key_exists('end', $lesson) &&
+            array_key_exists('created_at', $lesson) &&
+            array_key_exists('updated_at', $lesson);
+    }
+}
+
+if (!function_exists('initialize_fake_lessons')) {
+    function initialize_fake_lessons()
+    {
+        Lesson::firstOrCreate([
+            'subject_id' => 1,
+            'job_id' => 1,
+            'classroom_id' => 1,
+            'start' => new Carbon('2018-09-20 19:00:00'),
+            'end' => new Carbon('2018-09-20 20:00:00')
+        ]);
+
+        Lesson::firstOrCreate([
+            'subject_id' => 1,
+            'job_id' => 1,
+            'classroom_id' => 1,
+            'start' => new Carbon('2018-09-21 17:00:00'),
+            'end' => new Carbon('2018-09-21 18:00:00')
+        ]);
+
+        Lesson::firstOrCreate([
+            'subject_id' => 1,
+            'job_id' => 1,
+            'classroom_id' => 1,
+            'start' => new Carbon('2018-09-19 17:00:00'),
+            'end' => new Carbon('2018-09-19 18:00:00')
+        ]);
+    }
+}
+

@@ -29,6 +29,6 @@ class SubjectGroup extends Model
      */
     public function week_lessons()
     {
-        return $this->hasMany(WeekLesson::class)->orderBy('day,start');
+        return $this->hasMany(WeekLesson::class)->orderBy('day')->orderBy('start');
     }
 }

@@ -13,4 +13,12 @@ class Lesson extends Model
 {
     protected $guarded = [];
 
+    /**
+     * Get the subject that owns the lesson.
+     */
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
 }

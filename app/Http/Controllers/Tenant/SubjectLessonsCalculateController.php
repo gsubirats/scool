@@ -23,7 +23,7 @@ class SubjectLessonsCalculateController extends Controller
         $subject_group = $subject->subject_group;
         $start= new Carbon($subject_group->start);
         $original_week_lessons = $subject_group->week_lessons;
-
+        if (!$original_week_lessons) return; // TODO Custom exception!
         $real_starts = [];
         $real_ends = [];
         foreach ($original_week_lessons as $original_week_lesson) {
@@ -58,6 +58,7 @@ class SubjectLessonsCalculateController extends Controller
 //            dump('lesson_start: ' . $lesson_start);
 //            dump('lesson_end: ' . $lesson_end);
 //            dump('minuts restants: ' . $minutes);
+//            dd('stop');
             $lessonMinutes = $lesson_start->diffInMinutes(new Carbon($lesson_end));
 //            dump('lesson minutes: ' . $lessonMinutes);
             Lesson::create([
