@@ -23,4 +23,13 @@ class Subject extends Model
     {
         return self::where('code', $code)->first();
     }
+
+    /**
+     * Get the post that owns the comment.
+     */
+    public function subject_group()
+    {
+        return $this->belongsTo(SubjectGroup::class);
+    }
+
 }

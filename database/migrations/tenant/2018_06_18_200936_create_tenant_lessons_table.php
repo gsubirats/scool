@@ -20,8 +20,9 @@ class CreateTenantLessonsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('job_id')->nullable();
-            $table->datetime('start_date');
-            $table->datetime('end_date');
+            $table->unsignedInteger('classroom_id')->nullable();
+            $table->datetime('start');
+            $table->datetime('end');
             $table->timestamps();
         });
     }

@@ -20,12 +20,12 @@ class CreateTenantWeekLessonsTable extends Migration
             $table->increments('id');
             $table->string('code')->unique();
             $table->enum('day', [1,2,3,4,5,6,7])->nullable();
-            $table->time('start_at')->nullable();
-            $table->time('end_at')->nullable();
-            $table->unsignedInteger('job_id')->unsigned()->nullable();
-            $table->unsignedInteger('subject_group_id')->unsigned()->nullable();
-            $table->unsignedInteger('classroom_id')->unsigned()->nullable();
-            $table->unsignedInteger('location_id')->unsigned()->nullable();
+            $table->time('start')->nullable();
+            $table->time('end')->nullable();
+            $table->unsignedInteger('job_id')->nullable();
+            $table->unsignedInteger('subject_group_id')->nullable();
+            $table->unsignedInteger('classroom_id')->nullable();
+            $table->unsignedInteger('location_id')->nullable();
             $table->timestamps();
         });
 

@@ -5055,8 +5055,8 @@ if (!function_exists('initialize_fake_subjects')) {
             'hours' => 99,
             'free_hours' => 0, // Lliure disposició
             'week_hours' => 3,
-            'start_date' => $mp_start_date,
-            'end_date' => $mp_end_date,
+            'start' => $mp_start_date,
+            'end' => $mp_end_date,
             'type' => 'Normal'
         ]);
 //        $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
@@ -5067,13 +5067,13 @@ if (!function_exists('initialize_fake_subjects')) {
             'shortname'=> 'Disseny i implementació d’interfícies',
             'code' =>  'DAM_MP7_UF1',
             'number' => 1,
-            'group_id' => $group->id,
+            'subject_group_id' => $group->id,
             'study_id' => $study->id,
             'course_id' => $course2->id,
             'type_id' => 1,
             'hours' => 79,
-            'start_date' => $mp_start_date,
-            'end_date' => $mp_end_date
+            'start' => $mp_start_date,
+            'end' => $mp_end_date
         ]);
 
         Subject::create([
@@ -5081,7 +5081,7 @@ if (!function_exists('initialize_fake_subjects')) {
             'shortname'=> 'Preparació i distribució d’aplicacions',
             'code' =>  'DAM_MP7_UF2',
             'number' => 2,
-            'group_id' => $group->id,
+            'subject_group_id' => $group->id,
             'study_id' => $study->id,
             'course_id' => $course2->id,
             'type_id' => 1,
@@ -5100,8 +5100,8 @@ if (!function_exists('initialize_fake_week_lessons')) {
         WeekLesson::create([
             'code' => 'DAM_MP7_3_2100_2200',
             'day' => 3, // Dimecres
-            'start_at' => '21:00:00',
-            'end_at' => '22:00:00',
+            'start' => '21:00:00',
+            'end' => '22:00:00',
 //            'job_id' => 1 és potencial no assignem encara a cap plaça/profe
             'subject_group_id' =>  SubjectGroup::findByCode('DAM_MP7')->id,
 //            'classroom_id' => TODO
@@ -5111,9 +5111,30 @@ if (!function_exists('initialize_fake_week_lessons')) {
         WeekLesson::create([
             'code' => 'DAM_MP7_3_1530_1730',
             'day' => 5, // divendres
-            'start_at' => '15:30:00',
-            'end_at' => '17:30:00',
+            'start' => '15:30:00',
+            'end' => '17:30:00',
             'subject_group_id' =>  SubjectGroup::findByCode('DAM_MP7')->id,
         ]);
+    }
+}
+
+if (!function_exists('dayOfWeek')) {
+    function dayOfWeek($isoNumber) {
+        switch ($isoNumber) {
+            case 1:
+                return 'monday';
+            case 2:
+                return 'tuesday';
+            case 3:
+                return 'wednesday';
+            case 4:
+                return 'thursday';
+            case 5:
+                return 'friday';
+            case 6:
+                return 'saturday';
+            case 7:
+                return 'sunday';
+        }
     }
 }

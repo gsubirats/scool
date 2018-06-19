@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Lesson;
 use App\Models\Subject;
 use App\Models\User;
+use Carbon\Carbon;
 use Config;
 use Illuminate\Contracts\Console\Kernel;
 use Spatie\Permission\Models\Role;
@@ -54,7 +55,13 @@ class CalculateSubjectLessonControllerTest extends BaseTenantTest
         $response = $this->json('POST','/api/v1/lessons/subject/' . $subject->id .'/calculate');
         $response->assertSuccessful();
 
-        $this->assertCount(50,Lesson::all());
+        $this->assertCount(53,Lesson::all());
+
+        $minutes = 0;
+        foreach (Lesson::all() as $lesson) {
+            $minutes = $minutes + (new Carbon($lesson->start))->diffInMinutes(new Carbon($lesson->end));
+        }
+        $this->assertEquals($minutes/60,79);
 
     }
 
@@ -66,7 +73,7 @@ class CalculateSubjectLessonControllerTest extends BaseTenantTest
         $this->actingAs($user,'api');
 
         initialize_fake_subjects();
-//        initialize_fake_week_lessons();
+        initialize_fake_week_lessons();
 
         $subject = Subject::findByCode('DAM_MP7_UF1');
         $response = $this->json('POST','/api/v1/lessons/subject/' . $subject->id .'/calculate');

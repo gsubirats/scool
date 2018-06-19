@@ -23,4 +23,12 @@ class SubjectGroup extends Model
     {
         return self::where('code', $code)->first();
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function week_lessons()
+    {
+        return $this->hasMany(WeekLesson::class)->orderBy('day,start');
+    }
 }

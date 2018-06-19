@@ -28,8 +28,8 @@ class CreateTenantSubjectGroupsTable extends Migration
             $table->unsignedInteger('week_hours')->nullable();
             $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
             $table->unsignedTinyInteger('number')->nullable();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }
