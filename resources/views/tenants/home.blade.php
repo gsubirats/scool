@@ -25,16 +25,22 @@
                                  title="Totals professors"></bar>
                         </v-flex>
                         <v-flex xs2>
-                            <donut :labels="{{ $teacherTypes }}" title="Tipus de places"></donut>
+                            <donut :labels="{{ $teacherTypes }}"
+                                   :data="{{ $teacherTypesData }}"
+                                   title="Tipus de places"></donut>
                         </v-flex>
                         <v-flex xs2>
-                            <donut :labels="{{ $tipusJornades }}" title="Places per tipus Jornada"></donut>
+{{--                            <donut :labels="{{ $tipusJornades }}" title="Places per tipus Jornada"></donut>--}}
                         </v-flex>
                         <v-flex xs6>
-                            <donut :labels="{{ $specialties }}" title="Places per especialitats"></donut>
+                            <donut :labels="{{ $specialties->keys() }}"
+                                   :data="{{ $specialties->values() }}"
+                                   title="Places per especialitats"></donut>
                         </v-flex>
                         <v-flex xs6>
-                            <donut :labels="{{ $families }}" title="Places per famílies"></donut>
+                            <donut :labels="{{ $families->keys() }}"
+                                   :data="{{ $families->values() }}"
+                                   title="Places per famílies"></donut>
                         </v-flex>
                     </v-layout>
                 </v-container>
