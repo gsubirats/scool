@@ -76,7 +76,7 @@ class JobsSheetControllerTest extends BaseTenantTest
         $response->assertViewHas('jobs');
         $response->assertViewHas('jobs',function ($jobs) {
             $job = $jobs->first();
-            return check_sheet_job($job);
+            return check_sheet_job_for_holders($job);
         });
     }
 }

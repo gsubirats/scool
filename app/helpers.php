@@ -4889,6 +4889,25 @@ if (!function_exists('check_sheet_job')) {
     }
 }
 
+if (!function_exists('check_sheet_job_for_holders')) {
+    /**
+     * Check sheet job.
+     *
+     * @param $job
+     * @return bool
+     */
+    function check_sheet_job_for_holders($job)
+    {
+        return array_key_exists('id', $job) &&
+            array_key_exists('code', $job) &&
+            array_key_exists('holder_hashid', $job) &&
+            array_key_exists('holder_code', $job) &&
+            array_key_exists('holder_name', $job) &&
+            array_key_exists('holder_email', $job) &&
+            array_key_exists('holder_description', $job);
+    }
+}
+
 
 if (!function_exists('check_job')) {
     function check_job($job)
