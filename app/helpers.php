@@ -4830,7 +4830,7 @@ if (!function_exists('create_fake_audit_log_entries')) {
     function create_fake_audit_log_entries()
     {
         $job = Job::create([
-            'code' => '001',
+            'code' => '999',
             'type_id' => 1,
             'specialty_id' => 1,
             'family_id' => 1,
