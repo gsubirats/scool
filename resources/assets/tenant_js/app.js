@@ -57,6 +57,9 @@ Vue.component('bar', require('./components/charts/BarComponent.vue'));
 //Lessons
 Vue.component('lessons-manager', require('./components/lessons/LessonsManagerComponent.vue'));
 
+// Docs/media
+Vue.component('model-docs', require('./components/docs/ModelDocsComponent.vue'));
+
 window.Vuetify = require('vuetify');
 Vue.use(Vuetify)
 
