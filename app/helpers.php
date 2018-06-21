@@ -5025,8 +5025,87 @@ if (!function_exists('check_teacher')) {
 if (!function_exists('initialize_subjects')) {
     function initialize_subjects()
     {
-        // TODO totes les unitats formatives del centre
-        initialize_fake_subjects();
+        $mp_start_date = '2017-09-15';
+        $mp_end_date = '2018-06-01';
+
+        //Comú
+        $loe = Law::firstOrCreate([
+            'code' => 'LOE',
+            'name' => 'Ley Orgánica de Educación'
+        ]);
+
+        $logse = Law::firstOrCreate([
+            'code' => 'LOGSE',
+            'name' => 'Ley Orgánica de Ordenació General del Sistema Educativo'
+        ]);
+
+        // Per estudis i mòduls:
+
+        // Informàtica
+//        Mòdul professional 1: sistemes informàtics
+
+        // http://portaldogc.gencat.cat/utilsEADOP/PDF/6958/1444503.pdf
+        // O matrícula TIC
+
+        $study = Study::firstOrCreate([
+            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+            'code' => 'DAM',
+            'law_id' => $loe->id
+        ]);
+
+        // No existeix 1DAM -> és comú amb 1rASIX
+//        $course1 = Course::create([
+//            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+//            'code' => '1DAM'
+//        ]);
+        $course2 = Course::firstOrCreate([
+            'code' => '2DAM',
+            'name' => 'Desenvolupament Aplicacions Multiplataforma',
+            'order' => 2
+        ]);
+
+//        Mòdul professional (Subject Group) 7: desenvolupament d’interfícies
+        $group = SubjectGroup::firstOrCreate([
+            'shortname' => 'Desenvolupament d’interfícies',
+            'name' => 'Desenvolupament d’interfícies',
+            'code' =>  'DAM_MP7',
+            'number' => 7,
+            'study_id' => $study->id,
+            'hours' => 99,
+            'free_hours' => 0, // Lliure disposició
+            'week_hours' => 3,
+            'start' => $mp_start_date,
+            'end' => $mp_end_date,
+            'type' => 'Normal'
+        ]);
+//        $table->enum('type', ['Normal', 'Externes', 'Síntesi', 'FCT' ])->default('Normal');
+//        $table->unsignedTinyInteger('order')->nullable();
+
+        Subject::create([
+            'name' => 'Disseny i implementació d’interfícies',
+            'shortname'=> 'Disseny i implementació d’interfícies',
+            'code' =>  'DAM_MP7_UF1',
+            'number' => 1,
+            'subject_group_id' => $group->id,
+            'study_id' => $study->id,
+            'course_id' => $course2->id,
+            'type_id' => 1,
+            'hours' => 79,
+            'start' => $mp_start_date,
+            'end' => $mp_end_date
+        ]);
+
+        Subject::create([
+            'name' => 'Preparació i distribució d’aplicacions',
+            'shortname'=> 'Preparació i distribució d’aplicacions',
+            'code' =>  'DAM_MP7_UF2',
+            'number' => 2,
+            'subject_group_id' => $group->id,
+            'study_id' => $study->id,
+            'course_id' => $course2->id,
+            'type_id' => 1,
+            'hours' => 20
+        ]);
     }
 }
 
