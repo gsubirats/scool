@@ -5296,3 +5296,18 @@ if (!function_exists('initialize_fake_lessons')) {
     }
 }
 
+if (!function_exists('initialize_dnis')) {
+    /**
+     * Initialize dnis
+     */
+    function initialize_dnis() {
+        $dnis = collect(File::allFiles(base_path('storage/dni')));
+        foreach ($dnis as $dni) {
+//            dump($dni);
+            dump($name= $dni->getRelativePathName());
+            $dni = substr($name,0,9);
+
+        }
+    }
+}
+
