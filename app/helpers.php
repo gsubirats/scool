@@ -14,7 +14,6 @@ use App\Models\Lesson;
 use App\Models\Location;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
-use App\Models\Person;
 use App\Models\Position;
 use App\Models\Province;
 use App\Models\Specialty;
@@ -3804,7 +3803,7 @@ if (!function_exists('initialize_families')) {
             'code' => 'ARTS'
         ]);
 
-      
+
         Family::firstOrCreate([
             'name' => 'Administració i gestió',
             'code' => 'ADMIN'
@@ -3861,7 +3860,7 @@ if (!function_exists('initialize_families')) {
 //            'name' => 'FOL',
 //            'code' => 'FOL'
 //        ]);
-      
+
     }
 }
 
@@ -4257,7 +4256,6 @@ if (!function_exists('add_fake_pending_teachers')) {
             'sn1' => 'Pardo',
             'sn2' => 'Jeans',
             'identifier' => '84008343S',
-            'identifier_type' => 'NIF',
             'birthdate' => '1980-02-04',
             'street' => 'Alcanyiz',
             'number' => 40,
@@ -4272,22 +4270,17 @@ if (!function_exists('add_fake_pending_teachers')) {
             'other_emails' => 'pepepardojeans@gmail.com,ppardo@xtec.cat',
             'phone' => '679852467',
             'other_phones' => '977854265,689578458',
-            'mobile' => '679852467',
-            'other_mobiles' => '651750489,689534729',
             'degree' => 'Enginyer en chapuzas varias',
             'other_degrees' => 'Master emerito por la Juan Carlos Primero',
             'languages' => 'Suajili',
             'profiles' => 'Master of the Universe',
             'other_training' => 'Fuster',
             'force_id' => 1,
-            'force' => 'Mestres',
             'specialty_id' => 1,
-            'specialty' => 'Processos sanitaris',
             'teacher_start_date' => '2015',
             'start_date' => '2017-03-06',
             'opositions_date' => '2009-06-10',
             'administrative_status_id' => 1,
-            'administrative_status' => 'Interí/na',
             'destination_place' => 'La Seu Urgell',
             'teacher_id' => 8
         ]);
@@ -4297,37 +4290,29 @@ if (!function_exists('add_fake_pending_teachers')) {
             'sn1' => 'Parda',
             'sn2' => 'Jeans',
             'identifier' => '69544773H',
-            'identifier_type' => 'NIF',
             'birthdate' => '1975-04-14',
             'street' => 'Beseit',
             'number' => 14,
             'floor' => 2,
             'floor_number' => 3,
             'postal_code' => 43520,
-            'locality_id' => 13560,
             'locality' => 'TORTOSA',
-            'province_id' => 36,
             'province' => 'TARRAGONA',
             'email' => 'pepa@parda.com',
             'other_emails' => 'pepapardajeans@gmail.com,pparda@xtec.cat',
             'phone' => '674582467',
             'other_phones' => '977814265,689478458',
-            'mobile' => '679852467',
-            'other_mobiles' => '651750489,689534729',
             'degree' => 'Enginyera en chapuzas varias',
             'other_degrees' => 'Master a por la Juan Carlos Primero',
             'languages' => 'Suajila',
             'profiles' => 'Mistress of the Universe',
             'other_training' => 'Fustera',
             'force_id' => 1,
-            'force' => 'Mestres',
             'specialty_id' => 1,
-            'specialty' => 'Processos sanitaris',
             'teacher_start_date' => '2015',
             'start_date' => '2017-03-06',
             'opositions_date' => '2009-04-11',
             'administrative_status_id' => 5,
-            'administrative_status' => 'Interí/na',
             'destination_place' => 'La Roca del Vallés',
             'teacher_id' => 9
         ]);
@@ -5121,6 +5106,1144 @@ if (!function_exists('initialize_subjects')) {
             'type_id' => 1,
             'hours' => 20
         ]);
+
+          // Arts gràfiques
+
+          // Disseny i Edició De Publicacions Impreses
+
+          $study = Study::firstOrCreate([
+              'name' => 'Disseny i Edició De Publicacions Impreses',
+              'code' => 'DEP',
+              'law_id' => $loe->id
+          ]);
+
+          $course1 = Course::firstOrCreate([
+              'code' => '1DEP',
+              'name' => 'Disseny i Edició De Publicacions Impreses',
+              'order' => 1
+          ]);
+
+          $course2 = Course::firstOrCreate([
+              'code' => '2DEP',
+              'name' => 'Disseny i Edició De Publicacions Impreses',
+              'order' => 2
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Materials de producció gràfica',
+              'name' => 'Materials de producció gràfica',
+              'code' =>  'DEP_MP1',
+              'number' => 1,
+              'study_id' => $study->id,
+              'hours' => 132,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Característiques dels materials de producció gràfica',
+              'shortname'=> 'Característiques dels materials de producció gràfica',
+              'code' =>  'DEP_MP1_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 50,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Tractaments superficials en la indústria gràfica',
+              'shortname'=> 'Tractaments superficials en la indústria gràfica',
+              'code' =>  'DEP_MP1_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 17,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Aprovisionament i emmagatzematge en la indústria gràfica',
+              'shortname'=> 'Aprovisionament i emmagatzematge en la indústria gràfica',
+              'code' =>  'DEP_MP1_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Qualitat dels materials gràfics',
+              'shortname'=> 'Qualitat dels materials gràfics',
+              'code' =>  'DEP_MP1_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 40,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Organització dels processos de preimpressió digital',
+              'name' => 'Organització dels processos de preimpressió digital',
+              'code' =>  'DEP_MP2',
+              'number' => 2,
+              'study_id' => $study->id,
+              'hours' => 105,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Planificació dels processos de preimpressió',
+              'shortname'=> 'Planificació dels processos de preimpressió',
+              'code' =>  'DEP_MP2_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 35,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Control de qualitat en el tractament d’imatges',
+              'shortname'=> 'Control de qualitat en el tractament d’imatges',
+              'code' =>  'DEP_MP2_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 70,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Control de qualitat de textos i compaginació',
+              'shortname'=> 'Control de qualitat de textos i compaginació',
+              'code' =>  'DEP_MP2_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 58,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Control de qualitat de la imposició i obtenció de la forma impressora',
+              'shortname'=> 'Control de qualitat de la imposició i obtenció de la forma impressora',
+              'code' =>  'DEP_MP2_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 45,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Pla de manteniment i prevenció de riscos en preimpressió',
+              'shortname'=> 'Pla de manteniment i prevenció de riscos en preimpressió',
+              'code' =>  'DEP_MP2_UF5',
+              'number' => 5,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 23,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Software gestió processos de preimpressi',
+              'shortname'=> 'Software gestió processos de preimpressi',
+              'code' =>  'DEP_MP2_UF6',
+              'number' => 6,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 33,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Disseny de productes gràfics',
+              'name' => 'Disseny de productes gràfics',
+              'code' =>  'DEP_MP3',
+              'number' => 3,
+              'study_id' => $study->id,
+              'hours' => 105,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Briefing i documentació del projecte gràfic',
+              'shortname'=> 'Briefing i documentació del projecte gràfic',
+              'code' =>  'DEP_MP3_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Elements del projecte gràfic',
+              'shortname'=> 'Elements del projecte gràfic',
+              'code' =>  'DEP_MP3_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Creació, desenvolupament digital i anàlisi d’esbossos',
+              'shortname'=> 'Creació, desenvolupament digital i anàlisi d’esbossos',
+              'code' =>  'DEP_MP3_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 60,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Planificació i valoració de costos del projecte gràfic',
+              'shortname'=> 'Planificació i valoració de costos del projecte gràfic',
+              'code' =>  'DEP_MP3_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 38,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Realització de maquetes i preparació d’arts finals digitals',
+              'shortname'=> 'Realització de maquetes i preparació d’arts finals digitals',
+              'code' =>  'DEP_MP3_UF5',
+              'number' => 5,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 60,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => "Software gestió D'imatges",
+              'shortname'=> "Software gestió D'imatges",
+              'code' =>  'DEP_MP3_UF6',
+              'number' => 6,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 33,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Gestió de la producció en processos d’edició',
+              'name' => 'Gestió de la producció en processos d’edició',
+              'code' =>  'DEP_MP4',
+              'number' => 4,
+              'study_id' => $study->id,
+              'hours' => 50,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Planificació de la producció en processos d’edició',
+              'shortname'=> 'Planificació de la producció en processos d’edició',
+              'code' =>  'DEP_MP4_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Seguiment de la producció en processos d’edició',
+              'shortname'=> 'Seguiment de la producció en processos d’edició',
+              'code' =>  'DEP_MP4_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Gestió de la qualitat en processos d’edició',
+              'shortname'=> 'Gestió de la qualitat en processos d’edició',
+              'code' =>  'DEP_MP4_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Costos de producció en processos d’edició',
+              'shortname'=> 'Costos de producció en processos d’edició',
+              'code' =>  'DEP_MP4_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 29,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Producció editorial',
+              'name' => 'Producció editorial',
+              'code' =>  'DEP_MP5',
+              'number' => 5,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Gestió i planificació editorial',
+              'shortname'=> 'Gestió i planificació editorial',
+              'code' =>  'DEP_MP5_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 40,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Costos i pressupostos de productes editorials',
+              'shortname'=> 'Costos i pressupostos de productes editorials',
+              'code' =>  'DEP_MP5_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Organització de continguts editorials',
+              'shortname'=> 'Organització de continguts editorials',
+              'code' =>  'DEP_MP5_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 39,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Disseny estructural d’envàs i embalatge',
+              'name' => 'Disseny estructural d’envàs i embalatge',
+              'code' =>  'DEP_MP6',
+              'number' => 6,
+              'study_id' => $study->id,
+              'hours' => 66,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Desenvolupament del projecte',
+              'shortname'=> 'Desenvolupament del projecte',
+              'code' =>  'DEP_MP6_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 40,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Representació i realització de maquetes',
+              'shortname'=> 'Representació i realització de maquetes',
+              'code' =>  'DEP_MP6_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 26,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Software disseny gràfic vectorial i estructural',
+              'shortname'=> 'Software disseny gràfic vectorial i estructural',
+              'code' =>  'DEP_MP6_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 33,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Disseny i planificació de projectes editorials multimèdia',
+              'name' => 'Disseny i planificació de projectes editorials multimèdia',
+              'code' =>  'DEP_MP7',
+              'number' => 7,
+              'study_id' => $study->id,
+              'hours' => 66,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Especificacions i arquitectura dels projectes editorials multimèdia',
+              'shortname'=> 'Especificacions i arquitectura dels projectes editorials multimèdia',
+              'code' =>  'DEP_MP7_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Planificació i estàndards de projectes editorials multimèdia',
+              'shortname'=> 'Planificació i estàndards de projectes editorials multimèdia',
+              'code' =>  'DEP_MP7_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Esbossos i elements multimèdia de productes editorials',
+              'shortname'=> 'Esbossos i elements multimèdia de productes editorials',
+              'code' =>  'DEP_MP7_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 26,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Comercialització de productes gràfics i atenció al client',
+              'name' => 'Comercialització de productes gràfics i atenció al client',
+              'code' =>  'DEP_MP8',
+              'number' => 8,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Prototips de productes editorials multimèdia',
+              'shortname'=> 'Prototips de productes editorials multimèdia',
+              'code' =>  'DEP_MP8_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 99,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Publicació i manteniment de productes editorials multimèdia',
+              'shortname'=> 'Publicació i manteniment de productes editorials multimèdia',
+              'code' =>  'DEP_MP8_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 60,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Elaboració de manuals de productes editorials multimèdia',
+              'shortname'=> 'Elaboració de manuals de productes editorials multimèdia',
+              'code' =>  'DEP_MP8_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 72,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Comercialització de productes gràfics i atenció al client',
+              'name' => 'Comercialització de productes gràfics i atenció al client',
+              'code' =>  'DEP_MP9',
+              'number' => 9,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Comunicació i màrqueting en l’empresa gràfica',
+              'shortname'=> 'Comunicació i màrqueting en l’empresa gràfica',
+              'code' =>  'DEP_MP9_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 29,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Servei d’atenció al client en l’empresa gràfica',
+              'shortname'=> 'Servei d’atenció al client en l’empresa gràfica',
+              'code' =>  'DEP_MP9_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Gestió de vendes de productes i serveis gràfics',
+              'shortname'=> 'Gestió de vendes de productes i serveis gràfics',
+              'code' =>  'DEP_MP9_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Gestió de reclamacions i servei postvenda en l’empresa gràfica',
+              'shortname'=> 'Gestió de reclamacions i servei postvenda en l’empresa gràfica',
+              'code' =>  'DEP_MP9_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Formació i orientació laboral',
+              'name' => 'Formació i orientació laboral',
+              'code' =>  'DEP_MP10',
+              'number' => 10,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Externes'
+          ]);
+
+          Subject::create([
+              'name' => 'Incorporació al treball',
+              'shortname'=> 'Incorporació al treball',
+              'code' =>  'DEP_MP10_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 66,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Prevenció de riscos laborals',
+              'shortname'=> 'Prevenció de riscos laborals',
+              'code' =>  'DEP_MP10_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 33,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Empresa i iniciativa emprenedora',
+              'name' => 'Empresa i iniciativa emprenedora',
+              'code' =>  'DEP_MP11',
+              'number' => 11,
+              'study_id' => $study->id,
+              'hours' => 66,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Externes'
+          ]);
+
+          Subject::create([
+              'name' => 'Empresa i iniciativa emprenedora',
+              'shortname'=> 'Empresa i iniciativa emprenedora',
+              'code' =>  'DEP_MP11_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 66,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Projecte',
+              'name' => 'Projecte',
+              'code' =>  'DEP_MP12',
+              'number' => 12,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Síntesi'
+          ]);
+
+          Subject::create([
+              'name' => 'Projecte',
+              'shortname'=> 'Projecte',
+              'code' =>  'DEP_MP12_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course2->id,
+              'type_id' => 1,
+              'hours' => 99,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Formació en centres de treball',
+              'name' => 'Formació en centres de treball',
+              'code' =>  'DEP_MP13',
+              'number' => 13,
+              'study_id' => $study->id,
+              'hours' => 383,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'FCT'
+          ]);
+
+          // Preimpressió digital
+
+          $study = Study::firstOrCreate([
+              'name' => 'Preimpressió digital',
+              'code' => 'PRID',
+              'law_id' => $loe->id
+          ]);
+
+          $course1 = Course::firstOrCreate([
+              'code' => '1PRID',
+              'name' => 'Preimpressió digital',
+              'order' => 1
+          ]);
+
+          $course2 = Course::firstOrCreate([
+              'code' => '2PRID',
+              'name' => 'Preimpressió digital',
+              'order' => 2
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Tractament de textos',
+              'name' => 'Tractament de textos',
+              'code' =>  'PRID_MP1',
+              'number' => 1,
+              'study_id' => $study->id,
+              'hours' => 165,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Equips i programari de tractament de textos',
+              'shortname'=> 'Equips i programari de tractament de textos',
+              'code' =>  'PRID_MP1_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 15,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Digitalització de textos',
+              'shortname'=> 'Digitalització de textos',
+              'code' =>  'PRID_MP1_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 50,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Tractament digital de textos',
+              'shortname'=> 'Tractament digital de textos',
+              'code' =>  'PRID_MP1_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 80,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Aplicació de normes de correcció',
+              'shortname'=> 'Aplicació de normes de correcció',
+              'code' =>  'PRID_MP1_UF4',
+              'number' => 4,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Tractaments d’imatges en mapa de bits',
+              'name' => 'Tractaments d’imatges en mapa de bits',
+              'code' =>  'PRID_MP2',
+              'number' => 2,
+              'study_id' => $study->id,
+              'hours' => 140,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Classificació i preparació d’originals d’imatge',
+              'shortname'=> 'Classificació i preparació d’originals d’imatge',
+              'code' =>  'PRID_MP2_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 20,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Obtenció d’imatges digitals',
+              'shortname'=> 'Obtenció d’imatges digitals',
+              'code' =>  'PRID_MP2_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 40,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Ajust dimensional i tonal de les imatges',
+              'shortname'=> 'Ajust dimensional i tonal de les imatges',
+              'code' =>  'PRID_MP2_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 80,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Imposició i obtenció digital de la forma impressora',
+              'name' => 'Imposició i obtenció digital de la forma impressora',
+              'code' =>  'PRID_MP3',
+              'number' => 3,
+              'study_id' => $study->id,
+              'hours' => 132,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Traçat i imposició digital',
+              'shortname'=> 'Traçat i imposició digital',
+              'code' =>  'PRID_MP3_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 57,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => 'Obtenció digital de formes impressores',
+              'shortname'=> 'Obtenció digital de formes impressores',
+              'code' =>  'PRID_MP3_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 75,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Impressió digital',
+              'name' => 'Impressió digital',
+              'code' =>  'PRID_MP4',
+              'number' => 4,
+              'study_id' => $study->id,
+              'hours' => 72,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          Subject::create([
+              'name' => 'Tractament de la informació digital',
+              'shortname'=> 'Tractament de la informació digital',
+              'code' =>  'PRID_MP4_UF1',
+              'number' => 1,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 25,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => "Preparació de matèries primeres, consumibles i equips d'impressió
+digital",
+              'shortname'=> "Preparació de matèries primeres, consumibles i equips d'impressió
+digital",
+              'code' =>  'PRID_MP4_UF2',
+              'number' => 2,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 47,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          Subject::create([
+              'name' => "Impressió, acabats i manteniment preventiu amb dispositius digitals",
+              'shortname'=> "Impressió, acabats i manteniment preventiu amb dispositius digitals",
+              'code' =>  'PRID_MP4_UF3',
+              'number' => 3,
+              'subject_group_id' => $group->id,
+              'study_id' => $study->id,
+              'course_id' => $course1->id,
+              'type_id' => 1,
+              'hours' => 93,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Compaginació',
+              'name' => 'Compaginació',
+              'code' =>  'PRID_MP5',
+              'number' => 5,
+              'study_id' => $study->id,
+              'hours' => 165,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Il·lustració vectorial',
+              'name' => 'Il·lustració vectorial',
+              'code' =>  'PRID_MP6',
+              'number' => 6,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Identificació de materials en preimpressió',
+              'name' => 'Identificació de materials en preimpressió',
+              'code' =>  'PRID_MP7',
+              'number' => 7,
+              'study_id' => $study->id,
+              'hours' => 132,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Realització de publicacions electròniques',
+              'name' => 'Realització de publicacions electròniques',
+              'code' =>  'PRID_MP8',
+              'number' => 8,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Normal'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Formació i orientació laboral',
+              'name' => 'Formació i orientació laboral',
+              'code' =>  'PRID_MP9',
+              'number' => 9,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Externes'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Empresa e iniciativa emprenedora',
+              'name' => 'Empresa e iniciativa emprenedora',
+              'code' =>  'PRID_MP10',
+              'number' => 10,
+              'study_id' => $study->id,
+              'hours' => 66,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Externes'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Anglès tècnic',
+              'name' => 'Anglès tècnic',
+              'code' =>  'PRID_MP11',
+              'number' => 11,
+              'study_id' => $study->id,
+              'hours' => 99,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Externes'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Síntesi',
+              'name' => 'Síntesi',
+              'code' =>  'PRID_MP12',
+              'number' => 12,
+              'study_id' => $study->id,
+              'hours' => 66,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'Síntesi'
+          ]);
+
+          $group = SubjectGroup::firstOrCreate([
+              'shortname' => 'Formació en centres de treball',
+              'name' => 'Formació en centres de treball',
+              'code' =>  'PRID_MP13',
+              'number' => 13,
+              'study_id' => $study->id,
+              'hours' => 350,
+              'free_hours' => 0, // Lliure disposició
+              'week_hours' => 0,
+              'start' => $mp_start_date,
+              'end' => $mp_end_date,
+              'type' => 'FCT'
+          ]);
+
     }
 }
 
@@ -5294,26 +6417,6 @@ if (!function_exists('initialize_fake_lessons')) {
             'start' => new Carbon('2018-09-19 17:00:00'),
             'end' => new Carbon('2018-09-19 18:00:00')
         ]);
-    }
-}
-
-if (!function_exists('initialize_dnis')) {
-    /**
-     * Initialize dnis
-     */
-    function initialize_dnis() {
-        $dnis = collect(File::allFiles(base_path('storage/dni')));
-        foreach ($dnis as $dni) {
-//            dd($dni);
-            dump($name= $dni->getRelativePathName());
-            $dniStr = substr($name,0,9);
-            $person = Person::findByIdentifier($dniStr);
-            if (!$person) dump('No person found with DNI: ' . $dniStr);
-            else {
-                dump( 'Adding DNI to ' . $person->name . ' ...');
-                $person->addMedia($dni->getPathname())->toMediaCollection('dnis');
-            }
-        }
     }
 }
 
