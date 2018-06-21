@@ -5,6 +5,7 @@
 /storage/framework
 /storage/logs
 /storage/app/iesebre
+/storage/dni
 /vendor
 /.idea
 /.vscode
