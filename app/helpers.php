@@ -14,6 +14,7 @@ use App\Models\Lesson;
 use App\Models\Location;
 use App\Models\Menu;
 use App\Models\PendingTeacher;
+use App\Models\Person;
 use App\Models\Position;
 use App\Models\Province;
 use App\Models\Specialty;
@@ -5303,10 +5304,15 @@ if (!function_exists('initialize_dnis')) {
     function initialize_dnis() {
         $dnis = collect(File::allFiles(base_path('storage/dni')));
         foreach ($dnis as $dni) {
-//            dump($dni);
+//            dd($dni);
             dump($name= $dni->getRelativePathName());
-            $dni = substr($name,0,9);
-
+            $dniStr = substr($name,0,9);
+            $person = Person::findByIdentifier($dniStr);
+            if (!$person) dump('No person found with DNI: ' . $dniStr);
+            else {
+                dump( 'Adding DNI to ' . $person->name . ' ...');
+                $person->addMedia($dni->getPathname())->toMediaCollection('dnis');
+            }
         }
     }
 }
