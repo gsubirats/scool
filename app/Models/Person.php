@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * Class Person
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Person extends Model
 {
+    use HasMediaTrait;
+
     protected $guarded = [];
 
     protected $appends = [
